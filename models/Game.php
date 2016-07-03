@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\queries\GameQuery;
 
 /**
  * This is the model class for table "game".
@@ -69,22 +70,13 @@ class Game extends \yii\db\ActiveRecord
             'game_key' => 'Game Key',
         ];
     }
-    
+
     /**
      * @inheritdoc
-     * @return User[]|array
+     * @return GameQuery the active query used by this AR class.
      */
-    public function all($db = null)
+    public static function find()
     {
-    	return parent::all($db);
-    }
-    
-    /**
-     * @inheritdoc
-     * @return User|array|null
-     */
-    public function one($db = null)
-    {
-    	return parent::one($db);
+        return new GameQuery(get_called_class());
     }
 }

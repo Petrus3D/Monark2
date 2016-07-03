@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\queries\UserQuery;
 
 /**
  * This is the model class for table "user".
@@ -66,19 +67,10 @@ class User extends \yii\db\ActiveRecord
 
     /**
      * @inheritdoc
-     * @return User[]|array
+     * @return UserQuery the active query used by this AR class.
      */
-    public function all($db = null)
+    public static function find()
     {
-    	return parent::all($db);
-    }
-    
-    /**
-     * @inheritdoc
-     * @return User|array|null
-     */
-    public function one($db = null)
-    {
-    	return parent::one($db);
+        return new UserQuery(get_called_class());
     }
 }
