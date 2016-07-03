@@ -28,7 +28,7 @@ return [
     'Title_Employe'         => 'Employés',
     'Title_Finances'        => 'Finances',
     'Title_Game'            => 'Le jeu',
-    'Title_GlobalDashboard' => 'Tableau de bord gÃ©nÃ©ral',
+    'Title_GlobalDashboard' => 'Tableau de bord général',
     'Title_Home'            => 'Accueil',
     'Title_Investment'      => 'Mes investissements',
     'Title_Login'           => 'Se connecter',

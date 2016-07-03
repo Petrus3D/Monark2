@@ -2,75 +2,102 @@
 
 namespace app\models;
 
-use Yii;
-use app\queries\UserQuery;
-
-/**
- * This is the model class for table "user".
- *
- * @property string $user_id
- * @property string $user_name
- * @property string $user_mail
- * @property string $user_ip
- * @property integer $user_registration_time
- * @property integer $user_last_login
- * @property integer $user_role
- * @property integer $user_type
- * @property string $user_key
- * @property string $user_pwd
- * @property string $user_pwd2
- */
-class User extends \yii\db\ActiveRecord
+class User extends \yii\base\Object implements \yii\web\IdentityInterface
 {
+    public $id;
+    public $username;
+    public $password;
+    public $authKey;
+    public $accessToken;
+
+    private static $users = [
+        '100' => [
+            'id' => '100',
+            'username' => 'admin',
+            'password' => 'admin',
+            'authKey' => 'test100key',
+            'accessToken' => '100-token',
+        ],
+        '101' => [
+            'id' => '101',
+            'username' => 'demo',
+            'password' => 'demo',
+            'authKey' => 'test101key',
+            'accessToken' => '101-token',
+        ],
+    ];
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function findIdentity($id)
     {
-        return 'user';
+        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
+    public static function findIdentityByAccessToken($token, $type = null)
     {
-        return [
-            [['user_name', 'user_mail', 'user_ip', 'user_registration_time', 'user_last_login', 'user_role', 'user_type', 'user_key', 'user_pwd', 'user_pwd2'], 'required'],
-            [['user_registration_time', 'user_last_login', 'user_role', 'user_type'], 'integer'],
-            [['user_name', 'user_key'], 'string', 'max' => 256],
-            [['user_mail'], 'string', 'max' => 128],
-            [['user_ip'], 'string', 'max' => 16],
-            [['user_pwd', 'user_pwd2'], 'string', 'max' => 512]
-        ];
+        foreach (self::$users as $user) {
+            if ($user['accessToken'] === $token) {
+                return new static($user);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Finds user by username
+     *
+     * @param  string      $username
+     * @return static|null
+     */
+    public static function findByUsername($username)
+    {
+        foreach (self::$users as $user) {
+            if (strcasecmp($user['username'], $username) === 0) {
+                return new static($user);
+            }
+        }
+
+        return null;
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function getId()
     {
-        return [
-            'user_id' => 'User ID',
-            'user_name' => 'User Name',
-            'user_mail' => 'User Mail',
-            'user_ip' => 'User Ip',
-            'user_registration_time' => 'User Registration Time',
-            'user_last_login' => 'User Last Login',
-            'user_role' => 'User Role',
-            'user_type' => 'User Type',
-            'user_key' => 'User Key',
-            'user_pwd' => 'User Pwd',
-            'user_pwd2' => 'User Pwd2',
-        ];
+        return $this->id;
     }
 
     /**
      * @inheritdoc
-     * @return UserQuery the active query used by this AR class.
      */
-    public static function find()
+    public function getAuthKey()
     {
-        return new UserQuery(get_called_class());
+        return $this->authKey;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validateAuthKey($authKey)
+    {
+        return $this->authKey === $authKey;
+    }
+
+    /**
+     * Validates password
+     *
+     * @param  string  $password password to validate
+     * @return boolean if password provided is valid for current user
+     */
+    public function validatePassword($password)
+    {
+        return $this->password === $password;
     }
 }

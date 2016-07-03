@@ -3,9 +3,9 @@
 namespace app\queries;
 
 /**
- * This is the ActiveQuery class for [[User]].
+ * This is the ActiveQuery class for [[Users]].
  *
- * @see User
+ * @see Users
  */
 class UserQuery extends \yii\db\ActiveQuery
 {

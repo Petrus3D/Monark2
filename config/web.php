@@ -5,15 +5,15 @@ $params = require(__DIR__ . '/params.php');
 $config = [
     'id' => 'basic',
     'name'=> [
-        'name' => 'Your Corp',
-        'short' => 'YC',
+        'name' => 'Monark',
+        'short' => 'MK',
     ],
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'azeaucoiazrhiunjbé#&é"=)à(',
+            'cookieValidationKey' => 'A&*|*zeaTl�#%�A@njbé#&é"=)à(',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',

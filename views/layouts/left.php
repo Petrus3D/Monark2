@@ -38,11 +38,11 @@
 
                     /* Guest */
                     ['label' => Yii::t('menu', 'Title_Game'), 'icon' => 'fa fa-gamepad', 'url' => ['site/game'], 'visible' => Yii::$app->user->isGuest],
-                    ['label' => Yii::t('menu', 'Title_Sign'), 'icon' => 'fa fa-sign-in', 'url' => ['site/sign'], 'visible' => Yii::$app->user->isGuest],
-                    ['label' => Yii::t('menu', 'Title_Login'), 'icon' => 'fa fa-unlock', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                    ['label' => Yii::t('menu', 'Title_Sign'), 'icon' => 'fa fa-sign-in', 'url' => ['user/sign'], 'visible' => Yii::$app->user->isGuest],
+                    ['label' => Yii::t('menu', 'Title_Login'), 'icon' => 'fa fa-unlock', 'url' => ['user/login'], 'visible' => Yii::$app->user->isGuest],
                     
                     /* Connected */
-                    ['label' => Yii::t('menu', 'Title_Compagny'), 'icon' => 'fa fa-suitcase', 'url' => '#', 'visible' => !Yii::$app->user->isGuest,
+                    /*['label' => Yii::t('menu', 'Title_Compagny'), 'icon' => 'fa fa-suitcase', 'url' => '#', 'visible' => !Yii::$app->user->isGuest,
                         'items' => [
                             ['label' => Yii::t('menu', 'Title_GlobalDashboard'), 'icon' => 'fa fa-dashboard', 'url' => ['corp/globalboard'],],
                             ['label' => "Entreprise 1", 'icon' => 'fa fa-building', 'url' => '#',
@@ -70,9 +70,10 @@
                             ['label' => Yii::t('menu', 'Title_Cities'), 'icon' => 'glyphicon glyphicon-screenshot', 'url' => ['global/cities'],],
                         ],
                     ],
-
+					*/
                     ['label' => Yii::t('menu', 'Title_Tutorial'), 'icon' => 'fa fa-question', 'url' => ['site/tutorial'], 'visible' => !Yii::$app->user->isGuest],
-                    ['label' => Yii::t('menu', 'Title_Logout'), 'icon' => 'fa fa-sign-out', 'url' => ['site/logout'], 'visible' => !Yii::$app->user->isGuest],
+                    // temp solution WANTED TO POST 
+                    ['label' => Yii::t('menu', 'Title_Logout'), 'icon' => 'fa fa-sign-out', 'url' => ['user/logout'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => !Yii::$app->user->isGuest],
                 ],
             ]
         ) ?>

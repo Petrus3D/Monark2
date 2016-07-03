@@ -19,9 +19,10 @@ class AdminLteAsset extends AssetBundle
     ];
     public $depends = [
         'rmrevin\yii\fontawesome\AssetBundle',
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
-        'yii\bootstrap\BootstrapPluginAsset',
+    	'yii\web\YiiAsset',
+    	'yii\web\JqueryAsset',
+    	'yii\bootstrap\BootstrapAsset',
+    	'yii\bootstrap\BootstrapPluginAsset'
     ];
 
     /**
