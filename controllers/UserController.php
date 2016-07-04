@@ -77,9 +77,9 @@ class UserController extends \yii\web\Controller
     	}
     
     	$model = new UserCreateForm();
-    	/*if ($model->load(Yii::$app->request->post()) && $model->login()) {
+    	if ($model->load(Yii::$app->request->post()) && $model->sign()) {
     		return $this->goBack();
-    	}*/
+    	}
     	return $this->render('sign', [
     			'model' => $model,
     	]);

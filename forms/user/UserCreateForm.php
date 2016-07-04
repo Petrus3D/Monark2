@@ -26,6 +26,8 @@ class UserCreateForm extends Model
         return [
             // username and password are both required
             [['username', 'password', 'mail'], 'required'],
+        	// password is validated by validatePassword()
+        	['username', 'validateUserName'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
         	// mail is validated by validateMail()
@@ -33,6 +35,24 @@ class UserCreateForm extends Model
         ];
     }
 
+    /**
+     * Validates the password.
+     * This method serves as the inline validation for username.
+     *
+     * @param string $attribute the attribute currently being validated
+     * @param array $params the additional name-value pairs given in the rule
+     */
+    public function validateUserName($attribute, $params)
+    {
+    	/*if (!$this->hasErrors()) {
+    	 $user = $this->getUser();
+    
+    	 if (!$user || !$user->validatePassword($this->password)) {
+    	 $this->addError($attribute, 'Incorrect username or password.');
+    	 }
+    	 }*/
+    }
+    
     /**
      * Validates the password.
      * This method serves as the inline validation for password.

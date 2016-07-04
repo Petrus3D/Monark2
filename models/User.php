@@ -3,6 +3,7 @@
 namespace app\models;
 use app\models\Users;
 use app\classes\Crypt;
+use app\classes\UserClass;
 
 class User extends \yii\base\Object implements \yii\web\IdentityInterface
 {
@@ -46,9 +47,32 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
-    	
         $user = Users::find()->where(['user_name' => (new Crypt($username))->s_crypt()])->one();
         return isset($user) ? new static($user) : null;
+    }
+    
+    /**
+     * Finds user by username
+     *
+     * @param  string      $username
+     * @return static|null
+     */
+    public static function findUserByUsername($username)
+    {
+    	$user = Users::find()->where(['user_name' => (new Crypt($username))->s_crypt()])->one();
+    	return isset($user) ? new UserClass($user) : null;
+    }
+    
+    /**
+     * Finds user by id
+     *
+     * @param  string      $id
+     * @return static|null
+     */
+    public static function findUserById($id)
+    {
+    	$user = Users::find()->where(['user_id' => $id])->one();
+    	return new UserClass($user);
     }
 
     /**

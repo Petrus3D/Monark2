@@ -20,6 +20,11 @@ return [
     /* Title */
 
     // header
+	'Logout'       	=> 'Déconnexion',
+	'Profile'       => 'Profil',
+	'Friends'       => 'Amis',
+	'Stats'       	=> 'Stats',
+	'Language'      => 'Language',
     
 ];
 ?>

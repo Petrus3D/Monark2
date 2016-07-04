@@ -89,3 +89,18 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+.table {
+  background-color: #DDDEDE;
+}
+
+.table td {
+   text-align: center;   
+}
+
+.table th {
+    background-color: #999;
+    color: white;
+   text-align: center; 
+} 
+

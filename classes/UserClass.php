@@ -23,7 +23,6 @@ class UserClass{
 	 */
 	public function __construct($userData) {
 		$this->userId 			= $userData['user_id'];	
-		$this->userName			= (new Crypt($userData['user_name']))->s_crypt();
 		$this->userNameCrypted 	= $userData['user_name'];
 		$this->userPassword 	= $userData['user_pwd'];
 		$this->userMail 		= $userData['user_mail'];
@@ -33,10 +32,6 @@ class UserClass{
 	
 	public function getUserID(){
 		return $this->userID;
-	}
-	
-	public function getUserName(){
-		return $this->userName;
 	}
 	
 	public function getUserPassword(){
@@ -57,6 +52,10 @@ class UserClass{
 	
 	public function getUserKey(){
 		return $this->userKey;
+	}
+	
+	public function getUserName(){
+		return (new Crypt($this->userNameCrypted))->s_decrypt();
 	}
 }
 

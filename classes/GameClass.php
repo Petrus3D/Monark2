@@ -1,6 +1,7 @@
 <?php
 
 namespace app\classes;
+use app\models\Game;
 use app\models\GameData;
 use app\models\GamePlayer;
 
@@ -12,8 +13,9 @@ use app\models\GamePlayer;
 class GameClass{
 	
 	private $gameID;
-	private $gameName;
+	private $gameNameCrypted;
 	private $gameOwnerID;
+	private $gameUserOwner;
 	private $gamePassword;
 	private $gameType;
 	private $gameKey;
@@ -36,7 +38,7 @@ class GameClass{
 	public function __construct($gameData) {
 		// DB data
 		$this->gameId 			= $gameData['game_id'];	
-		$this->gameName 		= $gameData['game_name'];
+		$this->gameNameCrypted 	= $gameData['game_name'];
 		$this->gamePassword 	= $gameData['game_pwd'];
 		$this->gameOwnerID 		= $gameData['game_owner_id'];
 		$this->gameKey 			= $gameData['game_key'];
@@ -62,10 +64,6 @@ class GameClass{
 		return $this->gameID;
 	}
 	
-	public function getGameName(){
-		return $this->gameName;
-	}
-	
 	public function getGamePassword(){
 		return $this->gamePassword;
 	}
@@ -80,6 +78,15 @@ class GameClass{
 	
 	public function getGameKey(){
 		return $this->gameKey;
+	}
+	
+	public function getGameName(){
+		return (new Crypt($this->gameNameCrypted))->s_decrypt();
+	}
+	
+	public function getUserOwner(){
+		$this->gameUserOwner = Game::getUserOwner($this->gameOwnerID);
+		return $this->gameUserOwner;
 	}
 }
 

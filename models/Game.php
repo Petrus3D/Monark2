@@ -4,28 +4,31 @@ namespace app\models;
 
 use Yii;
 use app\queries\GameQuery;
+use app\models\User;
+use app\classes\Crypt;
 
 /**
  * This is the model class for table "game".
  *
- * @property string $game_id
- * @property string $game_name
- * @property integer $game_owner_id
- * @property integer $game_max_player
- * @property integer $game_create_time
- * @property integer $game_statut
- * @property integer $game_map_id
- * @property integer $game_map_cont
- * @property integer $game_mod_id
- * @property integer $game_turn_time
- * @property integer $game_difficulty_id
- * @property integer $game_won_user_id
- * @property integer $game_won_time
- * @property string $game_pwd
- * @property string $game_key
+ public $game_id
+ public $game_name
+  public $game_owner_id
+  public $game_max_player
+  public $game_create_time
+  public $game_statut
+  public $game_map_id
+  public $game_map_cont
+  public $game_mod_id
+  public $game_turn_time
+  public $game_difficulty_id
+  public $game_won_user_id
+  public $game_won_time
+ public $game_pwd
+ public $game_key
  */
 class Game extends \yii\db\ActiveRecord
 {
+	
     /**
      * @inheritdoc
      */
@@ -54,8 +57,8 @@ class Game extends \yii\db\ActiveRecord
     {
         return [
             'game_id' => 'Game ID',
-            'game_name' => 'Game Name',
-            'game_owner_id' => 'Game Owner ID',
+            'game_name' => Yii::t('game', 'Tab_Game_Name'),
+            'game_owner_id' => Yii::t('game', 'Tab_Owner_Name'),
             'game_max_player' => 'Game Max Player',
             'game_create_time' => 'Game Create Time',
             'game_statut' => 'Game Statut',
@@ -71,6 +74,52 @@ class Game extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * 
+     * @param unknown $user_id
+     * @return \app\models\User|NULL
+     */
+    public static function getUserOwner($user_id){
+    	return User::findUserById($user_id);
+    }
+    
+    /**
+     * 
+     * @param unknown $gameName
+     * @return boolean
+     */
+    public static function existsGameName($gameName){
+    	if(self::find()->where(['game_name' => (new Crypt($gameName))->s_crypt()])->one() != "")
+    		return true;
+    	else
+    		return false;
+    }
+    
+    /**
+     * 
+     * @param String $game_name
+     * @param String $game_pwd
+     * @param Integer $game_max_player
+     */
+    public static function createGame($game_name, $game_pwd, $game_max_player){
+    	Yii::$app->db->createCommand()->insert("game", [
+    			'game_name' => $game_name,
+    			'game_pwd' => $game_pwd,
+    			'game_owner_id' => Yii::$app->session['User']->getId(),
+    			'game_max_player' => $game_max_player,
+    			'game_create_time' => time(),
+    			'game_statut' => 0,
+    			'game_map_id' => 0,
+    			'game_map_cont' => 0,
+    			'game_mod_id' => 0,
+    			'game_turn_time' => 200,
+    			'game_difficulty_id' => 0,
+    			'game_won_user_id' => 0,
+    			'game_won_time' => 0,
+    			'game_key' => 0,
+    	])->execute();
+    }
+    
     /**
      * @inheritdoc
      * @return GameQuery the active query used by this AR class.
