@@ -18,10 +18,17 @@
  */
 return [
     /* Title */
-	'Title_Sign'            => "Inscription",
-	'Title_Login'           => 'Connexion',
+	'Title_Sign'            	=> "Inscription",
+	'Title_Login'           	=> 'Connexion',
 
-		
+	/* Form */
+	// Create
+	'Form_Create_User_Username' => 'Pseudo',
+	'Form_Create_User_Password' => 'Mot de passe',
+	'Form_Create_User_Mail' 	=> 'Adresse mail',
+	// Login
+	'Form_Create_User_Username' => 'Pseudo',
+	'Form_Create_User_Password' => 'Mot de passe',
 ];
 
 ?>

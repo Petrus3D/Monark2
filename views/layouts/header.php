@@ -19,44 +19,19 @@ use yii\helpers\Html;
 
             <ul class="nav navbar-nav">
 
-                <!-- Messages: style can be found in dropdown.less-->
-                <li class="dropdown messages-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        
-                    </a>
-                    <ul class="dropdown-menu">
-                        
-                    </ul>
-                </li>
-                <li class="dropdown notifications-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        
-                    </a>
-                    <ul class="dropdown-menu">
-                        
-                    </ul>
-                </li>
-                <!-- Tasks: style can be found in dropdown.less -->
-                <li class="dropdown tasks-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        
-                    </a>
-                    <ul class="dropdown-menu">
-                        
-                    </ul>
-                </li>
+                
                 <!-- User Account: style can be found in dropdown.less -->
-
+				<?php if(!Yii::$app->user->isGuest): ?>
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="hidden-xs">TEST</span>
+                        <span class="hidden-xs"><?php print(Yii::$app->session['User']->getUsername()); ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
                             <p>
-                                TEST
-                                <small>test</small>
+                                <?php print(Yii::$app->session['User']->getUsername()); ?>
+                                <!--<small><?php print(Yii::$app->session['User']->getUsername()); ?></small>-->
                             </p>
                         </li>
                         <!-- Menu Body -->
@@ -74,8 +49,15 @@ use yii\helpers\Html;
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <?= Html::a(
+                                    'Language',
+                                    ['/site/lang'],
+                                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                                ) ?>
                             </div>
+                            <!--<div class="pull-center">
+                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                            </div>-->
                             <div class="pull-right">
                                 <?= Html::a(
                                     'Sign out',
@@ -88,6 +70,7 @@ use yii\helpers\Html;
                 </li>
 
                 <!-- User Account: style can be found in dropdown.less -->
+                <?php endif; ?>
                 <li>
                     <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                 </li>

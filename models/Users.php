@@ -17,6 +17,8 @@ use app\queries\UserQuery;
  * @property integer $user_role
  * @property integer $user_type
  * @property string $user_key
+ * @property string $user_authKey
+ * @property string $user_accessToken
  * @property string $user_pwd
  * @property string $user_pwd2
  */
@@ -36,10 +38,10 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_name', 'user_mail', 'user_ip', 'user_registration_time', 'user_last_login', 'user_role', 'user_type', 'user_key', 'user_pwd', 'user_pwd2'], 'required'],
+            [['user_name', 'user_mail', 'user_ip', 'user_registration_time', 'user_last_login', 'user_role', 'user_type', 'user_key', 'user_authKey', 'user_accessToken', 'user_pwd', 'user_pwd2'], 'required'],
             [['user_registration_time', 'user_last_login', 'user_role', 'user_type'], 'integer'],
             [['user_name', 'user_key'], 'string', 'max' => 256],
-            [['user_mail'], 'string', 'max' => 128],
+            [['user_mail', 'user_authKey', 'user_accessToken'], 'string', 'max' => 128],
             [['user_ip'], 'string', 'max' => 16],
             [['user_pwd', 'user_pwd2'], 'string', 'max' => 512]
         ];
@@ -60,17 +62,19 @@ class Users extends \yii\db\ActiveRecord
             'user_role' => 'User Role',
             'user_type' => 'User Type',
             'user_key' => 'User Key',
+            'user_authKey' => 'User Auth Key',
+            'user_accessToken' => 'User Access Token',
             'user_pwd' => 'User Pwd',
             'user_pwd2' => 'User Pwd2',
         ];
     }
-
+    
     /**
      * @inheritdoc
      * @return UserQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new UserQuery(get_called_class());
+    	return new UserQuery(get_called_class());
     }
 }

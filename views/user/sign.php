@@ -23,11 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'labelOptions' => ['class' => 'col-lg-1 control-label'],
         ],
     ]); ?>
-        <?= $form->field($model, 'username') ?>
+        <?= $form->field($model, 'username')->label(Yii::t('user', 'Form_Create_User_Username')) ?>
 
-        <?= $form->field($model, 'password')->passwordInput() ?>
+        <?= $form->field($model, 'password')->passwordInput()->label(Yii::t('user', 'Form_Create_User_Password')) ?>
         
-        <?= $form->field($model, 'mail') ?>
+        <?= $form->field($model, 'mail')->input('email')->label(Yii::t('user', 'Form_Create_User_Mail')) ?>
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">

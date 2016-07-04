@@ -1,38 +1,32 @@
 <?php
 
 namespace app\models;
+use app\models\Users;
+use app\classes\Crypt;
 
 class User extends \yii\base\Object implements \yii\web\IdentityInterface
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
-
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
-
+	public $user_id;
+	public $user_name;
+	public $user_mail;
+	public $user_ip;
+	public $user_registration_time;
+	public $user_last_login;
+	public $user_role;
+	public $user_type;
+	public $user_key;
+	public $user_authKey;
+	public $user_accessToken;
+	public $user_pwd;
+	public $user_pwd2;
+	
     /**
      * @inheritdoc
      */
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+    	$user = Users::find()->where(['user_id' => $id])->one();
+        return isset($user) ? new static($user) : null;
     }
 
     /**
@@ -40,13 +34,8 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
+    	$user = Users::find()->where(['user_accessToken' => $token])->one();
+        return isset($user) ? new static($user) : null;
     }
 
     /**
@@ -57,13 +46,9 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+    	
+        $user = Users::find()->where(['user_name' => (new Crypt($username))->s_crypt()])->one();
+        return isset($user) ? new static($user) : null;
     }
 
     /**
@@ -71,7 +56,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function getId()
     {
-        return $this->id;
+        return $this->user_id;
     }
 
     /**
@@ -79,15 +64,22 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->authKey;
+        return $this->user_authKey;
     }
 
     /**
      * @inheritdoc
      */
+    public function getUsername(){
+    	return (new Crypt($this->user_pwd))->decrypt();
+    }
+    
+    /**
+     * @inheritdoc
+     */
     public function validateAuthKey($authKey)
     {
-        return $this->authKey === $authKey;
+        return $this->user_authKey === $authKey;
     }
 
     /**
@@ -98,6 +90,6 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return $this->getUsername() === $password;
     }
 }

@@ -10,7 +10,7 @@
                 <br><br>
             </div>
             <div class="pull-left info">
-                <p>User TEST</p>
+                <p><?php print(Yii::$app->session['User']->getUsername()); ?></p>
 
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -42,6 +42,9 @@
                     ['label' => Yii::t('menu', 'Title_Login'), 'icon' => 'fa fa-unlock', 'url' => ['user/login'], 'visible' => Yii::$app->user->isGuest],
                     
                     /* Connected */
+                	['label' => Yii::t('menu', 'Title_Game_List'), 'icon' => 'fa fa-gamepad', 'url' => ['game/index'], 'visible' => !Yii::$app->user->isGuest],
+                	['label' => Yii::t('menu', 'Title_Game_Create'), 'icon' => 'fa fa-plus', 'url' => ['game/create'], 'visible' => !Yii::$app->user->isGuest],
+                		
                     /*['label' => Yii::t('menu', 'Title_Compagny'), 'icon' => 'fa fa-suitcase', 'url' => '#', 'visible' => !Yii::$app->user->isGuest,
                         'items' => [
                             ['label' => Yii::t('menu', 'Title_GlobalDashboard'), 'icon' => 'fa fa-dashboard', 'url' => ['corp/globalboard'],],
@@ -71,7 +74,7 @@
                         ],
                     ],
 					*/
-                    ['label' => Yii::t('menu', 'Title_Tutorial'), 'icon' => 'fa fa-question', 'url' => ['site/tutorial'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => Yii::t('menu', 'Title_Tutorial'), 'icon' => 'fa fa-question', 'url' => ['site/tutorial']],
                     // temp solution WANTED TO POST 
                     ['label' => Yii::t('menu', 'Title_Logout'), 'icon' => 'fa fa-sign-out', 'url' => ['user/logout'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => !Yii::$app->user->isGuest],
                 ],

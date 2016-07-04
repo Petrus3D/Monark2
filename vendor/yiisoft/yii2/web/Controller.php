@@ -29,6 +29,17 @@ class Controller extends \yii\base\Controller
      */
     public $actionParams = [];
 
+    function init(){
+    	// Lang
+    	if(!isset(Yii::$app->session['lang']))
+    	{
+    		Yii::$app->language = "en";
+    		Yii::$app->session['lang'] = Yii::$app->language;
+    	}elseif(isset(Yii::$app->session['lang']))
+    	{
+    		Yii::$app->language = Yii::$app->session['lang'];
+    	}
+    }
 
     /**
      * Renders a view in response to an AJAX request.

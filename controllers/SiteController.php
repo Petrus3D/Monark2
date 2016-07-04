@@ -15,7 +15,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index'],
+                'only' => ['index', 'lang'],
                 'rules' => [
                     [
                         'allow' => true, // have access
@@ -35,7 +35,7 @@ class SiteController extends Controller
             ],
         ];
     }
-
+    
     public function actions()
     {
         return [
@@ -57,6 +57,17 @@ class SiteController extends Controller
     public function actionGame()
     {
         return $this->render('game');
+    }
+    
+    public function actionLang()
+    {
+    	$urlparams = Yii::$app->request->queryParams;
+    	$lang_ok   = array('fr', 'en');
+    	if(array_key_exists('lang', $urlparams) AND in_array($urlparams['lang'], $lang_ok)){
+    		Yii::$app->session['lang'] = $urlparams['lang'];
+    		Yii::$app->session->setFlash('success', Yii::t('site', 'Success_Change_Lang'));
+    	}
+    	return $this->render('lang');
     }
 
 }

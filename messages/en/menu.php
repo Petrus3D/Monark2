@@ -20,8 +20,8 @@ return [
     /* Title */
 
     // Left menu
-    'Title_Bank'            => 'Bank',
-    'Title_Cities'          => 'Cities',
+    'Title_Game_List'       => 'Games',
+    'Title_Game_Create'     => 'Create game',
     'Title_Compagny'        => 'My corporations',
     'Title_Create'          => 'Start corporation',
     'Title_Dashboard'       => 'Dashboard',
