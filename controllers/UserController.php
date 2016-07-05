@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\forms\user\UserLoginForm;
 use app\forms\user\UserCreateForm;
+use app\controllers\SiteController;
 
 class UserController extends \yii\web\Controller
 {
@@ -52,22 +53,20 @@ class UserController extends \yii\web\Controller
 	
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->goHome();
     }
     
     public function actionLogin()
     {
     	if (!\Yii::$app->user->isGuest) {
-    		return $this->goHome();
+    		return $this->actionIndex();
     	}
     
     	$model = new UserLoginForm();
     	if ($model->load(Yii::$app->request->post()) && $model->login()) {
     		// all inputs are valid
     		Yii::$app->session->setFlash('success', 'Login in successfuly.');
-    		return $this->render('index', [
-    				'model' => $model,
-    		]);
+    		return $this->actionIndex();
     	}else{
     		// validation failed: $errors is an array containing error messages
     		$errors = $model->errors;
@@ -87,9 +86,7 @@ class UserController extends \yii\web\Controller
     	if ($model->load(Yii::$app->request->post()) && $model->sign() != false) {
     		// all inputs are valid
     		Yii::$app->session->setFlash('success', 'Create account successed.');
-    		return $this->render('index', [
-    				'model' => $model,
-    		]);
+    		return $this->actionLogin();
     	}else{
     		// validation failed: $errors is an array containing error messages
     		$errors = $model->errors;

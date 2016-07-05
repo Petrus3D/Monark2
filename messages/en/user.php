@@ -33,6 +33,9 @@ return [
 	/* Errors */
 	'Error_Name_Already_Used' 	=> 'This nickname is already used.',
 	'Error_Mail_Already_Used' 	=> 'This mail adress is already used.',
+		
+	/* Buttons */
+	'Button_Form_Create_Reg'		=> 'Sign in',	
 ];
 
 ?>

@@ -90,7 +90,8 @@ class UserCreateForm extends Model
 	    	$user_pwd = (new Crypt($this->password))->crypt();
 	    	
 	    	// Create in db
-	    	return (new Users())->createUser($user_name, $user_pwd, $this->mail);
+	    	(new Users())->createUser($user_name, $user_pwd, $this->mail);
+	    	return true;
 	    }
 	    return false;
     }
