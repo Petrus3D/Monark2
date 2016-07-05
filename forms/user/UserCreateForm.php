@@ -5,6 +5,8 @@ namespace app\forms\user;
 use Yii;
 use yii\base\Model;
 use app\models\User;
+use app\models\Users;
+use app\classes\Crypt;
 
 /**
  * LoginForm is the model behind the login form.
@@ -16,8 +18,7 @@ class UserCreateForm extends Model
     public $mail;
 
     private $_user = false;
-
-
+    
     /**
      * @return array the validation rules.
      */
@@ -43,14 +44,10 @@ class UserCreateForm extends Model
      * @param array $params the additional name-value pairs given in the rule
      */
     public function validateUserName($attribute, $params)
-    {
-    	/*if (!$this->hasErrors()) {
-    	 $user = $this->getUser();
-    
-    	 if (!$user || !$user->validatePassword($this->password)) {
-    	 $this->addError($attribute, 'Incorrect username or password.');
-    	 }
-    	 }*/
+    { 
+    	if ((new Users())->existsUserName($this->username)) {
+    	 	$this->addError($attribute, Yii::t('user', 'Error_Name_Already_Used'));
+    	}
     }
     
     /**
@@ -62,13 +59,7 @@ class UserCreateForm extends Model
      */
     public function validatePassword($attribute, $params)
     {
-        /*if (!$this->hasErrors()) {
-            $user = $this->getUser();
-
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
-            }
-        }*/
+       
     }
     
     /**
@@ -80,13 +71,9 @@ class UserCreateForm extends Model
      */
     public function validateMail($attribute, $params)
     {
-    	/*if (!$this->hasErrors()) {
-    	 $user = $this->getUser();
-    
-    	 if (!$user || !$user->validatePassword($this->password)) {
-    	 $this->addError($attribute, 'Incorrect username or password.');
-    	 }
-    	 }*/
+    	if ((new Users())->existsUserMail($this->mail)) {
+    		$this->addError($attribute, Yii::t('user', 'Error_Mail_Already_Used'));
+    	}
     }
 
     /**
@@ -95,10 +82,17 @@ class UserCreateForm extends Model
      */
     public function sign()
     {
-        /*if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
-        }*/
-        return false;
+    	if ($this->validate()) {
+	    	// Crypt
+	    	// username
+	    	$user_name = (new Crypt($this->username))->s_crypt();
+	    	// password
+	    	$user_pwd = (new Crypt($this->password))->crypt();
+	    	
+	    	// Create in db
+	    	return (new Users())->createUser($user_name, $user_pwd, $this->mail);
+	    }
+	    return false;
     }
 
     /**

@@ -29,6 +29,10 @@ return [
 	// Login
 	'Form_Create_User_Username' => 'Nickname',
 	'Form_Create_User_Password' => 'Password',
+		
+	/* Errors */
+	'Error_Name_Already_Used' 	=> 'This nickname is already used.',
+	'Error_Mail_Already_Used' 	=> 'This mail adress is already used.',
 ];
 
 ?>

@@ -5,6 +5,7 @@ namespace app\forms\game;
 use Yii;
 use yii\base\Model;
 use app\models\Game;
+use app\classes\Crypt;
 
 /**
  * LoginForm is the model behind the login form.
@@ -28,7 +29,8 @@ class gameCreateForm extends Model
     {
         return [
             // gamename and password are both required
-            [['game_name', 'game_pwd', 'game_max_player'], 'required'],
+            [['game_name', 'game_max_player'], 'required'],
+        	['game_pwd', 'string'],
         	// password is validated by validatePassword()
         	['game_name', 'validateGameName'],
             // password is validated by validatePassword()
@@ -88,8 +90,18 @@ class gameCreateForm extends Model
      */
     public function create()
     {
-        $this->_game->createGame($this->game_name, $this->game_pwd, $this->game_max_player);
-        return false;
+    	if ($this->validate()) {
+	    	// Crypt
+	    	// gamename
+	    	$game_name = (new Crypt($this->game_name))->s_crypt();
+	    	// password
+	    	$game_pwd = (new Crypt($this->game_pwd))->crypt();
+	    	 
+	    	// Create in db
+	        $this->_game->createGame($game_name, $game_pwd, $this->game_max_player);
+	        return true;
+	    }
+	    return false;
     }
 }
 

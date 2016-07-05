@@ -91,7 +91,7 @@ a.desc:after {
 }
 
 .table {
-  background-color: #DDDEDE;
+  background-color: #98DFFF;
 }
 
 .table td {
@@ -99,8 +99,12 @@ a.desc:after {
 }
 
 .table th {
-    background-color: #999;
+    background-color: #00C9FF;
     color: white;
    text-align: center; 
 } 
+
+.table th:hover, tr:hover td{
+  background-color: #5CCCFF;
+}
 

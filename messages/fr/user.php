@@ -29,6 +29,10 @@ return [
 	// Login
 	'Form_Create_User_Username' => 'Pseudo',
 	'Form_Create_User_Password' => 'Mot de passe',
+		
+	/* Errors */
+	'Error_Name_Already_Used' 	=> 'Ce pseudo est déjà utilisé.',
+	'Error_Mail_Already_Used' 	=> 'Cette adresse mail est déjà utilisée.',
 ];
 
 ?>

@@ -61,9 +61,6 @@ class GameSearch extends Game
             return $dataProvider;
         }
         
-        /*$gameData['game_name'] = $game->getGameName();
-        $gameData['game_owner_id'] = $game->getUserOwner()->getUsername();*/
-        
         $query->andFilterWhere([
         	'game_name' => $this->game_name,
         	'game_pwd' => $this->game_pwd,

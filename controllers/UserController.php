@@ -63,11 +63,18 @@ class UserController extends \yii\web\Controller
     
     	$model = new UserLoginForm();
     	if ($model->load(Yii::$app->request->post()) && $model->login()) {
-    		return $this->goBack();
+    		// all inputs are valid
+    		Yii::$app->session->setFlash('success', 'Login in successfuly.');
+    		return $this->render('index', [
+    				'model' => $model,
+    		]);
+    	}else{
+    		// validation failed: $errors is an array containing error messages
+    		$errors = $model->errors;
+    		return $this->render('login', [
+    				'model' => $model,
+    		]);
     	}
-    	return $this->render('login', [
-    			'model' => $model,
-    	]);
     }
     
     public function actionSign()
@@ -77,12 +84,19 @@ class UserController extends \yii\web\Controller
     	}
     
     	$model = new UserCreateForm();
-    	if ($model->load(Yii::$app->request->post()) && $model->sign()) {
-    		return $this->goBack();
+    	if ($model->load(Yii::$app->request->post()) && $model->sign() != false) {
+    		// all inputs are valid
+    		Yii::$app->session->setFlash('success', 'Create account successed.');
+    		return $this->render('index', [
+    				'model' => $model,
+    		]);
+    	}else{
+    		// validation failed: $errors is an array containing error messages
+    		$errors = $model->errors;
+    		return $this->render('sign', [
+    				'model' => $model,
+    		]);
     	}
-    	return $this->render('sign', [
-    			'model' => $model,
-    	]);
     }
     
     public function actionLogout()

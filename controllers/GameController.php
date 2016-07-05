@@ -65,12 +65,16 @@ public function behaviors()
 
     	$model = new GameCreateForm();
     	if ($model->load(Yii::$app->request->post()) && $model->create()) {
-    		return $this->goBack();
+    		// all inputs are valid
+    		Yii::$app->session->setFlash('success', Yii::t('game', 'Success_Game_Created')); 
+    		return $this->actionIndex();
+    	}else{
+    		// validation failed: $errors is an array containing error messages
+    		$errors = $model->errors;
+    		return $this->render('create', [
+    				'model' => $model,
+    		]);
     	}
-    	
-    	return $this->render('create', [
-    			'model' => $model,
-    	]);
     }
 
 }

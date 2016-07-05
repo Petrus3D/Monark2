@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use app\queries\UserQuery;
+use app\classes\Crypt;
 
 /**
  * This is the model class for table "user".
@@ -67,6 +68,53 @@ class Users extends \yii\db\ActiveRecord
             'user_pwd' => 'User Pwd',
             'user_pwd2' => 'User Pwd2',
         ];
+    }
+    
+    /**
+     *
+     * @param unknown $gameName
+     * @return boolean
+     */
+    public static function existsUserName($userName){
+    	if(self::find()->where(['user_name' => (new Crypt($userName))->s_crypt()])->one() != null)
+    		return true;
+    	else
+    		return false;
+    }
+    
+    /**
+     *
+     * @param unknown $gameName
+     * @return boolean
+     */
+    public static function existsUserMail($userMail){
+    	if(self::find()->where(['user_mail' => $userMail])->one() != null)
+    		return true;
+    	else
+    		return false;
+    }
+    
+    /**
+     * 
+     * @param unknown $mail
+     * @param unknown $type
+     * @param unknown $namecrypted
+     * @param unknown $pwdcrypted
+     * @param unknown $userkey
+     */
+	public static function CreateUser($user_name, $user_pwd, $user_mail, $user_type=0, $user_key="")
+    {
+        Yii::$app->db->createCommand()->insert("user", [
+            'user_name' => $user_name,
+            'user_pwd' => $user_pwd,
+            'user_pwd2' => $user_pwd,
+            'user_mail' => $user_mail,
+            'user_registration_time' => time(),
+            'user_last_login' => 0,
+            'user_ip' => 0,
+            'user_type' => $user_type,
+            'user_key' => $user_key,
+        ])->execute();
     }
     
     /**

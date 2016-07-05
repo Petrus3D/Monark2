@@ -20,7 +20,7 @@ $this->title = Yii::t('game', 'Title_Loby');
             [
                 'attribute' => Yii::t('game', 'Tab_Game_Name'),
                 'value'     => function ($model, $key, $index, $column) {
-                    return $model->game_name;
+                    return $model->decryptGameName($model->game_name);
                 },
             ],
             [
