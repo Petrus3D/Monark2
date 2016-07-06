@@ -61,7 +61,8 @@ return [
     'Success_User_Enter_Game_{params}' => 'Vous avez rejoint la partie : {params}.',
 	'Success_Game_Created' => 'Partie crée.',
 	'Success_Game_Join' => 'Partie rejoint.',
-
+	'Notice_Game_Quit' => 'Partie quittée.',
+		
     /* Buttons */ 
     'Button_Send' => 'Envoyer',
     'Button_Game_Create' => 'Créer une partie',

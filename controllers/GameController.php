@@ -10,6 +10,7 @@ use app\search\GameSearch;
 use app\forms\game\GameCreateForm;
 use app\forms\game\GameJoinForm;
 use app\models\Game;
+use app\models\GamePlayer;
 
 class GameController extends \yii\web\Controller
 {
@@ -39,6 +40,11 @@ public function behaviors()
 		];
 	}
 	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \yii\base\Controller::actions()
+	 */
 	public function actions()
 	{
 		return [
@@ -52,6 +58,10 @@ public function behaviors()
 		];
 	}
 	
+	/**
+	 * 
+	 * @return string
+	 */
     public function actionIndex()
     {
         $searchModel = new GameSearch();
@@ -62,12 +72,34 @@ public function behaviors()
         ]);
     }
     
+    /**
+     * 
+     * @return string
+     */
+    public function actionLobby(){
+    	return $this->render('lobby');
+    }
+    
+    /**
+     * 
+     * @return string
+     */
     public function actionQuit()
     {
+    	// DB
+    	(new GamePlayer())->gameExitPlayer(Yii::$app->session['User']->getId(), Yii::$app->session['Game']->getGameId());
+    	
+    	// Session
     	Yii::$app->session['Game'] = null;
+    	Yii::$app->session->setFlash('info', Yii::t('game', 'Notice_Game_Quit'));
+
     	return $this->actionIndex();
     }
     
+    /**
+     * 
+     * @return string
+     */
     public function actionCreate()
     {
 
@@ -85,6 +117,10 @@ public function behaviors()
     	}
     }
     
+    /**
+     * 
+     * @return string
+     */
     public function actionJoin()
     {
     	$urlparams = Yii::$app->request->queryParams;
@@ -93,7 +129,7 @@ public function behaviors()
     	if (isset($model) && $model->join()) {
     		// all inputs are valid
     		Yii::$app->session->setFlash('success', Yii::t('game', 'Success_Game_Join'));
-    		return $this->actionIndex();
+    		return $this->actionLobby();
     	}elseif(isset($model)){
     		// validation failed: $errors is an array containing error messages
     		Yii::$app->session->setFlash('error', Yii::t('game', 'Success_Game_Join'));
@@ -103,6 +139,10 @@ public function behaviors()
     		return $this->actionIndex();
     }
     
+    /**
+     * 
+     * @return string
+     */
     public function actionSpec()
     {
     	$urlparams = Yii::$app->request->queryParams;
@@ -111,7 +151,7 @@ public function behaviors()
     		if (isset($model) && $model->joinSpec()) {
     			// all inputs are valid
     			Yii::$app->session->setFlash('success', Yii::t('game', 'Success_Game_Join'));
-    			return $this->actionIndex();
+    			return $this->actionLobby();
     		}elseif(isset($model)){
     			// validation failed: $errors is an array containing error messages
     			Yii::$app->session->setFlash('error', Yii::t('game', 'Success_Game_Join'));

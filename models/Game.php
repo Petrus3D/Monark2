@@ -7,7 +7,7 @@ use app\queries\GameQuery;
 use app\models\User;
 use app\classes\Crypt;
 use app\classes\GameClass;
-use yii\rest\CreateAction;
+use app\models\GamePlayer;
 
 /**
  * This is the model class for table "game".
@@ -111,8 +111,8 @@ class Game extends \yii\db\ActiveRecord
      * @param unknown $gameId
      * @return \app\classes\GameClass
      */
-    public static function getGameById($gameId){
-    	return new GameClass(self::find()->where(['game_id' => $gameId])->one());
+    public static function getGameById($game_Id){
+    	return new GameClass(self::find()->where(['game_id' => $game_Id])->one());
     }
     
     /**
@@ -121,6 +121,15 @@ class Game extends \yii\db\ActiveRecord
      */
     public static function decryptGameName($game_name){
     	return (new Crypt($game_name))->s_decrypt();
+    }
+    
+    /**
+     * 
+     * @param unknown $game_Id
+     * @return number
+     */
+    public static function getGameCountPlayer($game_Id){
+    	return (new GamePlayer())->gameCountPlayer($game_Id);
     }
     
     /**

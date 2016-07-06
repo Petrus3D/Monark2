@@ -131,6 +131,15 @@ class Application extends \yii\base\Application
     {
         return $this->get('session');
     }
+    
+    /**
+     * Returns the session component.
+     * @return Session the session component.
+     */
+    public function getGame()
+    {
+    	return $this->get('game');
+    }
 
     /**
      * Returns the user component.

@@ -76,6 +76,29 @@ class GamePlayer extends \yii\db\ActiveRecord
     }
     
     /**
+     * 
+     * @param unknown $game
+     * @return number
+     */
+    public static function gameCountPlayer($game_Id){
+    	return self::find()->where(['game_player_game_id' => $game_Id])->andWhere(['game_player_quit' => 0])->count();
+    }
+    
+    /**
+     * 
+     */
+    public static function gameExitPlayer($user_id, $game_id){   	 
+    	Yii::$app->db->createCommand()
+    	->update("game_player", [
+    			'game_player_quit'		=> 1,
+    	],[
+    			'game_player_user_id'   => $user_id,
+    			'game_player_game_id'   => $game_id,
+    	])
+    	->execute();
+    }
+    
+    /**
      *
      * @param unknown $gameId
      * @return \app\classes\GameClass
