@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\search\GameSearch;
+use app\search\GamePlayerSearch;
 use app\forms\game\GameCreateForm;
 use app\forms\game\GameJoinForm;
 use app\models\Game;
@@ -77,7 +78,12 @@ public function behaviors()
      * @return string
      */
     public function actionLobby(){
-    	return $this->render('lobby');
+    	$searchModel = new GamePlayerSearch();
+        $dataProvider = $searchModel->search(['query' => Yii::$app->request->queryParams,]);
+        return $this->render('lobby', [
+            'searchModel'   => $searchModel,
+            'dataProvider'  => $dataProvider,
+        ]);
     }
     
     /**
