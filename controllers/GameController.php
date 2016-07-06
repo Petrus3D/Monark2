@@ -12,6 +12,8 @@ use app\forms\game\GameCreateForm;
 use app\forms\game\GameJoinForm;
 use app\models\Game;
 use app\models\GamePlayer;
+use app\models\Color;
+use app\models\Continent;
 
 class GameController extends \yii\web\Controller
 {
@@ -78,11 +80,19 @@ public function behaviors()
      * @return string
      */
     public function actionLobby(){
+    	// Continent
+    	$continents 		= new Continent();
+    	$continentsSQL		= $continents->findAllContinent(Yii::$app->session['Game']->getMapId(), 0);
+    	$continentsArray 	= $continents->findAllContinentToArray(Yii::$app->session['Game']->getMapId(), $continentsSQL);
+    	
     	$searchModel = new GamePlayerSearch();
         $dataProvider = $searchModel->search(['query' => Yii::$app->request->queryParams,]);
         return $this->render('lobby', [
             'searchModel'   => $searchModel,
             'dataProvider'  => $dataProvider,
+        	'colorList'		=> (new Color())->findAllColor(),
+        	'continentList'	=> $continentsArray,
+        	'continentSQl'	=> $continentsSQL,
         ]);
     }
     

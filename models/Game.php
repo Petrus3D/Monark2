@@ -146,7 +146,7 @@ class Game extends \yii\db\ActiveRecord
     			'game_max_player' => $game_max_player,
     			'game_create_time' => time(),
     			'game_statut' => 0,
-    			'game_map_id' => 0,
+    			'game_map_id' => 1,
     			'game_map_cont' => 0,
     			'game_mod_id' => 0,
     			'game_turn_time' => 0,

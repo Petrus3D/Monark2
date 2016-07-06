@@ -2,9 +2,6 @@
 
 namespace app\classes;
 use app\models\Game;
-use app\models\GameData;
-use app\models\GamePlayer;
-
 /**
  * 
  * @author Paul
@@ -29,8 +26,6 @@ class GameClass{
 	private $gameDifficultyId;
 	private $gameWonUserId;
 	private $gameWonTime;
-	private $gameData;
-	private $gamePlayer;
 	
 	/**
 	 * 
@@ -52,12 +47,6 @@ class GameClass{
 		$this->gameDifficultyId = $gameData['game_difficulty_id'];
 		$this->gameWonUserId 	= $gameData['game_won_user_id'];
 		$this->gameWonTime 		= $gameData['game_won_time'];
-		
-		// Player
-		$this->gamePlayerArray	= new GamePlayer();
-		
-		// Data
-		$this->gameDataArray	= new GameData();
 	}
 	
 	public function getGameId(){
@@ -87,6 +76,10 @@ class GameClass{
 	public function getUserOwner(){
 		$this->gameUserOwner = Game::getUserOwner($this->gameOwnerID);
 		return $this->gameUserOwner;
+	}
+	
+	public function getMapId(){
+		return $this->gameMapId;
 	}
 	
 	/**

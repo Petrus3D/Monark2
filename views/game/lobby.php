@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 $this->title =  Yii::t('game_player', 'Title_Lobby_{params}', ['params' => Yii::$app->session['Game']->getGameName()]);
@@ -25,15 +27,29 @@ $this->title =  Yii::t('game_player', 'Title_Lobby_{params}', ['params' => Yii::
             ],
             [
                 'attribute' => Yii::t('game_player', 'Tab_Color_Name'),
-                'value'     => function ($model, $key, $index, $column) {
-                    return $model->game_player_color_id;
+                'value'     => function ($model, $key, $index, $column) use ($colorList){
+                    return $colorList[$model->game_player_color_id]->getColorName();
                 },
             ],
             [
 	            'filter' => false,
+            	'format'    => 'raw',
 	            'attribute' => Yii::t('game_player', 'Tab_Region_Player'),
-	            'value'     => function ($model, $key, $index, $column) {
-	           		return $model->game_player_region_id;
+	            'value'     => function ($model, $key, $index, $column) use ($continentList, $continentSQl){
+	           		return Html::activeDropDownList($model, 'game_player_region_id',
+           				ArrayHelper::map($continentSQl,
+           					function($model, $defaultValue) {
+           						return Yii::$app->urlManager->createUrl(['gameplayer/show', 'region' => $model->continent_id]);
+           					},
+           					function($model, $defaultValue) {
+           						return Yii::t('continent_name', $model->continent_name);
+           					}
+           				),
+           				[
+           				'prompt'	=> Yii::t('continent_name', $continentList[$model->game_player_region_id]->getContinentName()),
+           				'class'		=> 'selectpicker',
+           				'onchange'	=> 'location = "'.Url::to().'&i='.$model->game_player_user_id.'";',
+	           		]);
 	            },
             ],
             [
