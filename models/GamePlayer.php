@@ -64,6 +64,37 @@ class GamePlayer extends \yii\db\ActiveRecord
     }
 
     /**
+     *
+     * @param unknown $gameId
+     * @return \app\classes\GameClass
+     */
+    public static function userJoinGame($game, $userSpec=0){
+    	// set Session Var
+    	Yii::$app->session['Game'] = $game;
+    	
+    	// Insert in BD
+    	self::userInsertJoinGame($game->getGameId(), $userSpec);
+    }
+    
+    /**
+     *
+     * @param unknown $gameId
+     * @return \app\classes\GameClass
+     */
+    public static function userInsertJoinGame($gameId, $userSpec){
+    	Yii::$app->db->createCommand()->insert("game_player",[
+    			'game_player_region_id' => 1,
+    			'game_player_difficulty_id' => 1,
+    			'game_player_statut' => 0,
+    			'game_player_game_id' => $gameId,
+    			'game_player_user_id' => Yii::$app->session['User']->getId(),
+    			'game_player_color_id' => 1,
+    			'game_player_enter_time' => time(),
+    			'game_player_spec'      => $userSpec,
+    	])->execute();
+    }
+    
+    /**
      * @inheritdoc
      * @return GamePlayerQuery the active query used by this AR class.
      */

@@ -140,7 +140,7 @@ class Game extends \yii\db\ActiveRecord
     			'game_map_id' => 0,
     			'game_map_cont' => 0,
     			'game_mod_id' => 0,
-    			'game_turn_time' => 200,
+    			'game_turn_time' => 0,
     			'game_difficulty_id' => 0,
     			'game_won_user_id' => 0,
     			'game_won_time' => 0,

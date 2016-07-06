@@ -60,6 +60,7 @@ return [
     'Success_User_Left_Game' => 'You have left the game.',
     'Success_User_Enter_Game_{params}' => 'You have join the game : {params}.',
 	'Success_Game_Created' => 'Game created.',
+	'Success_Game_Join' => 'Game joined.',
 
     /* Buttons */ 
     'Button_Send' => 'Send',

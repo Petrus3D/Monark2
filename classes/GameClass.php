@@ -12,7 +12,7 @@ use app\models\GamePlayer;
  */
 class GameClass{
 	
-	private $gameID;
+	private $gameId;
 	private $gameNameCrypted;
 	private $gameOwnerID;
 	private $gameUserOwner;
@@ -60,8 +60,8 @@ class GameClass{
 		$this->gameDataArray	= new GameData();
 	}
 	
-	public function getGameID(){
-		return $this->gameID;
+	public function getGameId(){
+		return $this->gameId;
 	}
 	
 	public function getGamePassword(){

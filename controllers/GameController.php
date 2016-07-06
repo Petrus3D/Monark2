@@ -7,7 +7,9 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\search\GameSearch;
-use app\forms\game\gameCreateForm;
+use app\forms\game\GameCreateForm;
+use app\forms\game\GameJoinForm;
+use app\models\Game;
 
 class GameController extends \yii\web\Controller
 {
@@ -16,7 +18,7 @@ public function behaviors()
 		return [
 				'access' => [
 						'class' => AccessControl::className(),
-						'only' => ['index'],
+						'only' => ['index', 'join', 'create'],
 						'rules' => [
 								[
 										'allow' => true, // have access
@@ -75,6 +77,24 @@ public function behaviors()
     				'model' => $model,
     		]);
     	}
+    }
+    
+    public function actionJoin()
+    {
+    	$urlparams = Yii::$app->request->queryParams;
+    	if(array_key_exists('gid', $urlparams))
+    		$model = new GameJoinForm((new Game())->getGameById($urlparams['gid']));
+    	if (isset($model) && $model->join()) {
+    		// all inputs are valid
+    		Yii::$app->session->setFlash('success', Yii::t('game', 'Success_Game_Join'));
+    		return $this->actionIndex();
+    	}elseif(isset($model)){
+    		// validation failed: $errors is an array containing error messages
+    		Yii::$app->session->setFlash('error', Yii::t('game', 'Success_Game_Join'));
+    		$errors = $model->errors;
+    		return $this->actionIndex();
+    	}else
+    		return $this->actionIndex();
     }
 
 }

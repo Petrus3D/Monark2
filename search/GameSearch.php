@@ -46,7 +46,7 @@ class GameSearch extends Game
         $query->where('game_statut < 100');
         $dataProvider = new ActiveDataProvider([
         		'query' => $query,
-        		'pagination' => ['pageSize' => 7,],
+        		'pagination' => ['pageSize' => 9,],
         		'sort' =>
         		['defaultOrder' =>
         				['game_create_time' => SORT_DESC,]

@@ -4,115 +4,49 @@ namespace app\forms\game;
 
 use Yii;
 use yii\base\Model;
-use app\models\Game;
+use app\models\GamePlayer;
 
 /**
  * LoginForm is the model behind the login form.
  */
-class gameCreateForm extends Model
+class gameJoinForm extends Model
 {
-    public $game_name;
+    public $game_id;
     public $game_pwd;
-    public $game_max_player;
 
-    private $_game = false;
+    private $_game_player = false;
+	private $_game = false;
 
-
-    /**
-     * @return array the validation rules.
-     */
-    public function rules()
-    {
-        return [
-            // gamename and password are both required
-            [['gamename', 'password', 'player_max'], 'required'],
-        	// password is validated by validatePassword()
-        	['gamename', 'validateGameName'],
-            // password is validated by validatePassword()
-            ['password', 'validatePassword'],
-        	// player_max is validated by validatePlayerMax()
-        	['player_max', 'validatePlayerMax'],
-        ];
+    public function __construct($game){
+    	$this->_game_player = new GamePlayer();
+    	$this->_game 		= $game;
     }
-
+    
     /**
-     * Validates the password.
-     * This method serves as the inline validation for gamename.
+     * Validate.
+     * This method serves as the inline validation.
      *
      * @param string $attribute the attribute currently being validated
      * @param array $params the additional name-value pairs given in the rule
      */
-    public function validateGameName($attribute, $params)
+    public function validateJoin()
     {
-    	if (!$this->hasErrors()) {
-    	 $game = $this->getGame();
-    
-    	 if (!$game || !$game->validatePassword($this->password)) {
-    	 $this->addError($attribute, 'Incorrect gamename or password.');
-    	 }
-    	 }
+        //$this->addError($attribute, Yii::t('game', 'Error_Max_Player_Nb'));
+        return true;
     }
     
     /**
-     * Validates the password.
-     * This method serves as the inline validation for password.
-     *
-     * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
+     * Create a game using the provided gamename and password.
+     * @return boolean whether the game is created in successfully
      */
-    public function validatePassword($attribute, $params)
+    public function join()
     {
-        /*if (!$this->hasErrors()) {
-            $game = $this->getgame();
-
-            if (!$game || !$game->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect gamename or password.');
-            }
-        }*/
-    }
-    
-    /**
-     * Validates the mail.
-     * This method serves as the inline validation for player_max.
-     *
-     * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
-     */
-    public function validatePlayerMax($attribute, $params)
-    {
-    	/*if (!$this->hasErrors()) {
-    	 $game = $this->getgame();
-    
-    	 if (!$game || !$game->validatePassword($this->password)) {
-    	 $this->addError($attribute, 'Incorrect gamename or password.');
-    	 }
-    	 }*/
-    }
-
-    /**
-     * Logs in a game using the provided gamename and password.
-     * @return boolean whether the game is logged in successfully
-     */
-    public function create()
-    {
-        /*if ($this->validate()) {
-            return Yii::$app->game->login($this->getgame(), $this->rememberMe ? 3600*24*30 : 0);
-        }*/
-        return false;
-    }
-
-    /**
-     * Finds game by [[gamename]]
-     *
-     * @return game|null
-     */
-    public function getGame()
-    {
-        if ($this->_game === false) {
-            $this->_game = Game::findByGameName($this->gameName);
-        }
-
-        return $this->_game;
+    	if ($this->validateJoin()) {   		 
+    		// Create in db
+    		$this->_game_player->userJoinGame($this->_game);
+    		return true;
+    	}
+    	return false;
     }
 }
 
