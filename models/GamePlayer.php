@@ -18,7 +18,6 @@ use app\queries\GamePlayerQuery;
  * @property integer $game_player_enter_time
  * @property integer $game_player_order
  * @property integer $game_player_bot
- * @property integer $game_player_spec
  * @property integer $game_player_quit
  */
 class GamePlayer extends \yii\db\ActiveRecord
@@ -37,8 +36,8 @@ class GamePlayer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['game_player_region_id', 'game_player_game_id', 'game_player_user_id', 'game_player_color_id', 'game_player_enter_time', 'game_player_order', 'game_player_bot', 'game_player_spec', 'game_player_quit'], 'required'],
-            [['game_player_region_id', 'game_player_difficulty_id', 'game_player_statut', 'game_player_game_id', 'game_player_user_id', 'game_player_color_id', 'game_player_enter_time', 'game_player_order', 'game_player_bot', 'game_player_spec', 'game_player_quit'], 'integer']
+            [['game_player_region_id', 'game_player_game_id', 'game_player_user_id', 'game_player_color_id', 'game_player_enter_time', 'game_player_order', 'game_player_bot', 'game_player_quit'], 'required'],
+            [['game_player_region_id', 'game_player_difficulty_id', 'game_player_statut', 'game_player_game_id', 'game_player_user_id', 'game_player_color_id', 'game_player_enter_time', 'game_player_order', 'game_player_bot', 'game_player_quit'], 'integer']
         ];
     }
 
@@ -58,7 +57,6 @@ class GamePlayer extends \yii\db\ActiveRecord
             'game_player_enter_time' => 'Game Player Enter Time',
             'game_player_order' => 'Game Player Order',
             'game_player_bot' => 'Game Player Bot',
-            'game_player_spec' => 'Game Player Spec',
             'game_player_quit' => 'Game Player Quit',
         ];
     }
@@ -68,12 +66,13 @@ class GamePlayer extends \yii\db\ActiveRecord
      * @param unknown $gameId
      * @return \app\classes\GameClass
      */
-    public static function userJoinGame($game, $userSpec=0){
+    public static function userJoinGame($game, $userSpec=false){
     	// set Session Var
     	Yii::$app->session['Game'] = $game;
     	
     	// Insert in BD
-    	self::userInsertJoinGame($game->getGameId(), $userSpec);
+    	if(!$userSpec)
+    		self::userInsertJoinGame($game->getGameId());
     }
     
     /**
@@ -81,7 +80,7 @@ class GamePlayer extends \yii\db\ActiveRecord
      * @param unknown $gameId
      * @return \app\classes\GameClass
      */
-    public static function userInsertJoinGame($gameId, $userSpec){
+    public static function userInsertJoinGame($gameId){
     	Yii::$app->db->createCommand()->insert("game_player",[
     			'game_player_region_id' => 1,
     			'game_player_difficulty_id' => 1,
@@ -90,7 +89,6 @@ class GamePlayer extends \yii\db\ActiveRecord
     			'game_player_user_id' => Yii::$app->session['User']->getId(),
     			'game_player_color_id' => 1,
     			'game_player_enter_time' => time(),
-    			'game_player_spec'      => $userSpec,
     	])->execute();
     }
     

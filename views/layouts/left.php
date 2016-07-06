@@ -35,48 +35,33 @@
                 'items' => [
                     //['label' => Yii::t('menu', 'Title_Menu'), 'options' => ['class' => 'header']],
                     ['label' => Yii::t('menu', 'Title_Home'), 'icon' => 'fa fa-home', 'url' => ['/']],                    
-
+                	['label' => Yii::t('menu', 'Title_Tutorial'), 'icon' => 'fa fa-question', 'url' => ['site/tutorial']],
+                		
                     /* Guest */
                     ['label' => Yii::t('menu', 'Title_Game'), 'icon' => 'fa fa-gamepad', 'url' => ['site/game'], 'visible' => Yii::$app->user->isGuest],
                     ['label' => Yii::t('menu', 'Title_Sign'), 'icon' => 'fa fa-sign-in', 'url' => ['user/sign'], 'visible' => Yii::$app->user->isGuest],
                     ['label' => Yii::t('menu', 'Title_Login'), 'icon' => 'fa fa-unlock', 'url' => ['user/login'], 'visible' => Yii::$app->user->isGuest],
                     
                     /* Connected */
-                	['label' => Yii::t('menu', 'Title_Game_List'), 'icon' => 'fa fa-gamepad', 'url' => ['game/index'], 'visible' => !Yii::$app->user->isGuest],
-                	['label' => Yii::t('menu', 'Title_Game_Create'), 'icon' => 'fa fa-plus', 'url' => ['game/create'], 'visible' => !Yii::$app->user->isGuest],
+                	['label' => Yii::t('menu', 'Title_Game_List'), 'icon' => 'fa fa-gamepad', 'url' => ['game/index'], 'visible' => !Yii::$app->user->isGuest && !isset(Yii::$app->session['Game'])],
+                	['label' => Yii::t('menu', 'Title_Game_Create'), 'icon' => 'fa fa-plus', 'url' => ['game/create'], 'visible' => !Yii::$app->user->isGuest && !isset(Yii::$app->session['Game'])],
+                    
+                	/* Game */	
+                	// Statut ==> before game
+                	['label' => Yii::t('menu', 'Title_Game_Lobby'), 'icon' => 'fa fa-users', 'url' => ['game/lobby'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game']) && Yii::$app->session['Game']->getStatutExplicit() == 0], 
                 		
-                    /*['label' => Yii::t('menu', 'Title_Compagny'), 'icon' => 'fa fa-suitcase', 'url' => '#', 'visible' => !Yii::$app->user->isGuest,
-                        'items' => [
-                            ['label' => Yii::t('menu', 'Title_GlobalDashboard'), 'icon' => 'fa fa-dashboard', 'url' => ['corp/globalboard'],],
-                            ['label' => "Entreprise 1", 'icon' => 'fa fa-building', 'url' => '#',
-                                'items' => [
-                                    ['label' => Yii::t('menu', 'Title_Dashboard'), 'icon' => 'fa fa-dashboard', 'url' => ['corp/board', 'id' => 1],],
-                                    ['label' => Yii::t('menu', 'Title_Finances'), 'icon' => 'fa fa-dollar', 'url' => ['corp/finances', 'id' => 1],],
-                                    ['label' => Yii::t('menu', 'Title_Product'), 'icon' => 'fa fa-legal', 'url' => ['corp/product', 'id' => 1],],
-                                    ['label' => Yii::t('menu', 'Title_Research'), 'icon' => 'fa fa-search', 'url' => ['corp/research', 'id' => 1],],
-                                    ['label' => Yii::t('menu', 'Title_Employe'), 'icon' => 'fa fa-users', 'url' => ['corp/employe', 'id' => 1],],
-                                ],
-                            ],
-                        ],
-                    ],
-                    ['label' => Yii::t('menu', 'Title_Investment'), 'icon' => 'fa fa-briefcase', 'url' => '#', 'visible' => !Yii::$app->user->isGuest,
-                        'items' => [
-                            ['label' => Yii::t('menu', 'Title_Money'), 'icon' => 'fa fa-money', 'url' => ['my/money'],],
-                            ['label' => Yii::t('menu', 'Title_Create'), 'icon' => 'fa fa-plus', 'url' => ['corp/create'],],
-                            ['label' => Yii::t('menu', 'Title_Trading'), 'icon' => 'glyphicon glyphicon-shopping-cart', 'url' => ['global/trading'],],
-                        ],
-                    ],
-                    ['label' => Yii::t('menu', 'Title_World'), 'icon' => 'fa fa-globe', 'url' => '#', 'visible' => !Yii::$app->user->isGuest,
-                        'items' => [
-                            ['label' => Yii::t('menu', 'Title_Rank'), 'icon' => 'fa fa-star', 'url' => ['global/rank'],],
-                            ['label' => Yii::t('menu', 'Title_Stats'), 'icon' => 'fa fa-line-chart', 'url' => ['stats/global'],],
-                            ['label' => Yii::t('menu', 'Title_Cities'), 'icon' => 'glyphicon glyphicon-screenshot', 'url' => ['global/cities'],],
-                        ],
-                    ],
-					*/
-                    ['label' => Yii::t('menu', 'Title_Tutorial'), 'icon' => 'fa fa-question', 'url' => ['site/tutorial']],
+                	// Statut ==> in game
+                	['label' => Yii::t('menu', 'Title_Game_Map'), 'icon' => 'fa fa-globe', 'url' => ['game/map'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game']) && Yii::$app->session['Game']->getStatutExplicit() == 1],
+                		
+                	// Statut ==> after game
+                	//['label' => Yii::t('menu', 'Title_Quit_Game'), 'icon' => 'fa fa-sign-out', 'url' => ['game/quit'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game'])],	 
+                	['label' => Yii::t('menu', 'Title_Game_Stats'), 'icon' => 'fa fa-bar-chart', 'url' => ['game/stats'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game']) && (Yii::$app->session['Game']->getStatutExplicit() == 1 OR Yii::$app->session['Game']->getStatutExplicit() == 2)],
+                		 
+                	['label' => Yii::t('menu', 'Title_Game_Quit'), 'icon' => 'fa fa-sign-out', 'url' => ['game/quit'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game'])],
+                		
+                    // Logout
                     // temp solution WANTED TO POST 
-                    ['label' => Yii::t('menu', 'Title_Logout'), 'icon' => 'fa fa-sign-out', 'url' => ['user/logout'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => Yii::t('menu', 'Title_Logout'), 'icon' => 'fa fa-sign-out', 'url' => ['user/logout'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => !Yii::$app->user->isGuest && !isset(Yii::$app->session['Game'])],
                 ],
             ]
         ) ?>

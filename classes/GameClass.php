@@ -88,6 +88,25 @@ class GameClass{
 		$this->gameUserOwner = Game::getUserOwner($this->gameOwnerID);
 		return $this->gameUserOwner;
 	}
+	
+	/**
+	 * 
+	 * @return number
+	 */
+	public function getStatutExplicit(){
+		// before game
+		if($this->gameStatut < 100)
+			return 0;
+		
+		// in game
+		else if($this->gameStatut > 100 && $this->gameStatut < 200)
+			return 1;
+		
+		// after game
+		else
+			return 2;
+		
+	}
 }
 
 ?>

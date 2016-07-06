@@ -48,5 +48,15 @@ class gameJoinForm extends Model
     	}
     	return false;
     }
+    
+    public function joinSpec()
+    {
+    	if ($this->validateJoin()) {
+    		// Create in db
+    		$this->_game_player->userJoinGame($this->_game, true);
+    		return true;
+    	}
+    	return false;
+    }
 }
 

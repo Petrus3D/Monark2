@@ -64,7 +64,7 @@ $this->title = Yii::t('game', 'Title_Loby');
             		//if(!isset($player_exist_game) OR $player_exist_game['quit'] <= 1){
             			return "<center><table style='border-collapse: separate;border-spacing: 5px;'><tr>"
             			."<td>".Html::a(Yii::t('game', 'Button_Game_Enter')." <i class='fa fa-sign-in'></i>", ['/game/join', 'gid' => $model->game_id], ['class'=>'btn btn-success'])."</td>"
-            			."<td>".Html::a(Yii::t('game', 'Button_Game_Spec')." <i class='fa fa-eye'></i>", ['/game/joinspec', 'gid' => $model->game_id], ['class'=>'btn btn-primary'])."</td>"
+            			."<td>".Html::a(Yii::t('game', 'Button_Game_Spec')." <i class='fa fa-eye'></i>", ['/game/spec', 'gid' => $model->game_id], ['class'=>'btn btn-primary'])."</td>"
             			."</tr></table></center>";
             		/*}else{
             			return "<center><div class='btn btn-danger'>".Yii::t('game', 'Button_Game_Ban')."</div></center>";
@@ -72,7 +72,7 @@ $this->title = Yii::t('game', 'Title_Loby');
             	}elseif($model->game_statut >= 25){
             		return "<center>".Html::a(Yii::t('game', 'Button_Game_Return'), ['/game/join', 'gid' => $model->id], ['class'=>'btn btn-success'])."</center>";
             	}elseif($model->game_statut >= 25){
-            		return "<center>".Html::a(Yii::t('game', 'Button_Game_Spec'), ['/game/joinspec', 'gid' => $model->id], ['class'=>'btn btn-primary'])."</center>";
+            		return "<center>".Html::a(Yii::t('game', 'Button_Game_Spec'), ['/game/spec', 'gid' => $model->id], ['class'=>'btn btn-primary'])."</center>";
             	}elseif($model->game_statut > 99){
             		return "<center>".Yii::t('game', 'Button_Game_End')."</center>";
             	}

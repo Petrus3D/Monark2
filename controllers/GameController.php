@@ -18,7 +18,7 @@ public function behaviors()
 		return [
 				'access' => [
 						'class' => AccessControl::className(),
-						'only' => ['index', 'join', 'create'],
+						'only' => ['index', 'join', 'create', 'spec', 'quit'],
 						'rules' => [
 								[
 										'allow' => true, // have access
@@ -62,6 +62,12 @@ public function behaviors()
         ]);
     }
     
+    public function actionQuit()
+    {
+    	Yii::$app->session['Game'] = null;
+    	return $this->actionIndex();
+    }
+    
     public function actionCreate()
     {
 
@@ -95,6 +101,24 @@ public function behaviors()
     		return $this->actionIndex();
     	}else
     		return $this->actionIndex();
+    }
+    
+    public function actionSpec()
+    {
+    	$urlparams = Yii::$app->request->queryParams;
+    	if(array_key_exists('gid', $urlparams))
+    		$model = new GameJoinForm((new Game())->getGameById($urlparams['gid']));
+    		if (isset($model) && $model->joinSpec()) {
+    			// all inputs are valid
+    			Yii::$app->session->setFlash('success', Yii::t('game', 'Success_Game_Join'));
+    			return $this->actionIndex();
+    		}elseif(isset($model)){
+    			// validation failed: $errors is an array containing error messages
+    			Yii::$app->session->setFlash('error', Yii::t('game', 'Success_Game_Join'));
+    			$errors = $model->errors;
+    			return $this->actionIndex();
+    		}else
+    			return $this->actionIndex();
     }
 
 }
