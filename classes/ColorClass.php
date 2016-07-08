@@ -42,6 +42,18 @@ class ColorClass{
 	}
 	
 	public function getColorName(){
-		return $this->color_name;
+		return ucfirst($this->color_name);
+	}
+	
+	public function getColorCode(){
+		return $this->color_code;
+	}
+	
+	public function getColorCSS(){
+		return $this->color_css;
+	}
+	
+	public function getColorFontChat(){
+		return $this->color_font_chat;
 	}
 }

@@ -36,7 +36,7 @@ return [
     'Button_Ready' => 'I am ready',
     'Button_Cancel' => 'Cancel',
     'Button_Not_Ready' => 'Busy',
-    'Button_Rdy' => 'Ready',
+    'Button_Rdy' => 'I am ready',
     'Button_Add_Friend' => 'Invite a friend',
     'Button_Add_Random' => 'Invite a random player',
 

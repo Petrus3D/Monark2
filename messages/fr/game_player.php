@@ -36,7 +36,7 @@ return [
     'Button_Ready' => 'Je suis prêt',
     'Button_Cancel' => 'Annuler',
     'Button_Not_Ready' => 'Occupé',
-    'Button_Rdy' => 'Prêt',
+    'Button_Rdy' => 'Je suis prêt',
     'Button_Add_Friend' => 'Inviter un ami',
     'Button_Add_Random' => 'Inviter un joueur aléatoire',
 

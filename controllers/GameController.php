@@ -92,6 +92,12 @@ public function behaviors()
     	
     	// Users
     	$usersArray		= (new GamePlayer())->findAllGamePlayerToListUserId(null, Yii::$app->session['Game']->getGameId());
+
+    	// Get url update
+    	$region_id 	= (array_key_exists('ri', Yii::$app->request->queryParams) ? Yii::$app->request->queryParams['ri'] : null);
+    	$statut 	= (array_key_exists('si', Yii::$app->request->queryParams) ? Yii::$app->request->queryParams['si'] : null);
+    	$color_id 	= (array_key_exists('ci', Yii::$app->request->queryParams) ? Yii::$app->request->queryParams['ci'] : null);    	
+    	(new GamePlayer())->UpdateGamePlayerById(Yii::$app->session['User']->getId(), Yii::$app->session['Game']->getGameId(), $region_id, $color_id, $statut);
     	
     	$searchModel = new GamePlayerSearch();
         $dataProvider = $searchModel->search(['query' => Yii::$app->request->queryParams,]);
