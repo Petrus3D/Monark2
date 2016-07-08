@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use app\queries\GamePlayerQuery;
+use app\classes\UserClass;
 
 /**
  * This is the model class for table "game_player".
@@ -114,6 +115,46 @@ class GamePlayer extends \yii\db\ActiveRecord
     			'game_player_enter_time' => time(),
     	])->execute();
     }
+    
+    /**
+     *
+     * @param unknown $color_id
+     * @return \app\classes\ColorClass
+     */
+    public static function findGamePlayerById($player_id){
+    	return new ColorClass(self::find()->where(['color_id' => $color_id])->one());
+    }
+    
+    /**
+     *
+     * @param unknown $colorData
+     * @return NULL|\app\classes\ColorClass
+     */
+    public static function findAllGamePlayerToListUserId($gamePlayerData, $game_id=null){
+    	if($gamePlayerData == null && $game_id != null)
+    		$gamePlayerData = self::findAllGamePlayer($game_id);
+    	$array = null;
+    	$i = 0;
+    	foreach ($gamePlayerData as $key => $gamePlayer){
+    		$array[$i] = $gamePlayer['game_player_user_id'];
+    		$i++;
+    	}
+    	$users = null;
+    	foreach ((new Users)->getListUserByListUserId($array) as $key => $user){
+    		$users[$user['user_id']] = new UserClass($user);
+    	}
+    	return $users;
+    }
+    
+    
+    /**
+     * 
+     * @param unknown $game_id
+     * @return \app\queries\GamePlayer[]
+     */
+    public static function findAllGamePlayer($game_id){
+    	return self::find()->where(['game_player_game_id' => $game_id])->all();
+    }    
     
     /**
      * @inheritdoc

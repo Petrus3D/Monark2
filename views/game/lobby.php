@@ -21,14 +21,29 @@ $this->title =  Yii::t('game_player', 'Title_Lobby_{params}', ['params' => Yii::
             //['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute' => Yii::t('game_player', 'Tab_User_Name'),
-                'value'     => function ($model, $key, $index, $column) {
-                    return $model->game_player_user_id;
+                'value'     => function ($model, $key, $index, $column)  use ($userList) {
+               		return $userList[$model->game_player_user_id]->getUserName();
                 },
             ],
             [
+            	'format'    => 'raw',
                 'attribute' => Yii::t('game_player', 'Tab_Color_Name'),
-                'value'     => function ($model, $key, $index, $column) use ($colorList){
-                    return $colorList[$model->game_player_color_id]->getColorName();
+                'value'     => function ($model, $key, $index, $column) use ($colorList, $colorSQl){
+                		return Html::activeDropDownList($model, 'game_player_color_id',
+                		ArrayHelper::map($colorSQl,
+                				function($model, $defaultValue) {
+                					return Yii::$app->urlManager->createUrl(['gameplayer/show', 'color' => $model->color_id]);
+                				},
+                				function($model, $defaultValue) {
+                					return Yii::t('color_name', $model->color_name);
+                				}
+                				),
+                				[
+                						'prompt'	=> Yii::t('color_name', $colorList[$model->game_player_color_id]->getColorName()),
+                						'class'		=> 'selectpicker',
+                						'onchange'	=> 'location = "'.Url::to().'&i='.$model->game_player_user_id.'";',
+                				]);
+            		return $colorList[$model->game_player_color_id]->getColorName();
                 },
             ],
             [

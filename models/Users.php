@@ -96,6 +96,19 @@ class Users extends \yii\db\ActiveRecord
     
     /**
      * 
+     * @param unknown $arrayUserId
+     * @return \app\queries\User[]
+     */
+    public static function getListUserByListUserId($arrayUserId){
+    	$query = self::find();
+    	foreach($arrayUserId as $Id){
+    		$query->orWhere(['like','user_id', $Id]);
+    	}
+    	return $query->all();
+    }
+    
+    /**
+     * 
      * @param unknown $mail
      * @param unknown $type
      * @param unknown $namecrypted

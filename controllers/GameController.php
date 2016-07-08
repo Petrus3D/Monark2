@@ -85,12 +85,22 @@ public function behaviors()
     	$continentsSQL		= $continents->findAllContinent(Yii::$app->session['Game']->getMapId(), 0);
     	$continentsArray 	= $continents->findAllContinentToArray(Yii::$app->session['Game']->getMapId(), $continentsSQL);
     	
+    	// Color
+    	$colors 		= new Color();
+    	$colorsSQL		= $colors->findAllColor();
+    	$colorsArray 	= $colors->findAllColorToArray($colorsSQL);
+    	
+    	// Users
+    	$usersArray		= (new GamePlayer())->findAllGamePlayerToListUserId(null, Yii::$app->session['Game']->getGameId());
+    	
     	$searchModel = new GamePlayerSearch();
         $dataProvider = $searchModel->search(['query' => Yii::$app->request->queryParams,]);
         return $this->render('lobby', [
             'searchModel'   => $searchModel,
             'dataProvider'  => $dataProvider,
-        	'colorList'		=> (new Color())->findAllColor(),
+        	'userList'		=> $usersArray,
+        	'colorList'		=> $colorsArray,
+        	'colorSQl'		=> $colorsSQL,
         	'continentList'	=> $continentsArray,
         	'continentSQl'	=> $continentsSQL,
         ]);
