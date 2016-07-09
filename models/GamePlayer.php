@@ -154,7 +154,35 @@ class GamePlayer extends \yii\db\ActiveRecord
      */
     public static function findAllGamePlayer($game_id){
     	return self::find()->where(['game_player_game_id' => $game_id])->all();
-    }    
+    }
+    
+   /**
+    * 
+    * @param unknown $game_id
+    * @param unknown $color_id
+    * @return boolean
+    */
+    public static function existColorIdInGame($game_id, $color_id, $user_id){
+    	if(self::find()->where(['game_player_color_id' => $game_id])->andWhere(['game_player_game_id' => $game_id])->one() != null)
+    		return true;
+    	else
+    		return false;
+    }
+    
+    /**
+     * 
+     * @param unknown $game_id
+     * @param unknown $region_id
+     * @return boolean
+     */
+    public static function existRegionIdInGame($game_id, $region_id, $user_id){
+    	$query = self::find()->where(['game_player_region_id' => $region_id])->andWhere(['game_player_game_id' => $game_id])->one();
+    	print_r($query);
+    	if(self::find()->where(['game_player_region_id' => $region_id])->andWhere(['game_player_game_id' => $game_id])->one() != null)
+    		return true;
+    	else
+    		return false;
+    }
     
     /**
      * update gameplayer information
@@ -165,7 +193,6 @@ class GamePlayer extends \yii\db\ActiveRecord
     public static function UpdateGamePlayerById($user_id, $game_id, $region_id, $color_id, $statut)
     {
     	if(isset($user_id) && isset($game_id)){
-    		print "Update ri = ".$region_id." ci = ".$color_id." si = ".$statut;
     		$key 	= null;
     		$value 	= null;
     		if(isset($color_id)){

@@ -3,11 +3,31 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 $this->title =  Yii::t('game_player', 'Title_Lobby_{params}', ['params' => Yii::$app->session['Game']->getGameName()]);
+$ajax_reload = 4000;
 ?>
 
+
+<?php
+/* Reload gridview JS */
+$this->registerJs('$(document).on("pjax:timeout", function(event) {
+  // Prevent default timeout redirection behavior
+  event.preventDefault()
+});');
+
+$this->registerJs(
+    '$("document").ready(function(){ 
+        setInterval(function(){
+            if($("select:hover").length == 0){
+                $.pjax.reload({container:"#GridView-Lobby"});
+            }
+        }, '.$ajax_reload.'); //Reload GridView
+    });'
+);
+?>
 <div class="game-lobby">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -18,10 +38,13 @@ $this->title =  Yii::t('game_player', 'Title_Lobby_{params}', ['params' => Yii::
     <td><?= Html::a(Yii::t('game_player', 'Button_Add_Friend')." <i class='fa fa-group'></i>", ['/game/lobby'], ['class'=>'btn btn-primary']); ?></td>
     <td><?= Html::a(Yii::t('game_player', 'Button_Rdy')." <i class='fa fa-check'></i>", ['/game/lobby'], ['class'=>'btn btn-success']); ?></td>
     <!-- Game Owner -->
+    <?php if (Yii::$app->session['User']->getId() == Yii::$app->session['Game']->getGameOwnerID()): ?>
     <td><?= Html::a(Yii::t('game_player', 'Button_Add_Bot')." <i class='fa fa-plus'></i>", ['/game/lobby'], ['class'=>'btn btn-info']); ?></td>
     <td><?= Html::a(Yii::t('game_player', 'Button_Sart_Game')." <i class='fa fa-gamepad'></i>", ['/game/lobby'], ['class'=>'btn btn-warning']); ?></td>
+    <?php endif; ?>
     </tr></table></div>
     <br>
+    <?php Pjax::begin(['id' => 'GridView-Lobby', 'timeout' => $ajax_reload]); ?>
     <?= GridView::widget([
         'summary' => '',
         'dataProvider' => $dataProvider,
@@ -61,7 +84,7 @@ $this->title =  Yii::t('game_player', 'Title_Lobby_{params}', ['params' => Yii::
                 				[
                 						'prompt'	=> Yii::t('color_name', $colorList[$model->game_player_color_id]->getColorName()),
                 						'class'		=> 'selectpicker',
-                						'onchange'	=> 'location = "'.Url::current().'&ui='.$model->game_player_user_id.'&ci=+this.value";',
+                						'onchange'	=> 'location = "'.Url::current().'&ui='.$model->game_player_user_id.'&ci="+this.options[this.selectedIndex].value;',
                 				]);
                 	else
                 		return '<font size="4" color="'.$colorList[$model->game_player_color_id]->getColorFontChat().'">'.$colorList[$model->game_player_color_id]->getColorName().'</font>';
@@ -85,7 +108,7 @@ $this->title =  Yii::t('game_player', 'Title_Lobby_{params}', ['params' => Yii::
 	           				[
 	           				'prompt'	=> Yii::t('continent_name', $continentList[$model->game_player_region_id]->getContinentName()),
 	           				'class'		=> 'selectpicker',
-	           				'onchange'	=> 'location = "'.Url::current().'&ui='.$model->game_player_user_id.'&ri=\'+this.value";',
+	           				'onchange'	=> 'location = "'.Url::current().'&ui='.$model->game_player_user_id.'&ri="+this.options[this.selectedIndex].value;',
 		           		]);
 	           		else
 	           			return '<font size="4" color="'.$colorList[$model->game_player_color_id]->getColorFontChat().'">'.$continentList[$model->game_player_region_id]->getContinentName().'</font>';
@@ -93,5 +116,6 @@ $this->title =  Yii::t('game_player', 'Title_Lobby_{params}', ['params' => Yii::
             ],
         ],
     ]); ?>
+    <?php Pjax::end(); ?>
 
 </div>

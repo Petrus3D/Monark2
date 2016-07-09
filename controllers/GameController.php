@@ -87,17 +87,33 @@ public function behaviors()
     	
     	// Color
     	$colors 		= new Color();
-    	$colorsSQL		= $colors->findAllColor();
+    	$colorsSQL		= $colors->findAllColor(0);
     	$colorsArray 	= $colors->findAllColorToArray($colorsSQL);
     	
     	// Users
-    	$usersArray		= (new GamePlayer())->findAllGamePlayerToListUserId(null, Yii::$app->session['Game']->getGameId());
+    	$gamePlayer 	= new GamePlayer();
+    	$usersArray		= $gamePlayer->findAllGamePlayerToListUserId(null, Yii::$app->session['Game']->getGameId());
 
     	// Get url update
-    	$region_id 	= (array_key_exists('ri', Yii::$app->request->queryParams) ? Yii::$app->request->queryParams['ri'] : null);
-    	$statut 	= (array_key_exists('si', Yii::$app->request->queryParams) ? Yii::$app->request->queryParams['si'] : null);
-    	$color_id 	= (array_key_exists('ci', Yii::$app->request->queryParams) ? Yii::$app->request->queryParams['ci'] : null);    	
-    	(new GamePlayer())->UpdateGamePlayerById(Yii::$app->session['User']->getId(), Yii::$app->session['Game']->getGameId(), $region_id, $color_id, $statut);
+    	$region_id = null;
+    	$statut = null;
+    	$color_id = null;
+    	if(array_key_exists('ui', Yii::$app->request->queryParams)){
+	    	if(array_key_exists('ri', Yii::$app->request->queryParams)){
+	    		if(!$gamePlayer->existRegionIdInGame(Yii::$app->request->queryParams['ri'], Yii::$app->session['Game']->getGameId(), Yii::$app->request->queryParams['ui']))
+	    			$region_id = Yii::$app->request->queryParams['ri'];
+	    		else
+	    			Yii::$app->session->setFlash('warning', 'Region already choosed.');
+	    	}elseif(array_key_exists('si', Yii::$app->request->queryParams)){
+	    		$statut = Yii::$app->request->queryParams['si'];
+	    	}elseif(array_key_exists('ci', Yii::$app->request->queryParams)){
+	    		if(!$gamePlayer->existColorIdInGame(Yii::$app->request->queryParams['ci'], Yii::$app->session['Game']->getGameId(), Yii::$app->request->queryParams['ui']))
+	    			$color_id = Yii::$app->request->queryParams['ci'];
+	    		else
+	    			Yii::$app->session->setFlash('warning', 'Color already choosed.');
+	    	}  	
+    	}
+    	$gamePlayer->UpdateGamePlayerById(Yii::$app->session['User']->getId(), Yii::$app->session['Game']->getGameId(), $region_id, $color_id, $statut);
     	
     	$searchModel = new GamePlayerSearch();
         $dataProvider = $searchModel->search(['query' => Yii::$app->request->queryParams,]);
