@@ -52,7 +52,7 @@ $this->title =  Yii::t('game_player', 'Title_Lobby_{params}', ['params' => Yii::
                 		return Html::activeDropDownList($model, 'game_player_color_id',
                 			ArrayHelper::map($colorSQl,
                 				function($model, $defaultValue) {
-                					return Yii::$app->urlManager->createUrl(['game/lobby', 'ci' => $model->color_id]);
+                					return $model->color_id;
                 				},
                 				function($model, $defaultValue) {
                 					return Yii::t('color_name', $model->color_name);
@@ -61,7 +61,7 @@ $this->title =  Yii::t('game_player', 'Title_Lobby_{params}', ['params' => Yii::
                 				[
                 						'prompt'	=> Yii::t('color_name', $colorList[$model->game_player_color_id]->getColorName()),
                 						'class'		=> 'selectpicker',
-                						'onchange'	=> 'location = "'.Url::current().'&ui='.$model->game_player_user_id.'";',
+                						'onchange'	=> 'location = "'.Url::current().'&ui='.$model->game_player_user_id.'&ci=+this.value";',
                 				]);
                 	else
                 		return '<font size="4" color="'.$colorList[$model->game_player_color_id]->getColorFontChat().'">'.$colorList[$model->game_player_color_id]->getColorName().'</font>';
@@ -76,7 +76,7 @@ $this->title =  Yii::t('game_player', 'Title_Lobby_{params}', ['params' => Yii::
 	           			return Html::activeDropDownList($model, 'game_player_region_id',
 	           				ArrayHelper::map($continentSQl,
 	           					function($model, $defaultValue) {
-	           						return Yii::$app->urlManager->createUrl(['game/lobby', 'ri' => $model->continent_id]);
+	           						return $model->continent_id;
 	           					},
 	           					function($model, $defaultValue) {
 	           						return Yii::t('continent_name', $model->continent_name);
@@ -85,7 +85,7 @@ $this->title =  Yii::t('game_player', 'Title_Lobby_{params}', ['params' => Yii::
 	           				[
 	           				'prompt'	=> Yii::t('continent_name', $continentList[$model->game_player_region_id]->getContinentName()),
 	           				'class'		=> 'selectpicker',
-	           				'onchange'	=> 'location = "'.Url::current().'&i='.$model->game_player_user_id.'";',
+	           				'onchange'	=> 'location = "'.Url::current().'&ui='.$model->game_player_user_id.'&ri=\'+this.value";',
 		           		]);
 	           		else
 	           			return '<font size="4" color="'.$colorList[$model->game_player_color_id]->getColorFontChat().'">'.$continentList[$model->game_player_region_id]->getContinentName().'</font>';

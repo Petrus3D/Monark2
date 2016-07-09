@@ -170,7 +170,7 @@ class GamePlayer extends \yii\db\ActiveRecord
     		$value 	= null;
     		if(isset($color_id)){
 				$key = 'game_player_color_id';
-    			$value = $color;
+    			$value = $color_id;
     			if($value < 2 OR $value > 10) $value = 1;
     		}elseif(isset($region_id)){
     			$key = 'game_player_region_id';
