@@ -90,17 +90,11 @@ public function behaviors()
     	$color_id = null;
     	if(array_key_exists('ui', Yii::$app->request->queryParams)){
     		if(array_key_exists('ri', Yii::$app->request->queryParams)){
-    			if(!$gamePlayer->existRegionIdInGame(Yii::$app->request->queryParams['ri'], Yii::$app->session['Game']->getGameId(), Yii::$app->request->queryParams['ui']))
-    				$region_id = Yii::$app->request->queryParams['ri'];
-    				else
-    					Yii::$app->session->setFlash('warning', 'Region already choosed.');
+    			$region_id = Yii::$app->request->queryParams['ri'];
     		}elseif(array_key_exists('si', Yii::$app->request->queryParams)){
     			$statut = Yii::$app->request->queryParams['si'];
     		}elseif(array_key_exists('ci', Yii::$app->request->queryParams)){
-    			if(!$gamePlayer->existColorIdInGame(Yii::$app->request->queryParams['ci'], Yii::$app->session['Game']->getGameId(), Yii::$app->request->queryParams['ui']))
-    				$color_id = Yii::$app->request->queryParams['ci'];
-    				else
-    					Yii::$app->session->setFlash('warning', 'Color already choosed.');
+    			$color_id = Yii::$app->request->queryParams['ci'];
     		}
     	}
     	
@@ -123,13 +117,13 @@ public function behaviors()
 	    	$continentsArray 	= $continents->findAllContinentToArray(Yii::$app->session['Game']->getMapId(), $continentsSQL);
 	    	
 	    	// Color
-	    	$colors 		= new Color();
-	    	$colorsSQL		= $colors->findAllColor(0);
-	    	$colorsArray 	= $colors->findAllColorToArray($colorsSQL);
+	    	$colors 			= new Color();
+	    	$colorsSQL			= $colors->findAllColor(0);
+	    	$colorsArray 		= $colors->findAllColorToArray($colorsSQL);
     	
 	    	// Users
-	    	$gamePlayer 	= new GamePlayer();
-	    	$usersArray		= $gamePlayer->findAllGamePlayerToListUserId(null, Yii::$app->session['Game']->getGameId());
+	    	$gamePlayer 		= new GamePlayer();
+	    	$usersArray			= $gamePlayer->findAllGamePlayerToListUserId(null, Yii::$app->session['Game']->getGameId());
 	    	
 	    	// Update data
 	    	if(array_key_exists('ui', Yii::$app->request->queryParams))
@@ -272,12 +266,12 @@ public function behaviors()
 	    	// Checks
 	    	if($gamePlayerData != null){
 	    		// check colors
-	    		if(true){ //$game_player->checkPlayerColor($gamePlayerData)
+	    		if($game_player->checkPlayerColor($gamePlayerData)){
 	    			// Check ready
-	    			if($game_player->checkPlayerReady($gamePlayerData)){ //$game_player->checkPlayerReady($gamePlayerData) 
+	    			if($game_player->checkPlayerReady($gamePlayerData)){ 
 	    				//(new Game())->gameStart($urlparams['gid']);
 	    				Yii::$app->session->setFlash('success', Yii::t('game', 'Error_Start_Not_Ready'));
-	    				return $this->actionLobby();
+	    				return $this->redirect(Url::to(['game/lobby']),302);
 	    			}else
 	    				Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Not_Ready'));
 	    		}else

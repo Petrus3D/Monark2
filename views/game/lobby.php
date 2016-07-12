@@ -123,9 +123,9 @@ $this->registerJs(
             	// If ready
             	if($model->game_player_user_id == Yii::$app->session['User']->getId())
             		if($model->game_player_statut == 0)
-            			$returned = Html::a(Yii::t('game_player', 'Button_Not_Ready')." <i class='fa fa-check'></i>", ['/game/lobby', 'si' => 1], ['class'=>'btn btn-danger']);
+            			$returned = Html::a(Yii::t('game_player', 'Button_Not_Ready')." <i class='fa fa-check'></i>", ['/game/lobby', 'ui' => $model->game_player_user_id, 'si' => 1], ['class'=>'btn btn-danger']);
             		else
-            			$returned = Html::a(Yii::t('game_player', 'Button_Rdy')." <i class='fa fa-check'></i>", ['/game/lobby', 'si' => 0], ['class'=>'btn btn-success']);
+            			$returned = Html::a(Yii::t('game_player', 'Button_Rdy')." <i class='fa fa-check'></i>", ['/game/lobby', 'ui' => $model->game_player_user_id, 'si' => 0], ['class'=>'btn btn-success']);
             	else
             		if($model->game_player_statut == 0)
             			$returned = "<img src='img/site/no.png' width='20px' height='20px'>";
