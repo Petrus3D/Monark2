@@ -6,6 +6,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 use app\search\GameSearch;
 use app\search\GamePlayerSearch;
 use app\forms\game\GameCreateForm;
@@ -77,6 +78,41 @@ public function behaviors()
     
     /**
      * 
+     * @return \app\models\GamePlayer|NULL
+     */
+    public function updateUserLobby(){
+    	// Users
+    	$gamePlayer 	= new GamePlayer();
+
+    	// Get url update
+    	$region_id = null;
+    	$statut = null;
+    	$color_id = null;
+    	if(array_key_exists('ui', Yii::$app->request->queryParams)){
+    		if(array_key_exists('ri', Yii::$app->request->queryParams)){
+    			if(!$gamePlayer->existRegionIdInGame(Yii::$app->request->queryParams['ri'], Yii::$app->session['Game']->getGameId(), Yii::$app->request->queryParams['ui']))
+    				$region_id = Yii::$app->request->queryParams['ri'];
+    				else
+    					Yii::$app->session->setFlash('warning', 'Region already choosed.');
+    		}elseif(array_key_exists('si', Yii::$app->request->queryParams)){
+    			$statut = Yii::$app->request->queryParams['si'];
+    		}elseif(array_key_exists('ci', Yii::$app->request->queryParams)){
+    			if(!$gamePlayer->existColorIdInGame(Yii::$app->request->queryParams['ci'], Yii::$app->session['Game']->getGameId(), Yii::$app->request->queryParams['ui']))
+    				$color_id = Yii::$app->request->queryParams['ci'];
+    				else
+    					Yii::$app->session->setFlash('warning', 'Color already choosed.');
+    		}
+    	}
+    	
+    	// Update in bd
+    	$gamePlayer->UpdateGamePlayerById(Yii::$app->session['User']->getId(), Yii::$app->session['Game']->getGameId(), $region_id, $color_id, $statut); 
+    	
+    	// Clear url & go to lobby
+    	return $this->redirect(Url::to(['game/lobby']),302);
+    }
+    
+    /**
+     * 
      * @return string
      */
     public function actionLobby(){
@@ -90,31 +126,14 @@ public function behaviors()
 	    	$colors 		= new Color();
 	    	$colorsSQL		= $colors->findAllColor(0);
 	    	$colorsArray 	= $colors->findAllColorToArray($colorsSQL);
-	    	
+    	
 	    	// Users
 	    	$gamePlayer 	= new GamePlayer();
 	    	$usersArray		= $gamePlayer->findAllGamePlayerToListUserId(null, Yii::$app->session['Game']->getGameId());
-	
-	    	// Get url update
-	    	$region_id = null;
-	    	$statut = null;
-	    	$color_id = null;
-	    	if(array_key_exists('ui', Yii::$app->request->queryParams)){
-		    	if(array_key_exists('ri', Yii::$app->request->queryParams)){
-		    		if(!$gamePlayer->existRegionIdInGame(Yii::$app->request->queryParams['ri'], Yii::$app->session['Game']->getGameId(), Yii::$app->request->queryParams['ui']))
-		    			$region_id = Yii::$app->request->queryParams['ri'];
-		    		else
-		    			Yii::$app->session->setFlash('warning', 'Region already choosed.');
-		    	}elseif(array_key_exists('si', Yii::$app->request->queryParams)){
-		    		$statut = Yii::$app->request->queryParams['si'];
-		    	}elseif(array_key_exists('ci', Yii::$app->request->queryParams)){
-		    		if(!$gamePlayer->existColorIdInGame(Yii::$app->request->queryParams['ci'], Yii::$app->session['Game']->getGameId(), Yii::$app->request->queryParams['ui']))
-		    			$color_id = Yii::$app->request->queryParams['ci'];
-		    		else
-		    			Yii::$app->session->setFlash('warning', 'Color already choosed.');
-		    	}  	
-	    	}
-	    	$gamePlayer->UpdateGamePlayerById(Yii::$app->session['User']->getId(), Yii::$app->session['Game']->getGameId(), $region_id, $color_id, $statut);
+	    	
+	    	// Update data
+	    	if(array_key_exists('ui', Yii::$app->request->queryParams))
+	    		$this->updateUserLobby();
 	    	
 	    	$searchModel = new GamePlayerSearch();
 	        $dataProvider = $searchModel->search(['query' => Yii::$app->request->queryParams,]);
@@ -203,7 +222,7 @@ public function behaviors()
 							// In another game
 				}else{
 					Yii::$app->session->setFlash('error', Yii::t('game', 'Error_User_Already_In_Game'));
-					return $this->actionIndex();
+					return $this->redirect(Url::to(['game/index']),302);
 				}
 			}else 
 				return $this->actionIndex();
@@ -211,9 +230,9 @@ public function behaviors()
     		// validation failed: $errors is an array containing error messages
     		Yii::$app->session->setFlash('error', Yii::t('game', 'Success_Game_Join'));
     		$errors = $model->errors;
-    		return $this->actionIndex();
+    		return $this->redirect(Url::to(['game/index']),302);
     	}else
-    		return $this->actionIndex();
+    		return $this->redirect(Url::to(['game/index']),302);
     }
     
     /**
@@ -247,16 +266,15 @@ public function behaviors()
     	if (array_key_exists('gid', $urlparams)) {
     	
 	    	// Game Data
-	    	$gameData = (new Game())->getGameById($urlparams['gid']);
+    		$game_player = new GamePlayer();
+	    	$gamePlayerData = $game_player->findAllGamePlayer($urlparams['gid']);
 	    	
-	    	if($gameData != null){
-	    		// Checks
-	    		$game_player = new GamePlayer();
-	    		
+	    	// Checks
+	    	if($gamePlayerData != null){
 	    		// check colors
-	    		if($game_player->checkPlayerColor($gameData)){
+	    		if(true){ //$game_player->checkPlayerColor($gamePlayerData)
 	    			// Check ready
-	    			if($game_player->checkPlayerReady($gameData)){
+	    			if($game_player->checkPlayerReady($gamePlayerData)){ //$game_player->checkPlayerReady($gamePlayerData) 
 	    				//(new Game())->gameStart($urlparams['gid']);
 	    				Yii::$app->session->setFlash('success', Yii::t('game', 'Error_Start_Not_Ready'));
 	    				return $this->actionLobby();
@@ -266,9 +284,10 @@ public function behaviors()
 	    			Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Multiple_Color'));
 	    	}else 
 	    		Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Stop'));
-    	}
-    	Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Stop'));
-    	return $this->actionLobby();
+    	}else
+    		Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Stop'));
+    	
+    	return $this->redirect(Url::to(['game/lobby']),302);
     }
 
 }
