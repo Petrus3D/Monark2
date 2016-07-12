@@ -210,7 +210,7 @@ class GamePlayer extends \yii\db\ActiveRecord
      * @param  integer      $user_id
      * @return static|null
      */
-    public static function UpdateGamePlayerById($user_id, $game_id, $region_id, $color_id, $statut)
+    public static function updateGamePlayerById($user_id, $game_id, $region_id, $color_id, $statut)
     {
     	if(isset($user_id) && isset($game_id)){
     		$key 	= null;

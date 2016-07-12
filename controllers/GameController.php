@@ -99,7 +99,7 @@ public function behaviors()
     	}
     	
     	// Update in bd
-    	$gamePlayer->UpdateGamePlayerById(Yii::$app->session['User']->getId(), Yii::$app->session['Game']->getGameId(), $region_id, $color_id, $statut); 
+    	$gamePlayer->updateGamePlayerById(Yii::$app->session['User']->getId(), Yii::$app->session['Game']->getGameId(), $region_id, $color_id, $statut); 
     	
     	// Clear url & go to lobby
     	return $this->redirect(Url::to(['game/lobby']),302);
@@ -269,9 +269,8 @@ public function behaviors()
 	    		if($game_player->checkPlayerColor($gamePlayerData)){
 	    			// Check ready
 	    			if($game_player->checkPlayerReady($gamePlayerData)){ 
-	    				//(new Game())->gameStart($urlparams['gid']);
-	    				Yii::$app->session->setFlash('success', Yii::t('game', 'Error_Start_Not_Ready'));
-	    				return $this->redirect(Url::to(['game/lobby']),302);
+	    				(new Game())->gameStart($urlparams['gid']);
+	    				return $this->render('start');
 	    			}else
 	    				Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Not_Ready'));
 	    		}else
