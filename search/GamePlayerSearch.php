@@ -69,7 +69,7 @@ class GamePlayerSearch extends GamePlayer
             'game_player_enter_time' => $this->game_player_enter_time,
             'game_player_order' => $this->game_player_order,
             'game_player_bot' => $this->game_player_bot,
-            'game_player_quit' => $this->game_player_quit,
+            'game_player_quit' => 0,
         ]);
 
         return $dataProvider;

@@ -22,10 +22,10 @@ public function behaviors()
 		return [
 				'access' => [
 						'class' => AccessControl::className(),
-						'only' => ['index', 'join', 'create', 'spec', 'quit'],
+						'only' => ['index', 'join', 'create', 'spec', 'quit', 'lobby'],
 						'rules' => [
 								[
-										'allow' => true, // have access
+										'allow' => isset(Yii::$app->session['User']), // have access
 										'roles' => ['@'], // Connected
 								],
 								[
@@ -80,52 +80,55 @@ public function behaviors()
      * @return string
      */
     public function actionLobby(){
-    	// Continent
-    	$continents 		= new Continent();
-    	$continentsSQL		= $continents->findAllContinent(Yii::$app->session['Game']->getMapId(), 0);
-    	$continentsArray 	= $continents->findAllContinentToArray(Yii::$app->session['Game']->getMapId(), $continentsSQL);
-    	
-    	// Color
-    	$colors 		= new Color();
-    	$colorsSQL		= $colors->findAllColor(0);
-    	$colorsArray 	= $colors->findAllColorToArray($colorsSQL);
-    	
-    	// Users
-    	$gamePlayer 	= new GamePlayer();
-    	$usersArray		= $gamePlayer->findAllGamePlayerToListUserId(null, Yii::$app->session['Game']->getGameId());
-
-    	// Get url update
-    	$region_id = null;
-    	$statut = null;
-    	$color_id = null;
-    	if(array_key_exists('ui', Yii::$app->request->queryParams)){
-	    	if(array_key_exists('ri', Yii::$app->request->queryParams)){
-	    		if(!$gamePlayer->existRegionIdInGame(Yii::$app->request->queryParams['ri'], Yii::$app->session['Game']->getGameId(), Yii::$app->request->queryParams['ui']))
-	    			$region_id = Yii::$app->request->queryParams['ri'];
-	    		else
-	    			Yii::$app->session->setFlash('warning', 'Region already choosed.');
-	    	}elseif(array_key_exists('si', Yii::$app->request->queryParams)){
-	    		$statut = Yii::$app->request->queryParams['si'];
-	    	}elseif(array_key_exists('ci', Yii::$app->request->queryParams)){
-	    		if(!$gamePlayer->existColorIdInGame(Yii::$app->request->queryParams['ci'], Yii::$app->session['Game']->getGameId(), Yii::$app->request->queryParams['ui']))
-	    			$color_id = Yii::$app->request->queryParams['ci'];
-	    		else
-	    			Yii::$app->session->setFlash('warning', 'Color already choosed.');
-	    	}  	
-    	}
-    	$gamePlayer->UpdateGamePlayerById(Yii::$app->session['User']->getId(), Yii::$app->session['Game']->getGameId(), $region_id, $color_id, $statut);
-    	
-    	$searchModel = new GamePlayerSearch();
-        $dataProvider = $searchModel->search(['query' => Yii::$app->request->queryParams,]);
-        return $this->render('lobby', [
-            'searchModel'   => $searchModel,
-            'dataProvider'  => $dataProvider,
-        	'userList'		=> $usersArray,
-        	'colorList'		=> $colorsArray,
-        	'colorSQl'		=> $colorsSQL,
-        	'continentList'	=> $continentsArray,
-        	'continentSQl'	=> $continentsSQL,
-        ]);
+    	if(isset(Yii::$app->session['Game'])){
+	    	// Continent
+	    	$continents 		= new Continent();
+	    	$continentsSQL		= $continents->findAllContinent(Yii::$app->session['Game']->getMapId(), 0);
+	    	$continentsArray 	= $continents->findAllContinentToArray(Yii::$app->session['Game']->getMapId(), $continentsSQL);
+	    	
+	    	// Color
+	    	$colors 		= new Color();
+	    	$colorsSQL		= $colors->findAllColor(0);
+	    	$colorsArray 	= $colors->findAllColorToArray($colorsSQL);
+	    	
+	    	// Users
+	    	$gamePlayer 	= new GamePlayer();
+	    	$usersArray		= $gamePlayer->findAllGamePlayerToListUserId(null, Yii::$app->session['Game']->getGameId());
+	
+	    	// Get url update
+	    	$region_id = null;
+	    	$statut = null;
+	    	$color_id = null;
+	    	if(array_key_exists('ui', Yii::$app->request->queryParams)){
+		    	if(array_key_exists('ri', Yii::$app->request->queryParams)){
+		    		if(!$gamePlayer->existRegionIdInGame(Yii::$app->request->queryParams['ri'], Yii::$app->session['Game']->getGameId(), Yii::$app->request->queryParams['ui']))
+		    			$region_id = Yii::$app->request->queryParams['ri'];
+		    		else
+		    			Yii::$app->session->setFlash('warning', 'Region already choosed.');
+		    	}elseif(array_key_exists('si', Yii::$app->request->queryParams)){
+		    		$statut = Yii::$app->request->queryParams['si'];
+		    	}elseif(array_key_exists('ci', Yii::$app->request->queryParams)){
+		    		if(!$gamePlayer->existColorIdInGame(Yii::$app->request->queryParams['ci'], Yii::$app->session['Game']->getGameId(), Yii::$app->request->queryParams['ui']))
+		    			$color_id = Yii::$app->request->queryParams['ci'];
+		    		else
+		    			Yii::$app->session->setFlash('warning', 'Color already choosed.');
+		    	}  	
+	    	}
+	    	$gamePlayer->UpdateGamePlayerById(Yii::$app->session['User']->getId(), Yii::$app->session['Game']->getGameId(), $region_id, $color_id, $statut);
+	    	
+	    	$searchModel = new GamePlayerSearch();
+	        $dataProvider = $searchModel->search(['query' => Yii::$app->request->queryParams,]);
+	        return $this->render('lobby', [
+	            'searchModel'   => $searchModel,
+	            'dataProvider'  => $dataProvider,
+	        	'userList'		=> $usersArray,
+	        	'colorList'		=> $colorsArray,
+	        	'colorSQl'		=> $colorsSQL,
+	        	'continentList'	=> $continentsArray,
+	        	'continentSQl'	=> $continentsSQL,
+	        ]);
+    	}else
+    		return $this->actionIndex();
     }
     
     /**
@@ -171,13 +174,37 @@ public function behaviors()
      */
     public function actionJoin()
     {
-    	$urlparams = Yii::$app->request->queryParams;
-    	if(array_key_exists('gid', $urlparams))
-    		$model = new GameJoinForm((new Game())->getGameById($urlparams['gid']));
-    	if (isset($model) && $model->join()) {
-    		// all inputs are valid
-    		Yii::$app->session->setFlash('success', Yii::t('game', 'Success_Game_Join'));
-    		return $this->actionLobby();
+    	$urlparams = Yii::$app->request->queryParams;   		
+    	if (array_key_exists('gid', $urlparams)) {
+			// Game Data
+			$gameData = (new Game())->getGameById($urlparams['gid']);
+    			
+    		// Checks
+    		$game_player = new GamePlayer();
+
+    		// If already enter in this game
+    		if($game_player->findUserGameIdIfExited(Yii::$app->session['User']->getId(), $urlparams['gid']) != null){
+    			$game_player->updateEnterInGame(Yii::$app->session['User']->getId(), $urlparams['gid']);
+    			$game_player->userJoinGame($gameData, Yii::$app->session['User']->getId(), true);
+    			Yii::$app->session->setFlash('success', Yii::t('game', 'Success_Game_Join'));
+    			return $this->actionLobby();
+    		// If never joined in this game
+    		}else if($game_player->findUserGameId(Yii::$app->session['User']->getId()) == null){
+	    		// all inputs are valid
+	    		$model = new GameJoinForm($gameData);
+	    		
+	    		// Confirm
+	    		if($model->join())
+	    			Yii::$app->session->setFlash('success', Yii::t('game', 'Success_Game_Join'));
+	    		else
+	    			Yii::$app->session->setFlash('error', Yii::t('game', 'Success_Game_Join'));
+	    		return $this->actionLobby();
+	    	// In another game
+    		}else{
+    			Yii::$app->session->setFlash('error', Yii::t('game', 'Error_User_Already_In_Game'));
+    			return $this->actionIndex();
+    		}
+    		
     	}elseif(isset($model)){
     		// validation failed: $errors is an array containing error messages
     		Yii::$app->session->setFlash('error', Yii::t('game', 'Success_Game_Join'));

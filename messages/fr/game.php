@@ -52,6 +52,7 @@ return [
     'Error_Password_Incorrect' => 'Un mot de passe est nécessaire : mot de passe incorrect.',
     'Error_User_Already_In_Game' => 'Vous êtes déjà dans une autre partie !',
     'Error_Game_Full' => 'La partie est pleine.',
+	'Error_Game_Cant_Join' => 'Impossible de rejoindre la partie.',
     'Error_Game_Not_Exist' => "La partie n'existe plus.",
     'Error_Start_Multiple_Color' => "La partie n'a pas pu démarrer : Plusieurs joueurs ont la même couleur.",
     'Error_Start_Not_Ready' => "La partie n'a pas pu démarrer : les joueurs ne sont pas prêts.",

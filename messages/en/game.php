@@ -50,8 +50,9 @@ return [
 	/* Errors & success */	
 	'Error_Name_Already_Use' => 'Game name already used',
     'Error_Password_Incorrect' => 'A password is required : incorrect password.',
-    'Error_User_Already_In_Game' => 'You are already in an other game !',
+    'Error_User_Already_In_Game' => 'You are already playing in another game !',
     'Error_Game_Full' => 'The game is full.',
+	'Error_Game_Cant_Join' => 'Impossible to reach the game.',
     'Error_Game_Not_Exist' => "The game not exist anymore.",
     'Error_Start_Multiple_Color' => "The game can't start : Several players chose the same color.",
     'Error_Start_Not_Ready' => "The game can't start : Several players are not ready.",

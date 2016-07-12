@@ -67,13 +67,13 @@ class GamePlayer extends \yii\db\ActiveRecord
      * @param unknown $gameId
      * @return \app\classes\GameClass
      */
-    public static function userJoinGame($game, $userSpec=false){
+    public static function userJoinGame($game, $user_id, $userReq=false){
     	// set Session Var
     	Yii::$app->session['Game'] = $game;
     	
     	// Insert in BD
-    	if(!$userSpec)
-    		self::userInsertJoinGame($game->getGameId());
+    	if(!$userReq)
+    		self::userInsertJoinGame($game->getGameId(), $user_id);
     }
     
     /**
@@ -104,13 +104,13 @@ class GamePlayer extends \yii\db\ActiveRecord
      * @param unknown $gameId
      * @return \app\classes\GameClass
      */
-    public static function userInsertJoinGame($gameId){
+    public static function userInsertJoinGame($game_id, $user_id){
     	Yii::$app->db->createCommand()->insert("game_player",[
     			'game_player_region_id' => 1,
     			'game_player_difficulty_id' => 1,
     			'game_player_statut' => 0,
-    			'game_player_game_id' => $gameId,
-    			'game_player_user_id' => Yii::$app->session['User']->getId(),
+    			'game_player_game_id' => $game_id,
+    			'game_player_user_id' => $user_id,
     			'game_player_color_id' => 1,
     			'game_player_enter_time' => time(),
     	])->execute();
@@ -146,6 +146,24 @@ class GamePlayer extends \yii\db\ActiveRecord
     	return $users;
     }
     
+    /**
+     * 
+     * @param unknown $user_id
+     * @return \app\queries\GamePlayer|NULL
+     */
+    public static function findUserGameId($user_id){
+    	return self::find()->where(['game_player_user_id' => $user_id])->andWhere(['game_player_quit' => 0])->one();
+    }
+    
+    /**
+     * 
+     * @param unknown $user_id
+     * @param unknown $game_id
+     * @return \app\queries\GamePlayer|NULL
+     */
+    public static function findUserGameIdIfExited($user_id, $game_id){
+    	return self::find()->where(['game_player_user_id' => $user_id])->andWhere(['game_player_game_id' => $game_id])->one();
+    }
     
     /**
      * 
@@ -212,6 +230,16 @@ class GamePlayer extends \yii\db\ActiveRecord
     			Yii::$app->db->createCommand()->update('game_player', [$key => $value], ['game_player_user_id' => $user_id, 'game_player_game_id' => $game_id])->execute();
     	}
     	return null;
+    }
+    
+    /**
+     * 
+     * @param unknown $user_id
+     * @param unknown $game_id
+     * @return number
+     */
+    public static function updateEnterInGame($user_id, $game_id){
+    	return Yii::$app->db->createCommand()->update('game_player', ['game_player_quit' => 0], ['game_player_user_id' => $user_id, 'game_player_game_id' => $game_id])->execute();
     }
     
     
