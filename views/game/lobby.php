@@ -40,7 +40,7 @@ $this->registerJs(
     <!-- Game Owner -->
     <?php if (Yii::$app->session['User']->getId() == Yii::$app->session['Game']->getGameOwnerID()): ?>
     <td><?= Html::a(Yii::t('game_player', 'Button_Add_Bot')." <i class='fa fa-plus'></i>", ['/game/lobby'], ['class'=>'btn btn-info']); ?></td>
-    <td><?= Html::a(Yii::t('game_player', 'Button_Sart_Game')." <i class='fa fa-gamepad'></i>", ['/game/lobby'], ['class'=>'btn btn-warning']); ?></td>
+    <td><?= Html::a(Yii::t('game_player', 'Button_Sart_Game')." <i class='fa fa-gamepad'></i>", ['/game/start', 'gid' => Yii::$app->session['Game']->getGameId()], ['class'=>'btn btn-warning']); ?></td>
     <?php endif; ?>
     </tr></table></div>
     <br>

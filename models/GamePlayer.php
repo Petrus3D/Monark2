@@ -62,6 +62,36 @@ class GamePlayer extends \yii\db\ActiveRecord
         ];
     }
 
+
+    /**
+     * 
+     * @param unknown $gamePlayerData
+     * @return boolean
+     */
+    public static function checkPlayerColor($gamePlayerData){
+    	$colorArray = null; 
+    	foreach ($gamePlayerData as $key => $player){
+    		if($colorArray[$player['game_player_color_id']])
+    			return false;
+    		else
+    			$colorArray[$player['game_player_color_id']] = true;
+    	 }
+    	 return true;
+    }
+    
+    /**
+     *
+     * @param unknown $gamePlayerData
+     * @return boolean
+     */
+    public static function checkPlayerReady($gamePlayerData){
+    	foreach ($gamePlayerData as $key => $player){
+    		if($player['game_player_statut'] == 0)
+    			return false;
+    	}
+    	return true;
+    }
+    
     /**
      *
      * @param unknown $gameId

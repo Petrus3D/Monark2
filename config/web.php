@@ -13,7 +13,7 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'A&*|*zeaTlç#%ùA@njbÃ©#&Ã©"=)Ã (',
+            'cookieValidationKey' => 'azeaTlç#%ùA@njbÃ©#&Ã©=)Ã (',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -49,19 +49,12 @@ $config = [
                 ],
             ],
         ],
-        /*'view' => [
-             'theme' => [
-                 'pathMap' => [
-                    '@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
-                 ],
-             ],
-        ],*/
         'db' => require(__DIR__ . '/db.php'),
     ],
     'params' => $params,
 ];
-// YII_ENV_DEV
-if (false) {
+
+if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [

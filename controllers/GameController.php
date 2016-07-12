@@ -22,7 +22,7 @@ public function behaviors()
 		return [
 				'access' => [
 						'class' => AccessControl::className(),
-						'only' => ['index', 'join', 'create', 'spec', 'quit', 'lobby'],
+						'only' => ['index', 'join', 'create', 'spec', 'quit', 'lobby', 'start'],
 						'rules' => [
 								[
 										'allow' => isset(Yii::$app->session['User']), // have access
@@ -178,33 +178,35 @@ public function behaviors()
     	if (array_key_exists('gid', $urlparams)) {
 			// Game Data
 			$gameData = (new Game())->getGameById($urlparams['gid']);
-    			
-    		// Checks
-    		$game_player = new GamePlayer();
-
-    		// If already enter in this game
-    		if($game_player->findUserGameIdIfExited(Yii::$app->session['User']->getId(), $urlparams['gid']) != null){
-    			$game_player->updateEnterInGame(Yii::$app->session['User']->getId(), $urlparams['gid']);
-    			$game_player->userJoinGame($gameData, Yii::$app->session['User']->getId(), true);
-    			Yii::$app->session->setFlash('success', Yii::t('game', 'Success_Game_Join'));
-    			return $this->actionLobby();
-    		// If never joined in this game
-    		}else if($game_player->findUserGameId(Yii::$app->session['User']->getId()) == null){
-	    		// all inputs are valid
-	    		$model = new GameJoinForm($gameData);
-	    		
-	    		// Confirm
-	    		if($model->join())
-	    			Yii::$app->session->setFlash('success', Yii::t('game', 'Success_Game_Join'));
-	    		else
-	    			Yii::$app->session->setFlash('error', Yii::t('game', 'Success_Game_Join'));
-	    		return $this->actionLobby();
-	    	// In another game
-    		}else{
-    			Yii::$app->session->setFlash('error', Yii::t('game', 'Error_User_Already_In_Game'));
-    			return $this->actionIndex();
-    		}
     		
+			if($gameData != null){
+				// Checks
+				$game_player = new GamePlayer();
+				
+				// If already enter in this game
+				if($game_player->findUserGameIdIfExited(Yii::$app->session['User']->getId(), $urlparams['gid']) != null){
+					$game_player->updateEnterInGame(Yii::$app->session['User']->getId(), $urlparams['gid']);
+					$game_player->userJoinGame($gameData, Yii::$app->session['User']->getId(), true);
+					Yii::$app->session->setFlash('success', Yii::t('game', 'Success_Game_Join'));
+					return $this->actionLobby();
+					// If never joined in this game
+				}else if($game_player->findUserGameId(Yii::$app->session['User']->getId()) == null){
+					// all inputs are valid
+					$model = new GameJoinForm($gameData);
+					 
+					// Confirm
+					if($model->join())
+						Yii::$app->session->setFlash('success', Yii::t('game', 'Success_Game_Join'));
+						else
+							Yii::$app->session->setFlash('error', Yii::t('game', 'Success_Game_Join'));
+							return $this->actionLobby();
+							// In another game
+				}else{
+					Yii::$app->session->setFlash('error', Yii::t('game', 'Error_User_Already_In_Game'));
+					return $this->actionIndex();
+				}
+			}else 
+				return $this->actionIndex();
     	}elseif(isset($model)){
     		// validation failed: $errors is an array containing error messages
     		Yii::$app->session->setFlash('error', Yii::t('game', 'Success_Game_Join'));
@@ -234,6 +236,39 @@ public function behaviors()
     			return $this->actionIndex();
     		}else
     			return $this->actionIndex();
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function actionStart(){
+    	$urlparams = Yii::$app->request->queryParams;
+    	if (array_key_exists('gid', $urlparams)) {
+    	
+	    	// Game Data
+	    	$gameData = (new Game())->getGameById($urlparams['gid']);
+	    	
+	    	if($gameData != null){
+	    		// Checks
+	    		$game_player = new GamePlayer();
+	    		
+	    		// check colors
+	    		if($game_player->checkPlayerColor($gameData)){
+	    			// Check ready
+	    			if($game_player->checkPlayerReady($gameData)){
+	    				//(new Game())->gameStart($urlparams['gid']);
+	    				Yii::$app->session->setFlash('success', Yii::t('game', 'Error_Start_Not_Ready'));
+	    				return $this->actionLobby();
+	    			}else
+	    				Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Not_Ready'));
+	    		}else
+	    			Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Multiple_Color'));
+	    	}else 
+	    		Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Stop'));
+    	}
+    	Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Stop'));
+    	return $this->actionLobby();
     }
 
 }
