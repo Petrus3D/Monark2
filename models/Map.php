@@ -60,6 +60,15 @@ class Map extends \yii\db\ActiveRecord
     }
 
     /**
+     * 
+     * @param unknown $map_id
+     * @return \app\models\Map|NULL
+     */
+    public static function findMapById($map_id){
+    	return self::find()->where(['map_id' => $map_id])->one();
+    }
+    
+    /**
      * @inheritdoc
      * @return \app\queries\MapQuery the active query used by this AR class.
      */

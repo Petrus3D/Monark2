@@ -51,7 +51,45 @@ class Ressource extends \yii\db\ActiveRecord
             'ressource_description' => 'Ressource Description',
         ];
     }
-
+ 
+    /**
+     * 
+     * @return \app\models\Ressource[]
+     */
+    public static function findAllRessources(){
+    	return self::find()->all();
+    }
+    
+    /**
+     * 
+     * @param unknown $lands_count
+     * @return number[]|unknown[]|\app\models\Ressource[]
+     */
+    public static function assignRessourcesToArray($landData, $ressourceData)
+    {
+    	$assignedRessourcesArray = array();
+    
+    	foreach ($landData as $land){
+    		// 100%
+    		$ressourceId = rand(1, 100);
+    		$land->getLandId();
+    		$assignedRessourcesArray[$i] = 0;
+    		foreach ($ressourcesList as $key => $res) {
+    			if($ressourceId <= $res['ressource_freq']){
+    				if($array_assgin_ressources[$i] != 0){
+    					if($res['ressource_freq'] <= $ressourcesList[$array_assgin_ressources[$i]]['ressource_freq']){
+    						$assignedRessourcesArray[$i] = $res['ressource_id'];
+    					}
+    				}else{
+    					$assignedRessourcesArray[$i] = $res['ressource_id'];
+    				}
+    			}
+    		}
+    	}
+    
+    	return $assignedRessourcesArray;
+    }
+    
     /**
      * @inheritdoc
      * @return \app\queries\RessourceQuery the active query used by this AR class.

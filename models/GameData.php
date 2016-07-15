@@ -59,6 +59,56 @@ class GameData extends \yii\db\ActiveRecord
     }
 
     /**
+     * 
+     * @param unknown $assignedLands
+     * @param unknown $assignedRessources
+     */
+    public static function createGameData($assignedLands, $assignedRessources){
+    	/*$i = 0;
+    	 foreach ($landList as $key => $land) {
+    	 if(!in_array($land['id'], $land_used)){
+    	 $assignLand = array(
+    	 'game_id'       => $gameid,
+    	 'user_id'       => 0,
+    	 'user_id_base'  => 0,
+    	 'land_id'       => $land['id'],
+    	 'units'         => $land['base_units'],
+    	 'capital'       => 0,
+    	 'ressource_id'  => $array_assign_ressources[$i],
+    	 'buildings'     => '0',
+    	 );
+    	 }else{
+    	 $i = array_search($land['id'], $land_used);
+    	 $assignLand = array(
+    	 'game_id'       => $gameid,
+    	 'user_id'       => $land_used_user[$i]['user_id'],
+    	 'user_id_base'  => $land_used_user[$i]['user_id'],
+    	 'land_id'       => $land['id'],
+    	 'units'         => $land['base_units'] + $default_units_user_add,
+    	 'capital'       => $land_used_user[$i]['user_id'],
+    	 'ressource_id'  => $array_assign_ressources[$i],
+    	 'buildings'     => '1;',
+    	 );
+    	 }
+    	 array_push($newGame, $assignLand);
+    	 $i++;
+    	 }
+    	
+    	 foreach ($newGame as $key => $gamedata) {
+    	 Yii::$app->db->createCommand()->insert("game_data", [
+    	 'game_id'       => $gamedata['game_id'],
+    	 'user_id'       => $gamedata['user_id'],
+    	 'user_id_base'  => $gamedata['user_id_base'],
+    	 'land_id'       => $gamedata['land_id'],
+    	 'units'         => $gamedata['units'],
+    	 'capital'       => $gamedata['capital'],
+    	 'ressource_id'  => $gamedata['ressource_id'],
+    	 'buildings'     => $gamedata['buildings'],
+    	 ])->execute();
+    	 }*/
+    }
+    
+    /**
      * @inheritdoc
      * @return GameDataQuery the active query used by this AR class.
      */

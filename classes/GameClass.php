@@ -20,7 +20,6 @@ class GameClass{
 	private $gameCreateTime;
 	private $gameStatut;
 	private $gameMapId;
-	private $gameMapCont;
 	private $gameModId;
 	private $gameTurnTime;
 	private $gameDifficultyId;
@@ -41,7 +40,6 @@ class GameClass{
 		$this->gameCreateTime 	= $gameData['game_create_time'];
 		$this->gameStatut 		= $gameData['game_statut'];
 		$this->gameMapId 		= $gameData['game_map_id'];
-		$this->gameMapCont 		= $gameData['game_map_cont'];
 		$this->gameModId 		= $gameData['game_mod_id'];
 		$this->gameTurnTime 	= $gameData['game_turn_time'];
 		$this->gameDifficultyId = $gameData['game_difficulty_id'];

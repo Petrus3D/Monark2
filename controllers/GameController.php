@@ -15,6 +15,10 @@ use app\models\Game;
 use app\models\GamePlayer;
 use app\models\Color;
 use app\models\Continent;
+use app\models\Land;
+use app\models\Ressource;
+use app\models\GameData;
+use app\models\Map;
 
 class GameController extends \yii\web\Controller
 {
@@ -265,9 +269,19 @@ public function behaviors()
     	$urlparams = Yii::$app->request->queryParams;
     	if (array_key_exists('gid', $urlparams)) {
     	
-	    	// Game Data
-    		$game_player = new GamePlayer();
-	    	$gamePlayerData = $game_player->findAllGamePlayer($urlparams['gid']);
+	    	// Initialization
+    		$game_player 	= new GamePlayer();
+    		$game_current 	= (new Game())->getGameById($urlparams['gid']);
+    		$land		 	= new Land();
+    		$res		 	= new Ressource();
+    		$game_data		= new GameData();
+    		$continentData	= (new Continent())->findAllContinent($game_current->getMapId());
+    		$mapData		= (new Map())->findMapById($game_current->getMapId());
+    		
+    		// Datas
+    		$ressourceData 	= $res->findAllRessources();
+    		$landData		= $land->findAllLands($game_current->getMapId());
+	    	$gamePlayerData = $game_player->findAllGamePlayer($game_current->getGameId());
 	    	
 	    	// Checks
 	    	if($gamePlayerData != null){
@@ -275,7 +289,22 @@ public function behaviors()
 	    		if($game_player->checkPlayerColor($gamePlayerData)){
 	    			// Check ready
 	    			if($game_player->checkPlayerReady($gamePlayerData)){ 
-	    				(new Game())->gameStart($urlparams['gid']);
+	    				// Assign Lands
+	    				$assignedLands 		= $land->assignLandsToArray($gamePlayerData, $game_current, $continentData, $mapData);
+
+	    				// Assign Ressources
+	    				$assignedRessources = $res->assignRessourcesToArray($landData, $ressourceData);
+	    				
+	    				// Create Game Data
+	    				//$game_data->createGameData($assignedLands, $assignedRessources);
+	    				
+				    	// Create turn order
+				    	
+				    	// Create 1rst turn
+				    	
+				    	// Update Game statut
+				    	//$game_current->updateGameStatut($urlparams['gid'], 50);
+
 	    				return $this->render('start');
 	    			}else
 	    				Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Not_Ready'));

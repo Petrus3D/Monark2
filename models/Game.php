@@ -19,7 +19,6 @@ use app\models\GamePlayer;
   public $game_create_time
   public $game_statut
   public $game_map_id
-  public $game_map_cont
   public $game_mod_id
   public $game_turn_time
   public $game_difficulty_id
@@ -45,8 +44,8 @@ class Game extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['game_name', 'game_owner_id', 'game_max_player', 'game_create_time', 'game_statut', 'game_map_id', 'game_map_cont', 'game_mod_id', 'game_turn_time', 'game_difficulty_id', 'game_won_user_id', 'game_won_time', 'game_pwd', 'game_key'], 'required'],
-            [['game_owner_id', 'game_max_player', 'game_create_time', 'game_statut', 'game_map_id', 'game_map_cont', 'game_mod_id', 'game_turn_time', 'game_difficulty_id', 'game_won_user_id', 'game_won_time'], 'integer'],
+            [['game_name', 'game_owner_id', 'game_max_player', 'game_create_time', 'game_statut', 'game_map_id', 'game_mod_id', 'game_turn_time', 'game_difficulty_id', 'game_won_user_id', 'game_won_time', 'game_pwd', 'game_key'], 'required'],
+            [['game_owner_id', 'game_max_player', 'game_create_time', 'game_statut', 'game_map_id', 'game_mod_id', 'game_turn_time', 'game_difficulty_id', 'game_won_user_id', 'game_won_time'], 'integer'],
             [['game_name', 'game_key'], 'string', 'max' => 256],
             [['game_pwd'], 'string', 'max' => 512]
         ];
@@ -65,7 +64,6 @@ class Game extends \yii\db\ActiveRecord
             'game_create_time' => 'Game Create Time',
             'game_statut' => 'Game Statut',
             'game_map_id' => 'Game Map ID',
-            'game_map_cont' => 'Game Map Cont',
             'game_mod_id' => 'Game Mod ID',
             'game_turn_time' => 'Game Turn Time',
             'game_difficulty_id' => 'Game Difficulty ID',
@@ -130,21 +128,6 @@ class Game extends \yii\db\ActiveRecord
      */
     public static function getGameCountPlayer($game_Id){
     	return (new GamePlayer())->gameCountPlayer($game_Id);
-    }
-    
-   /**
-    * 
-    * @param unknown $game_id
-    */
-    public static function gameStart($game_id){
-       	// Assign Lands
-    	
-    	// Create turn order
-    	
-    	// Create 1rst turn
-    	
-    	// Update Game statut
-    	self::updateGameStatut($game_id, 50);
     }
     
     /**

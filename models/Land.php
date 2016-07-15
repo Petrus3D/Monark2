@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\classes\LandClass;
 
 /**
  * This is the model class for table "land".
@@ -60,6 +61,58 @@ class Land extends \yii\db\ActiveRecord
         ];
     }
 
+	/**
+	 * 
+	 * @param unknown $map_id
+	 * @return \app\models\Land[]
+	 */
+    public static function findAllLands($map_id){
+    	$returned = array();
+    	foreach (self::find()->where(['land_map_id' => $map_id])->all() as $land){
+    		$returned[$land['land_id']] = new LandClass($land);
+    	}
+    	return $returned;
+    }
+    
+    /**
+     * 
+     * @param unknown $gameid
+     * @param unknown $map_id
+     */
+    public static function assignLandsToArray($usersData, $gameData, $continentData, $mapData){
+    	$assignedLand           = array();
+    	$default_units_user_add = 1;
+    	
+    	foreach ($usersData as $user) {
+    		$landId = 0;
+
+    		// While land not occuped
+    		do{
+    			// If map has continent
+    			if($mapData['map_continent'] == 1){
+    				// Random antarctic continent
+    				$antarcticRand 	= rand(1, 10);
+    				$antarcticId	= 6;
+    				
+    				// 1/10 to go in antarctic
+    				if ($antarcticRand < 10) {
+    					//game_player_region_id
+    					$landId = rand($continentData[$user['game_player_region_id']]['continent_land_id_begin'], $continentData[$user['game_player_region_id']]['continent_land_id_end']);
+    				}else{
+    					$landId = rand($continentData[$antarcticId]['continent_land_id_begin'], $continentData[$antarcticId]['continent_land_id_end']);
+    				}
+    			}else{
+    				$landId = rand($mapData['continent_land_id_begin'], $mapData['continent_land_id_end']);
+    			}
+    		}while(array_key_exists($landId, $assignedLand));
+    
+    		// Add to array
+    		$assignedLand[$landId] = $user;
+    	}
+    	
+    	return $assignedLand;
+    }
+    
     /**
      * @inheritdoc
      * @return \app\queries\LandQuery the active query used by this AR class.
