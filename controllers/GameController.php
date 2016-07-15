@@ -298,10 +298,11 @@ public function behaviors()
      */
     public function actionStart(){
     	// The game as started
-    	if($this->checkStarted(Yii::$app->session['Game']->getGameId())){
+    	$started = $this->checkStarted(Yii::$app->session['Game']->getGameId());
+    	if($started){
     		
     		// if the owner push the start button
-    		if($this->checkOwner()){
+    		if($this->checkOwner() && !$started){
 		    	$urlparams = Yii::$app->request->queryParams;
 		    	if (array_key_exists('gid', $urlparams)) {
 		    	

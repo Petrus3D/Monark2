@@ -70,9 +70,9 @@ $this->title = Yii::t('game', 'Title_Loby');
             			return "<center><div class='btn btn-danger'>".Yii::t('game', 'Button_Game_Ban')."</div></center>";
             		}*/
             	}elseif($model->game_statut >= 25){
-            		return "<center>".Html::a(Yii::t('game', 'Button_Game_Return'), ['/game/join', 'gid' => $model->id], ['class'=>'btn btn-success'])."</center>";
+            		return "<center>".Html::a(Yii::t('game', 'Button_Game_Return'), ['/game/join', 'gid' => $model->game_id], ['class'=>'btn btn-success'])."</center>";
             	}elseif($model->game_statut >= 25){
-            		return "<center>".Html::a(Yii::t('game', 'Button_Game_Spec'), ['/game/spec', 'gid' => $model->id], ['class'=>'btn btn-primary'])."</center>";
+            		return "<center>".Html::a(Yii::t('game', 'Button_Game_Spec'), ['/game/spec', 'gid' => $model->game_id], ['class'=>'btn btn-primary'])."</center>";
             	}elseif($model->game_statut > 99){
             		return "<center>".Yii::t('game', 'Button_Game_End')."</center>";
             	}

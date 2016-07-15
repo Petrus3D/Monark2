@@ -19,7 +19,7 @@ class GameSearch extends Game
     public function rules()
     {
         return [
-            [['game_id', 'game_owner_id', 'game_max_player', 'game_create_time', 'game_statut', 'game_map_id', 'game_map_cont', 'game_mod_id', 'game_turn_time', 'game_difficulty_id', 'game_won_user_id', 'game_won_time'], 'integer'],
+            [['game_id', 'game_owner_id', 'game_max_player', 'game_create_time', 'game_statut', 'game_map_id', 'game_mod_id', 'game_turn_time', 'game_difficulty_id', 'game_won_user_id', 'game_won_time'], 'integer'],
             [['game_name', 'game_pwd', 'game_key'], 'safe'],
         ];
     }
@@ -71,7 +71,6 @@ class GameSearch extends Game
             'game_create_time' => $this->game_create_time,
             'game_statut' => $this->game_statut,
             'game_map_id' => $this->game_map_id,
-            'game_map_cont' => $this->game_map_cont,
             'game_mod_id' => $this->game_mod_id,
             'game_turn_time' => $this->game_turn_time,
             'game_difficulty_id' => $this->game_difficulty_id,
