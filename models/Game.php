@@ -132,6 +132,21 @@ class Game extends \yii\db\ActiveRecord
     	return (new GamePlayer())->gameCountPlayer($game_Id);
     }
     
+   /**
+    * 
+    * @param unknown $game_id
+    */
+    public static function gameStart($game_id){
+       	// Assign Lands
+    	
+    	// Create turn order
+    	
+    	// Create 1rst turn
+    	
+    	// Update Game statut
+    	self::updateGameStatut($game_id, 50);
+    }
+    
     /**
      * 
      * @param String $game_name
@@ -155,6 +170,16 @@ class Game extends \yii\db\ActiveRecord
     			'game_won_time' => 0,
     			'game_key' => 0,
     	])->execute();
+    }
+    
+    /**
+     * 
+     * @param unknown $game_id
+     * @param unknown $statut
+     * @return number
+     */
+    public static function updateGameStatut($game_id, $statut){
+    	return Yii::$app->db->createCommand()->update('game', ['game_statut' => $statut], ['game_id' => $game_id])->execute();
     }
     
     /**

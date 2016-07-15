@@ -21,7 +21,7 @@ return [
 	'Title_Lobby_{params}' => 'Partie de {params}',
 
     /* Text*/
-    'Continent_Rules' => '* Information * : Vous avez 1 chance sur 5 de vous retrouver en Antarctique à la place du continent choisit !',
+    'Continent_Rules' => '* Information * : Vous avez 1 chance sur 5 de vous retrouver en Antarctique Ã  la place du continent choisit !',
 	'Text_Wait_Owner' => 'Partie en attente du propriétaire...',
 	'Text_Owner' => 'Propriétaire de la partie',
     'Bot_Name_{id}' => 'Ordi {id}',

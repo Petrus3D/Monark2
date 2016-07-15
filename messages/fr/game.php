@@ -18,7 +18,7 @@
  */
 return [
 	/* Title */
-	'Title_Create' => 'CrÃ©er votre partie',
+	'Title_Create' => 'Créer votre partie',
     'Title_Loby' => 'Liste des salons de parties',
     'Title_Join' => 'Rejoindre une partie',
     'Title_Loading' => 'Chargement...',
@@ -31,9 +31,9 @@ return [
 	'Tab_Rejoin' => "Rejoindre",
 
     /* Text*/
-    'Creation_Rules' => 'Veuillez completer le formulaire pour crÃ©er votre partie :',
+    'Creation_Rules' => 'Veuillez completer le formulaire pour créer votre partie :',
     'Join_Rules' => 'Veuillez entrer le mot de passe de la partie :',
-    'Chat_General' => 'Chat gÃ©nÃ©ral',
+    'Chat_General' => 'Chat général',
 	'Text_Second_{nb}' => 'il y a {nb} sec',
 	'Text_Min_{nb}' => 'Il y a {nb} min',
 	'Text_Hour_{nb}' => 'Il y a {nb} h',
@@ -48,38 +48,38 @@ return [
 	'Text_Load_Step_4' => 'Finalisation',
 		
 	/* Errors & success */
-    'Error_Name_Already_Use' => 'Nom de partie dÃ©jÃ  utilisÃ©',
-    'Error_Password_Incorrect' => 'Un mot de passe est nÃ©cessaire : mot de passe incorrect.',
-    'Error_User_Already_In_Game' => 'Vous Ãªtes dÃ©jÃ  dans une autre partie !',
+    'Error_Name_Already_Use' => 'Nom de partie déjÃ  utilisé',
+    'Error_Password_Incorrect' => 'Un mot de passe est nécessaire : mot de passe incorrect.',
+    'Error_User_Already_In_Game' => 'Vous êtes déjÃ  dans une autre partie !',
     'Error_Game_Full' => 'La partie est pleine.',
 	'Error_Game_Cant_Join' => 'Impossible de rejoindre la partie.',
     'Error_Game_Not_Exist' => "La partie n'existe plus.",
-    'Error_Start_Multiple_Color' => "La partie n'a pas pu dÃ©marrer : Plusieurs joueurs ont la mÃªme couleur.",
-    'Error_Start_Not_Ready' => "La partie n'a pas pu dÃ©marrer : les joueurs ne sont pas prÃªts.",
-    'Error_Start_Stop' => "La partie n'a pas pu dÃ©marrer.",
+    'Error_Start_Multiple_Color' => "La partie n'a pas pu démarrer : Plusieurs joueurs ont la même couleur.",
+    'Error_Start_Not_Ready' => "La partie n'a pas pu démarrer : les joueurs ne sont pas prêts.",
+    'Error_Start_Stop' => "La partie n'a pas pu démarrer.",
 	'Error_Max_Player_Nb' => "Le nombre de joueur maximum est 10.",
-    'Success_User_Left_Game' => 'Vous avez quittÃ© la partie.',
+    'Success_User_Left_Game' => 'Vous avez quitté la partie.',
     'Success_User_Enter_Game_{params}' => 'Vous avez rejoint la partie : {params}.',
-	'Success_Game_Created' => 'Partie crÃ©e.',
+	'Success_Game_Created' => 'Partie crée.',
 	'Success_Game_Join' => 'Partie rejoint.',
-	'Notice_Game_Quit' => 'Partie quittÃ©e.',
+	'Notice_Game_Quit' => 'Partie quittée.',
 		
     /* Buttons */ 
     'Button_Send' => 'Envoyer',
-    'Button_Game_Create' => 'CrÃ©er une partie',
+    'Button_Game_Create' => 'Créer une partie',
     'Button_Game_Enter' => 'Entrer dans la partie',
     'Button_Game_Return' => 'Retourner dans la partie',
     'Button_Game_Spec' => 'Regarder la partie',
-    'Button_Game_Ban' => 'Vous avez Ã©tÃ© bannis',
-    'Button_Game_End' => 'Partie terminÃ©e',
+    'Button_Game_Ban' => 'Vous avez été bannis',
+    'Button_Game_End' => 'Partie terminée',
 
     /* Form */
     'Form_Create_Name' => 'Nom de la partie',
-    'Form_Create_Time' => 'CrÃ©ation',
+    'Form_Create_Time' => 'Création',
     'Form_Create_Pwd' => 'Mot de passe',
     'Form_Create_Max_Player' => 'Nombre de joueurs',
     'Form_Create_Mod_Id' => 'Mode de jeu',
-    'Form_Create_Difficulty_Id' => 'DifficultÃ©',
+    'Form_Create_Difficulty_Id' => 'Difficulté',
     'Form_Create_Map_Id' => 'Carte',
     'Form_Create_Owner' => 'HÃ´te de la partie',
     'Form_Join_Pwd' => 'Mot de passe',

@@ -36,8 +36,7 @@ $this->registerJs(
     <div style="margin: 0 auto;"><table style="border-spacing: 4px;border-collapse: separate;"><tr>
     <!-- Classic -->
     <td><?= Html::a(Yii::t('game_player', 'Button_Add_Friend')." <i class='fa fa-group'></i>", ['/game/lobby'], ['class'=>'btn btn-primary']); ?></td>
-    <td><?= Html::a(Yii::t('game_player', 'Button_Rdy')." <i class='fa fa-check'></i>", ['/game/lobby'], ['class'=>'btn btn-success']); ?></td>
-    <!-- Game Owner -->
+   	<!-- Game Owner -->
     <?php if (Yii::$app->session['User']->getId() == Yii::$app->session['Game']->getGameOwnerID()): ?>
     <td><?= Html::a(Yii::t('game_player', 'Button_Add_Bot')." <i class='fa fa-plus'></i>", ['/game/lobby'], ['class'=>'btn btn-info']); ?></td>
     <td><?= Html::a(Yii::t('game_player', 'Button_Sart_Game')." <i class='fa fa-gamepad'></i>", ['/game/start', 'gid' => Yii::$app->session['Game']->getGameId()], ['class'=>'btn btn-warning']); ?></td>
@@ -60,6 +59,8 @@ $this->registerJs(
                 'attribute' => Yii::t('game_player', 'Tab_User_Name'),
                 'value'     => function ($model, $key, $index, $column) use ($userList, $colorList) {
                 	$returned = '<font size="4" color="'.$colorList[$model->game_player_color_id]->getColorFontChat().'">'.$userList[$model->game_player_user_id]->getUserName().'</font>  ';
+                	
+                	// If admin
                 	if(Yii::$app->session['User']->getId() == Yii::$app->session['Game']->getGameOwnerID() && Yii::$app->session['User']->getId() != $model->game_player_user_id)
             			return $returned
     							.Html::a(" <i class='fa fa-sign-out'></i>", ['/game/lobby'], ['class'=>'btn btn-xs btn-danger']);
@@ -113,6 +114,25 @@ $this->registerJs(
 	           		else
 	           			return '<font size="4" color="'.$colorList[$model->game_player_color_id]->getColorFontChat().'">'.$continentList[$model->game_player_region_id]->getContinentName().'</font>';
 	            },
+            ],
+            [
+            'filter' => false,
+            'format'    => 'raw',
+            'attribute' => "",
+            'value'     => function ($model, $key, $index, $column){
+            	// If ready
+            	if($model->game_player_user_id == Yii::$app->session['User']->getId())
+            		if($model->game_player_statut == 0)
+            			$returned = Html::a(Yii::t('game_player', 'Button_Not_Ready')." <i class='fa fa-check'></i>", ['/game/lobby', 'ui' => $model->game_player_user_id, 'si' => 1], ['class'=>'btn btn-danger']);
+            		else
+            			$returned = Html::a(Yii::t('game_player', 'Button_Rdy')." <i class='fa fa-check'></i>", ['/game/lobby', 'ui' => $model->game_player_user_id, 'si' => 0], ['class'=>'btn btn-success']);
+            	else
+            		if($model->game_player_statut == 0)
+            			$returned = "<img src='img/site/no.png' width='20px' height='20px'>";
+            		else
+            			$returned = "<img src='img/site/ready.png' width='20px' height='20px'>";
+            	return $returned;
+            },
             ],
         ],
     ]); ?>
