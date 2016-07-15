@@ -65,6 +65,10 @@ class GameClass{
 		return $this->gameOwnerID;
 	}
 	
+	public function getGamePlayerMax(){
+		return $this->gameMaxPlayer;
+	}
+	
 	public function getGameKey(){
 		return $this->gameKey;
 	}

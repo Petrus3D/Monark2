@@ -12,6 +12,11 @@ use app\models\GamePlayer;
  */
 class GamePlayerSearch extends GamePlayer
 {
+	
+	public function __construct($game_id){
+		$this->game_player_game_id = $game_id;
+	}
+	
     /**
      * @inheritdoc
      */

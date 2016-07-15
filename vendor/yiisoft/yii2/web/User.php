@@ -343,7 +343,7 @@ class User extends Component
      */
     public function getIsGuest()
     {
-        return $this->getIdentity() === null;
+        return $this->getIdentity() === null || Yii::$app->session['User'] === null;
     }
 
     /**

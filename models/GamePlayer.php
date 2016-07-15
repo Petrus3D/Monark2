@@ -170,9 +170,10 @@ class GamePlayer extends \yii\db\ActiveRecord
     		$i++;
     	}
     	$users = null;
-    	foreach ((new Users)->getListUserByListUserId($array) as $key => $user){
-    		$users[$user['user_id']] = new UserClass($user);
-    	}
+    	if($array != null)
+	    	foreach ((new Users)->getListUserByListUserId($array) as $key => $user){
+	    		$users[$user['user_id']] = new UserClass($user);
+	    	}
     	return $users;
     }
     

@@ -51,7 +51,7 @@ $this->title = Yii::t('game', 'Title_Loby');
 		            }elseif(time() - $model->game_create_time <= 60*60*24*7){
 		            	return Yii::t('game', 'Text_Week');
 		            }else{
-		            	return time().date(Yii::t('game', 'Text_Date'), $model->game_create_time);
+		            	return date(Yii::t('game', 'Text_Date'), $model->game_create_time);
 		            }
 	            },
             ],
