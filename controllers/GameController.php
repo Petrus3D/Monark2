@@ -68,6 +68,34 @@ public function behaviors()
 	
 	/**
 	 * 
+	 * @return boolean
+	 */
+	public function checkOwner()
+	{
+		if(Yii::$app->session['Game']->getGameOwnerID() == Yii::$app->session['User']->getId())
+			return true;
+		else{
+			//Yii::t('game', 'Error_Not_Owner');
+			return false;
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * @param unknown $game_id
+	 * @return boolean
+	 */
+	public function checkStarted($game_id)
+	{
+		if((new Game)->getGameById($game_id)->getGameStatut() >= 50)
+			return true;
+		else
+			return false;
+	}
+	
+	/**
+	 * 
 	 * @return string
 	 */
     public function actionIndex()
@@ -115,35 +143,38 @@ public function behaviors()
      */
     public function actionLobby(){
     	if(isset(Yii::$app->session['Game'])){
-	    	// Continent
-	    	$continents 		= new Continent();
-	    	$continentsSQL		= $continents->findAllContinent(Yii::$app->session['Game']->getMapId(), 0);
-	    	$continentsArray 	= $continents->findAllContinentToArray(Yii::$app->session['Game']->getMapId(), $continentsSQL);
+    		if(!$this->checkStarted(Yii::$app->session['Game']->getGameId())){
+		    	// Continent
+		    	$continents 		= new Continent();
+		    	$continentsSQL		= $continents->findAllContinent(Yii::$app->session['Game']->getMapId(), 0);
+		    	$continentsArray 	= $continents->findAllContinentToArray(Yii::$app->session['Game']->getMapId(), $continentsSQL);
+		    	
+		    	// Color
+		    	$colors 			= new Color();
+		    	$colorsSQL			= $colors->findAllColor(0);
+		    	$colorsArray 		= $colors->findAllColorToArray($colorsSQL);
 	    	
-	    	// Color
-	    	$colors 			= new Color();
-	    	$colorsSQL			= $colors->findAllColor(0);
-	    	$colorsArray 		= $colors->findAllColorToArray($colorsSQL);
-    	
-	    	// Users
-	    	$gamePlayer 		= new GamePlayer();
-	    	$usersArray			= $gamePlayer->findAllGamePlayerToListUserId(null, Yii::$app->session['Game']->getGameId());
-	    	
-	    	// Update data
-	    	if(array_key_exists('ui', Yii::$app->request->queryParams))
-	    		$this->updateUserLobby();
-	    	
-	    	$searchModel = new GamePlayerSearch(Yii::$app->session['Game']->getGameId());
-	        $dataProvider = $searchModel->search(['query' => Yii::$app->request->queryParams,]);
-	        return $this->render('lobby', [
-	            'searchModel'   => $searchModel,
-	            'dataProvider'  => $dataProvider,
-	        	'userList'		=> $usersArray,
-	        	'colorList'		=> $colorsArray,
-	        	'colorSQl'		=> $colorsSQL,
-	        	'continentList'	=> $continentsArray,
-	        	'continentSQl'	=> $continentsSQL,
-	        ]);
+		    	// Users
+		    	$gamePlayer 		= new GamePlayer();
+		    	$usersArray			= $gamePlayer->findAllGamePlayerToListUserId(null, Yii::$app->session['Game']->getGameId());
+		    	
+		    	// Update data
+		    	if(array_key_exists('ui', Yii::$app->request->queryParams))
+		    		$this->updateUserLobby();
+		    	
+		    	$searchModel = new GamePlayerSearch(Yii::$app->session['Game']->getGameId());
+		        $dataProvider = $searchModel->search(['query' => Yii::$app->request->queryParams,]);
+		        return $this->render('lobby', [
+		            'searchModel'   => $searchModel,
+		            'dataProvider'  => $dataProvider,
+		        	'userList'		=> $usersArray,
+		        	'colorList'		=> $colorsArray,
+		        	'colorSQl'		=> $colorsSQL,
+		        	'continentList'	=> $continentsArray,
+		        	'continentSQl'	=> $continentsSQL,
+		        ]);
+    		}else
+    			return $this->actionStart();
     	}else
     		return $this->actionIndex();
     }
@@ -266,56 +297,65 @@ public function behaviors()
      * @return string
      */
     public function actionStart(){
-    	$urlparams = Yii::$app->request->queryParams;
-    	if (array_key_exists('gid', $urlparams)) {
-    	
-	    	// Initialization
-    		$game_player 	= new GamePlayer();
-    		$game_current 	= (new Game())->getGameById($urlparams['gid']);
-    		$land		 	= new Land();
-    		$res		 	= new Ressource();
-    		$game_data		= new GameData();
-    		$continentData	= (new Continent())->findAllContinent($game_current->getMapId());
-    		$mapData		= (new Map())->findMapById($game_current->getMapId());
+    	// The game as started
+    	if($this->checkStarted(Yii::$app->session['Game']->getGameId())){
     		
-    		// Datas
-    		$ressourceData 	= $res->findAllRessources();
-    		$landData		= $land->findAllLands($game_current->getMapId());
-	    	$gamePlayerData = $game_player->findAllGamePlayer($game_current->getGameId());
-	    	
-	    	// Checks
-	    	if($gamePlayerData != null){
-	    		// check colors
-	    		if($game_player->checkPlayerColor($gamePlayerData)){
-	    			// Check ready
-	    			if($game_player->checkPlayerReady($gamePlayerData)){ 
-	    				// Assign Lands
-	    				$assignedLands 		= $land->assignLandsToArray($gamePlayerData, $game_current, $continentData, $mapData);
-
-	    				// Assign Ressources
-	    				$assignedRessources = $res->assignRessourcesToArray($landData, $ressourceData);
-	    				
-	    				// Create Game Data
-	    				//$game_data->createGameData($assignedLands, $assignedRessources);
-	    				
-				    	// Create turn order
-				    	
-				    	// Create 1rst turn
-				    	
-				    	// Update Game statut
-				    	//$game_current->updateGameStatut($urlparams['gid'], 50);
-
-	    				return $this->render('start');
-	    			}else
-	    				Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Not_Ready'));
-	    		}else
-	    			Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Multiple_Color'));
-	    	}else 
-	    		Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Stop'));
+    		// if the owner push the start button
+    		if($this->checkOwner()){
+		    	$urlparams = Yii::$app->request->queryParams;
+		    	if (array_key_exists('gid', $urlparams)) {
+		    	
+			    	// Initialization
+		    		$game_player 	= new GamePlayer();
+		    		$game_current 	= (new Game())->getGameById($urlparams['gid']);
+		    		$land		 	= new Land();
+		    		$res		 	= new Ressource();
+		    		$game_data		= new GameData();
+		    		$continentData	= (new Continent())->findAllContinent($game_current->getMapId());
+		    		$mapData		= (new Map())->findMapById($game_current->getMapId());
+		    		
+		    		// Datas
+		    		$ressourceData 	= $res->findAllRessources();
+		    		$landData		= $land->findAllLands($game_current->getMapId());
+			    	$gamePlayerData = $game_player->findAllGamePlayer($game_current->getGameId());
+			    	
+			    	// Checks
+			    	if($gamePlayerData != null){
+			    		// check colors
+			    		if($game_player->checkPlayerColor($gamePlayerData)){
+			    			// Check ready
+			    			if($game_player->checkPlayerReady($gamePlayerData)){ 
+			    				// Assign Lands
+			    				$assignedLands 		= $land->assignLandsToArray($gamePlayerData, $game_current, $continentData, $mapData);
+		
+			    				// Assign Ressources
+			    				$assignedRessources = $res->assignRessourcesToArray($landData, $ressourceData);
+			    				
+			    				// Create Game Data
+			    				$game_data->createGameData($assignedLands, $assignedRessources, $landData, $game_current);
+			    				
+						    	// Create turn order
+						    	
+						    	// Create 1rst turn
+						    	
+						    	// Update Game statut
+						    	(new Game())->updateGameStatut($game_current->getGameId(), 50);
+		
+			    				return $this->render('start');
+			    			}else
+			    				Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Not_Ready'));
+			    		}else
+			    			Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Multiple_Color'));
+			    	}else 
+			    		Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Stop'));
+		    	}else
+		    		Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Stop'));
+		    	
+		    	return $this->redirect(Url::to(['game/lobby']),302);
+	    	}
+	    	return $this->render('start');
     	}else
-    		Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Stop'));
-    	
-    	return $this->redirect(Url::to(['game/lobby']),302);
+    		return $this->actionLobby();
     }
 
 }

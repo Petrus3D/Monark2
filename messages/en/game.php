@@ -58,6 +58,7 @@ return [
     'Error_Start_Not_Ready' => "The game can't start : Several players are not ready.",
     'Error_Start_Stop' => "The game can't start.",
 	'Error_Max_Player_Nb' => "The maximum number of players is 10.",
+	'Error_Not_Owner'	=> "You do not have authorization to perform this operation.",
     'Success_User_Left_Game' => 'You have left the game.',
     'Success_User_Enter_Game_{params}' => 'You have join the game : {params}.',
 	'Success_Game_Created' => 'Game created.',

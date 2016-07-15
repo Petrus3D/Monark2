@@ -84,6 +84,10 @@ class GameClass{
 		return $this->gameMapId;
 	}
 	
+	public function getGameStatut(){
+		return $this->gameStatut;
+	}
+	
 	/**
 	 * 
 	 * @return number

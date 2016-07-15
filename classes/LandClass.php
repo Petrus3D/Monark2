@@ -40,6 +40,14 @@ class LandClass{
 		return $this->landId;
 	}
 	
+	public function getLandBaseUnits(){
+		return $this->landBaseUnits;
+	}
+	
+	public function getLandName(){
+		return $this->landName;
+	}
+	
 	public function getLandContinentId(){
 		return $this->landContinentId;
 	}

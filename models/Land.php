@@ -81,8 +81,7 @@ class Land extends \yii\db\ActiveRecord
      */
     public static function assignLandsToArray($usersData, $gameData, $continentData, $mapData){
     	$assignedLand           = array();
-    	$default_units_user_add = 1;
-    	
+
     	foreach ($usersData as $user) {
     		$landId = 0;
 

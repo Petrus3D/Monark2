@@ -71,17 +71,25 @@ class Ressource extends \yii\db\ActiveRecord
     
     	foreach ($landData as $land){
     		// 100%
-    		$ressourceId = rand(1, 100);
-    		$land->getLandId();
-    		$assignedRessourcesArray[$i] = 0;
-    		foreach ($ressourcesList as $key => $res) {
-    			if($ressourceId <= $res['ressource_freq']){
-    				if($array_assgin_ressources[$i] != 0){
-    					if($res['ressource_freq'] <= $ressourcesList[$array_assgin_ressources[$i]]['ressource_freq']){
-    						$assignedRessourcesArray[$i] = $res['ressource_id'];
+    		$ressourceRand = rand(1, 100);
+    		
+    		$assignedRessourcesArray[$land->getLandId()] = 0;
+    		
+    		foreach ($ressourceData as $res) {
+    			// If percent correspond
+    			if($ressourceRand <= $res['ressource_freq']){
+    				
+    				// If ressource already defined 
+    				if($assignedRessourcesArray[$land->getLandId()] != 0){
+    					
+    					// If best percent
+    					if($res['ressource_freq'] <= $ressourceData[$assignedRessourcesArray[$land->getLandId()]]['ressource_freq']){
+    						$assignedRessourcesArray[$land->getLandId()] = $res['ressource_id'];
     					}
+    					
+    				// If ressource not already defined 
     				}else{
-    					$assignedRessourcesArray[$i] = $res['ressource_id'];
+    					$assignedRessourcesArray[$land->getLandId()] = $res['ressource_id'];
     				}
     			}
     		}
