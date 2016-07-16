@@ -19,9 +19,17 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
         <div id='navbar-menu-global' class="navbar-custom-menu">
            		<ul class="nav navbar-nav">
            			<li class="dropdown user user-menu">
+           			<?php if(isset(Yii::$app->session['Game']) && Yii::$app->session['MapData'] != null): ?>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background: #<?= Yii::$app->session['Color'][Yii::$app->session['MapData']['GamePlayer'][Yii::$app->session['User']->getUserID()]->getGamePlayerColorId()]->getColorCss()?>">
+                        	<span class="hidden-xs"><font size='4' color='<?= Yii::$app->session['Color'][Yii::$app->session['MapData']['GamePlayer'][Yii::$app->session['User']->getUserID()]->getGamePlayerColorId()]->getColorFontChat()?>'>
+            					<?= Yii::$app->session['MapData']['UserData'][Yii::$app->session['MapData']['GamePlayer'][Yii::$app->session['User']->getUserID()]->getGamePlayerUserId()]->getUserName()?>
+            				</font></span>
+            			</a>
+                    <?php else: ?>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="hidden-xs"><font size='3' color="black"><?php print(Yii::$app->session['User']->getUsername()); ?></font></span>
+                    	<span class="hidden-xs"><font size='3' color="black"><?= Yii::$app->session['User']->getUsername() ?></font></span>
                     </a>
+                    <?php endif; ?>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
@@ -71,17 +79,27 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
                 </li>
            	</ul>
         </div>
-        	<?php if(isset(Yii::$app->session['Game']) && Yii::$app->session['Game']->getGameStatut() == 50 && Yii::$app->session['MapData'] != null): ?>           	        
+        	<?php if(isset(Yii::$app->session['Game']) && Yii::$app->session['MapData'] != null): ?>           	        
         		<div id='navbar-menu-game' class="navbar-custom-menu">
             		<?php Pjax::begin(['id' => 'navbar-menu-game-data']); ?>
+            		<?php
+            			$count_lands = 0;
+				    	$count_units = 0;
+				    	foreach (Yii::$app->session['MapData']['GameData'] as $data){
+				    		if($data->getGameDataUserId() == Yii::$app->session['User']->getUserID()){
+				    			$count_units +=	$data->getGameDataUnits();
+				    			$count_lands++;
+				    		}
+				    	}
+				    ?>
             		<ul class="nav navbar-nav">
 	                	<!-- User Account: style can be found in dropdown.less -->
 					 		<li id='turn' class="header_game_content">
-							    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;">
+							    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;padding:8px;">
 		                		<?php if(Yii::$app->session['MapData']['CurrentTurnData']->getTurnUserId() == Yii::$app->session['User']->getUserID()): ?>
-						          		<a href='#EndTurn' id='end_of_turn_link' class="btn btn-success" style='padding:7px;'>	
+						          		<span id='end_of_turn_link' class="btn btn-success">	
 						          			<?= Yii::t('map', 'Button_Turn_Own') ?>
-						          		</a>
+						          		</span>
 						        <?php else: ?>
 						        	<font size='3' color='white'> Veuillez patienter, tour de </font>
 	    							<font size='4' color='#<?=Yii::$app->session['Color'][Yii::$app->session['MapData']['GamePlayer'][Yii::$app->session['MapData']['CurrentTurnData']->getTurnUserId()]->getGamePlayerColorId()]->getColorCss()?>'>
@@ -97,17 +115,17 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 		                	</li>
 		                	<li id='gold_per_turn' class="header_game_content">
 		                		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					           		<font size='3'> Revenu : <i class="fa fa-usd"> <?= Yii::$app->session['MapData']['CountLands'] ?> / tr </i></font>
+					           		<font size='3'> Revenu : <i class="fa fa-usd"> <?= $count_lands ?> / tr </i></font>
 					           	</a>
 		                	</li>
 		                	<li id='count_region' class="header_game_content">
 		                		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					          		<font size='3'>Possessions : <?= Yii::$app->session['MapData']['CountLands'] ?> </font>
+					          		<font size='3'>Possessions : <?= $count_lands ?> </font>
 					          	</a>
 		                	</li>
 		                	<li id='count_units' class="header_game_content">
 		                		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					          		<font size='3'>Unités : <?= Yii::$app->session['MapData']['CountUnits'] ?> </font>
+					          		<font size='3'>Unités : <?= $count_units ?> </font>
 					          	</a>
 		                	</li>
 		                	<li id='header_messages' class="dropdown messages-menu">
