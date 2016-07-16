@@ -8,7 +8,24 @@ use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 $this->title = Yii::t('game', 'Title_Map');
-$refresh_time = 2000;
+$refresh_time = $RefreshTime;
+
+
+/* Reload map JS */
+$this->registerJs('$(document).on("pjax:timeout", function(event) {
+  // Prevent default timeout redirection behavior
+  event.preventDefault()
+});');
+
+$this->registerJs(
+		'$("document").ready(function(){
+        setInterval(function(){
+            if($("modal:hover").length == 0){
+                $.pjax.reload({container:"#map_content"});
+            }
+        }, '.$refresh_time.'); //Reload map
+    });'
+		);
 ?>
 
 <div class="map-show">

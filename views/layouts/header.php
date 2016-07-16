@@ -1,10 +1,24 @@
 <?php
 use yii\helpers\Html;
-
+use yii\widgets\Pjax;
 /* @var $this \yii\web\View */
 /* @var $content string */
-?>
+$refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 
+/* Reload header JS */
+$this->registerJs('$(document).on("pjax:timeout", function(event) {
+  // Prevent default timeout redirection behavior
+  event.preventDefault()
+});');
+
+$this->registerJs(
+		'$("document").ready(function(){
+        setInterval(function(){
+               $.pjax.reload({container:"#map_content"});
+        }, '.$refresh_time.'); //Reload data
+    });'
+		);
+?>
 <header class="main-header">
 
     <?= Html::a('<span class="logo-mini">' . Yii::$app->name['short'] . '</span><span class="logo-lg">' . Yii::$app->name['name'] . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
@@ -14,8 +28,8 @@ use yii\helpers\Html;
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
-
-        <div class="navbar-custom-menu">
+		<?php Pjax::begin(['id' => 'navbar-menu', 'timeout' => $refresh_time]); ?>
+        <div id='navbar-menu' class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
 
@@ -82,9 +96,12 @@ use yii\helpers\Html;
 				              <span class="label label-danger">4</span>
 				            </a>
 	                	</li>
-                	<?php endif; ?>
+                	
                 	<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
                 <li class="dropdown user user-menu" style="background: #<?= Yii::$app->session['Color'][Yii::$app->session['MapData']['GamePlayer'][Yii::$app->session['User']->getUserID()]->getGamePlayerColorId()]->getColorCSS() ?>;">
+                    <?php else: ?>
+                <li class="dropdown user user-menu">
+                    <?php endif; ?>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="hidden-xs"><font size='3' color="black"><?php print(Yii::$app->session['User']->getUsername()); ?></font></span>
                     </a>
@@ -138,5 +155,6 @@ use yii\helpers\Html;
                 </li>
             </ul>
         </div>
+        <?php Pjax::end(); ?>
     </nav>
 </header>

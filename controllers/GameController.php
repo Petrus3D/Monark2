@@ -379,6 +379,7 @@ public function behaviors()
 	    	$game_data		= new GameData();
 	    	$turn_data		= new Turn();
 	    	$urlparams 		= Yii::$app->request->queryParams;
+	    	$refreshTime	= 2000;
 	    	
 	    	//Yii::$app->session['Land'] = null;
 	    	
@@ -404,6 +405,7 @@ public function behaviors()
 	    			'CurrentTurnData'	=> $turnData,
 	    			'GameData'			=> $gameData,
 	    			'UserData'			=> $userData,
+	    			'RefreshTime'		=> $refreshTime,
 	    	);
 	    	
 	    	return $this->render('map', [
@@ -418,6 +420,7 @@ public function behaviors()
 	    			'GameData' 		=> $gameData,
 	    			'Turn' 			=> $turnData,
 	    			'Users'			=> $userData,
+	    			'RefreshTime'	=> $refreshTime,
 	    	]);
     	}else
     		return $this->actionLobby();
