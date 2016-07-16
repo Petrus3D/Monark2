@@ -257,6 +257,18 @@ class GamePlayer extends \yii\db\ActiveRecord
     }
     
     /**
+     *
+     * @param unknown $game_id
+     * @return \app\queries\GamePlayer[]
+     */
+    public static function findAllGamePlayerToArrayWithData($game_data){
+    	$returned = array();
+    	foreach ($game_data as $gamePlayer)
+    		$returned[$gamePlayer['game_player_user_id']] = new gamePlayerClass($gamePlayer);
+    		return $returned;
+    }
+    
+    /**
      * update gameplayer information
      *
      * @param  integer      $user_id

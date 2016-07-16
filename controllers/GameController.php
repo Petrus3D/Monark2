@@ -19,6 +19,8 @@ use app\models\Land;
 use app\models\Ressource;
 use app\models\GameData;
 use app\models\Map;
+use app\models\Turn;
+use app\models\Users;
 
 class GameController extends \yii\web\Controller
 {
@@ -375,7 +377,10 @@ public function behaviors()
 	    	$game_player 	= new GamePlayer();
 	    	$game_current 	= (new Game())->getGameById(Yii::$app->session['Game']->getGameId());
 	    	$game_data		= new GameData();
+	    	$turn_data		= new Turn();
 	    	$urlparams 		= Yii::$app->request->queryParams;
+	    	
+	    	//Yii::$app->session['Land'] = null;
 	    	
 	    	// Add to session
 	    	if(Yii::$app->session['Contient'] == null)	Yii::$app->session->set("Continent", (new Continent())->findAllContinent($game_current->getMapId()));
@@ -385,15 +390,20 @@ public function behaviors()
 	    	if(Yii::$app->session['Color'] == null)		Yii::$app->session->set("Color", (new Color())->findAllColorToArray());
 
 	    	// Datas
-	    	$gamePlayerData 	= $game_player->findAllGamePlayerToArray($game_current->getGameId());
-	    	$gamePlayerData[0]	= $game_player->findPlayerZero();
-	    	$gameData			= $game_data->getGameDataByIdToArray($game_current->getGameId());
+	    	$gamePlayerDataGlobal 	= $game_player->findAllGamePlayer($game_current->getGameId());
+	    	$gamePlayerData 		= $game_player->findAllGamePlayerToArrayWithData($gamePlayerDataGlobal);
+	    	$gamePlayerData[0]		= $game_player->findPlayerZero();
+	    	$gameData				= $game_data->getGameDataByIdToArray($game_current->getGameId());
+	    	$turnData				= $turn_data->getLastTurnByGameId($game_current->getGameId());
+	    	$userData				= $game_player->findAllGamePlayerToListUserId($gamePlayerDataGlobal);
 	    	
 	    	// Add header info to session
 	    	Yii::$app->session['MapData'] = array(
-	    			'GamePlayer'	=> $gamePlayerData[Yii::$app->session['User']->getUserID()],
-	    			'LastTurnData'	=> "", 
-	    			'GameData'		=> $gameData,
+	    			'GamePlayer'		=> $gamePlayerData,
+	    			'LastTurnData'		=> $turn_data->getLastTurnByUserId(Yii::$app->session['User']->getUserID(), $game_current->getGameId()), 
+	    			'CurrentTurnData'	=> $turnData,
+	    			'GameData'			=> $gameData,
+	    			'UserData'			=> $userData,
 	    	);
 	    	
 	    	return $this->render('map', [
@@ -406,6 +416,8 @@ public function behaviors()
 	    			'Game' 			=> $game_current,
 	    			'GamePlayer' 	=> $gamePlayerData,
 	    			'GameData' 		=> $gameData,
+	    			'Turn' 			=> $turnData,
+	    			'Users'			=> $userData,
 	    	]);
     	}else
     		return $this->actionLobby();

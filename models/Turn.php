@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\classes\TurnClass;
 
 /**
  * This is the model class for table "turn".
@@ -54,6 +55,25 @@ class Turn extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * 
+     * @param unknown $game_id
+     * @return \app\classes\TurnClass
+     */
+    public static function getLastTurnByGameId($game_id){
+    	return new TurnClass(self::find()->where(['turn_game_id' => $game_id])->orderBy(['turn_id' => SORT_DESC])->one());
+    }
+    
+    /**
+     * 
+     * @param unknown $user_id
+     * @param unknown $game_id
+     * @return \app\classes\TurnClass
+     */
+    public static function getLastTurnByUserId($user_id, $game_id){
+    	return new TurnClass(self::find()->where(['turn_game_id' => $game_id])->andWhere(['turn_user_id' => $user_id])->orderBy(['turn_id' => SORT_DESC])->one());
+    }
+    
     /**
      * @inheritdoc
      * @return \app\queries\TurnQuery the active query used by this AR class.
