@@ -398,6 +398,16 @@ public function behaviors()
 	    	$turnData				= $turn_data->getLastTurnByGameId($game_current->getGameId());
 	    	$userData				= $game_player->findAllGamePlayerToListUserId($gamePlayerDataGlobal);
 	    	
+	    	// Counts
+	    	$count_lands = 0;
+	    	$count_units = 0;
+	    	foreach ($gameData as $data){
+	    		if($data->getGameDataUserId() == Yii::$app->session['User']->getUserID()){
+	    			$count_units +=	$data->getGameDataUnits();
+	    			$count_lands++;
+	    		}
+	    	}
+	    	
 	    	// Add header info to session
 	    	Yii::$app->session['MapData'] = array(
 	    			'GamePlayer'		=> $gamePlayerData,
@@ -406,6 +416,8 @@ public function behaviors()
 	    			'GameData'			=> $gameData,
 	    			'UserData'			=> $userData,
 	    			'RefreshTime'		=> $refreshTime,
+	    			'CountLands'		=> $count_lands,
+	    			'CountUnits'		=> $count_units,
 	    	);
 	    	
 	    	return $this->render('map', [

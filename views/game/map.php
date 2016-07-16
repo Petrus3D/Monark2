@@ -23,11 +23,20 @@ $this->registerJs(
             if($("modal:hover").length == 0){
                 $.pjax.reload({container:"#map_content", async:false});
             }
-			if($("#navbar-menu:hover").length == 0){
-				$.pjax.reload({container:"#header_game_content", async:false});
+			if($("#navbar-menu-game:hover").length == 0){
+				$.pjax.reload({container:"#navbar-menu-game-data", async:false});
 			}
         }, '.$refresh_time.'); //Reload map
-    });');
+    });
+	// New JS after refresh
+    $(document).on("pjax:end", function() {
+      // tooltips
+      $("[data-toggle=tooltip]").tooltip();
+
+      // popover
+      $("[data-toggle=popover]").popover();
+
+	});	');
 ?>
 
 <div class="map-show">
