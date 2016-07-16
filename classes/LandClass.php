@@ -68,15 +68,15 @@ class LandClass{
 		return $this->landHarbor;
 	}
 	
-	public function getLandImageUrl(){
-		if($land['image'] != null)
-			return 'img/land/'.$this->landName.'.png';
+	public function getLandImage(){
+		if($this->landImage == null)
+			return $this->landName;
 		else
-			return 'img/land/'.$this->landImage.'.png';
+			return $this->landImage;
 	}
 	
-	public function getLandImageTempUrl($colorName){
-		return 'img/land_temp/'.$this->landImage.'_'.$colorName.'.png';
+	public function getLandImageUrl($colorName){
+		return 'img/land_temp/'.$this->getLandImage().'_'.$colorName.'.png';
 	}
 	
 }

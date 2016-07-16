@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\classes\RessourceClass;
 
 /**
  * This is the model class for table "ressource".
@@ -58,6 +59,17 @@ class Ressource extends \yii\db\ActiveRecord
      */
     public static function findAllRessources(){
     	return self::find()->all();
+    }
+    
+    /**
+     * 
+     * @return \app\classes\RessourceClass[]
+     */
+    public static function findAllRessourcesToArray(){
+    	$returned = array(); 
+    	foreach (self::findAllRessources() as $ressource)
+    		$returned[$ressource['ressource_id']] = new RessourceClass($ressource);
+    	return $returned;
     }
     
     /**

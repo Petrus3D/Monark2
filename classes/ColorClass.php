@@ -45,6 +45,10 @@ class ColorClass{
 		return ucfirst($this->color_name);
 	}
 	
+	public function getColorName2(){
+		return $this->color_name;
+	}
+	
 	public function getColorCode(){
 		return $this->color_code;
 	}

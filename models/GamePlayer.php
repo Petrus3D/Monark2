@@ -94,6 +94,28 @@ class GamePlayer extends \yii\db\ActiveRecord
     }
     
     /**
+     * 
+     * @return number[]
+     */
+    public function findPlayerZero(){
+    	return new GamePlayerClass(
+    			array(
+    			'game_player_id' => 0,
+    			'game_player_region_id' => 0,
+    			'game_player_difficulty_id' => 0,
+    			'game_player_statut' => 1,
+    			'game_player_game_id' => 0,
+    			'game_player_user_id' => 0,
+    			'game_player_color_id' => 1,
+    			'game_player_enter_time' => 0,
+    			'game_player_order' => 0,
+    			'game_player_bot' => 0,
+    			'game_player_quit' => 0,)
+    			);
+    }
+    
+    
+    /**
      *
      * @param unknown $gameId
      * @return \app\classes\GameClass

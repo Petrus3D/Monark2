@@ -88,6 +88,10 @@ class GameClass{
 		return $this->gameStatut;
 	}
 	
+	public function setGameStatut($statut){
+		$this->gameStatut = $statut;
+	}
+	
 	/**
 	 * 
 	 * @return number

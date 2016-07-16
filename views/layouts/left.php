@@ -48,10 +48,10 @@
                     
                 	/* Game */	
                 	// Statut ==> before game
-                	['label' => Yii::t('menu', 'Title_Game_Lobby'), 'icon' => 'fa fa-users', 'url' => ['game/lobby'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game']) && Yii::$app->session['Game']->getStatutExplicit() == 0], 
+                	['label' => Yii::t('menu', 'Title_Game_Lobby'), 'icon' => 'fa fa-users', 'url' => ['game/lobby'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game']) && Yii::$app->session['Game']->getGameStatut() < 50], 
                 		
                 	// Statut ==> in game
-                	['label' => Yii::t('menu', 'Title_Game_Map'), 'icon' => 'fa fa-globe', 'url' => ['game/map'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game']) && Yii::$app->session['Game']->getStatutExplicit() == 1],
+                	['label' => Yii::t('menu', 'Title_Game_Map'), 'icon' => 'fa fa-globe', 'url' => ['game/map'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game']) && Yii::$app->session['Game']->getGameStatut() == 50],
                 		
                 	// Statut ==> after game
                 	//['label' => Yii::t('menu', 'Title_Quit_Game'), 'icon' => 'fa fa-sign-out', 'url' => ['game/quit'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game'])],	 

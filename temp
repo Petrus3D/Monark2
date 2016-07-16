@@ -1,28 +1,80 @@
 
-<div class="land_title" style=<?= "'top:".$value['position_top']."em;left:".$value['position_left']."em;'"; ?>>
-                        <font color=<?= "'".$value['color_name']."'"; ?>>
-                            <?= $value['landname']; ?>
-                            <?php if(isset($user_frontier_array[$value['land_id']])){echo "(".$value['units'].")";} ?>
-                            <?php if($value['capital'] >= 1): ?>
-                                <?= "<img src='img/star.png' height='20px' width='20px'>"; ?>
+					
+                        
+<div id="menu_top" style="position:fixed;min-width:100%;top:43px;left:0px;text-align:center;">
+            <table> 
+                <tr>
+                    <!--<td>
+                        <div class='alert alert-danger'>
+                            <?= "<a href='#Chat' class='chat_link' style='text-decoration:none;'><div class='btn btn-success'><img src='img/icon_temp/chat.png' height='20px' width='20px'> ".Yii::t('map', 'Button_Chat_{nb}', ['nb' => 0])."</div></a>"; ?></td>
+                        </div>-->
+                    <td width='40%'>
+                            <?php if($current_turn['user_id'] == $user_id): ?>
+                                    <div class='alert alert-red'>
+                                    <?= "<span id='turn_button' origin='".$game_info['turn_time']."'><font size='4' color='white'>".Yii::t('map', 'Text_Turn_Own')." : </font>"; ?>
+                                    <?php if(($current_turn['time'] + $game_info['turn_time']) <= time()){$time_rest = 0;}else{$time_rest = $game_info['turn_time'] - (time() - $current_turn['time']);} ?>
+                                    <?php if($time_rest < 10): ?>
+                                        <font size='5' color='black'><span id='rest_time'><?= $time_rest ?></span></font><font size='3' color='black'>s</font>
+                                    <?php elseif($time_rest < 30): ?>
+                                        <font size='4' color='orange'><span id='rest_time'><?= $time_rest ?></span></font><font size='3' color='orange'>s</font>
+                                    <?php else: ?>
+                                    <font size='4' color='white'><span id='rest_time'><?= $time_rest ?></span></font><font size='3' color='white'>s</font>
+                                    <?php endif; ?>
+                                    <?= "<a href='#FinTour' class='end_of_turn_link' style='text-decoration:none;'><div class='btn btn-success'>".Yii::t('map', 'Button_Turn_Own')."</div></a></span>"; ?>
+                            <?php else: ?>
+                                <div class='alert alert-danger'>
+                                <?= "<font size='3'> Veuillez patienter, tour de </font>"; ?>
+                                <?php if(isset($game_player_information[$current_turn['user_id']])): ?>
+                                    <?= "<font size='4' color='".$game_player_information[$current_turn['user_id']]['color_name']."'>".$game_player_information[$current_turn['user_id']]['user_name']."</font>."; ?>
+                                    <?php if($game_player_information[$current_turn['user_id']]['bot'] > 0 && $user_id == $game_info['owner_id']): ?>
+                                        <?= "<span id='turn_button_bot'<a href='#Refresh' class='refresh_bot_link' style='text-decoration:none;'><div class='btn btn-success'><img src='img/icon_temp/refresh.png' height='20px' width='20px'></div></a></span>"; ?>
+                                    <?php endif; ?>
+                                <?php else: ?>
+                                    <font color='grey'>Joueur Inconnu</font>
+                                <?php endif; ?>
                             <?php endif; ?>
-                            <?php if($value['ressource_img'] != ""): ?>
-                                <?= "<img src='img/icon_temp/".$value['ressource_img'].".png' height='20px' width='20px'>"; ?>
+                        </div>
+                    </td>
+                    <td width='50%'>
+                        <div class='alert alert-danger'>
+                            <?php if(isset($game_player_information[$user_id]) AND $game_player_information[$user_id]['spec'] == 0): ?>
+                                <table width='100%'><tr>
+                                        <?php if($previous_turn['gold'] == ""){$gold = "0";}else{$gold = $previous_turn['gold'];} ?>
+                                        <td><?= Html::tag('span', '<font size="4">'.Yii::t('map', 'Text_Menu_Top_Gold').' : '.$gold.'<img src="img/coin.png" height="25px" width="30px"></font>', [
+                                                'title'=>"L'or permet d'acheter des troupes et construire.",
+                                                'data-toggle'=>'tooltip',
+                                                'data-placement' => 'bottom',
+                                                'style'=>'text-decoration: none; cursor:pointer;'
+                                            ]); ?></td>
+                                        <td><?= Html::tag('span', '<font size="4">'.Yii::t('map', 'Text_Menu_Top_Income').' :  + '.$user_gold.'<img src="img/coin.png" height="25px" width="30px"></font>', [
+                                                'title'=>'Or obtenu à chaque debut de tour.',
+                                                'data-toggle'=>'tooltip',
+                                                'data-placement' => 'bottom',
+                                                'style'=>'text-decoration: none; cursor:pointer;'
+                                            ]); ?></td>
+                                        <td><?= Html::tag('span', '<font size="4">'.Yii::t('map', 'Text_Menu_Top_Country').' : '.$game_count[$user_id]['nb_land']['nb'].'</font>', [
+                                                'title'=>'Nombre de régions possédées',
+                                                'data-toggle'=>'tooltip',
+                                                'data-placement' => 'bottom',
+                                                'style'=>'text-decoration: none; cursor:pointer;'
+                                            ]); ?></td>
+                                        <td><?= Html::tag('span', '<font size="4">'.Yii::t('map', 'Text_Menu_Top_Units').' : '.$user_units.'</font>', [
+                                                'title'=>"Nombre d'unités totale",
+                                                'data-toggle'=>'tooltip',
+                                                'data-placement' => 'bottom',
+                                                'style'=>'text-decoration: none; cursor:pointer;'
+                                            ]); ?></td>
+                                </tr></table>
+                            <?php else: ?>
+                                <center><font size='4'> Vous êtes en mode spectateur.</font></center>
                             <?php endif; ?>
-                        </font>
-                        <?php if(isset($user_frontier_array[$value['land_id']])): ?>
-                            <?php if($value['user_id'] == $user_id){$user_units+=$value['units'];} ?>
-                            <br><center>
-                                <?php $nb_canon = (int)($value['units']/10);$nb_horseman = (int)(fmod($value['units'], 10)/5);$nb_soldier = (int)(fmod(fmod($value['units'], 10), 5)); ?>
-                                <?php for($i=1; $i <= $nb_canon; $i++): ?>
-                                    <img src='img/canon.png' class='land_canon' style=<?= "'left:".$i."px;'"; ?>>
-                                <?php endfor; ?>
-                                <?php for($i=1; $i <= $nb_horseman; $i++): ?>
-                                    <img src='img/horseman.png' class='land_horseman' style=<?= "'left:".$i."px;'"; ?>>
-                                <?php endfor; ?>
-                                <?php for($i=1; $i <= $nb_soldier; $i++): ?>
-                                    <img src='img/soldier.png' class='land_soldier' style=<?= "'left:".$i."px;'"; ?>>
-                                <?php endfor; ?>
-                        <?php endif; ?>
-                        </center>
-                    </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class='alert alert-danger'>
+                            <?= "<a href='#Diplomacy' class='diplomacy_link' style='text-decoration:none;'><div class='btn btn-success'><img src='img/icon_temp/handshake.png' height='20px' width='20px'> ".Yii::t('map', 'Button_Diplomacy')."<span class=badge>".$diplomacy_nb."</span></div></a>"; ?></td>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
