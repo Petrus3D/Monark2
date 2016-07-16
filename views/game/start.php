@@ -68,7 +68,7 @@ $this->registerJs('
 	    	var i 						= 1;
     		var percent 				= '.$progress_step.';
     		var progress_name 			= "'.$progress_name.'";
-    						
+    		alert(test);		
         	// Interval beginning
     		var IntervalId = setInterval(
     			function(){

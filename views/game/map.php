@@ -21,11 +21,13 @@ $this->registerJs(
 		'$("document").ready(function(){
         setInterval(function(){
             if($("modal:hover").length == 0){
-                $.pjax.reload({container:"#map_content"});
+                $.pjax.reload({container:"#map_content", async:false});
             }
+			if($("#navbar-menu:hover").length == 0){
+				$.pjax.reload({container:"#header_game_content", async:false});
+			}
         }, '.$refresh_time.'); //Reload map
-    });'
-		);
+    });');
 ?>
 
 <div class="map-show">
@@ -37,7 +39,7 @@ $this->registerJs(
     ?>
     <!-- End Modal Js -->
 
-	<?php Pjax::begin(['id' => 'map_content', 'timeout' => $refresh_time]); ?>
+	<?php Pjax::begin(['id' => 'map_content']); ?>
 	<div id='map_content'>
 		<?php $user_units = 0; ?>
 		

@@ -379,7 +379,7 @@ public function behaviors()
 	    	$game_data		= new GameData();
 	    	$turn_data		= new Turn();
 	    	$urlparams 		= Yii::$app->request->queryParams;
-	    	$refreshTime	= 2000;
+	    	$refreshTime	= 2500;
 	    	
 	    	//Yii::$app->session['Land'] = null;
 	    	
