@@ -61,14 +61,24 @@ class Land extends \yii\db\ActiveRecord
         ];
     }
 
+	
 	/**
 	 * 
 	 * @param unknown $map_id
 	 * @return \app\models\Land[]
 	 */
     public static function findAllLands($map_id){
+    	return self::find()->where(['land_map_id' => $map_id])->all();
+    }
+    
+    /**
+     *
+     * @param unknown $map_id
+     * @return \app\models\Land[]
+     */
+    public static function findAllLandsToArray($map_id){
     	$returned = array();
-    	foreach (self::find()->where(['land_map_id' => $map_id])->all() as $land){
+    	foreach (self::findAllLands($map_id) as $land){
     		$returned[$land['land_id']] = new LandClass($land);
     	}
     	return $returned;

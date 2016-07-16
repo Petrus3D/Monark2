@@ -37,7 +37,7 @@ use dmstr\widgets\Alert;
 
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-        <b>Version</b> 2.0.0.795
+        <b>Version</b> 2.0.1.51
     </div>
     <strong>Copyright &copy; <?= Yii::$app->name['name'] ?> 2016 - Theme by <a href="http://almsaeedstudio.com" target="_blank">Almsaeed Studio</a></strong>
 </footer>

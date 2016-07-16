@@ -43,7 +43,7 @@ class GameSearch extends Game
     public function search($params)
     {
         $query = Game::find();
-        $query->where('game_statut < 100');
+        $query->where('game_statut < 50');
         $dataProvider = new ActiveDataProvider([
         		'query' => $query,
         		'pagination' => ['pageSize' => 9,],

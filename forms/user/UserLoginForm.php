@@ -58,7 +58,7 @@ class UserLoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-        	Yii::$app->session['User'] = $this->getUser();
+        	Yii::$app->session->set("User", $this->getUser());
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
         }
         return false;

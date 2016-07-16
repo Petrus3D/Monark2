@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use app\queries\GamePlayerQuery;
 use app\classes\UserClass;
+use app\classes\gamePlayerClass;
 
 /**
  * This is the model class for table "game_player".
@@ -99,11 +100,27 @@ class GamePlayer extends \yii\db\ActiveRecord
      */
     public static function userJoinGame($game, $user_id, $userReq=false){
     	// set Session Var
-    	Yii::$app->session['Game'] = $game;
+    	Yii::$app->session->set("Game", $game);
     	
     	// Insert in BD
     	if(!$userReq)
     		self::userInsertJoinGame($game->getGameId(), $user_id);
+    }
+    
+    /**
+     *
+     * @param unknown $game_id
+     */
+    public static function setUserTurnOrderToArray($game_id){
+    	$users = self::findAllGamePlayerToListUserId(null, $game_id);
+    	$returned = array();
+    	foreach ($users as $user){
+    		do{
+    			$rand = rand(1, count($users));
+    		}while(array_key_exists($rand, $returned));
+    		$returned[$rand] = $user;
+    	}
+    	return $returned;
     }
     
     /**
@@ -206,6 +223,18 @@ class GamePlayer extends \yii\db\ActiveRecord
     }
     
     /**
+     * 
+     * @param unknown $game_id
+     * @return \app\queries\GamePlayer[]
+     */
+    public static function findAllGamePlayerToArray($game_id){
+    	$returned = array();
+    	foreach (self::findAllGamePlayer($game_id) as $gamePlayer)
+    		$returned[$gamePlayer['game_player_user_id']] = new gamePlayerClass($gamePlayer);
+    	return $returned;
+    }
+    
+    /**
      * update gameplayer information
      *
      * @param  integer      $user_id
@@ -243,6 +272,18 @@ class GamePlayer extends \yii\db\ActiveRecord
      */
     public static function updateEnterInGame($user_id, $game_id){
     	return Yii::$app->db->createCommand()->update('game_player', ['game_player_quit' => 0], ['game_player_user_id' => $user_id, 'game_player_game_id' => $game_id])->execute();
+    }
+    
+    /**
+    * 
+    * @param unknown $game_id
+    * @return boolean
+    */
+    public static function updateUserTurnOrder($game_id){
+    	foreach (self::setUserTurnOrderToArray($game_id) as $key => $user) {
+    		Yii::$app->db->createCommand()->update('game_player', ['game_player_order' => $key], ['game_player_game_id' => $game_id, 'game_player_user_id' => $user->getUserID()])->execute();
+    	}
+    	return true;
     }
     
     

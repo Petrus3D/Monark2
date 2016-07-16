@@ -31,7 +31,7 @@ class UserClass{
 	}
 	
 	public function getUserID(){
-		return $this->userID;
+		return $this->userId;
 	}
 	
 	public function getUserPassword(){

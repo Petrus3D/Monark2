@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use app\queries\GameDataQuery;
+use app\classes\GameDataClass;
 
 /**
  * This is the model class for table "game_data".
@@ -58,6 +59,27 @@ class GameData extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     *
+     * @param unknown $gameId
+     * @return \app\classes\GameClass
+     */
+    public static function getGameDataById($game_Id){
+    	return self::find()->where(['game_data_game_id' => $game_Id])->all();
+    }
+    
+    /**
+     *
+     * @param unknown $gameId
+     * @return \app\classes\GameClass
+     */
+    public static function getGameDataByIdToArray($game_Id){
+    	$returned = array();
+    	foreach (self::getGameDataById($game_Id) as $data)
+    		array_push($returned, new GameDataClass($data));
+    	return $returned;
+    }
+    
     /**
      * 
      * @param unknown $assignedLands

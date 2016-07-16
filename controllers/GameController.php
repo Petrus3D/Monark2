@@ -252,7 +252,7 @@ public function behaviors()
 							Yii::$app->session->setFlash('success', Yii::t('game', 'Success_Game_Join'));
 							else
 								Yii::$app->session->setFlash('error', Yii::t('game', 'Success_Game_Join'));
-								return $this->actionLobby();
+						return $this->actionLobby();
 					}
 				// In another game
 				}else{
@@ -298,12 +298,12 @@ public function behaviors()
      */
     public function actionStart(){
     	// The game as started
+    	$urlparams = Yii::$app->request->queryParams;
     	$started = $this->checkStarted(Yii::$app->session['Game']->getGameId());
-    	if($started){
+    	if($started || ($this->checkOwner() && array_key_exists('gid', $urlparams))){
     		
     		// if the owner push the start button
     		if($this->checkOwner() && !$started){
-		    	$urlparams = Yii::$app->request->queryParams;
 		    	if (array_key_exists('gid', $urlparams)) {
 		    	
 			    	// Initialization
@@ -336,12 +336,11 @@ public function behaviors()
 			    				$game_data->createGameData($assignedLands, $assignedRessources, $landData, $game_current);
 			    				
 						    	// Create turn order
-						    	
-						    	// Create 1rst turn
-						    	
+						    	$game_player->updateUserTurnOrder($game_current->getGameId());
+			    				
 						    	// Update Game statut
 						    	(new Game())->updateGameStatut($game_current->getGameId(), 50);
-		
+						    	
 			    				return $this->render('start');
 			    			}else
 			    				Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Start_Not_Ready'));
@@ -359,4 +358,46 @@ public function behaviors()
     		return $this->actionLobby();
     }
 
+    /**
+     *
+     * @return string
+     */
+    public function actionMap(){
+    	// Create 1rst turn
+    	// Check if a turn exist
+    	
+    	// The game as started
+    	if($this->checkStarted(Yii::$app->session['Game']->getGameId())){
+    		
+	    	// Initialization
+	    	$game_player 	= new GamePlayer();
+	    	$game_current 	= (new Game())->getGameById(Yii::$app->session['Game']->getGameId());
+	    	$game_data		= new GameData();
+	    	$urlparams 		= Yii::$app->request->queryParams;
+	    	
+	    	// Add to session
+	    	if(Yii::$app->session['Contient'] == null)	Yii::$app->session->set("Continent", (new Continent())->findAllContinent($game_current->getMapId()));
+	    	if(Yii::$app->session['Land'] == null)		Yii::$app->session->set("Land", (new Land())->findAllLandsToArray($game_current->getMapId()));
+	    	if(Yii::$app->session['Ressource'] == null)	Yii::$app->session->set("Ressource", (new Ressource())->findAllRessources());
+	    	if(Yii::$app->session['Map'] == null)		Yii::$app->session->set("Map", (new Map())->findMapById($game_current->getMapId()));
+	    	if(Yii::$app->session['Color'] == null)		Yii::$app->session->set("Color", (new Color())->$colors->findAllColorToArray());
+	    	
+	    	// Datas
+	    	$gamePlayerData = $game_player->findAllGamePlayerToArray($game_current->getGameId());
+	    	$gameData		= $game_data->getGameDataByIdToArray($game_current->getGameId());
+	    	
+	    	return $this->render('map', [
+	    			'User' 			=> Yii::$app->session['User'],
+	    			'Ressource' 	=> Yii::$app->session['Ressource'],
+	    			'Continent' 	=> Yii::$app->session['Contient'],
+	    			'Map' 			=> Yii::$app->session['Map'],
+	    			'Land'			=> Yii::$app->session['Land'],
+	    			'Color'			=> Yii::$app->session['Color'],
+	    			'Game' 			=> $game_current,
+	    			'GamePlayer' 	=> $gamePlayerData,
+	    			'GameData' 		=> $gameData,
+	    	]);
+    	}else
+    		return $this->actionLobby();
+    }
 }

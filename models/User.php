@@ -95,6 +95,20 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      * @inheritdoc
      */
     public function getUsername(){
+    	return (new Crypt($this->user_name))->s_decrypt();
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function getUserId(){
+    	return $this->user_id;
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function getPassword(){
     	return (new Crypt($this->user_pwd))->decrypt();
     }
     
@@ -114,6 +128,6 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->getUsername() === $password;
+        return $this->getPassword() === $password;
     }
 }

@@ -20,7 +20,7 @@ $this->registerJs('
 		$("#"+progress_name+" .progress-bar").attr("style", "width:"+current+"%");
 		$("#"+progress_name+" .progress-bar").attr("aria-valuenow", current);
 		$("#"+progress_name+" .progress-bar").html(current+"%");
-		if(current + percent == 100)
+		if(current + percent > 100)
 			return 1;
 		else
 			return 0;
@@ -52,6 +52,9 @@ $this->registerJs('
 		case 99:
         	$("#finalization img").removeAttr("style");
 			$("#finalization span").hide();
+        	break;
+		case 100:
+			$("#enter_button").removeAttr("style");
         	break;
     	default:
         	break;
@@ -90,11 +93,12 @@ $this->registerJs('
     'options' => ['class' => 'active progress-striped']
 ]); ?>
 	<br>
-	<div id="loading_details" style="text-align:center;"><h2>Avancement</h2>
-		<div id='create_map'>Création de la carte <span>...</span><img src='img/site/ready.png' width='20px' height='20px' style="display: none;"></div>
-		<div id='create_region'>Création des regions <span style="display: none;">...</span><img src='img/site/ready.png' width='20px' height='20px' style="display: none;"></div>
-		<div id='create_players'>Création des joueurs <span style="display: none;">...</span><img src='img/site/ready.png' width='20px' height='20px' style="display: none;"></div>
-		<div id='assign_lands'>Assignation des pays <span style="display: none;">...</span><img src='img/site/ready.png' width='20px' height='20px' style="display: none;"></div>
-		<div id='finalization'>Finalisation <span style="display: none;">...</span><img src='img/site/ready.png' width='20px' height='20px' style="display: none;"></div>
+	<div id="loading_details" style="text-align:center;"><h2><?= Yii::t('game', 'Text_Load_Title') ?></h2>
+		<div id='create_map'><?= Yii::t('game', 'Txt_Map_Creation') ?><span>...</span><img src='img/site/ready.png' width='20px' height='20px' style="display: none;"></div>
+		<div id='create_region'><?= Yii::t('game', 'Txt_Region_Creation') ?><span style="display: none;">...</span><img src='img/site/ready.png' width='20px' height='20px' style="display: none;"></div>
+		<div id='create_players'><?= Yii::t('game', 'Txt_Player_Creation') ?><span style="display: none;">...</span><img src='img/site/ready.png' width='20px' height='20px' style="display: none;"></div>
+		<div id='assign_lands'><?= Yii::t('game', 'Txt_Land_Assignation') ?><span style="display: none;">...</span><img src='img/site/ready.png' width='20px' height='20px' style="display: none;"></div>
+		<div id='finalization'><?= Yii::t('game', 'Txt_Finalization') ?><span style="display: none;">...</span><img src='img/site/ready.png' width='20px' height='20px' style="display: none;"></div><br>
+		<div id='enter_button' style="display: none;"><?= Html::a(Yii::t('game', 'Button_Enter_In_Game'), ['/game/map'], ['class'=>'btn btn-success']); ?></div>
 	</div>
 </div>

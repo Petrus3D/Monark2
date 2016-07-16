@@ -48,7 +48,35 @@ class LandClass{
 		return $this->landName;
 	}
 	
+	public function getLandAbv(){
+		return $this->landAbv;
+	}
+	
 	public function getLandContinentId(){
 		return $this->landContinentId;
 	}
+	
+	public function getLandPositionTop(){
+		return $this->landPositionTop;
+	}
+	
+	public function getLandPositionLeft(){
+		return $this->landPositionLeft;
+	}
+	
+	public function getLandHarbor(){
+		return $this->landHarbor;
+	}
+	
+	public function getLandImageUrl(){
+		if($land['image'] != null)
+			return 'img/land/'.$this->landName.'.png';
+		else
+			return 'img/land/'.$this->landImage.'.png';
+	}
+	
+	public function getLandImageTempUrl($colorName){
+		return 'img/land_temp/'.$this->landImage.'_'.$colorName.'.png';
+	}
+	
 }

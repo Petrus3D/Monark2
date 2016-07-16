@@ -1,0 +1,28 @@
+
+<div class="land_title" style=<?= "'top:".$value['position_top']."em;left:".$value['position_left']."em;'"; ?>>
+                        <font color=<?= "'".$value['color_name']."'"; ?>>
+                            <?= $value['landname']; ?>
+                            <?php if(isset($user_frontier_array[$value['land_id']])){echo "(".$value['units'].")";} ?>
+                            <?php if($value['capital'] >= 1): ?>
+                                <?= "<img src='img/star.png' height='20px' width='20px'>"; ?>
+                            <?php endif; ?>
+                            <?php if($value['ressource_img'] != ""): ?>
+                                <?= "<img src='img/icon_temp/".$value['ressource_img'].".png' height='20px' width='20px'>"; ?>
+                            <?php endif; ?>
+                        </font>
+                        <?php if(isset($user_frontier_array[$value['land_id']])): ?>
+                            <?php if($value['user_id'] == $user_id){$user_units+=$value['units'];} ?>
+                            <br><center>
+                                <?php $nb_canon = (int)($value['units']/10);$nb_horseman = (int)(fmod($value['units'], 10)/5);$nb_soldier = (int)(fmod(fmod($value['units'], 10), 5)); ?>
+                                <?php for($i=1; $i <= $nb_canon; $i++): ?>
+                                    <img src='img/canon.png' class='land_canon' style=<?= "'left:".$i."px;'"; ?>>
+                                <?php endfor; ?>
+                                <?php for($i=1; $i <= $nb_horseman; $i++): ?>
+                                    <img src='img/horseman.png' class='land_horseman' style=<?= "'left:".$i."px;'"; ?>>
+                                <?php endfor; ?>
+                                <?php for($i=1; $i <= $nb_soldier; $i++): ?>
+                                    <img src='img/soldier.png' class='land_soldier' style=<?= "'left:".$i."px;'"; ?>>
+                                <?php endfor; ?>
+                        <?php endif; ?>
+                        </center>
+                    </div>

@@ -40,12 +40,12 @@ return [
 	'Text_Yesterday' => 'Yesterday',
 	'Text_Week' => 'This week',
 	'Text_Date' => 'm/d/Y',
-	'Text_Load_Title' => 'Steps',
-	'Text_Load_Step_0' => 'Assigning ressources',
-	'Text_Load_Step_1' => 'Assigning territories',
-	'Text_Load_Step_2' => 'Players management',
-	'Text_Load_Step_3' => 'Turns management',
-	'Text_Load_Step_4' => 'Finalizing',
+	'Text_Load_Title' => 'Progression',
+	'Txt_Map_Creation' => 'Creating map',
+	'Txt_Region_Creation' => 'Creating regions',
+	'Txt_Player_Creation' => 'Creating players',
+	'Txt_Land_Assignation' => 'Assigning country',
+	'Txt_Finalization' => 'Finalization',
     
 	/* Errors & success */	
 	'Error_Name_Already_Use' => 'Game name already used',
@@ -73,6 +73,7 @@ return [
     'Button_Game_Spec' => 'Spectate the game',
     'Button_Game_Ban' => 'You were ban of the game',
     'Button_Game_End' => 'End Game',
+	'Button_Enter_In_Game' => 'Join the game',
 
     /* Form */
     'Form_Create_Name' => 'Name',
