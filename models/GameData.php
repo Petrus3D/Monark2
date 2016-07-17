@@ -93,11 +93,11 @@ class GameData extends \yii\db\ActiveRecord
     public static function CountLandByUserId($gameData, $game_id, $user_id)
     {
     	if($gameData == null)
-    		$gameData = self::getGameDataById($game_id);
+    		$gameData = self::getGameDataByIdToArray($game_id);
     	
     	$n = 0;
-    	foreach ($gameData as $game)
-    		if($game->getGameDataUserId() == $user_id)
+    	foreach ($gameData as $data)
+    		if($data->getGameDataUserId() == $user_id)
     			$n++;
     		
     	return $n;

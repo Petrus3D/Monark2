@@ -1,3 +1,6 @@
+<?php
+use app\classes\Access;
+?>
 <aside class="main-sidebar">
 
     <section class="sidebar">
@@ -38,30 +41,30 @@
                 	['label' => Yii::t('menu', 'Title_Tutorial'), 'icon' => 'fa fa-question', 'url' => ['site/tutorial']],
                 		
                     /* Guest */
-                    ['label' => Yii::t('menu', 'Title_Game'), 'icon' => 'fa fa-gamepad', 'url' => ['site/game'], 'visible' => Yii::$app->user->isGuest],
-                    ['label' => Yii::t('menu', 'Title_Sign'), 'icon' => 'fa fa-sign-in', 'url' => ['user/sign'], 'visible' => Yii::$app->user->isGuest],
-                    ['label' => Yii::t('menu', 'Title_Login'), 'icon' => 'fa fa-unlock', 'url' => ['user/login'], 'visible' => Yii::$app->user->isGuest],
+                    ['label' => Yii::t('menu', 'Title_Game'), 'icon' => 'fa fa-gamepad', 'url' => ['site/game'], 'visible' => !Access::UserIsConnected()],
+                    ['label' => Yii::t('menu', 'Title_Sign'), 'icon' => 'fa fa-sign-in', 'url' => ['user/sign'], 'visible' => !Access::UserIsConnected()],
+                    ['label' => Yii::t('menu', 'Title_Login'), 'icon' => 'fa fa-unlock', 'url' => ['user/login'], 'visible' => !Access::UserIsConnected()],
                     
                     /* Connected */
-                	['label' => Yii::t('menu', 'Title_Game_List'), 'icon' => 'fa fa-gamepad', 'url' => ['game/index'], 'visible' => !Yii::$app->user->isGuest && !isset(Yii::$app->session['Game'])],
-                	['label' => Yii::t('menu', 'Title_Game_Create'), 'icon' => 'fa fa-plus', 'url' => ['game/create'], 'visible' => !Yii::$app->user->isGuest && !isset(Yii::$app->session['Game'])],
+                	['label' => Yii::t('menu', 'Title_Game_List'), 'icon' => 'fa fa-gamepad', 'url' => ['game/index'], 'visible' => Access::UserIsConnected() && !Access::UserIsInGame()],
+                	['label' => Yii::t('menu', 'Title_Game_Create'), 'icon' => 'fa fa-plus', 'url' => ['game/create'], 'visible' => Access::UserIsConnected() && !Access::UserIsInGame()],
                     
                 	/* Game */	
                 	// Statut ==> before game
-                	['label' => Yii::t('menu', 'Title_Game_Lobby'), 'icon' => 'fa fa-users', 'url' => ['game/lobby'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game']) && Yii::$app->session['Game']->getGameStatut() < 50], 
+                	['label' => Yii::t('menu', 'Title_Game_Lobby'), 'icon' => 'fa fa-users', 'url' => ['game/lobby'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => Access::UserIsInNotStartedGame()], 
                 		
                 	// Statut ==> in game
-                	['label' => Yii::t('menu', 'Title_Game_Map'), 'icon' => 'fa fa-globe', 'url' => ['game/map'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game']) && Yii::$app->session['Game']->getGameStatut() == 50],
+                	['label' => Yii::t('menu', 'Title_Game_Map'), 'icon' => 'fa fa-globe', 'url' => ['game/map'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => Access::UserIsInStartedGame()],
                 		
                 	// Statut ==> after game
                 	//['label' => Yii::t('menu', 'Title_Quit_Game'), 'icon' => 'fa fa-sign-out', 'url' => ['game/quit'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game'])],	 
-                	['label' => Yii::t('menu', 'Title_Game_Stats'), 'icon' => 'fa fa-bar-chart', 'url' => ['game/stats'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game']) && (Yii::$app->session['Game']->getStatutExplicit() == 1 OR Yii::$app->session['Game']->getStatutExplicit() == 2)],
+                	['label' => Yii::t('menu', 'Title_Game_Stats'), 'icon' => 'fa fa-bar-chart', 'url' => ['game/stats'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => Access::UserIsInEndedGame()],
                 		 
-                	['label' => Yii::t('menu', 'Title_Game_Quit'), 'icon' => 'fa fa-sign-out', 'url' => ['game/quit'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game'])],
+                	['label' => Yii::t('menu', 'Title_Game_Quit'), 'icon' => 'fa fa-sign-out', 'url' => ['game/quit'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => Access::UserIsInGame()],
                 		
                     // Logout
                     // temp solution WANTED TO POST 
-                    ['label' => Yii::t('menu', 'Title_Logout'), 'icon' => 'fa fa-sign-out', 'url' => ['user/logout'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => !Yii::$app->user->isGuest && !isset(Yii::$app->session['Game'])],
+                    ['label' => Yii::t('menu', 'Title_Logout'), 'icon' => 'fa fa-sign-out', 'url' => ['user/logout'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => Access::UserIsConnected() && !Access::UserIsInGame()],
                 ],
             ]
         ) ?>

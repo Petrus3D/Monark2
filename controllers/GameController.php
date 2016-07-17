@@ -21,6 +21,7 @@ use app\models\GameData;
 use app\models\Map;
 use app\models\Turn;
 use app\models\Users;
+use app\classes\Access;
 
 class GameController extends \yii\web\Controller
 {
@@ -29,11 +30,18 @@ public function behaviors()
 		return [
 				'access' => [
 						'class' => AccessControl::className(),
-						'only' => ['index', 'join', 'create', 'spec', 'quit', 'lobby', 'start'],
 						'rules' => [
 								[
-										'allow' => isset(Yii::$app->session['User']), // have access
-										'roles' => ['@'], // Connected
+										'actions' => ['quit', 'start', 'map'],
+										'allow' => Access::UserIsInStartedGame(), // Into a started game
+								],
+								[
+										'actions' => ['quit', 'lobby', 'start'],
+										'allow' => Access::UserIsInGame(), // Into a game
+								],
+								[
+										'actions' => ['index', 'join', 'spec', 'create'],
+										'allow' => Access::UserIsConnected(), // Outer game
 								],
 								[
 										'allow' => false, // No access

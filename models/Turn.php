@@ -74,6 +74,11 @@ class Turn extends \yii\db\ActiveRecord
     	return new TurnClass(self::find()->where(['turn_game_id' => $game_id])->andWhere(['turn_user_id' => $user_id])->orderBy(['turn_id' => SORT_DESC])->one());
     }
     
+    /**
+     * 
+     * @param unknown $game_id
+     * @param unknown $user_id
+     */
     public static function NewTurn($game_id, $user_id)
     {
     	// Turn Data
@@ -90,19 +95,20 @@ class Turn extends \yii\db\ActiveRecord
     	else
     		$current_user_order = $gamePlayerData[$previousTurnData->getTurnUserId()]->getGamePlayerOrder();
     	
+    	
     	// If next player id exists
-    	if($gamePlayerDataSortByOrder[$current_user_order+1]->getGamePlayerUserId() != null)
-    		$next_order   = $current_user_order+1;
+    	if(isset($gamePlayerDataSortByOrder[$current_user_order]) && $gamePlayerDataSortByOrder[$current_user_order]->getGamePlayerUserId() != null)
+    		$next_order   = $current_user_order;
     	else
-    		$next_order   = 1;
+    		$next_order   = 0;
     
     	// Previous user turn data
     	$next_user_id 			= $gamePlayerDataSortByOrder[$next_order]->getGamePlayerUserId();
     	$previousUserTurnData	= self::getLastTurnByUserId($next_user_id, $game_id);
     		
     	// Count Next Gold
-    	$count_land = (new GameData())->CountLandByUserId(null, $game_id, $next_user_id);
-    	$count_gold = (new GameData())->GoldGameDataUser(null, $game_id, $next_user_id, $count_land);
+    	$count_land = GameData::CountLandByUserId(null, $game_id, $next_user_id);
+    	$count_gold = GameData::GoldGameDataUser(null, $game_id, $next_user_id, $count_land);
     	$next_gold 	= $previousUserTurnData->getTurnGold() + $count_gold;
     
     	$previous_turn_begin        = $previousUserTurnData->getTurnTimeBegin();
@@ -113,9 +119,9 @@ class Turn extends \yii\db\ActiveRecord
     		$turn_time              = time() - $previous_turn_game_time;
     	
     	$new_turn_begin             = $previous_turn_begin + $turn_time;
-    
-    	/* Voir si on peut appuyer 2 fois*/
-    	if($previousUserTurnData->getTurnUserId() == $user_id || $previousUserTurnData->getTurnUserId() != null){
+    	
+    	// TO CHECK
+    	if($previousUserTurnData->getTurnUserId() == $user_id || $previousUserTurnData->getTurnUserId() == null){
     		Yii::$app->db->createCommand()->insert("turn", [
     				'turn_user_id'           => $next_user_id,
     				'turn_game_id'           => $game_id,
@@ -127,9 +133,10 @@ class Turn extends \yii\db\ActiveRecord
     		])->execute();
     	}
     
-    	/* If end */
+    	// If end
     	//Game::GameEnd($gameid);
     
+    	// TO DO BETTER
     	// If a user loose OR user quit the game
     	if($count_land == 0 OR $gamePlayerData[$next_user_id]->getGamePlayerQuit() > 0){
     		return self::NewTurn($game_id, $next_user_id);

@@ -15,7 +15,7 @@ class TestController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['mdp', 'username'],
+                'only' => ['mdp', 'username', 'newturn'],
                 'rules' => [
                     [
                         'allow' => true, // have access
@@ -62,6 +62,11 @@ class TestController extends Controller
     public function actionUsername()
     {
     	return $this->render('username');
+    }
+    
+    public function actionNewturn()
+    {
+    	return $this->render('newturn');
     }
 
 }

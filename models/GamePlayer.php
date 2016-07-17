@@ -114,6 +114,20 @@ class GamePlayer extends \yii\db\ActiveRecord
     			);
     }
     
+    /**
+     * 
+     * @param unknown $gamePlayerData
+     * @return boolean
+     */
+    public static function sortByOrder($gamePlayerData){
+    	$ordered = array();
+		foreach ($gamePlayerData as $key => $data)
+		{
+   			$ordered[$key] = $data->getGamePlayerOrder();
+		}
+		array_multisort($ordered, SORT_ASC, $gamePlayerData);
+		return $gamePlayerData;
+    }
     
     /**
      *
@@ -152,37 +166,6 @@ class GamePlayer extends \yii\db\ActiveRecord
      */
     public static function gameCountPlayer($game_Id){
     	return self::find()->where(['game_player_game_id' => $game_Id])->andWhere(['game_player_quit' => 0])->count();
-    }
-    
-    /**
-     * 
-     */
-    public static function gameExitPlayer($user_id, $game_id){   	 
-    	Yii::$app->db->createCommand()
-    	->update("game_player", [
-    			'game_player_quit'		=> 1,
-    	],[
-    			'game_player_user_id'   => $user_id,
-    			'game_player_game_id'   => $game_id,
-    	])
-    	->execute();
-    }
-    
-    /**
-     *
-     * @param unknown $gameId
-     * @return \app\classes\GameClass
-     */
-    public static function userInsertJoinGame($game_id, $user_id){
-    	Yii::$app->db->createCommand()->insert("game_player",[
-    			'game_player_region_id' => 1,
-    			'game_player_difficulty_id' => 1,
-    			'game_player_statut' => 0,
-    			'game_player_game_id' => $game_id,
-    			'game_player_user_id' => $user_id,
-    			'game_player_color_id' => 1,
-    			'game_player_enter_time' => time(),
-    	])->execute();
     }
     
     /**
@@ -320,6 +303,36 @@ class GamePlayer extends \yii\db\ActiveRecord
     	return true;
     }
     
+    /**
+     *
+     */
+    public static function gameExitPlayer($user_id, $game_id){
+    	Yii::$app->db->createCommand()
+    	->update("game_player", [
+    			'game_player_quit'		=> 1,
+    	],[
+    			'game_player_user_id'   => $user_id,
+    			'game_player_game_id'   => $game_id,
+    	])
+    	->execute();
+    }
+    
+    /**
+     *
+     * @param unknown $gameId
+     * @return \app\classes\GameClass
+     */
+    public static function userInsertJoinGame($game_id, $user_id){
+    	Yii::$app->db->createCommand()->insert("game_player",[
+    			'game_player_region_id' => 1,
+    			'game_player_difficulty_id' => 1,
+    			'game_player_statut' => 0,
+    			'game_player_game_id' => $game_id,
+    			'game_player_user_id' => $user_id,
+    			'game_player_color_id' => 1,
+    			'game_player_enter_time' => time(),
+    	])->execute();
+    }
     
     /**
      * @inheritdoc
