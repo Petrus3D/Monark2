@@ -46,4 +46,11 @@ class gamePlayerClass{
 		return $this->gamePlayerColorId;
 	}
 	
+	public function getGamePlayerOrder(){
+		return $this->gamePlayerOrder;
+	}
+	
+	public function getGamePlayerQuit(){
+		return $this->gamePlayerQuit;
+	}
 }

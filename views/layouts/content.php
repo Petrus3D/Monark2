@@ -44,7 +44,7 @@ use dmstr\widgets\Alert;
     <!-- Create the tabs -->
     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
         <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-flag"></i></a></li>
-        <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-weixin"></i></a></li>
+        <li><a href="#control-sidebar-chat-tab" data-toggle="tab"><i class="fa fa-weixin"></i></a></li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
@@ -66,8 +66,13 @@ use dmstr\widgets\Alert;
         <!-- /.tab-pane -->
 
         <!-- Chat content -->
-        <div class="tab-pane" id="control-sidebar-settings-tab">
-            
+        <div class="tab-pane" id="control-sidebar-chat-tab">
+            <h3 class="control-sidebar-heading">Chat of the game</h3>
+            <ul class='control-sidebar-menu'>
+                <li>
+                   
+                </li>
+            </ul>
         </div>
         <!-- /.tab-pane -->
     </div>

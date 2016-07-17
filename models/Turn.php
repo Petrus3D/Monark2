@@ -74,6 +74,75 @@ class Turn extends \yii\db\ActiveRecord
     	return new TurnClass(self::find()->where(['turn_game_id' => $game_id])->andWhere(['turn_user_id' => $user_id])->orderBy(['turn_id' => SORT_DESC])->one());
     }
     
+    public static function NewTurn($game_id, $user_id)
+    {
+    	// Turn Data
+    	$previousTurnData 			= self::getLastTurnByGameId($game_id);
+    	
+    	// Game Player
+    	$game_player 				= new GamePlayer();
+    	$gamePlayerData 			= $game_player->findAllGamePlayerToArray($game_id);
+    	$gamePlayerDataSortByOrder	= $game_player->sortByOrder($gamePlayerData);
+    
+    	// If no turn previous
+    	if($previousTurnData->getTurnUserId() == null)
+    		$current_user_order = 0;
+    	else
+    		$current_user_order = $gamePlayerData[$previousTurnData->getTurnUserId()]->getGamePlayerOrder();
+    	
+    	// If next player id exists
+    	if($gamePlayerDataSortByOrder[$current_user_order+1]->getGamePlayerUserId() != null)
+    		$next_order   = $current_user_order+1;
+    	else
+    		$next_order   = 1;
+    
+    	// Previous user turn data
+    	$next_user_id 			= $gamePlayerDataSortByOrder[$next_order]->getGamePlayerUserId();
+    	$previousUserTurnData	= self::getLastTurnByUserId($next_user_id, $game_id);
+    		
+    	// Count Next Gold
+    	$count_land = (new GameData())->CountLandByUserId(null, $game_id, $next_user_id);
+    	$count_gold = (new GameData())->GoldGameDataUser(null, $game_id, $next_user_id, $count_land);
+    	$next_gold 	= $previousUserTurnData->getTurnGold() + $count_gold;
+    
+    	$previous_turn_begin        = $previousUserTurnData->getTurnTimeBegin();
+    	$previous_turn_game_time    = $previousUserTurnData->getTurnTime();
+    	if($previous_turn_game_time != null)
+    		$turn_time              = 0;
+    	else
+    		$turn_time              = time() - $previous_turn_game_time;
+    	
+    	$new_turn_begin             = $previous_turn_begin + $turn_time;
+    
+    	/* Voir si on peut appuyer 2 fois*/
+    	if($previousUserTurnData->getTurnUserId() == $user_id || $previousUserTurnData->getTurnUserId() != null){
+    		Yii::$app->db->createCommand()->insert("turn", [
+    				'turn_user_id'           => $next_user_id,
+    				'turn_game_id'           => $game_id,
+    				'turn_time'              => time(),
+    				'turn_gold'              => $next_gold,
+    				'turn_gold_base'         => $next_gold,
+    				'turn_income'            => $count_gold,
+    				'turn_time_begin'        => $new_turn_begin,
+    		])->execute();
+    	}
+    
+    	/* If end */
+    	//Game::GameEnd($gameid);
+    
+    	// If a user loose OR user quit the game
+    	if($count_land == 0 OR $gamePlayerData[$next_user_id]->getGamePlayerQuit() > 0){
+    		return self::NewTurn($game_id, $next_user_id);
+    	}
+    
+    	// If bot user
+    	/*if($allgameplayerorder[$next_order]['bot'] > 0 AND $next_user_info['type'] == 2){
+    		$Bot = new Bot();
+    		return $Bot->BotStartTurn($gameid, $next_user_id, $next_gold);
+    	}*/
+    
+    }
+    
     /**
      * @inheritdoc
      * @return \app\queries\TurnQuery the active query used by this AR class.

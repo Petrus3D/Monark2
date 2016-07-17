@@ -52,4 +52,12 @@ class TurnClass{
 		return $this->turnIncome;
 	}
 	
+	public function getTurnTime(){
+		return $this->turnTime;
+	}
+	
+	public function getTurnTimeBegin(){
+		return $this->turnTimeBegin;
+	}
+	
 }

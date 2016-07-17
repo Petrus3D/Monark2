@@ -21,6 +21,9 @@ use app\classes\GameDataClass;
  */
 class GameData extends \yii\db\ActiveRecord
 {
+	
+	public static $gold_base = 1;
+	
     /**
      * @inheritdoc
      */
@@ -78,6 +81,43 @@ class GameData extends \yii\db\ActiveRecord
     	foreach (self::getGameDataById($game_Id) as $data)
     		array_push($returned, new GameDataClass($data));
     	return $returned;
+    }
+    
+    /**
+     * 
+     * @param unknown $gameData
+     * @param unknown $game_id
+     * @param unknown $user_id
+     * @return number
+     */
+    public static function CountLandByUserId($gameData, $game_id, $user_id)
+    {
+    	if($gameData == null)
+    		$gameData = self::getGameDataById($game_id);
+    	
+    	$n = 0;
+    	foreach ($gameData as $game)
+    		if($game->getGameDataUserId() == $user_id)
+    			$n++;
+    		
+    	return $n;
+    }
+    
+    /**
+     * Finds game information
+     *
+     * @param  string      $gameid & $userid
+     * @return static|null
+     */
+    public static function GoldGameDataUser($gameData, $game_id, $user_id, $count_land=null)
+    {
+    	if($count_land == null)
+    		$count_land = self::CountLandByUserId($gameData, $game_id, $user_id);
+    	
+    	//$bonus_income_buildings = Building::AddIncomeBuildingUserBuild($data, $userid);
+    
+    	return $count_land + self::$gold_base; //+ $bonus_income_buildings
+    
     }
     
     /**
