@@ -76,9 +76,9 @@ class Color extends \yii\db\ActiveRecord
      * @param unknown $colorData
      * @return NULL|\app\classes\ColorClass
      */
-    public static function findAllColorToArray($colorData=null){
+    public static function findAllColorToArray($colorData=null, $hide=null){
     	if($colorData == null)
-    		$colorData = self::findAllColor();
+    		$colorData = self::findAllColor($hide);
     	$array = null;
     	foreach ($colorData as $key => $color){
     		$array[$color['color_id']] = new ColorClass($color);

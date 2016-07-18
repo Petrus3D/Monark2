@@ -95,17 +95,19 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
             		<ul class="nav navbar-nav">
 	                	<!-- User Account: style can be found in dropdown.less -->
 					 		<li id='turn' class="header_game_content">
-							    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;padding:8px;">
+							    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;padding:0px;top:8px;">
 		                		<?php if(Yii::$app->session['MapData']['CurrentTurnData']->getTurnUserId() == Yii::$app->session['User']->getUserID()): ?>
 						          		<?= Yii::t('header', 'Text_Your_turn') ?>
 						          		<span id='end_of_turn_link' class="btn btn-success">	
 						          			<?= Yii::t('header', 'Button_Turn_Own') ?> 
 						          		</span>
 						        <?php else: ?>
-						        	<font size='3' color='white'><?= Yii::t('header', 'Text_Turn_Other') ?> </font>
-	    							<font size='4' color='#<?=Yii::$app->session['Color'][Yii::$app->session['MapData']['GamePlayer'][Yii::$app->session['MapData']['CurrentTurnData']->getTurnUserId()]->getGamePlayerColorId()]->getColorCss()?>'>
-	            						<?=Yii::$app->session['MapData']['UserData'][Yii::$app->session['MapData']['GamePlayer'][Yii::$app->session['MapData']['CurrentTurnData']->getTurnUserId()]->getGamePlayerUserId()]->getUserName()?>
-	            					</font>
+						        	<span>
+						        		<font size='3' color='white'><?= Yii::t('header', 'Text_Turn_Other') ?> </font>
+	    								<font size='4' color='#<?=Yii::$app->session['Color'][Yii::$app->session['MapData']['GamePlayer'][Yii::$app->session['MapData']['CurrentTurnData']->getTurnUserId()]->getGamePlayerColorId()]->getColorCss()?>'>
+	            							<?=Yii::$app->session['MapData']['UserData'][Yii::$app->session['MapData']['GamePlayer'][Yii::$app->session['MapData']['CurrentTurnData']->getTurnUserId()]->getGamePlayerUserId()]->getUserName()?>
+	            						</font>
+	            					</span>
 						        <?php endif; ?>
 						        </a>
 		                	</li>
@@ -151,6 +153,16 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 	                		<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
                 	</ul>
                 	<?php Pjax::end(); ?>
+                </div>
+                <div id='navbar-menu-lost-connection' class="navbar-custom-menu">
+	                <ul class="nav navbar-nav">	
+	                	<li id='lost_connexion' class="header_game_content" style="top:10px;">
+              				<span id='lost_connection_text' class="blink callout callout-danger" style="padding:7px;">
+              					<font color="yellow" size="4"><i class="fa fa-warning"></i> <?= Yii::t('header', 'Text_Lost_Connection') ?> <i class="fa fa-warning"></i></font>
+              				</span>
+		                </li>
+		                <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+	                </ul>
                 </div>
         <?php endif; ?>
       <?php endif; ?>

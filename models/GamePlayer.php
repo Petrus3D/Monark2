@@ -97,7 +97,7 @@ class GamePlayer extends \yii\db\ActiveRecord
      * 
      * @return number[]
      */
-    public function findPlayerZero(){
+    public static function findPlayerZero(){
     	return new GamePlayerClass(
     			array(
     			'game_player_id' => 0,

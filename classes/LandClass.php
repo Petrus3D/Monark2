@@ -75,7 +75,11 @@ class LandClass{
 			return $this->landImage;
 	}
 	
-	public function getLandImageUrl($colorName){
+	public function getLandImageUrl(){
+		return 'img/land/'.$this->getLandImage().'.png';
+	}
+	
+	public function getLandImageTempUrl($colorName){
 		return 'img/land_temp/'.$this->getLandImage().'_'.$colorName.'.png';
 	}
 	

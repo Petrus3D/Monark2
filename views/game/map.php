@@ -47,7 +47,7 @@ $this->registerJsFile("@web/js/game/map.js", ['depends' => [dmstr\web\AdminLteAs
 			<?php $land = $Land[$data->getGameDataLandId()]; ?>    
 			<div class="land_content" i=<?= "'".$land->getLandId()."'"; ?>>
 	              <a href=<?= "'#".str_replace("'", "-", $land->getLandName())."'"; ?> class="link_land_img" style=<?= "'top:".$land->getLandPositionTop()."em;left:".$land->getLandPositionLeft()."em;text-decoration: none;'"; ?>>
-	                    <img src=<?= "'".$land->getLandImageUrl($Color[$GamePlayer[$data->getGameDataUserId()]->getGamePlayerColorId()]->getColorName2())."'"; ?> i=<?= "'".$land->getLandId()."'"; ?> alt=<?= "'".$land->getLandName()."'"; ?> class="land_img" 
+	                    <img src=<?= "'".$land->getLandImageTempUrl($Color[$GamePlayer[$data->getGameDataUserId()]->getGamePlayerColorId()]->getColorName2())."'"; ?> i=<?= "'".$land->getLandId()."'"; ?> alt=<?= "'".$land->getLandName()."'"; ?> class="land_img" 
 	                    style=<?= "'top:".$land->getLandPositionTop()."em;left:".$land->getLandPositionLeft()."em;'"; ?>> 
 	                    <!--<div class="building" style=<?= "'position:absolute;top:".$land->getLandPositionTop()."em;left:".$land->getLandPositionLeft()."em;'"; ?>>
 	                        <?php //if($value['land_harbor']): ?>

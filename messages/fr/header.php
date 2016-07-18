@@ -47,5 +47,7 @@ return [
 	'Text_Turn_Finished' => 'Tour terminé',
 	'Text_Turn_Other' 	=> 'Patientez, tour de.',
 	'Text_Your_turn'	=>  "C'est votre tour !",
+	'Text_Lost_Connection'=>  'Connexion perdue avec le serveur',
+		
 ];
 ?>

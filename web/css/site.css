@@ -108,6 +108,28 @@ a.desc:after {
   background-color: #5CCCFF;
 }
 
+/* Header */
+.blink {
+    animation-duration: 0.8s;
+    animation-iteration-count: infinite;
+    animation-name: blink;
+}
+ 
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    76% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 /* Map */
 .land_img{
   position: absolute;/*fixed*/
@@ -213,7 +235,7 @@ a.desc:after {
 #map_content{
   position: relative;
   /*min-height: 51.5em;*/
-  top: -1em;
+  top: -1.2em;
   left: 0%;
   width: 100%;
   height: 100%;

@@ -69,6 +69,14 @@ class Map extends \yii\db\ActiveRecord
     }
     
     /**
+     *  
+     * @return \app\models\Map[]
+     */
+    public static function findAllMap(){
+    	return self::find()->all();
+    }
+    
+    /**
      * @inheritdoc
      * @return \app\queries\MapQuery the active query used by this AR class.
      */

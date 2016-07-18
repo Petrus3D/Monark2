@@ -5,6 +5,9 @@ $(document).on("pjax:timeout", function(event) {
 
 //Call Pjax
 $("document").ready(function(){
+	// No connection lost
+    $('#lost_connection_text').hide();
+    
     setInterval(function(){
         if($("modal:hover").length == 0){
         	reloadMap();
@@ -23,14 +26,25 @@ function reloadHeader(){
 	$.pjax.reload({container:"#navbar-menu-game-data", async:false});
 }
 
-// New JS after refresh
+// Pjax success
+$(document).on('pjax:success', function() {
+	$('#lost_connection_text').hide();
+    event.preventDefault();
+});
+
+// Lost server connection
+$('#pjax').on('pjax:error', function (event, error) {
+    $('#lost_connection_text').show();
+    event.preventDefault();
+});
+
+//New JS after refresh
 $(document).on("pjax:end", function() {
   // tooltips
   $("[data-toggle=tooltip]").tooltip();
 
   // popover
   $("[data-toggle=popover]").popover();
-
 });
 
 // function used to show Modals
@@ -39,10 +53,9 @@ function HideModal(content){$("#modal-view").modal("hide");}
 
 // Popover
 function close_popover(id){$(id).popover("hide");}
-function getPopover(object){
-	var land_position = object.position();
-	var top = land_position.top + 130;
-	var left = land_position.left + 200;
+function getPopover(position){
+	var top = position.top + 130;
+	var left = position.left + 200;
 	var popover_name = "#popover-view-"+land_id;
 	
     $(popover_name).popover({
@@ -55,17 +68,28 @@ function getPopover(object){
     $(popover_id).css("top", top+"px");
     $(popover_id).css("left", left+"px");
     
-    var returned = {popover_id:popover_id, popover_name:popover_name};
-    return returned;
+    return {"popover_id":popover_id, "popover_name":popover_name};
+}
+
+// Land
+function getLandData(land){
+	if(land != null){
+		var land_name 		= $("img[i="+land+"]").attr("alt");
+		var land_position 	= $("img[i="+land+"]").position();
+	
+		return {"land_id":land, "land_name":land_name, "land_position":land_position};
+	}else
+		return null;
 }
 
 // Function used to call PHP Ajax function 
-function CallAjaxMethod(action, args, modal) {
+function CallAjaxMethod(action, args, modal, land=null) {
 	// URL
 	var url = config["url"]["ajax"] + "/"+action+"&args="+args;
-    
+	
 	// Land
-	//var land_name = $("img[i="+land_id+"]").attr("alt");
+	var land = getLandData(land);
+	
 	
 	// Popover
 	//var popover = getPopover($("img[i="+land_id+"]"));
@@ -104,7 +128,6 @@ function CallAjaxMethod(action, args, modal) {
                     $.pjax.reload({container:"#map"});
                     break;
             }*/
-        	alert("OK");
         	reloadMap();
         	reloadHeader();
         },

@@ -15,14 +15,14 @@ class TestController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['mdp', 'username', 'newturn'],
+                'only' => ['mdp', 'username', 'newturn', 'generateallcolors'],
                 'rules' => [
                     [
-                        'allow' => true, // have access
+                        'allow' => false, // have access
                         'roles' => ['@'], // Connected
                     ],
                     [
-                        'allow' => true, // No access
+                        'allow' => false, // No access
                         'roles'=>['?'], // Guests
                     ],
                 ],
@@ -69,4 +69,8 @@ class TestController extends Controller
     	return $this->render('newturn');
     }
 
+    public function actionGenerateallcolors()
+    {
+    	return $this->render('generateallcolors');
+    }
 }

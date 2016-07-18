@@ -59,7 +59,6 @@ class AjaxController extends Controller
 		if($user_id == null) $user_id = Yii::$app->session['User']->getId();
 		
 		Turn::NewTurn($game_id, $user_id);
-		
 	}
     
 }

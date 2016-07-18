@@ -47,6 +47,7 @@ return [
     'Text_Turn_Finished' => 'Turn finished',
     'Text_Turn_Other' => 'Please wait, turn of',
 	'Text_Your_turn'	=>  "It's your turn !",
+	'Text_Lost_Connection'=>  'Connection lost with the server',
     
 ];
 ?>
