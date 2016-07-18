@@ -121,7 +121,7 @@ class Turn extends \yii\db\ActiveRecord
     	$new_turn_begin             = $previous_turn_begin + $turn_time;
     	
     	// TO CHECK
-    	if($previousUserTurnData->getTurnUserId() == $user_id || $previousUserTurnData->getTurnUserId() == null){
+    	if($previousTurnData->getTurnUserId() == $user_id || $previousUserTurnData->getTurnUserId() == null){
     		Yii::$app->db->createCommand()->insert("turn", [
     				'turn_user_id'           => $next_user_id,
     				'turn_game_id'           => $game_id,
@@ -136,7 +136,6 @@ class Turn extends \yii\db\ActiveRecord
     	// If end
     	//Game::GameEnd($gameid);
     
-    	// TO DO BETTER
     	// If a user loose OR user quit the game
     	if($count_land == 0 OR $gamePlayerData[$next_user_id]->getGamePlayerQuit() > 0){
     		return self::NewTurn($game_id, $next_user_id);

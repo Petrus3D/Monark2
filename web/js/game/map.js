@@ -65,10 +65,10 @@ function CallAjaxMethod(action, args, modal) {
 	var url = config["url"]["ajax"] + "/"+action+"&args="+args;
     
 	// Land
-	var land_name = $("img[i="+land_id+"]").attr("alt");
+	//var land_name = $("img[i="+land_id+"]").attr("alt");
 	
 	// Popover
-	var popover = getPopover($("img[i="+land_id+"]"));
+	//var popover = getPopover($("img[i="+land_id+"]"));
     
 	$.ajax({
         url: url,
@@ -104,10 +104,12 @@ function CallAjaxMethod(action, args, modal) {
                     $.pjax.reload({container:"#map"});
                     break;
             }*/
+        	alert("OK");
         	reloadMap();
         	reloadHeader();
         },
         error: function(){    
+        	alert("error : " + url);
             /*switch (show_modal) {
                 case 2:
                     alert(url);

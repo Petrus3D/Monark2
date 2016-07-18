@@ -26,6 +26,27 @@ return [
 	'Stats'       	=> 'My stats',
 	'Language'      => 'Language',
 
+		
+	// In game header
+	// Buttons
+    'Button_Chat' => "Show chat",
+    'Button_Diplomacy' => "Diplomacy ",
+    'Button_Turn_Own' => "End of turn",
+	
+	// box title
+	'Box_Title_Ranking' => 'Ranking',
+	'Box_Title_News' => 'News',
+	'Box_Title_Pact' => 'Current treaties',
+		
+	 // Text
+    'Text_Gold' => 'Gold',
+    'Text_Income' => 'Income',
+    'Text_Country' => 'Countries',
+    'Text_Units' => 'Units',
+    'Text_Turn_Own' => 'Remaining time',
+    'Text_Turn_Finished' => 'Turn finished',
+    'Text_Turn_Other' => 'Please wait, turn of',
+	'Text_Your_turn'	=>  "It's your turn !",
     
 ];
 ?>

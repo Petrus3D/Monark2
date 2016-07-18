@@ -20,28 +20,10 @@ return [
     /* Title */
 	  'Title_Map' => 'Map of the game',
 
-	  /* Text */
-    'Text_Menu_Top_Gold' => 'Gold',
-    'Text_Menu_Top_Income' => 'Income',
-    'Text_Menu_Top_Country' => 'Countries',
-    'Text_Menu_Top_Units' => 'Units',
-    'Text_Turn_Own' => 'Remaining time',
-    'Text_Turn_Finished' => 'Turn finished',
-    'Text_Turn_Other_{name}' => '{name} turn.',
-
-    /* Buttons */ 
-    'Button_Chat_{nb}' => "Show chat ({nb})",
-    'Button_Diplomacy' => "Diplomacy ",
-    'Button_Turn_Own' => "End of turn",
-
-    /* Box */ 
-    // box title
-    'Box_Title_Ranking' => 'Ranking',
-    'Box_Title_News' => 'News',
-    'Box_Title_Pact' => 'Current treaties',
-
     /* Modal */
     'Modal_Loading' => 'Loading',
+	'Modal_Error' => 'Error when connecting to server',
+		
     // Modal title
   	'Modal_Title_Land' => 'Information',
   	'Modal_Title_Gestion' => 'Manage',

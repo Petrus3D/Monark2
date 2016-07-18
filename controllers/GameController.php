@@ -405,7 +405,7 @@ public function behaviors()
 	    	$gameData				= $game_data->getGameDataByIdToArray($game_current->getGameId());
 	    	$turnData				= $turn_data->getLastTurnByGameId($game_current->getGameId());
 	    	$userData				= $game_player->findAllGamePlayerToListUserId($gamePlayerDataGlobal);
-	    		    	
+
 	    	// Add header info to session
 	    	Yii::$app->session['MapData'] = array(
 	    			'GamePlayer'		=> $gamePlayerData,

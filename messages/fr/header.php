@@ -26,5 +26,26 @@ return [
 	'Stats'       	=> 'Stats',
 	'Language'      => 'Language',
     
+		
+	// In game header	
+	// box title
+	'Box_Title_Ranking' => 'Classement',
+	'Box_Title_News' => 'News',
+	'Box_Title_Pact' => 'Traités en cours',
+		
+	// Buttons
+	'Button_Chat' => "Voir le chat",
+	'Button_Diplomacy' => "Diplomatie ",
+	'Button_Turn_Own' => "Fin du tour",
+		
+	// Text
+	'Text_Gold' => 'Or',
+	'Text_Income' => 'Revenu',
+	'Text_Country' => 'Régions',
+	'Text_Units' => 'Unités',
+	'Text_Turn_Own' => 'Temps restant',
+	'Text_Turn_Finished' => 'Tour terminé',
+	'Text_Turn_Other' 	=> 'Patientez, tour de.',
+	'Text_Your_turn'	=>  "C'est votre tour !",
 ];
 ?>

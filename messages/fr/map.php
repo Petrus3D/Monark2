@@ -20,30 +20,10 @@ return [
     /* Title */
 	'Title_Map' => 'Carte de la partie',
 
-	/* Text */
-    'Text_Menu_Top_Gold' => 'Or',
-    'Text_Menu_Top_Income' => 'Revenu',
-    'Text_Menu_Top_Country' => 'Régions',
-    'Text_Menu_Top_Units' => 'Unités',
-    'Text_Turn_Own' => 'Temps restant',
-    'Text_Turn_Finished' => 'Tour terminé',
-    'Text_Turn_Other_{name}' => 'Tour de {name}.',
-
-    /* Buttons */ 
-    'Button_Chat_{nb}' => "Voir le chat ({nb})",
-    'Button_Diplomacy' => "Diplomatie ",
-    'Button_Turn_Own' => "Fin du tour",
-
-    /* Help */
-
-    /* Box */ 
-    // box title
-    'Box_Title_Ranking' => 'Classement',
-    'Box_Title_News' => 'News',
-    'Box_Title_Pact' => 'Traités en cours',
-
     /* Modal */
     'Modal_Loading' => 'Chargement en cours',
+	'Modal_Error' => 'Erreur lors de la connexion au serveur',
+		
     // Modal title
   	'Modal_Title_Land' => 'Informations',
   	'Modal_Title_Gestion' => 'Gestion',
