@@ -4,27 +4,29 @@ use yii\grid\GridView;
 use yii\bootstrap\Progress;
 use yii\widgets\Pjax;
 use yii\bootstrap\Modal;
+use yii\web\View;
 
 
 /* @var $this yii\web\View */
 $this->title = Yii::t('game', 'Title_Map');
 $refresh_time = $RefreshTime;
 
-// Call Pjax
-$this->registerJs(
-		'$("document").ready(function(){
-        setInterval(function(){
-            if($("modal:hover").length == 0){
-                $.pjax.reload({container:"#map_content", async:false});
-            }
-			if($("#navbar-menu-game:hover").length == 0){
-				$.pjax.reload({container:"#navbar-menu-game-data", async:false});
-			}
-        }, '.$refresh_time.'); //Reload map
-    });');
+// Set JS var
+$config = array(
+		'refresh_time' => $refresh_time,
+		'text' => array(
+				'turn_finished' => Yii::t('map', 'Text_Turn_Finished'),
+				'modal_loading'	=> '<center><font size=3>'.Yii::t('map', 'Modal_Loading').'...</font><br><img src=img/loading.gif></center>',
+				'modal_error'	=> '<center><font size=3>'.Yii::t('map', 'Modal_Error').'</font></center>',
+		),
+		'url'	=> array(
+				'ajax' => Yii::$app->urlManager->createUrl(['ajax'])
+		)
+);
+$this->registerJs("var config = ".json_encode($config).";", View::POS_HEAD);
 
 // Call file
-$this->registerJsFile("@web/js/game/map.js");
+$this->registerJsFile("@web/js/game/map.js", ['depends' => [dmstr\web\AdminLteAsset::className()]]);
 ?>
 
 <div class="map-show">
