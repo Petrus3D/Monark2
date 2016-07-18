@@ -25,8 +25,9 @@ $config = array(
 );
 $this->registerJs("var config = ".json_encode($config).";", View::POS_HEAD);
 
-// Call file
+// Call files
 $this->registerJsFile("@web/js/game/map.js", ['depends' => [dmstr\web\AdminLteAsset::className()]]);
+$this->registerCssFile("@web/css/map.css");
 ?>
 
 <div class="map-show">
