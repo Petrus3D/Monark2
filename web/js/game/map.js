@@ -9,7 +9,7 @@ $("document").ready(function(){
 	HideLostConnection();
     
     setInterval(function(){
-        if($("modal:hover").length == 0){
+        if(!$("modal").is(':visible')){
         	reloadMap();
         }
 		if($("#navbar-menu-game:hover").length == 0){
@@ -58,6 +58,8 @@ function UpdateModalContent(args){$("#modal-view").find("#modal-view-Content").h
 function UpdateModalError(){UpdateModalContent({'content': config["text"]["modal_error_content"]});}
 function ShowModal(){$("#modal-view").modal("show");}
 function HideModal(){$("#modal-view").modal("hide");}
+function ModalInfo(){$("#modal-view").addClass("modal modal-info");}
+function ModalError(){$("#modal-view").addClass("modal modal-danger");}
 
 // Popover
 function close_popover(id){$(id).popover("hide");}
@@ -103,7 +105,8 @@ function CallAjaxMethod(action, args, modal=null, land=null) {
 	// Ajax call
 	$.ajax({
         url: url,
-        dataType : "html",          
+        dataType : "html",  
+        mimeType: "application/json",
         beforeSend:function(){
         	// Modal
         	if(modal != null){ShowModalLoading(modal);}
@@ -113,19 +116,19 @@ function CallAjaxMethod(action, args, modal=null, land=null) {
         	// If no error
         	if(data != config["ajax"]["error"]){
         		// Modal
-            	if(modal != null){modal['content'] = data;UpdateModalContent(modal);}
+            	if(modal != null){modal['content'] = data;UpdateModalContent(modal);ModalInfo();}
             	          
             	reloadMap();
             	reloadHeader();
         	}else{
         		// Modal
-        		if(modal != null){UpdateModalError();}
+        		if(modal != null){UpdateModalError();ModalError();}
         	}
         },
         error: function(){    
-        	//alert("error : " + url);
+        	alert("error : " + url);
         	// Modal
-        	if(modal != null){UpdateModalError();}
+        	if(modal != null){UpdateModalError();ModalError();}
         	
         }
     });
@@ -134,7 +137,7 @@ function CallAjaxMethod(action, args, modal=null, land=null) {
 // Land interaction
 $(document).on("click", ".land_content", function(){
     var land_id = $(this).attr("i");
-    CallAjaxMethod("landinfo", {'land_id': land_id}, {'title': "informations", 'title_with_land_name' : true}, land_id);
+    CallAjaxMethod("landinfo", {"land_id":land_id}, {'title': "informations", 'title_with_land_name' : true}, land_id);
 });
 
 // New turn

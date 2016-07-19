@@ -17,6 +17,8 @@ use app\models\Continent;
 use app\models\Game;
 use app\models\User;
 use app\models\GamePlayer;
+use yii\helpers\Json;
+use yii\web\Response;
 
 /**
  * AjaxController implements the CRUD actions for Ajax model.
@@ -146,8 +148,11 @@ class AjaxController extends Controller
 	 */
 	public function actionLandinfo($land_id=null, $game=null, $user=null){
 		$urlparams = Yii::$app->request->queryParams;
-		if(array_key_exists('args', $urlparams) && json_decode($urlparams['args']) != null){
-			$urlparamsArray = json_decode($urlparams['args']);
+		print json_decode($urlparams['args']);  
+		//print Json::decode($urlparams['args'], true);
+		if(array_key_exists('args', $urlparams)){ // && Json::decode($urlparams['args'], true) != null
+			$urlparamsArray = array(); //Json::decode($urlparams['args'], true);
+			//print " == ".$urlparamsArray;
 			if(array_key_exists('land_id', $urlparamsArray) && $urlparamsArray['land_id'] != null){
 		    	// Load data
 		    	$data = $this->getData(array(

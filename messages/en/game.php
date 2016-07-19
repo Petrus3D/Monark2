@@ -22,6 +22,7 @@ return [
     'Title_Loby' => 'Game lobbies list',
     'Title_Join' => 'Join a game',
     'Title_Loading' => 'Loading...',
+	'Title_Map' => 'Map',
 
 	/* Tab */
 	'Tab_Game_Name' => 'Game Name',

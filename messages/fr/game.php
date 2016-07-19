@@ -22,6 +22,7 @@ return [
     'Title_Loby' => 'Liste des salons de parties',
     'Title_Join' => 'Rejoindre une partie',
     'Title_Loading' => 'Chargement...',
+	'Title_Map' => 'Carte',
 		
 	/* Tabs */
 	'Tab_Game_Name' => 'Nom de la partie',

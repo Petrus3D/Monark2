@@ -38,7 +38,7 @@ $this->registerCssFile("@web/css/map.css");
 <div class="map-show">
 	<!-- Modals Js -->
     <?php
-        Modal::begin(['id' => 'modal-view','header' => '<div class="modal-header-title"></div>',]);
+        Modal::begin(['id' => 'modal-view','header' => '<div class="modal-header-title"></div>']);
         echo "<div id='modal-view-Content'></div>";
         Modal::end();
     ?>
