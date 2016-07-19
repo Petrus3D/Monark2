@@ -60,13 +60,46 @@ class Land extends \yii\db\ActiveRecord
             'land_harbor' => 'Land Harbor',
         ];
     }
+    
+    /**
+     * 
+     * @param unknown $units
+     * @return number[]
+     */
+    public static function LandCountUnitsToArray($units){
+    	$count_canon 		= (int)($units/10);
+    	$count_horseman 	= (int)(fmod($units, 10)/5);
+    	$count_soldier 		= (int)(fmod(fmod($units, 10), 5));
+    	return array(
+    			'canon'		=> $count_canon,
+    			'horseman'	=> $count_horseman,
+    			'soldier'	=> $count_soldier,
+    	);
+    }
+    
+    /**
+     * 
+     * @param unknown $land_id
+     * @return \app\models\Land|NULL
+     */
+    public static function findLandById($land_id){
+    	return self::find()->where(['land_id' => $land_id])->one();
+    }
+    
+    /**
+     * 
+     * @param unknown $land_id
+     * @return \app\classes\LandClass
+     */
+    public static function findLandByIdToArray($land_id){
+    	return new LandClass(findLandById($land_id));
+    }
 
-	
-	/**
-	 * 
-	 * @param unknown $map_id
-	 * @return \app\models\Land[]
-	 */
+    /**
+     *
+     * @param unknown $map_id
+     * @return \app\models\Land[]
+     */
     public static function findAllLands($map_id){
     	return self::find()->where(['land_map_id' => $map_id])->all();
     }

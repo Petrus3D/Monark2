@@ -6,7 +6,7 @@ $(document).on("pjax:timeout", function(event) {
 //Call Pjax
 $("document").ready(function(){
 	// No connection lost
-    $('#lost_connection_text').hide();
+	HideLostConnection();
     
     setInterval(function(){
         if($("modal:hover").length == 0){
@@ -28,15 +28,19 @@ function reloadHeader(){
 
 // Pjax success
 $(document).on('pjax:success', function() {
-	$('#lost_connection_text').hide();
+	HideLostConnection();
     event.preventDefault();
 });
 
 // Lost server connection
 $('#pjax').on('pjax:error', function (event, error) {
-    $('#lost_connection_text').show();
+	ShowLostConnection();
     event.preventDefault();
 });
+
+// Show / Hide lost connection
+function ShowLostConnection(){$('#lost_connection_text').show();}
+function HideLostConnection(){$('#lost_connection_text').hide();}
 
 //New JS after refresh
 $(document).on("pjax:end", function() {
@@ -48,8 +52,12 @@ $(document).on("pjax:end", function() {
 });
 
 // function used to show Modals
-function ShowModal(content){$("#modal-view").modal("show").find("#modal-view-Content").html(content);}
-function HideModal(content){$("#modal-view").modal("hide");}
+function ShowModalLoading(args){UpdateModalTitle(args);$("#modal-view").find("#modal-view-Content").html(config["text"]["modal_loading_content"]);ShowModal();}
+function UpdateModalTitle(args){if(args['title_with_land_name']){args['title'] = args['land_name'] + " " + args['title'];}$(".modal-header-title").html("<center><h4>"+args['title']+"</h4></center>");}
+function UpdateModalContent(args){$("#modal-view").find("#modal-view-Content").html(args['content']);}
+function UpdateModalError(){UpdateModalContent({'content': config["text"]["modal_error_content"]});}
+function ShowModal(){$("#modal-view").modal("show");}
+function HideModal(){$("#modal-view").modal("hide");}
 
 // Popover
 function close_popover(id){$(id).popover("hide");}
@@ -73,88 +81,66 @@ function getPopover(position){
 
 // Land
 function getLandData(land){
-	if(land != null){
-		var land_name 		= $("img[i="+land+"]").attr("alt");
-		var land_position 	= $("img[i="+land+"]").position();
+	var land_name 		= $("img[i="+land+"]").attr("alt");
+	var land_position 	= $("img[i="+land+"]").position();
 	
-		return {"land_id":land, "land_name":land_name, "land_position":land_position};
-	}else
-		return null;
+	return {"land_id":land, "land_name":land_name, "land_position":land_position};
 }
 
 // Function used to call PHP Ajax function 
-function CallAjaxMethod(action, args, modal, land=null) {
+function CallAjaxMethod(action, args, modal=null, land=null) {
 	// URL
 	var url = config["url"]["ajax"] + "/"+action+"&args="+args;
 	
 	// Land
-	var land = getLandData(land);
-	
-	
+	if(land != null){
+		var land = getLandData(land);
+		modal["land_name"] = land["land_name"];
+	}
+			
 	// Popover
-	//var popover = getPopover($("img[i="+land_id+"]"));
     
+	// Ajax call
 	$.ajax({
         url: url,
         dataType : "html",          
         beforeSend:function(){
-            /*switch (modal[0]) {
-                case 2:
-                    $("#modal-view").modal("show").find("#modal-view-Content").html("<center><font size=3>'.Yii::t('map', 'Modal_Loading').'...</font><br><img src=img/loading.gif></center>");
-                    break;
+        	// Modal
+        	if(modal != null){ShowModalLoading(modal);}
 
-                 case 1:
-                    $("#modal-view").modal("hide");                        
-                    $(popover_id+" .popover-content").html("<center><font size=3>'.Yii::t('map', 'Modal_Loading').'...</font><br><img src=img/loading.gif></center>")
-                    break;
-                
-                default:
-                    $.pjax.reload({container:"#map"});
-                    break;
-            }*/
-        	//ShowModal();
-     },
+        },
         success: function(data) {
-            /*switch (show_modal) {
-                case 2:
-                    $("#modal-view").modal("show").find("#modal-view-Content").html(data);
-                    break;
-
-                 case 1:
-                    $(popover_id+" .popover-content").html(data);
-                    break;
-                
-                default:
-                    $.pjax.reload({container:"#map"});
-                    break;
-            }*/
-        	reloadMap();
-        	reloadHeader();
+        	// If no error
+        	if(data != config["ajax"]["error"]){
+        		// Modal
+            	if(modal != null){modal['content'] = data;UpdateModalContent(modal);}
+            	          
+            	reloadMap();
+            	reloadHeader();
+        	}else{
+        		// Modal
+        		if(modal != null){UpdateModalError();}
+        	}
         },
         error: function(){    
-        	alert("error : " + url);
-            /*switch (show_modal) {
-                case 2:
-                    alert(url);
-                    $("#modal-view").modal("show").find("#modal-view-Content").html("Erreur lors de la connexion au serveur");
-                    break;
-
-                 case 1:
-                    $(popover_id+" .popover-content").html("Erreur lors de la connexion au serveur");
-                    break;
-                
-                default:
-                    $.pjax.reload({container:"#map"});
-                    break;
-            }*/
+        	//alert("error : " + url);
+        	// Modal
+        	if(modal != null){UpdateModalError();}
+        	
         }
     });
 }
+
+// Land interaction
+$(document).on("click", ".land_content", function(){
+    var land_id = $(this).attr("i");
+    CallAjaxMethod("landinfo", {'land_id': land_id}, {'title': "informations", 'title_with_land_name' : true}, land_id);
+});
 
 // New turn
 $(document).on("click", "#end_of_turn_link", function(){
     $("#end_of_turn_link").html("<font color=white> " + config["text"]["turn_finished"] + " !</font>");
     $("#end_of_turn_link").attr("origin", "");
-	CallAjaxMethod("newturn", new Array(), new Array());
+	CallAjaxMethod("newturn", new Array(), null);
     $(".modal-dialog ").css({"top" : "75px"});
 });

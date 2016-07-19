@@ -157,7 +157,7 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
                 <div id='navbar-menu-lost-connection' class="navbar-custom-menu">
 	                <ul class="nav navbar-nav">	
 	                	<li id='lost_connexion' class="header_game_content" style="top:10px;">
-              				<span id='lost_connection_text' class="blink callout callout-danger" style="padding:7px;">
+              				<span id='lost_connection_text' class="blink callout callout-danger" style="display:none;padding:7px;">
               					<font color="yellow" size="4"><i class="fa fa-warning"></i> <?= Yii::t('header', 'Text_Lost_Connection') ?> <i class="fa fa-warning"></i></font>
               				</span>
 		                </li>

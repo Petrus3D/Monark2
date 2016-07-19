@@ -5,6 +5,8 @@ use yii\bootstrap\Progress;
 use yii\widgets\Pjax;
 use yii\bootstrap\Modal;
 use yii\web\View;
+use app\models\Land;
+use app\controllers\AjaxController;
 
 
 /* @var $this yii\web\View */
@@ -15,12 +17,15 @@ $refresh_time = $RefreshTime;
 $config = array(
 		'refresh_time' => $refresh_time,
 		'text' => array(
-				'turn_finished' => Yii::t('map', 'Text_Turn_Finished'),
-				'modal_loading'	=> '<center><font size=3>'.Yii::t('map', 'Modal_Loading').'...</font><br><img src=img/loading.gif></center>',
-				'modal_error'	=> '<center><font size=3>'.Yii::t('map', 'Modal_Error').'</font></center>',
+				'turn_finished' 			=> Yii::t('map', 'Text_Turn_Finished'),
+				'modal_loading_content'		=> '<center><font size=3>'.Yii::t('map', 'Modal_Loading').'...</font><br><img src=img/loading.gif></center>',
+				'modal_error_content'		=> '<center><font size=3>'.Yii::t('map', 'Modal_Error').'</font></center>',
 		),
 		'url'	=> array(
 				'ajax' => Yii::$app->urlManager->createUrl(['ajax'])
+		),
+		'ajax'	=> array(
+				'error'	=> AjaxController::returnError(),
 		)
 );
 $this->registerJs("var config = ".json_encode($config).";", View::POS_HEAD);
@@ -47,6 +52,7 @@ $this->registerCssFile("@web/css/map.css");
 			
 			<?php $land = $Land[$data->getGameDataLandId()]; ?>    
 			<div class="land_content" i=<?= "'".$land->getLandId()."'"; ?>>
+				  <!-- Image -->
 	              <a href=<?= "'#".str_replace("'", "-", $land->getLandName())."'"; ?> class="link_land_img" style=<?= "'top:".$land->getLandPositionTop()."em;left:".$land->getLandPositionLeft()."em;text-decoration: none;'"; ?>>
 	                    <img src=<?= "'".$land->getLandImageTempUrl($Color[$GamePlayer[$data->getGameDataUserId()]->getGamePlayerColorId()]->getColorName2())."'"; ?> i=<?= "'".$land->getLandId()."'"; ?> alt=<?= "'".$land->getLandName()."'"; ?> class="land_img" 
 	                    style=<?= "'top:".$land->getLandPositionTop()."em;left:".$land->getLandPositionLeft()."em;'"; ?>> 
@@ -56,6 +62,7 @@ $this->registerCssFile("@web/css/map.css");
 	                        <?php //endif; ?>
 	                    </div>-->
 	                </a>
+	               <!-- Title -->
 	               <div class="land_title" style=<?= "'top:".$land->getLandPositionTop()."em;left:".$land->getLandPositionLeft()."em;'"; ?>>
                         <font color=<?= "'".$Color[$GamePlayer[$data->getGameDataUserId()]->getGamePlayerColorId()]->getColorName()."'"; ?>>
                             <?= $land->getLandName(); ?>
@@ -67,16 +74,16 @@ $this->registerCssFile("@web/css/map.css");
                                 <?= "<img src='".$Ressource[$data->getGameDataRessourceId()]->getRessourceImageUrl()."' height='20px' width='20px'>"; ?>
                             <?php endif; ?>
                         </font>
+                        <!-- Units -->
 	                  <?php //if(isset($user_frontier_array[$value['land_id']])): ?>
-	                     <?php if($data->getGameDataUserId() == $User->getUserID()){$user_units+=$data->getGameDataUnits();} ?><br>
-	                    	<?php $nb_canon = (int)($data->getGameDataUnits()/10);$nb_horseman = (int)(fmod($data->getGameDataUnits(), 10)/5);$nb_soldier = (int)(fmod(fmod($data->getGameDataUnits(), 10), 5)); ?>
-	                    	<?php for($i=1; $i <= $nb_canon; $i++): ?>
+	                     	<?php $land_units = Land::LandCountUnitsToArray($data->getGameDataUnits());?>
+	                     	<?php for($i=1; $i <= $land_units['canon']; $i++): ?>
 	                       		<img src='img/canon.png' class='land_canon' style=<?= "'left:".$i."px;'"; ?>>
 	                   		<?php endfor; ?>
-	                    	<?php for($i=1; $i <= $nb_horseman; $i++): ?>
+	                    	<?php for($i=1; $i <= $land_units['horseman']; $i++): ?>
 	                        	<img src='img/horseman.png' class='land_horseman' style=<?= "'left:".$i."px;'"; ?>>
 	                    	<?php endfor; ?>
-	                    	<?php for($i=1; $i <= $nb_soldier; $i++): ?>
+	                    	<?php for($i=1; $i <= $land_units['soldier']; $i++): ?>
 	                    		<img src='img/soldier.png' class='land_soldier' style=<?= "'left:".$i."px;'"; ?>>
 	                  		<?php endfor; ?>
 	                  <?php //endif; ?>
