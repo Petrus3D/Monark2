@@ -17,13 +17,27 @@ class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
+    public $sourcePath = '@web';
     public $css = [
-        'css/site.css',
+    		'css/AdminLTE.min.css',
+    		'css/all-skins.min.css',
+    		'css/site.css',
+    		'css/map.css',
     ];
     public $js = [
+    		'js/app.min.js',
+    		'js/utils.js',
+    		'js/json.min.js',
+    		'js/game/modals.js',
+    		'js/game/game.js',
+    		'js/game/anim.js',
+    		'js/game/map.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+    		'rmrevin\yii\fontawesome\AssetBundle',
+    		'yii\web\YiiAsset',
+    		'yii\web\JqueryAsset',
+    		'yii\bootstrap\BootstrapAsset',
+    		'yii\bootstrap\BootstrapPluginAsset'
     ];
 }

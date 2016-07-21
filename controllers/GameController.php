@@ -22,10 +22,13 @@ use app\models\Map;
 use app\models\Turn;
 use app\models\Users;
 use app\classes\Access;
+use app\assets\AppAsset;
 
 class GameController extends \yii\web\Controller
 {
-public function behaviors()
+	
+	
+	public function behaviors()
 	{
 		return [
 				'access' => [
@@ -99,7 +102,7 @@ public function behaviors()
 	public function checkStarted($game_id)
 	{
 		if((new Game)->getGameById($game_id)->getGameStatut() >= 50)
-			return true;
+			return true; 
 		else
 			return false;
 	}

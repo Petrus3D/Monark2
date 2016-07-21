@@ -34,13 +34,13 @@ use yii\helpers\Html;
 		<!--<span id='onclick' class='btn btn-info'>Détails</span>-->
 		<!-- Bottom buttons -->	
 		<?php if($CurrentTurnData->getTurnUserId() == $User->getId()): ?>
-				<?= Html::tag('span', "&nbsp;<a href='#Buy' class='buy_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-success'><img src='img/icon_temp/money.png' height='20px' width='20px'> Acheter </span></a>", [
+				<?= Html::tag('span', "&nbsp;<a href='#Buy' class='buy_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-success'><i class='fa fa-usd'></i> Acheter </span></a>", [
                     'title'=>"Acheter des troupes pour cette région.",
                     'data-toggle'=>'tooltip',
                     'data-placement' => 'bottom',
                     'style'=>'text-decoration: none; cursor:pointer;'
                 ]); ?>
-                <?= Html::tag('span', "&nbsp;<a href='#Build' class='build_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-success'><img src='img/icon_temp/tools.png' height='20px' width='20px'> Construire </span></a>", [
+                <?= Html::tag('span', "&nbsp;<a href='#Build' class='build_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-info'><i class='fa fa-gavel'></i> Construire </span></a>", [
                     'title'=>"Construire des bétiments sur la région : fort, camp, mines. ",
                     'data-toggle'=>'tooltip',
                     'data-placement' => 'bottom',

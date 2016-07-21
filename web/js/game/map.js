@@ -1,89 +1,3 @@
-$(document).on("pjax:timeout", function(event) {
-  // Prevent default timeout redirection behavior
-  event.preventDefault()
-});
-
-//Call Pjax
-$("document").ready(function(){
-	// No connection lost
-	HideLostConnection();
-    
-    setInterval(function(){
-        if(!$("modal").is(':visible')){
-        	reloadMap();
-        }
-		if($("#navbar-menu-game:hover").length == 0){
-			reloadHeader();
-		}
-    }, config["refresh_time"]); //Reload map
-});
-
-// Call Pjax Functions
-function reloadMap(){
-	$.pjax.reload({container:"#map_content", async:false});
-}
-function reloadHeader(){
-	$.pjax.reload({container:"#navbar-menu-game-data", async:false});
-}
-
-// Pjax success
-$(document).on('pjax:success', function() {
-	HideLostConnection();
-    event.preventDefault();
-});
-
-// Lost server connection
-$('#pjax').on('pjax:error', function (event, error) {
-	ShowLostConnection();
-    event.preventDefault();
-});
-
-// Show / Hide lost connection
-function ShowLostConnection(){$('#lost_connection_text').show();}
-function HideLostConnection(){$('#lost_connection_text').hide();}
-
-//New JS after refresh
-$(document).on("pjax:end", function() {
-  // tooltips
-  $("[data-toggle=tooltip]").tooltip();
-
-  // popover
-  $("[data-toggle=popover]").popover();
-});
-
-// function used to show Modals
-function ShowModalLoading(args){ShowModal();UpdateModalTitle(args);$("#modal-view").find("#modal-view-Content").html(config["text"]["modal_loading_content"]);}
-function UpdateModalTitle(args){if(args['title_with_land_name']){args['title'] = args['land_name'] + " " + args['title'];}$(".modal-header-title").html("<center><h4>"+args['title']+"</h4></center>");}
-function UpdateModalContent(args){actionObjectFade($("#modal-view").find("#modal-view-Content"), "html", args['content']);}
-function UpdateModalError(){UpdateModalContent({'content': config["text"]["modal_error_content"]});}
-function ShowModal(){actionObjectFade($("#modal-view"), "modal", "show", 100);}
-function HideModal(){actionObjectFade($("#modal-view"), "modal", "hide", 100);}
-function ModalInfo(){$("#modal-view").addClass("modal modal-info");}
-function ModalError(){$("#modal-view").addClass("modal modal-danger");}
-
-// Animations
-function actionObjectFade(object, action, params="", speed=null){if(speed == null)speed = 'slow';$(object).fadeOut(speed, function() {$(object)[action](params);$(object).fadeIn(speed);});}
-
-// Popover
-function close_popover(id){$(id).popover("hide");}
-function getPopover(position){
-	var top = position.top + 130;
-	var left = position.left + 200;
-	var popover_name = "#popover-view-"+land_id;
-	
-    $(popover_name).popover({
-        "trigger": "manual",
-        "placement": "right",
-        "html" : true,
-    }).popover("show");
-    
-    var popover_id = "#"+$(popover_name).attr("aria-describedby");
-    $(popover_id).css("top", top+"px");
-    $(popover_id).css("left", left+"px");
-    
-    return {"popover_id":popover_id, "popover_name":popover_name};
-}
-
 // Land
 function getLandData(land){
 	var land_name 		= $("img[i="+land+"]").attr("alt");
@@ -102,8 +16,6 @@ function CallAjaxMethod(action, args, modal=null, land=null) {
 		var land = getLandData(land);
 		modal["land_name"] = land["land_name"];
 	}
-			
-	// Popover
     
 	// Ajax call
 	$.ajax({

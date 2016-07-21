@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use app\assets\AppAsset;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -16,15 +17,8 @@ if(false){
     );
 } else {
 
-    if (class_exists('backend\assets\AppAsset')) {
-        backend\assets\AppAsset::register($this);
-    } else {
-        app\assets\AppAsset::register($this);
-    }
-
-    dmstr\web\AdminLteAsset::register($this);
-
-    $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
+    AppAsset::register($this);
+    
     ?>
     <?php $this->beginPage() ?>
     <!DOCTYPE html>
