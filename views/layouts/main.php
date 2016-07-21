@@ -19,6 +19,7 @@ if(false){
 
     AppAsset::register($this);
     
+    $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@web');
     ?>
     <?php $this->beginPage() ?>
     <!DOCTYPE html>

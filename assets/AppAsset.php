@@ -22,7 +22,6 @@ class AppAsset extends AssetBundle
     		'css/AdminLTE.min.css',
     		'css/all-skins.min.css',
     		'css/site.css',
-    		'css/map.css',
     ];
     public $js = [
     		'js/app.min.js',
@@ -31,7 +30,6 @@ class AppAsset extends AssetBundle
     		'js/game/modals.js',
     		'js/game/game.js',
     		'js/game/anim.js',
-    		'js/game/map.js',
     ];
     public $depends = [
     		'rmrevin\yii\fontawesome\AssetBundle',

@@ -31,7 +31,8 @@ $config = array(
 $this->registerJs("var config = ".json_encode($config).";", View::POS_HEAD);
 
 // Call files
-//$this->registerJsFile("@web/js/game/map.js", ['depends' => [dmstr\web\AdminLteAsset::className()]]);
+$this->registerJsFile("@web/js/game/map.js", ['depends' => [dmstr\web\AdminLteAsset::className()]]);
+$this->registerCssFile("@web/css/map.css");
 ?>
 
 <div class="map-show">
@@ -66,7 +67,7 @@ $this->registerJs("var config = ".json_encode($config).";", View::POS_HEAD);
                         <font color=<?= "'".$Color[$GamePlayer[$data->getGameDataUserId()]->getGamePlayerColorId()]->getColorName()."'"; ?>>
                             <?= $land->getLandName(); ?>
                             <?php //if(isset($user_frontier_array[$value['land_id']])){echo "(".$data->getGameDataUnits().")";} ?>
-                            <?php if($data->getGameDataCapital() >= 1): ?>
+                            <?php if($data->getGameDataCapital() >= 1 || true): ?>
                                 <?= "<img src='img/star.png' height='20px' width='20px'>"; ?>
                             <?php endif; ?>
                             <?php if($data->getGameDataRessourceId() > 0 && $Ressource[$data->getGameDataRessourceId()]->getRessourceImage() != ""): ?>

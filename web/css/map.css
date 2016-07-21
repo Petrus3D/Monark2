@@ -1,3 +1,37 @@
+/* Background */
+.content-wrapper{
+	/*background-color: #86E1FF !important;*/
+background: linear-gradient(272deg, #c4e7ff, #83cdff, #46b4ff);
+background-size: 600% 600%;
+
+-webkit-animation: AnimationName 24s ease infinite;
+-moz-animation: AnimationName 24s ease infinite;
+-o-animation: AnimationName 24s ease infinite;
+animation: AnimationName 24s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 19%}
+    50%{background-position:100% 82%}
+    100%{background-position:0% 19%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 19%}
+    50%{background-position:100% 82%}
+    100%{background-position:0% 19%}
+}
+@-o-keyframes AnimationName {
+    0%{background-position:0% 19%}
+    50%{background-position:100% 82%}
+    100%{background-position:0% 19%}
+}
+@keyframes AnimationName { 
+    0%{background-position:0% 19%}
+    50%{background-position:100% 82%}
+    100%{background-position:0% 19%}
+}
+
+/* Map */
 .land_img{
   position: absolute;/*fixed*/
   -webkit-transition: all 0.5s ease;
