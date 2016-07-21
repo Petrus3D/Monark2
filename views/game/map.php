@@ -32,6 +32,7 @@ $this->registerJs("var config = ".json_encode($config).";", View::POS_HEAD);
 
 // Call files
 $this->registerJsFile("@web/js/game/map.js", ['depends' => [dmstr\web\AdminLteAsset::className()]]);
+$this->registerJsFile("@web/js/game/json.min.js");
 $this->registerCssFile("@web/css/map.css");
 ?>
 
@@ -54,7 +55,7 @@ $this->registerCssFile("@web/css/map.css");
 			<div class="land_content" i=<?= "'".$land->getLandId()."'"; ?>>
 				  <!-- Image -->
 	              <a href=<?= "'#".str_replace("'", "-", $land->getLandName())."'"; ?> class="link_land_img" style=<?= "'top:".$land->getLandPositionTop()."em;left:".$land->getLandPositionLeft()."em;text-decoration: none;'"; ?>>
-	                    <img src=<?= "'".$land->getLandImageTempUrl($Color[$GamePlayer[$data->getGameDataUserId()]->getGamePlayerColorId()]->getColorName2())."'"; ?> i=<?= "'".$land->getLandId()."'"; ?> alt=<?= "'".$land->getLandName()."'"; ?> class="land_img" 
+	                    <img src=<?= "'".$land->getLandImageTempUrl($Color[$GamePlayer[$data->getGameDataUserId()]->getGamePlayerColorId()]->getColorName2())."'"; ?> i=<?= "'".$land->getLandId()."'"; ?> alt=<?= '"'.$land->getLandName().'"'; ?> class="land_img" 
 	                    style=<?= "'top:".$land->getLandPositionTop()."em;left:".$land->getLandPositionLeft()."em;'"; ?>> 
 	                    <!--<div class="building" style=<?= "'position:absolute;top:".$land->getLandPositionTop()."em;left:".$land->getLandPositionLeft()."em;'"; ?>>
 	                        <?php //if($value['land_harbor']): ?>

@@ -52,7 +52,7 @@ $(document).on("pjax:end", function() {
 });
 
 // function used to show Modals
-function ShowModalLoading(args){UpdateModalTitle(args);$("#modal-view").find("#modal-view-Content").html(config["text"]["modal_loading_content"]);ShowModal();}
+function ShowModalLoading(args){ShowModal();UpdateModalTitle(args);$("#modal-view").find("#modal-view-Content").html(config["text"]["modal_loading_content"]);}
 function UpdateModalTitle(args){if(args['title_with_land_name']){args['title'] = args['land_name'] + " " + args['title'];}$(".modal-header-title").html("<center><h4>"+args['title']+"</h4></center>");}
 function UpdateModalContent(args){$("#modal-view").find("#modal-view-Content").html(args['content']);}
 function UpdateModalError(){UpdateModalContent({'content': config["text"]["modal_error_content"]});}
@@ -92,7 +92,7 @@ function getLandData(land){
 // Function used to call PHP Ajax function 
 function CallAjaxMethod(action, args, modal=null, land=null) {
 	// URL
-	var url = config["url"]["ajax"] + "/"+action+"&args="+args;
+	var url = config["url"]["ajax"] + "/"+action+"&args="+ JSON.stringify(args);
 	
 	// Land
 	if(land != null){
@@ -137,7 +137,7 @@ function CallAjaxMethod(action, args, modal=null, land=null) {
 // Land interaction
 $(document).on("click", ".land_content", function(){
     var land_id = $(this).attr("i");
-    CallAjaxMethod("landinfo", {"land_id":land_id}, {'title': "informations", 'title_with_land_name' : true}, land_id);
+    CallAjaxMethod("landinfo", {"land_id":land_id}, {'title': "", 'title_with_land_name' : true}, land_id);
 });
 
 // New turn

@@ -108,6 +108,14 @@ a.desc:after {
   background-color: #5CCCFF;
 }
 
+/* DIV */
+.div-center{
+	width: 50%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+
 /* Header */
 .blink {
     animation-duration: 0.8s;

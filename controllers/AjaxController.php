@@ -84,43 +84,43 @@ class AjaxController extends Controller
     		$returned['user'] 				= Yii::$app->session['User'];}else{
     		$returned['user'] 				= User::findUserById($dataList['user_id']);}
     		
-    	if(Yii::$app->session['Ressource'] == null && $dataList['Ressource'] != null){
+    	if(Yii::$app->session['Ressource'] == null && isset($dataList['Ressource'])){
     		$returned['ressource'] 			= Ressource::findAllRessourcesToArray();}else{
     		$returned['ressource'] 			= Yii::$app->session['Ressource'];}
     		
-    	if(Yii::$app->session['Color'] == null && $dataList['Color'] != null){
+    	if(Yii::$app->session['Color'] == null && isset($dataList['Color'])){
     		$returned['color'] 				= Color::findAllColorToArray();}else{
     		$returned['color'] 				= Yii::$app->session['Color'];}
     		
-    	if(Yii::$app->session['Contient'] == null && $dataList['Contient'] != null){
-    		$returned['continent'] 			= Continent::findAllContinent($game->getMapId());}else{
-    		$returned['continent'] 			= Yii::$app->session['Contient'];}
+    	if(Yii::$app->session['Continent'] == null && isset($dataList['Continent'])){
+    		$returned['continent'] 			= Continent::findAllContinent($returned['game']->getMapId());}else{
+    		$returned['continent'] 			= Yii::$app->session['Continent'];}
     		
-    	if(Yii::$app->session['Land'] == null && $dataList['Land'] != null){
-    		$returned['land'] 				= Land::findAllLandsToArray($game->getMapId());}else{
+    	if(Yii::$app->session['Land'] == null && isset($dataList['Land'])){
+    		$returned['land'] 				= Land::findAllLandsToArray($returned['game']->getMapId());}else{
     		$returned['land']				= Yii::$app->session['Land'];}
     		
-    	if(Yii::$app->session['Map'] == null && $dataList['Map'] != null){
-    		$returned['map']				= Map::findMapById($game->getMapId());}else{
+    	if(Yii::$app->session['Map'] == null && isset($dataList['Map'])){
+    		$returned['map']				= Map::findMapById($returned['game']->getMapId());}else{
     		$returned['map']				= Yii::$app->session['Map'];}
     		
-    	if($dataList['CurrentTurnData'] != null)
-    		$returned['currentTurnData']	= Turn::getLastTurnByGameId($game->getGameId());
+    	if(isset($dataList['CurrentTurnData']))
+    		$returned['currentTurnData']	= Turn::getLastTurnByGameId($returned['game']->getGameId());
     	
-    	if($dataList['LastUserTurnData'] != null)
-    		$returned['lastUserTurnData']	= Turn::getLastTurnByUserId($user->getUserID(), $game->getGameId());
+    	if(isset($dataList['LastUserTurnData']))
+    		$returned['lastUserTurnData']	= Turn::getLastTurnByUserId($user->getUserID(), $returned['game']->getGameId());
     	
-    	if($dataList['GamePlayer'] != null){
-    		$gamePlayerDataGlobal 			= GamePlayer::findAllGamePlayer($game_current->getGameId());
+    	if(isset($dataList['GamePlayer'])){
+    		$gamePlayerDataGlobal 			= GamePlayer::findAllGamePlayer($returned['game']->getGameId());
     		$gamePlayerData 				= GamePlayer::findAllGamePlayerToArrayWithData($gamePlayerDataGlobal);
     		$gamePlayerData[0]				= GamePlayer::findPlayerZero();
     		$returned['gamePlayer']			= $gamePlayerData;
     	}
     		 
-    	if($dataList['GameData'] != null)
-    		$returned['gameData']			= GameData::getGameDataByIdToArray($game_current->getGameId());
+    	if(isset($dataList['GameData']))
+    		$returned['gameData']			= GameData::getGameDataByIdToArray($returned['game']->getGameId());
     	
-    	if($dataList['UsersData'] != null)
+    	if(isset($dataList['UsersData']))
     		$returned['usersData']			= GamePlayer::findAllGamePlayerToListUserId($gamePlayerDataGlobal);
     	
     	return $returned;
@@ -148,31 +148,31 @@ class AjaxController extends Controller
 	 */
 	public function actionLandinfo($land_id=null, $game=null, $user=null){
 		$urlparams = Yii::$app->request->queryParams;
-		print json_decode($urlparams['args']);  
-		//print Json::decode($urlparams['args'], true);
-		if(array_key_exists('args', $urlparams)){ // && Json::decode($urlparams['args'], true) != null
-			$urlparamsArray = array(); //Json::decode($urlparams['args'], true);
-			//print " == ".$urlparamsArray;
-			if(array_key_exists('land_id', $urlparamsArray) && $urlparamsArray['land_id'] != null){
+
+		if(array_key_exists('args', $urlparams) && Json::decode($urlparams['args'], true) != null){
+			$urlArgsArray = Json::decode($urlparams['args'], true);
+
+			if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
 		    	// Load data
 		    	$data = $this->getData(array(
-		    			'Game' => true,
+		    			'game_id' => true,
+		    			'user_id' => true,
 		    			'User' => true,
 		    			'Ressource' => true,
 		    			'Color' => true,
-		    			'Contient' => true,
+		    			'Continent' => true,
 		    			'Land' => true,
 		    			'GameData' => true,
 		    			'CurrentTurnData' => true,
 		    	));
 		    	
-		    	return $this->render('landinfo', [
-		    			'land_id' 			=> json_decode(Yii::$app->request->queryParams['args'])['land_id'],
+		    	return $this->renderPartial('landinfo', [
+		    			'land_id' 			=> $urlArgsArray['land_id'],
 		    			'Game'				=> $data['game'],
 		    			'User'				=> $data['user'],
 		    			'Ressource'			=> $data['ressource'],
 		    			'Color'				=> $data['color'],
-		    			'Contient'			=> $data['contient'],
+		    			'Continent'			=> $data['continent'],
 		    			'Land'				=> $data['land'],
 		    			'GameData'			=> $data['gameData'],
 		    			'CurrentTurnData'	=> $data['currentTurnData'],
