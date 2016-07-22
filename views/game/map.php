@@ -11,27 +11,14 @@ use app\controllers\AjaxController;
 
 /* @var $this yii\web\View */
 $this->title = Yii::t('game', 'Title_Map');
-$refresh_time = $RefreshTime;
+$refresh_time = $this->context->refreshTime;
 
 // Set JS var
-$config = array(
-		'refresh_time' => $refresh_time,
-		'text' => array(
-				'turn_finished' 			=> Yii::t('map', 'Text_Turn_Finished'),
-				'modal_loading_content'		=> '<center><font size=3>'.Yii::t('map', 'Modal_Loading').'...</font><br><img src=img/loading.gif></center>',
-				'modal_error_content'		=> '<center><font size=3>'.Yii::t('map', 'Modal_Error').'</font></center>',
-		),
-		'url'	=> array(
-				'ajax' => Yii::$app->urlManager->createUrl(['ajax'])
-		),
-		'ajax'	=> array(
-				'error'	=> AjaxController::returnError(),
-		)
-);
-$this->registerJs("var config = ".json_encode($config).";", View::POS_HEAD);
+$this->registerJs($this->context->getJSConfig(), View::POS_HEAD);
 
 // Call files
 $this->registerJsFile("@web/js/game/map.js", ['depends' => [dmstr\web\AdminLteAsset::className()]]);
+$this->registerJsFile("@web/js/game/game.js", ['depends' => [dmstr\web\AdminLteAsset::className()]]);
 $this->registerCssFile("@web/css/map.css");
 ?>
 

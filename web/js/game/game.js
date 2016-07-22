@@ -7,7 +7,6 @@ $("document").on("pjax:timeout", function(event) {
 $("document").ready(function(){
 	// No connection lost
 	HideLostConnection();
-    
     setInterval(function(){
         if($("#map_content").length > 0 && !$("modal").is(':visible')){
         	reloadMap();
@@ -23,7 +22,21 @@ function reloadMap(){
 	$.pjax.reload({container:"#map_content", async:false});
 }
 function reloadHeader(){
-	$.pjax.reload({container:"#navbar-menu-game-data", async:false});
+	// URL
+	var url = config["url"]["ajax"] + "/" + "header";
+	
+	// Ajax call
+	$.ajax({
+        url: url,
+        dataType : "html",  
+        success: function(data) {
+        	$.pjax.reload({container:"#navbar-menu-game-data", async:false});
+        	
+        },
+        error: function(){    
+        	ShowLostConnection();
+        }
+    });
 }
 
 // Pjax success

@@ -23,11 +23,13 @@ use app\models\Turn;
 use app\models\Users;
 use app\classes\Access;
 use app\assets\AppAsset;
+use yii\base\Object;
 
 class GameController extends \yii\web\Controller
 {
 	
-	private $refreshTime = 3000;
+	public $refreshTime = 3000;
+	public $config;
 	
 	public function behaviors()
 	{
@@ -112,6 +114,28 @@ class GameController extends \yii\web\Controller
 	 * 
 	 * @return string
 	 */
+	public function getJSConfig(){
+		$this->config = array(
+				'refresh_time' => $this->refreshTime,
+				'text' => array(
+						'turn_finished' 			=> Yii::t('header', 'Text_Turn_Finished'),
+						'modal_loading_content'		=> '<center><font size=3>'.Yii::t('map', 'Modal_Loading').'...</font><br><img src=img/loading.gif></center>',
+						'modal_error_content'		=> '<center><font size=3>'.Yii::t('map', 'Modal_Error').'</font></center>',
+				),
+				'url'	=> array(
+						'ajax' => Yii::$app->urlManager->createUrl(['ajax'])
+				),
+				'ajax'	=> array(
+						'error'	=> AjaxController::returnError(),
+				)
+		);
+		return "var config = ".json_encode($this->config).";";
+	}
+	
+	/**
+	 * 
+	 * @return string
+	 */
     public function actionIndex()
     {
         $searchModel = new GameSearch();
@@ -174,7 +198,7 @@ class GameController extends \yii\web\Controller
     	// Add header info to session
     	Yii::$app->session['MapData'] = array(
     			'GamePlayer'		=> $data['GamePlayer'],
-    			'LastTurnData'		=> $turn_data::getLastTurnByUserId(Yii::$app->session['User']->getUserID(), $game_current->getGameId()),
+    			'LastTurnData'		=> Turn::getLastTurnByUserId(Yii::$app->session['User']->getUserID(), $game_current->getGameId()),
     			'CurrentTurnData'	=> $data['TurnData'],
     			'GameData'			=> $data['GameData'],
     			'UserData'			=> $data['UserData'],

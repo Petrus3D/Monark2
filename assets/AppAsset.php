@@ -28,7 +28,6 @@ class AppAsset extends AssetBundle
     		'js/utils.js',
     		'js/json.min.js',
     		'js/game/modals.js',
-    		'js/game/game.js',
     		'js/game/anim.js',
     ];
     public $depends = [

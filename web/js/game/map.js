@@ -44,7 +44,6 @@ function CallAjaxMethod(action, args, modal=null, land=null) {
         	alert("error : " + url);
         	// Modal
         	if(modal != null){UpdateModalError();ModalError();}
-        	
         }
     });
 }

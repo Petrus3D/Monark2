@@ -18,7 +18,7 @@
  */
 return [
     /* Title */
-	  'Title_Map' => 'Map of the game',
+	'Title_Map' => 'Map of the game',
 
     /* Modal */
     'Modal_Loading' => 'Loading',

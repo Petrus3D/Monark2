@@ -1,7 +1,10 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\Pjax;
+use app\controllers\GameController;
+use yii\web\View;
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 ?>

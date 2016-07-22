@@ -32,7 +32,7 @@ class AjaxController extends Controller
 						'class' => AccessControl::className(),
 						'rules' => [
 								[
-										'actions' => ['newturn', 'landinfo'],
+										'actions' => ['newturn', 'landinfo', 'header'],
 										'allow' => Access::UserIsInStartedGame(), // Into a started game
 								],
 								[
@@ -138,6 +138,12 @@ class AjaxController extends Controller
 		Turn::NewTurn($game_id, $user_id);
 	}
 	
+	/**
+	 * 
+	 */
+	public function actionHeader(){
+		(new GameController(null, null))->addDataToSession(Yii::$app->session['Game']);
+	}
 	
 	/**
 	 * 
