@@ -38,7 +38,7 @@ class GameController extends \yii\web\Controller
 						'class' => AccessControl::className(),
 						'rules' => [
 								[
-										'actions' => ['quit', 'start', 'map'],
+										'actions' => ['start', 'map'],
 										'allow' => Access::UserIsInStartedGame(), // Into a started game
 								],
 								[
