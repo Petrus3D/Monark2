@@ -197,6 +197,7 @@ class GameController extends \yii\web\Controller
     	 
     	// Add header info to session
     	Yii::$app->session['MapData'] = array(
+    			'RefreshTime'		=> $this->refreshTime,
     			'GamePlayer'		=> $data['GamePlayer'],
     			'LastTurnData'		=> Turn::getLastTurnByUserId(Yii::$app->session['User']->getUserID(), $game_current->getGameId()),
     			'CurrentTurnData'	=> $data['TurnData'],
@@ -288,6 +289,7 @@ class GameController extends \yii\web\Controller
     	
     	// Session
     	Yii::$app->session['Game'] = null;
+    	Yii::$app->session['MapData'] = null;
     	Yii::$app->session->setFlash('info', Yii::t('game', 'Notice_Game_Quit'));
 
     	return $this->actionIndex();

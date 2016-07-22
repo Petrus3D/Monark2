@@ -31,7 +31,6 @@ function reloadHeader(){
         dataType : "html",  
         success: function(data) {
         	$.pjax.reload({container:"#navbar-menu-game-data", async:false});
-        	
         },
         error: function(){    
         	ShowLostConnection();
