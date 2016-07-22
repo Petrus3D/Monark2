@@ -26,6 +26,8 @@ return [
 	'Title_Game_Map'        => 'Show the map',
 	'Title_Game_Stats'      => 'Show stats',
 	'Title_Game_Lobby'      => 'Game lobby',	
+	'Title_Game_Mail' 		=> 'Message box',
+	'Title_Game_Chat' 		=> 'Game chat',
 		
     'Title_Create'          => 'Start corporation',
     'Title_Dashboard'       => 'Dashboard',

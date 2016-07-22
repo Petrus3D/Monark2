@@ -23,7 +23,9 @@ return [
     'Title_Join' => 'Join a game',
     'Title_Loading' => 'Loading...',
 	'Title_Map' => 'Map',
-
+	'Title_Game_Mail' => 'Message box',
+	'Title_Game_Chat' => 'Game chat',
+		
 	/* Tab */
 	'Tab_Game_Name' => 'Game Name',
 	'Tab_Owner_Name' => 'Owner Name',

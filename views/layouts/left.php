@@ -37,8 +37,7 @@ use app\classes\Access;
                 'options' => ['class' => 'sidebar-menu'],
                 'items' => [
                     //['label' => Yii::t('menu', 'Title_Menu'), 'options' => ['class' => 'header']],
-                    ['label' => Yii::t('menu', 'Title_Home'), 'icon' => 'fa fa-home', 'url' => ['/']],                    
-                	['label' => Yii::t('menu', 'Title_Tutorial'), 'icon' => 'fa fa-question', 'url' => ['site/tutorial']],
+                    ['label' => Yii::t('menu', 'Title_Home'), 'icon' => 'fa fa-home', 'url' => ['/'], 'visible' => !Access::UserIsConnected() && !Access::UserIsInGame()],                    
                 		
                     /* Guest */
                     ['label' => Yii::t('menu', 'Title_Game'), 'icon' => 'fa fa-gamepad', 'url' => ['site/game'], 'visible' => !Access::UserIsConnected()],
@@ -59,7 +58,15 @@ use app\classes\Access;
                 	// Statut ==> after game
                 	//['label' => Yii::t('menu', 'Title_Quit_Game'), 'icon' => 'fa fa-sign-out', 'url' => ['game/quit'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game'])],	 
                 	['label' => Yii::t('menu', 'Title_Game_Stats'), 'icon' => 'fa fa-bar-chart', 'url' => ['game/stats'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => Access::UserIsInEndedGame()],
-                		 
+                	
+                	// Always in game
+                	['label' => Yii::t('menu', 'Title_Game_Chat'), 'icon' => 'fa fa-weixin', 'url' => ['game/chat'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => Access::UserIsInGame()],
+                	['label' => Yii::t('menu', 'Title_Game_Mail'), 'icon' => 'fa fa-envelope-o', 'url' => ['game/mail'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => Access::UserIsInGame()],	 
+                	
+                	// Tutorial
+                	['label' => Yii::t('menu', 'Title_Tutorial'), 'icon' => 'fa fa-question', 'url' => ['site/tutorial']], 
+                		
+                	// Quit	
                 	['label' => Yii::t('menu', 'Title_Game_Quit'), 'icon' => 'fa fa-sign-out', 'url' => ['game/quit'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => Access::UserIsInGame()],
                 		
                     // Logout

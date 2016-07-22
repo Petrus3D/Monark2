@@ -42,7 +42,7 @@ class GameController extends \yii\web\Controller
 										'allow' => Access::UserIsInStartedGame(), // Into a started game
 								],
 								[
-										'actions' => ['quit', 'lobby', 'start'],
+										'actions' => ['quit', 'lobby', 'start', 'chat', 'mail'],
 										'allow' => Access::UserIsInGame(), // Into a game
 								],
 								[
@@ -131,20 +131,6 @@ class GameController extends \yii\web\Controller
 		);
 		return "var config = ".json_encode($this->config).";";
 	}
-	
-	/**
-	 * 
-	 * @return string
-	 */
-    public function actionIndex()
-    {
-        $searchModel = new GameSearch();
-        $dataProvider = $searchModel->search(['query' => Yii::$app->request->queryParams,]);
-        return $this->render('index', [
-            'searchModel'   => $searchModel,
-            'dataProvider'  => $dataProvider,
-        ]);
-    }
     
     /**
      * 
@@ -234,6 +220,38 @@ class GameController extends \yii\web\Controller
     			'TurnData'		=> $turnData,
     			'UserData'		=> $userData,
     	);
+    }
+    
+    /**
+     *
+     * @return string
+     */
+    public function actionIndex()
+    {
+    	$searchModel = new GameSearch();
+    	$dataProvider = $searchModel->search(['query' => Yii::$app->request->queryParams,]);
+    	return $this->render('index', [
+    			'searchModel'   => $searchModel,
+    			'dataProvider'  => $dataProvider,
+    	]);
+    }
+    
+    /**
+     *
+     * @return string
+     */
+    public function actionChat()
+    {
+    	return $this->render('chat');
+    }
+    
+    /**
+     *
+     * @return string
+     */
+    public function actionMail()
+    {
+    	return $this->render('mail');
     }
     
     /**

@@ -23,6 +23,8 @@ return [
     'Title_Join' => 'Rejoindre une partie',
     'Title_Loading' => 'Chargement...',
 	'Title_Map' => 'Carte',
+	'Title_Game_Mail' => 'Messagerie',
+	'Title_Game_Chat' => 'Chat de la partie',
 		
 	/* Tabs */
 	'Tab_Game_Name' => 'Nom de la partie',

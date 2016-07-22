@@ -135,22 +135,52 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 					          	</a>
 		                	</li>
 		                	<li id='header_messages' class="dropdown messages-menu">
-					            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					            <a href="#" class="dropdown-toggle" data-toggle="dropdown">  
 						            <i class="fa fa-envelope-o"></i>
 						            <span class="label label-success">4</span>
 					            </a>
+					            <ul class="dropdown-menu">
+					              <!--<li class="header">You have 10 notifications</li>-->
+					              <li>
+					                <!-- inner menu: contains the actual data -->
+					                <ul class="menu">
+					                  
+					                </ul>
+					              </li>
+					              <li class="footer"><a href="<?= Yii::$app->urlManager->createUrl(['game/mail']) ?>">View all</a></li>
+					            </ul>
 		                	</li>
 		                	<li id='header_chat' class="dropdown chat-menu">
 					            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						            <i class="fa fa-weixin"></i>
 						            <span class="label label-warning">4</span>
 					            </a>
+					            <ul class="dropdown-menu">
+					              <!--<li class="header">You have 10 notifications</li>-->
+					              <li>
+					                <!-- inner menu: contains the actual data -->
+					                <ul class="menu">
+					                  
+					                </ul>
+					              </li>
+					              <li class="footer"><a href="<?= Yii::$app->urlManager->createUrl(['game/chat']) ?>">View all</a></li>
+					            </ul>
 		                	</li>
 		                	<li id='header_alert' class="dropdown alert-menu">
 					            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 					              	<i class="fa fa fa-flag-o"></i>
 					              	<span class="label label-danger">4</span>
 					            </a>
+					            <ul class="dropdown-menu">
+					              <!--<li class="header">You have 10 notifications</li>-->
+					              <li>
+					                <!-- inner menu: contains the actual data -->
+					                <ul class="menu">
+					                  
+					                </ul>
+					              </li>
+					              <li class="footer"><a href="<?= Yii::$app->urlManager->createUrl(['game']) ?>">View all</a></li>
+					            </ul>
 		                	</li>
 	                	
 	                		<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>

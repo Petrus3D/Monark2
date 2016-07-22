@@ -28,6 +28,10 @@ return [
 	'Title_Game_Lobby'      => 'Salon de la partie',
     'Title_Finances'        => 'Finances',
     'Title_Game'            => 'Le jeu',
+	'Title_Game_Mail' 		=> 'Messagerie',
+	'Title_Game_Chat' 		=> 'Chat de la partie',
+		
+		
     'Title_GlobalDashboard' => 'Tableau de bord g�n�ral',
     'Title_Home'            => 'Accueil',
     'Title_Investment'      => 'Mes investissements',
