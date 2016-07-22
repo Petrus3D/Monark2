@@ -27,6 +27,7 @@ use app\assets\AppAsset;
 class GameController extends \yii\web\Controller
 {
 	
+	private $refreshTime = 3000;
 	
 	public function behaviors()
 	{
@@ -148,6 +149,66 @@ class GameController extends \yii\web\Controller
     	
     	// Clear url & go to lobby
     	return $this->redirect(Url::to(['game/lobby']),302);
+    }
+    
+    /**
+     *
+     * @param unknown $game_current
+     */
+    public function updateSessionData($game_current){
+    	//Yii::$app->session['Land'] = null;
+    	if(Yii::$app->session['Contient'] == null)	Yii::$app->session->set("Continent", Continent::findAllContinent($game_current->getMapId()));
+    	if(Yii::$app->session['Land'] == null)		Yii::$app->session->set("Land", Land::findAllLandsToArray($game_current->getMapId()));
+    	if(Yii::$app->session['Ressource'] == null)	Yii::$app->session->set("Ressource", Ressource::findAllRessourcesToArray());
+    	if(Yii::$app->session['Map'] == null)		Yii::$app->session->set("Map", Map::findMapById($game_current->getMapId()));
+    	if(Yii::$app->session['Color'] == null)		Yii::$app->session->set("Color", Color::findAllColorToArray());
+    }
+    
+    /**
+     *
+     * @param unknown $game_current
+     */
+    public function addDataToSession($game_current){
+    	$data = $this->getGameData();
+    	 
+    	// Add header info to session
+    	Yii::$app->session['MapData'] = array(
+    			'GamePlayer'		=> $data['GamePlayer'],
+    			'LastTurnData'		=> $turn_data::getLastTurnByUserId(Yii::$app->session['User']->getUserID(), $game_current->getGameId()),
+    			'CurrentTurnData'	=> $data['TurnData'],
+    			'GameData'			=> $data['GameData'],
+    			'UserData'			=> $data['UserData'],
+    			'RefreshTime'		=> $this->refreshTime,
+    	);
+    }
+    
+    /**
+     *
+     * @return unknown[]|\app\classes\GameClass[]
+     */
+    public function getGameData(){
+    	// Initialization
+    	$game_player 	= new GamePlayer();
+    	$game_data		= new GameData();
+    	$turn_data		= new Turn();
+    	$game_current 	= Game::getGameById(Yii::$app->session['Game']->getGameId());
+    	 
+    	// Datas
+    	$gamePlayerDataGlobal 	= $game_player::findAllGamePlayer($game_current->getGameId());
+    	$gamePlayerData 		= $game_player::findAllGamePlayerToArrayWithData($gamePlayerDataGlobal);
+    	$gamePlayerData[0]		= $game_player::findPlayerZero();
+    	$gameData				= $game_data::getGameDataByIdToArray($game_current->getGameId());
+    	$turnData				= $turn_data::getLastTurnByGameId($game_current->getGameId());
+    	$userData				= $game_player::findAllGamePlayerToListUserId($gamePlayerDataGlobal);
+    	 
+    	// Return
+    	return array(
+    			'Game'			=> $game_current,
+    			'GamePlayer'	=> $gamePlayerData,
+    			'GameData'		=> $gameData,
+    			'TurnData'		=> $turnData,
+    			'UserData'		=> $userData,
+    	);
     }
     
     /**
@@ -372,9 +433,10 @@ class GameController extends \yii\web\Controller
     	}else
     		return $this->actionLobby();
     }
+    
 
     /**
-     *
+     * 
      * @return string
      */
     public function actionMap(){
@@ -383,42 +445,15 @@ class GameController extends \yii\web\Controller
     	
     	// The game as started
     	if($this->checkStarted(Yii::$app->session['Game']->getGameId())){
-    		
-	    	// Initialization
-	    	$game_player 	= new GamePlayer();
-	    	$game_current 	= Game::getGameById(Yii::$app->session['Game']->getGameId());
-	    	$game_data		= new GameData();
-	    	$turn_data		= new Turn();
-	    	$urlparams 		= Yii::$app->request->queryParams;
-	    	$refreshTime	= 3000;
-	    	
-	    	//Yii::$app->session['Land'] = null;
-	    	
-	    	// Add to session
-	    	if(Yii::$app->session['Contient'] == null)	Yii::$app->session->set("Continent", Continent::findAllContinent($game_current->getMapId()));
-	    	if(Yii::$app->session['Land'] == null)		Yii::$app->session->set("Land", Land::findAllLandsToArray($game_current->getMapId()));
-	    	if(Yii::$app->session['Ressource'] == null)	Yii::$app->session->set("Ressource", Ressource::findAllRessourcesToArray());
-	    	if(Yii::$app->session['Map'] == null)		Yii::$app->session->set("Map", Map::findMapById($game_current->getMapId()));
-	    	if(Yii::$app->session['Color'] == null)		Yii::$app->session->set("Color", Color::findAllColorToArray());
+    		//$urlparams 		= Yii::$app->request->queryParams;
 
-	    	// Datas
-	    	$gamePlayerDataGlobal 	= $game_player::findAllGamePlayer($game_current->getGameId());
-	    	$gamePlayerData 		= $game_player::findAllGamePlayerToArrayWithData($gamePlayerDataGlobal);
-	    	$gamePlayerData[0]		= $game_player::findPlayerZero();
-	    	$gameData				= $game_data::getGameDataByIdToArray($game_current->getGameId());
-	    	$turnData				= $turn_data::getLastTurnByGameId($game_current->getGameId());
-	    	$userData				= $game_player::findAllGamePlayerToListUserId($gamePlayerDataGlobal);
-
-	    	// Add header info to session
-	    	Yii::$app->session['MapData'] = array(
-	    			'GamePlayer'		=> $gamePlayerData,
-	    			'LastTurnData'		=> $turn_data::getLastTurnByUserId(Yii::$app->session['User']->getUserID(), $game_current->getGameId()), 
-	    			'CurrentTurnData'	=> $turnData,
-	    			'GameData'			=> $gameData,
-	    			'UserData'			=> $userData,
-	    			'RefreshTime'		=> $refreshTime,
-	    	);
+	    	// Get data
+	    	$dataArray = $this->getGameData();
 	    	
+	    	// Session
+	    	$this->updateSessionData($dataArray['Game']);
+	    	
+	    	// Data to map
 	    	return $this->render('map', [
 	    			'User' 			=> Yii::$app->session['User'],
 	    			'Ressource' 	=> Yii::$app->session['Ressource'],
@@ -426,12 +461,12 @@ class GameController extends \yii\web\Controller
 	    			'Map' 			=> Yii::$app->session['Map'],
 	    			'Land'			=> Yii::$app->session['Land'],
 	    			'Color'			=> Yii::$app->session['Color'],
-	    			'Game' 			=> $game_current,
-	    			'GamePlayer' 	=> $gamePlayerData,
-	    			'GameData' 		=> $gameData,
-	    			'Turn' 			=> $turnData,
-	    			'Users'			=> $userData,
-	    			'RefreshTime'	=> $refreshTime,
+	    			'Game' 			=> $dataArray['Game'],
+	    			'GamePlayer' 	=> $dataArray['GamePlayer'],
+	    			'GameData' 		=> $dataArray['GameData'],
+	    			'Turn' 			=> $dataArray['TurnData'],
+	    			'Users'			=> $dataArray['UserData'],
+	    			'RefreshTime'	=> $this->refreshTime,
 	    	]);
     	}else
     		return $this->actionLobby();
