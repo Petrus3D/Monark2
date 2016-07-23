@@ -33,8 +33,7 @@ function CallAjaxMethod(action, args, modal=null, land=null) {
         		// Modal
             	if(modal != null){modal['content'] = data;UpdateModalContent(modal);ModalInfo();}
             	          
-            	reloadMap();
-            	reloadHeader();
+            	reloadPjax();
         	}else{
         		// Modal
         		if(modal != null){UpdateModalError();ModalError();}

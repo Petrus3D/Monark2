@@ -28,7 +28,7 @@ use yii\base\Object;
 class GameController extends \yii\web\Controller
 {
 	
-	public $refreshTime = 3000;
+	public $refreshTime = 2000;
 	public $config;
 	
 	public function behaviors()
@@ -116,6 +116,7 @@ class GameController extends \yii\web\Controller
 	 */
 	public function getJSConfig(){
 		$this->config = array(
+				'debugJs' => false,
 				'refresh_time' => $this->refreshTime,
 				'text' => array(
 						'turn_finished' 			=> Yii::t('header', 'Text_Turn_Finished'),

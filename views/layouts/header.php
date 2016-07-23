@@ -117,22 +117,22 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 		                	</li>
 		                	<li id='current_gold'>
 		                		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					          		<font size='3'>Or : <i class="fa fa-usd"> <?= Yii::$app->session['MapData']['LastTurnData']->getTurnGold() ?> </i></font>
+					          		<font size='3'><?= Yii::t('header', 'Text_Gold') ?>  : <i class="fa fa-usd"> <?= Yii::$app->session['MapData']['LastTurnData']->getTurnGold() ?> </i></font>
 					          	</a>
 		                	</li>
 		                	<li id='gold_per_turn' class="header_game_content">
 		                		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					           		<font size='3'> Revenu : <i class="fa fa-usd"> <?= GameData::GoldGameDataUser(null, Yii::$app->session['Game']->getGameId(), Yii::$app->session['User']->getUserID(), $count_lands) ?> / tr </i></font>
+					           		<font size='3'><?= Yii::t('header', 'Text_Income') ?>  : <i class="fa fa-usd"> <?= GameData::GoldGameDataUser(null, Yii::$app->session['Game']->getGameId(), Yii::$app->session['User']->getUserID(), $count_lands) ?> / tr </i></font>
 					           	</a>
 		                	</li>
 		                	<li id='count_region' class="header_game_content">
 		                		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					          		<font size='3'>Possessions : <?= $count_lands ?> </font>
+					          		<font size='3'><?= Yii::t('header', 'Text_Country') ?> : <?= $count_lands ?> </font>
 					          	</a>
 		                	</li>
 		                	<li id='count_units' class="header_game_content">
 		                		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					          		<font size='3'>Unités : <?= $count_units ?> </font>
+					          		<font size='3'><?= Yii::t('header', 'Text_Units') ?>  : <?= $count_units ?> </font>
 					          	</a>
 		                	</li>
 		                	<li id='header_messages' class="dropdown messages-menu">
