@@ -19,6 +19,7 @@ $this->registerJs($this->context->getJSConfig(), View::POS_HEAD);
 // Call files
 $this->registerJsFile("@web/js/game/map.js", ['depends' => [dmstr\web\AdminLteAsset::className()]]);
 $this->registerJsFile("@web/js/game/game.js", ['depends' => [dmstr\web\AdminLteAsset::className()]]);
+$this->registerJsFile("@web/js/game/ajax.js", ['depends' => [dmstr\web\AdminLteAsset::className()]]);
 $this->registerCssFile("@web/css/map.css");
 ?>
 

@@ -156,7 +156,10 @@ class Turn extends \yii\db\ActiveRecord
     
     }
     
-    
+    /**
+     * 
+     * @param unknown $newTurn
+     */
     public static function createNewTurn($newTurn){
     	Yii::$app->db->createCommand()->insert("turn", [
     			'turn_user_id'           => $newTurn['user_id'],

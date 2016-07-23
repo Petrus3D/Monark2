@@ -7,41 +7,40 @@ $("document").on("pjax:timeout", function(event) {
 $("document").ready(function(){
 	// No connection lost
 	HideLostConnection();
-    setInterval(function(){
-        if($("#map_content").length > 0 && !$("modal").is(':visible')){
-        	reloadMap();
-        }
-		if($("#navbar-menu-game:hover").length == 0){
-			reloadHeader();
-		}
+    setInterval(function(){      
+        reloadMap();
+		reloadHeader();
     }, config["refresh_time"]); //Reload map
 });
 
 // Call Pjax Functions
 function reloadMap(){
-	$.pjax.reload({container:"#map_content", async:false});
+	if($("#map_content").length > 0 && !$("modal").is(':visible')){
+		$.pjax.reload({container:"#map_content", async:true});
+	}
 }
 function reloadHeader(){
 	// URL
 	var url = config["url"]["ajax"] + "/" + "header";
 	
-	// Ajax call
-	$.ajax({
-        url: url,
-        dataType : "html",  
-        success: function(data) {
-        	$.pjax.reload({container:"#navbar-menu-game-data", async:false});
-        },
-        error: function(){    
-        	ShowLostConnection();
-        }
-    });
+	if($("#navbar-menu-game:hover").length == 0){
+		// Ajax call
+		$.ajax({
+	        url: url,
+	        dataType : "html",  
+	        success: function(data) {
+	        	$.pjax.reload({container:"#navbar-menu-game-data", async:true});
+	        },
+	        error: function(){    
+	        	ShowLostConnection();
+	        }
+	    });
+	}
 }
 
 // Pjax success
 $(document).on('pjax:success', function() {
 	HideLostConnection();
-    event.preventDefault();
 });
 
 // Lost server connection
