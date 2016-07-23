@@ -297,10 +297,11 @@ class GamePlayer extends \yii\db\ActiveRecord
     * @return boolean
     */
     public static function updateUserTurnOrder($game_id){
-    	foreach (self::setUserTurnOrderToArray($game_id) as $key => $user) {
+    	$updated = self::setUserTurnOrderToArray($game_id);
+    	foreach ($updated as $key => $user) {
     		Yii::$app->db->createCommand()->update('game_player', ['game_player_order' => $key], ['game_player_game_id' => $game_id, 'game_player_user_id' => $user->getUserID()])->execute();
     	}
-    	return true;
+    	return $updated; 
     }
     
     /**

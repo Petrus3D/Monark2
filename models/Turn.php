@@ -79,6 +79,15 @@ class Turn extends \yii\db\ActiveRecord
      * @param unknown $game_id
      * @param unknown $user_id
      */
+    public static function createGameFirstTurn($game_id, $user_id){
+    	self::NewTurn($game_id, $user_id);
+    }
+    
+    /**
+     * 
+     * @param unknown $game_id
+     * @param unknown $user_id
+     */
     public static function NewTurn($game_id, $user_id)
     {
     	// Turn Data
@@ -122,15 +131,13 @@ class Turn extends \yii\db\ActiveRecord
     	
     	// TO CHECK
     	if($previousTurnData->getTurnUserId() == $user_id || $previousUserTurnData->getTurnUserId() == null){
-    		Yii::$app->db->createCommand()->insert("turn", [
-    				'turn_user_id'           => $next_user_id,
-    				'turn_game_id'           => $game_id,
-    				'turn_time'              => time(),
-    				'turn_gold'              => $next_gold,
-    				'turn_gold_base'         => $next_gold,
-    				'turn_income'            => $count_gold,
-    				'turn_time_begin'        => $new_turn_begin,
-    		])->execute();
+    		self::createNewTurn(array(
+    				'user_id' 		=> $next_user_id,
+    				'game_id' 		=> $game_id,
+    				'gold' 			=> $next_gold,
+    				'count_gold' 	=> $count_gold,
+    				'turn_begin' 	=> $new_turn_begin,
+    		));
     	}
     
     	// If end
@@ -147,6 +154,19 @@ class Turn extends \yii\db\ActiveRecord
     		return $Bot->BotStartTurn($gameid, $next_user_id, $next_gold);
     	}*/
     
+    }
+    
+    
+    public static function createNewTurn($newTurn){
+    	Yii::$app->db->createCommand()->insert("turn", [
+    			'turn_user_id'           => $newTurn['user_id'],
+    			'turn_game_id'           => $newTurn['game_id'],
+    			'turn_time'              => time(),
+    			'turn_gold'              => $newTurn['gold'],
+    			'turn_gold_base'         => $newTurn['gold'],
+    			'turn_income'            => $newTurn['count_gold'],
+    			'turn_time_begin'        => $newTurn['turn_begin'],
+    	])->execute();
     }
     
     /**

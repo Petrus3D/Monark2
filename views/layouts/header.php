@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\Pjax;
 use app\controllers\GameController;
 use yii\web\View;
+use app\models\GameData;
 /* @var $this \yii\web\View */
 
 /* @var $content string */
@@ -121,7 +122,7 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 		                	</li>
 		                	<li id='gold_per_turn' class="header_game_content">
 		                		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					           		<font size='3'> Revenu : <i class="fa fa-usd"> <?= $count_lands ?> / tr </i></font>
+					           		<font size='3'> Revenu : <i class="fa fa-usd"> <?= GameData::GoldGameDataUser(null, Yii::$app->session['Game']->getGameId(), Yii::$app->session['User']->getUserID(), $count_lands) ?> / tr </i></font>
 					           	</a>
 		                	</li>
 		                	<li id='count_region' class="header_game_content">

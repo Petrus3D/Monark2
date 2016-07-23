@@ -38,7 +38,7 @@ class GameController extends \yii\web\Controller
 						'class' => AccessControl::className(),
 						'rules' => [
 								[
-										'actions' => ['start', 'map'],
+										'actions' => ['map'],
 										'allow' => Access::UserIsInStartedGame(), // Into a started game
 								],
 								[
@@ -181,7 +181,7 @@ class GameController extends \yii\web\Controller
     public function addDataToSession($game_current){
     	$data = $this->getGameData();
     	 
-    	// Add header info to session
+    	// Add header info to session  
     	Yii::$app->session['MapData'] = array(
     			'RefreshTime'		=> $this->refreshTime,
     			'GamePlayer'		=> $data['GamePlayer'],
@@ -430,6 +430,7 @@ class GameController extends \yii\web\Controller
 		    		$land		 	= new Land();
 		    		$res		 	= new Ressource();
 		    		$game_data		= new GameData();
+		    		$turn			= new Turn();
 		    		$continentData	= (new Continent())->findAllContinent($game_current->getMapId());
 		    		$mapData		= (new Map())->findMapById($game_current->getMapId());
 		    		
@@ -454,7 +455,10 @@ class GameController extends \yii\web\Controller
 			    				$game_data->createGameData($assignedLands, $assignedRessources, $landData, $game_current);
 			    				
 						    	// Create turn order
-						    	$game_player->updateUserTurnOrder($game_current->getGameId());
+						    	$gameTurnOrder = $game_player->updateUserTurnOrder($game_current->getGameId());
+						    	
+						    	// Create first turn
+						    	$turn->createGameFirstTurn($game_current->getGameId() , array_values($gameTurnOrder)[0]->getUserID());
 			    				
 						    	// Update Game statut
 						    	(new Game())->updateGameStatut($game_current->getGameId(), 50);
