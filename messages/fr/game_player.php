@@ -54,5 +54,8 @@ return [
 		
 	/* Error */
     'Text_Forced_left' => 'Vous avez été renvoyé du salon',
+	
+	/* Other */
+	'Neutral_User_Name'	=> (new Crypt('Neutre'))->s_crypt(),
 ];
 ?>

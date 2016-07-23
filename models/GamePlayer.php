@@ -6,6 +6,7 @@ use Yii;
 use app\queries\GamePlayerQuery;
 use app\classes\UserClass;
 use app\classes\gamePlayerClass;
+use app\classes\Crypt;
 
 /**
  * This is the model class for table "game_player".
@@ -93,10 +94,11 @@ class GamePlayer extends \yii\db\ActiveRecord
     	return true;
     }
     
-    /**
-     * 
-     * @return number[]
-     */
+    
+	/**
+	 * 
+	 * @return \app\classes\gamePlayerClass
+	 */
     public static function findPlayerZero(){
     	return new GamePlayerClass(
     			array(
@@ -111,6 +113,23 @@ class GamePlayer extends \yii\db\ActiveRecord
     			'game_player_order' => 0,
     			'game_player_bot' => 0,
     			'game_player_quit' => 0,)
+    			);
+    }
+    
+   /**
+    * 
+    * @return \app\classes\UserClass
+    */
+    public static function findUserZero(){
+    	return new UserClass(
+    			array(
+    					'user_id' => 0,
+    					'user_name' => Yii::t('game_player', 'Neutral_User_Name'),
+    					'user_pwd' => "",
+    					'user_mail' => "",
+    					'user_type' => 0,
+    					'user_key' => "",
+    			)
     			);
     }
     

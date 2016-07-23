@@ -75,7 +75,7 @@ class AjaxController extends Controller
      */
     public function getData($dataList){
 		$returned = array();
-		
+
     	if($dataList['game_id'] === true){
     		$returned['game'] 				= Yii::$app->session['Game'];}else{
     		$returned['game'] 				= Game::getGameById($dataList['game_id']);}
@@ -93,7 +93,7 @@ class AjaxController extends Controller
     		$returned['color'] 				= Yii::$app->session['Color'];}
     		
     	if(Yii::$app->session['Continent'] == null && isset($dataList['Continent'])){
-    		$returned['continent'] 			= Continent::findAllContinent($returned['game']->getMapId());}else{
+    		$returned['continent'] 			= Continent::findAllContinentToArray($returned['game']->getMapId());}else{
     		$returned['continent'] 			= Yii::$app->session['Continent'];}
     		
     	if(Yii::$app->session['Land'] == null && isset($dataList['Land'])){
@@ -120,8 +120,11 @@ class AjaxController extends Controller
     	if(isset($dataList['GameData']))
     		$returned['gameData']			= GameData::getGameDataByIdToArray($returned['game']->getGameId());
     	
-    	if(isset($dataList['UsersData']))
-    		$returned['usersData']			= GamePlayer::findAllGamePlayerToListUserId($gamePlayerDataGlobal);
+    	if(isset($dataList['UsersData'])){
+    		$usersData 						= GamePlayer::findAllGamePlayerToListUserId($gamePlayerDataGlobal);
+    		$usersData[0]					= GamePlayer::findUserZero();
+    		$returned['usersData'] 			= $usersData;
+    	}
     	
     	return $returned;
     }
@@ -170,10 +173,13 @@ class AjaxController extends Controller
 		    			'Land' => true,
 		    			'GameData' => true,
 		    			'CurrentTurnData' => true,
+		    			'GamePlayer' => true,
+		    			'UsersData'	=> true,
 		    	));
 		    	
 		    	return $this->renderPartial('landinfo', [
 		    			'land_id' 			=> $urlArgsArray['land_id'],
+		    			'land_id_array'		=> $urlArgsArray['land_id'] - 1, 
 		    			'Game'				=> $data['game'],
 		    			'User'				=> $data['user'],
 		    			'Ressource'			=> $data['ressource'],
@@ -182,6 +188,8 @@ class AjaxController extends Controller
 		    			'Land'				=> $data['land'],
 		    			'GameData'			=> $data['gameData'],
 		    			'CurrentTurnData'	=> $data['currentTurnData'],
+		    			'GamePlayer'		=> $data['gamePlayer'],
+		    			'UsersData'			=> $data['usersData'],
 		    	]);
 			}
 		}
