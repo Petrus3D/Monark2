@@ -1,4 +1,6 @@
 <?php
+use app\classes\Crypt;
+
 /**
  * Message translations.
  *
