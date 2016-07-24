@@ -51,7 +51,7 @@ class GameDataClass{
 	}
 	
 	public function getGameDataBuildings(){
-		return $this->gameDataBuildings;
+		return explode(";", $this->gameDataBuildings);
 	}
 	
 	public function getGameDataCapital(){
