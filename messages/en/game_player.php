@@ -1,4 +1,6 @@
 <?php
+use app\classes\Crypt;
+
 /**
  * Message translations.
  *
@@ -54,5 +56,8 @@ return [
 		
     /* Error */
     'Text_Forced_left' => 'You have been sacked of the lobby',
+		
+	/* Other */
+	'Neutral_User_Name'	=> (new Crypt('Neutral'))->s_crypt(),	
 ];
 ?>

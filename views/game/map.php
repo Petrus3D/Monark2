@@ -55,7 +55,7 @@ $this->registerCssFile("@web/css/map.css");
                         <font color=<?= "'".$Color[$GamePlayer[$data->getGameDataUserId()]->getGamePlayerColorId()]->getColorName()."'"; ?>>
                             <?= $land->getLandName(); ?>
                             <?php //if(isset($user_frontier_array[$value['land_id']])){echo "(".$data->getGameDataUnits().")";} ?>
-                            <?php if($data->getGameDataCapital() >= 1 || true): ?>
+                            <?php if($data->getGameDataCapital() >= 1): ?>
                                 <?= "<img src='img/star.png' height='20px' width='20px'>"; ?>
                             <?php endif; ?>
                             <?php if($data->getGameDataRessourceId() > 0 && $Ressource[$data->getGameDataRessourceId()]->getRessourceImage() != ""): ?>

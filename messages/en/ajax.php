@@ -18,12 +18,14 @@
  */
 return [
 	/* Title */
-    'Europe' => 'Europe',
-    'Asia' => 'Asie',
-    'North_America' => 'Amérique du Nord',
-    'South_America' => 'Amérique du Sud',
-    'Africa' => 'Afrique',
-    'Oceania' => 'Océanie',
-    'Antarctica' => 'Antarctique',
+	
+	/* Text */
+	'Text_Land_Not_User_Turn'	=> 'No actions available <br> Please wait your turn...',
+	'Text_Land_No_Ressource'	=> 'No ressources',
+		
+	/* Buttons */
+	'Button_Land_Build' => 'Build',
+	'Button_Land_Buy' => 'Buy',
+	'Button_Land_Atk' => 'Attack',
 ];
 ?>

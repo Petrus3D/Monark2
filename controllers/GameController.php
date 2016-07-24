@@ -168,7 +168,7 @@ class GameController extends \yii\web\Controller
      */
     public function updateSessionData($game_current){
     	//Yii::$app->session['Land'] = null;
-    	if(Yii::$app->session['Contient'] == null)	Yii::$app->session->set("Continent", Continent::findAllContinent($game_current->getMapId()));
+    	if(Yii::$app->session['Contient'] == null)	Yii::$app->session->set("Continent", Continent::findAllContinentToArray($game_current->getMapId()));
     	if(Yii::$app->session['Land'] == null)		Yii::$app->session->set("Land", Land::findAllLandsToArray($game_current->getMapId()));
     	if(Yii::$app->session['Ressource'] == null)	Yii::$app->session->set("Ressource", Ressource::findAllRessourcesToArray());
     	if(Yii::$app->session['Map'] == null)		Yii::$app->session->set("Map", Map::findMapById($game_current->getMapId()));
@@ -211,7 +211,8 @@ class GameController extends \yii\web\Controller
     	$gamePlayerData[0]		= $game_player::findPlayerZero();
     	$gameData				= $game_data::getGameDataByIdToArray($game_current->getGameId());
     	$turnData				= $turn_data::getLastTurnByGameId($game_current->getGameId());
-    	$userData				= $game_player::findAllGamePlayerToListUserId($gamePlayerDataGlobal);
+    	$userData 				= $game_player::findAllGamePlayerToListUserId($gamePlayerDataGlobal);
+    	$userData[0]			= $game_player::findUserZero();
     	 
     	// Return
     	return array(

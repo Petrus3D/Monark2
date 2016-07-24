@@ -71,7 +71,7 @@ class Continent extends \yii\db\ActiveRecord
 	 */
     public static function findAllContinentToArray($map_id, $continentData=null){
     	if($continentData == null)
-    		$continentData = self::findAllContinent();
+    		$continentData = self::findAllContinent($map_id);
     	$array = null;
     	foreach ($continentData as $key => $continent){
     		$array[$continent['continent_id']] = new ContinentClass($continent);
