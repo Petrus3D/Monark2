@@ -3,12 +3,12 @@
 namespace app\classes;
 
 /**
- * 
+ *
  * @author Paul
  *
  */
-class gamePlayerClass{
-		
+class GamePlayerClass{
+
 	private $game_player_id;
 	private $game_player_region_id;
 	private $game_player_difficulty_id;
@@ -20,7 +20,7 @@ class gamePlayerClass{
 	private $game_player_order;
 	private $game_player_bot;
 	private $game_player_quit;
-	
+
 	/**
 	 *
 	 */
@@ -37,19 +37,19 @@ class gamePlayerClass{
 		$this->gamePlayerBot 				= $gamePlayer['game_player_bot'];
 		$this->gamePlayerQuit 				= $gamePlayer['game_player_quit'];
 	}
-	
+
 	public function getGamePlayerUserId(){
 		return $this->gamePlayerUserId;
 	}
-	
+
 	public function getGamePlayerColorId(){
 		return $this->gamePlayerColorId;
 	}
-	
+
 	public function getGamePlayerOrder(){
 		return $this->gamePlayerOrder;
 	}
-	
+
 	public function getGamePlayerQuit(){
 		return $this->gamePlayerQuit;
 	}

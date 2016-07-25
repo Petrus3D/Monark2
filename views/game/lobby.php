@@ -19,7 +19,7 @@ $this->registerJs('$(document).on("pjax:timeout", function(event) {
 });');
 
 $this->registerJs(
-    '$("document").ready(function(){ 
+    '$("document").ready(function(){
         setInterval(function(){
             if($("select:hover").length == 0){
                 $.pjax.reload({container:"#GridView-Lobby"});
@@ -31,7 +31,7 @@ $this->registerJs(
 <div class="game-lobby">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    
+
     <!-- Top Buttons -->
     <div style="margin: 0 auto;"><table style="border-spacing: 4px;border-collapse: separate;"><tr>
     <!-- Classic -->
@@ -59,7 +59,7 @@ $this->registerJs(
                 'attribute' => Yii::t('game_player', 'Tab_User_Name'),
                 'value'     => function ($model, $key, $index, $column) use ($userList, $colorList) {
                 	$returned = '<font size="4" color="'.$colorList[$model->game_player_color_id]->getColorFontChat().'">'.$userList[$model->game_player_user_id]->getUserName().'</font>  ';
-                	
+
                 	// If admin
                 	if(Yii::$app->session['User']->getId() == Yii::$app->session['Game']->getGameOwnerID() && Yii::$app->session['User']->getId() != $model->game_player_user_id)
             			return $returned
@@ -79,11 +79,11 @@ $this->registerJs(
                 					return $model->color_id;
                 				},
                 				function($model, $defaultValue) {
-                					return Yii::t('color_name', $model->color_name);
+                					return Yii::t('color', $model->color_name);
                 				}
                 				),
                 				[
-                						'prompt'	=> Yii::t('color_name', $colorList[$model->game_player_color_id]->getColorName()),
+                						'prompt'	=> Yii::t('color', $colorList[$model->game_player_color_id]->getColorName()),
                 						'class'		=> 'selectpicker',
                 						'onchange'	=> 'location = "'.Url::current().'&ui='.$model->game_player_user_id.'&ci="+this.options[this.selectedIndex].value;',
                 				]);
