@@ -139,7 +139,7 @@ class GameData extends \yii\db\ActiveRecord
     	 		'game_data_units'         => (array_key_exists($land->getLandId(), $assignedLands) ? ($land->getLandBaseUnits() + $default_units_user_add) : $land->getLandBaseUnits()),
     	 		'game_data_capital'       => (array_key_exists($land->getLandId(), $assignedLands) ? $assignedLands[$land->getLandId()]['game_player_user_id'] : 0),
     	 		'game_data_ressource_id'  => $assignedRessources[$land->getLandId()],
-    	 		'game_data_buildings'     => (array_key_exists($land->getLandId(), $assignedLands) ? 1 : 0),
+    	 		'game_data_buildings'     => (array_key_exists($land->getLandId(), $assignedLands) ? "1;" : ""),
     		])->execute();
     	}
     	return true;

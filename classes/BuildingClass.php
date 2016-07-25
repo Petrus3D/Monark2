@@ -16,6 +16,7 @@ class BuildingClass{
 	 private $buildingGoldIncome;
 	 private $buildingPetrolIncome;
 	 private $buildingDescription;
+	 private $buildingImg;
 	
 	/**
 	 * 
@@ -29,13 +30,22 @@ class BuildingClass{
 		$this->buildingGoldIncome 		= $buildingData['building_gold_income'];
 		$this->buildingPetrolIncome 	= $buildingData['building_petrol_income'];
 		$this->buildingDescription 		= $buildingData['building_description'];
+		$this->buildingImg 				= $buildingData['building_img'];
 	}
 	
 	public function getBuildingId(){
-		return $this->building_id;
+		return $this->buildingId;
 	}
 	
 	public function getBuildingName(){
-		return ucfirst($this->building_name);
+		return ucfirst($this->buildingName);
+	}
+	
+	public function getBuildingDescription(){
+		return $this->buildingDescription;
+	}
+	
+	public function getBuildingImg(){
+		return $this->buildingImg;
 	}
 }

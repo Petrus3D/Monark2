@@ -45,7 +45,7 @@ class RessourceClass{
 	}
 	
 	public function getressourceImageUrl(){
-		return 'img/icon_temp/'.$this->getRessourceImage().'.png';
+		return 'img/game/'.$this->getRessourceImage().'.png';
 	}
 	
 }
