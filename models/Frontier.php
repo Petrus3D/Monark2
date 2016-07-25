@@ -66,7 +66,7 @@ class Frontier extends \yii\db\ActiveRecord
      * @param unknown $frontierData
      * @param unknown $map_id
      */
-    public static function userHaveFrontierLandArray($gameData, $user_id, $owned=true, $frontierData=null, $map_id=null){
+    public static function userHaveFrontierLandArray($gameData, $user_id, $frontierData=null, $owned=true, $map_id=null){
     	if($frontierData == null)
     		$frontierData = self::findAllFrontier($map_id);
     	$userFrontierArray = array();
