@@ -161,7 +161,7 @@ class Turn extends \yii\db\ActiveRecord
      * @param unknown $newTurn
      */
     public static function createNewTurn($newTurn){
-    	Yii::$app->db->createCommand()->insert("turn", [
+    	Yii::$app->db->createCommand()->insert(self::tableName(), [
     			'turn_user_id'           => $newTurn['user_id'],
     			'turn_game_id'           => $newTurn['game_id'],
     			'turn_time'              => time(),
@@ -180,7 +180,7 @@ class Turn extends \yii\db\ActiveRecord
      * @return number
      */
     public static function updateGoldTurn($game_id, $turn_id, $gold){
-    	return Yii::$app->db->createCommand()->update("turn_game_data", [
+    	return Yii::$app->db->createCommand()->update(self::tableName(), [
     			'turn_gold'              => $gold,
     	],[
     			'turn_game_id'           => $game_id,

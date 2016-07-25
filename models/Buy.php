@@ -129,7 +129,7 @@ class Buy extends \yii\db\ActiveRecord
      * @return number
      */
     public static function insertBuyLog($user_id, $turn_id, $game_id, $units, $building_id){
-    	return Yii::$app->db->createCommand()->insert("buy_data", [
+    	return Yii::$app->db->createCommand()->insert(self::tableName(), [
     			'buy_user_id'   => $user_id,
     			'buy_turn_id'   => $turn_id,
     			'buy_game_id'   => $game_id,

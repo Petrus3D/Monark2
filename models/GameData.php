@@ -131,7 +131,7 @@ class GameData extends \yii\db\ActiveRecord
     public static function createGameData($assignedLands, $assignedRessources, $landData, $gameData){
     	$default_units_user_add = 1;
     	foreach($landData as $land){
-    		Yii::$app->db->createCommand()->insert('game_data', [
+    		Yii::$app->db->createCommand()->insert(self::tableName(), [
  				'game_data_game_id'       => $gameData->getGameId(),
     	 		'game_data_user_id'       => (array_key_exists($land->getLandId(), $assignedLands) ? $assignedLands[$land->getLandId()]['game_player_user_id'] : 0),
     	 		'game_data_user_id_base'  => (array_key_exists($land->getLandId(), $assignedLands) ? $assignedLands[$land->getLandId()]['game_player_user_id'] : 0),
@@ -152,7 +152,7 @@ class GameData extends \yii\db\ActiveRecord
      * @param unknown $units
      */
     public static function updateUnitsGameData($game_id, $land_id, $units){
-    	return Yii::$app->db->createCommand()->update("game_data", [
+    	return Yii::$app->db->createCommand()->update(self::tableName(), [
     			'game_data_units'           => $units,
     	],[
     			'game_data_game_id'         => $game_id,

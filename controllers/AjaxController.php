@@ -265,14 +265,7 @@ class AjaxController extends Controller
 	 */
 	public function actionBuyaction(){
 		$urlArgsArray = $this->getJson(array('land_id', 'units'));
-		if($urlArgsArray != null){
-			
-			// Buy update
-			$buy = new Buy($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData']);
-			$buy->BuyInit();
-			$buyError = $buy->BuyCheck();
-			if($buyError) $buy->BuyExec();
-			
+		if($urlArgsArray != null){		
 			// Load data
 			$data = $this->getData(array(
 					'game_id' => true,
@@ -281,7 +274,13 @@ class AjaxController extends Controller
 					'GameData' => true,
 					'CurrentTurnData' => true,
 			));
-				
+			
+			// Buy update
+			$buy = new Buy();
+			$buy->BuyInit($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData'], $urlArgsArray['units']);
+			$buyError = $buy->BuyCheck();
+			if($buyError === true) $buy->BuyExec();
+
 			return $this->renderPartial('buy_action', [
 					'error'				=> $buyError,
 					'land_id' 			=> $urlArgsArray['land_id'],

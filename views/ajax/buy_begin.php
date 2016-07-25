@@ -28,12 +28,16 @@ $this->registerCssFile("@web/css/ajax.css");
 			</div>
 		<?php else: ?>
 			<div class="alert alert-danger" style="text-align:center;">
-				<font size='4'>
+				<font size='3'>
 					<?= Yii::t('ajax', 'Text_Buy_Not_More_Money'); ?>
 				</font>
 			</div>
 		<?php endif; ?>
 	<?php else: ?>
-		<?= Yii::t('ajax', 'Text_Not_User_Turn'); ?>
+		<div class="alert alert-danger" style="text-align:center;">
+			<font size='3'>
+				<?= Yii::t('ajax', 'Text_Not_User_Turn'); ?>
+			</font>
+		</div>
 	<?php endif; ?>
 </div>
