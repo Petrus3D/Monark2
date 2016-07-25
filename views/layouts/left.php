@@ -54,6 +54,8 @@ use app\classes\Access;
                 		
                 	// Statut ==> in game
                 	['label' => Yii::t('menu', 'Title_Game_Map'), 'icon' => 'fa fa-globe', 'url' => ['game/map'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => Access::UserIsInStartedGame()],
+                	['label' => Yii::t('menu', 'Title_Game_News'), 'icon' => 'fa fa-newspaper-o', 'url' => ['game/news'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => Access::UserIsInStartedGame()],
+                	['label' => Yii::t('menu', 'Title_Game_Diplomacy'), 'icon' => 'glyphicon glyphicon-knight', 'url' => ['game/diplomacy'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => Access::UserIsInStartedGame()],
                 		
                 	// Statut ==> after game
                 	//['label' => Yii::t('menu', 'Title_Quit_Game'), 'icon' => 'fa fa-sign-out', 'url' => ['game/quit'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => isset(Yii::$app->session['Game'])],	 
@@ -62,7 +64,7 @@ use app\classes\Access;
                 	// Always in game
                 	['label' => Yii::t('menu', 'Title_Game_Chat'), 'icon' => 'fa fa-weixin', 'url' => ['game/chat'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => Access::UserIsInGame()],
                 	['label' => Yii::t('menu', 'Title_Game_Mail'), 'icon' => 'fa fa-envelope-o', 'url' => ['game/mail'], 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>', 'visible' => Access::UserIsInGame()],	 
-                	
+                		
                 	// Tutorial
                 	['label' => Yii::t('menu', 'Title_Tutorial'), 'icon' => 'fa fa-question', 'url' => ['site/tutorial']], 
                 		
