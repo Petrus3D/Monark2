@@ -72,7 +72,7 @@ class Frontier extends \yii\db\ActiveRecord
     	$userFrontierArray = array();
     	foreach($gameData as $land){
     		if($land->getGameDataUserId() == $user_id){
-    			// him self
+    			// Himself
     			if(!in_array($land->getGameDataLandId(), $userFrontierArray) && $owned)
     				array_push($userFrontierArray, $land->getGameDataLandId());
     			

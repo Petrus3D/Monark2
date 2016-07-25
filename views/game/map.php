@@ -32,13 +32,14 @@ $this->registerCssFile("@web/css/map.css");
     ?>
     <!-- End Modal Js -->
 
+	<?php print_r($UserFrontier)?> 
 	<?php Pjax::begin(['id' => 'map_content']); ?>
 	<div id='map_content'>
 		<?php $user_units = 0; ?>
 		
 		<?php foreach ($GameData as $data): ?>
 			
-			<?php $land = $Land[$data->getGameDataLandId()]; ?>    
+			<?php $land = $Land[$data->getGameDataLandId()]; ?>  
 			<div class="land_content" i=<?= "'".$land->getLandId()."'"; ?>>
 				  <!-- Image -->
 	              <a href=<?= "'#".str_replace("'", "-", $land->getLandName())."'"; ?> class="link_land_img" style=<?= "'top:".$land->getLandPositionTop()."em;left:".$land->getLandPositionLeft()."em;text-decoration: none;'"; ?>>
@@ -54,7 +55,7 @@ $this->registerCssFile("@web/css/map.css");
 	               <div class="land_title" style=<?= "'top:".$land->getLandPositionTop()."em;left:".$land->getLandPositionLeft()."em;'"; ?>>
                         <font color=<?= "'".$Color[$GamePlayer[$data->getGameDataUserId()]->getGamePlayerColorId()]->getColorName()."'"; ?>>
                          	<!-- <?= $land->getLandName(); ?> -->
-                         	<?= $land->getLandName(); ?> 
+                         	<?= $land->getLandName(); ?>
                          	<?php if(\app\models\Frontier::userHaveFrontierLand($UserFrontier, $land->getLandId())): ?>
 	                         	<!-- Land data -->   
 	                            <?php if($data->getGameDataCapital() >= 1): ?>
