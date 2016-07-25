@@ -54,11 +54,11 @@ $this->registerCssFile("@web/css/map.css");
                         <font color=<?= "'".$Color[$GamePlayer[$data->getGameDataUserId()]->getGamePlayerColorId()]->getColorName()."'"; ?>>
                          	<!-- <?= $land->getLandName(); ?> -->
                          	<?= $land->getLandName(); ?>
+                         	<?php if($data->getGameDataCapital() >= 1): ?>
+	                        	<?= "<img src='img/star.png' height='20px' width='20px'>"; ?>
+	                        <?php endif; ?>
                          	<?php if(\app\models\Frontier::userHaveFrontierLand($UserFrontier, $land->getLandId())): ?>
 	                         	<!-- Land data -->   
-	                            <?php if($data->getGameDataCapital() >= 1): ?>
-	                                <?= "<img src='img/star.png' height='20px' width='20px'>"; ?>
-	                            <?php endif; ?>
 	                            <?php if($data->getGameDataRessourceId() > 0 && $Ressource[$data->getGameDataRessourceId()]->getRessourceImage() != ""): ?>
 	                                <?= "<img src='".$Ressource[$data->getGameDataRessourceId()]->getRessourceImageUrl()."' height='20px' width='20px'>"; ?>
 	                            <?php endif; ?>
@@ -71,13 +71,13 @@ $this->registerCssFile("@web/css/map.css");
                         		<!-- Units -->
 		                     	<?php $land_units = Land::LandCountUnitsToArray($data->getGameDataUnits());?>
 		                     	<?php for($i=1; $i <= $land_units['canon']; $i++): ?>
-		                       		<img src='img/canon.png' class='land_canon' style=<?= "'left:".$i."px;'"; ?>>
+		                       		<img src='img/canon.png' class='land_canon'>
 		                   		<?php endfor; ?>
 		                    	<?php for($i=1; $i <= $land_units['horseman']; $i++): ?>
-		                        	<img src='img/horseman.png' class='land_horseman' style=<?= "'left:".$i."px;'"; ?>>
+		                        	<img src='img/horseman.png' class='land_horseman'>
 		                    	<?php endfor; ?>
 		                    	<?php for($i=1; $i <= $land_units['soldier']; $i++): ?>
-		                    		<img src='img/soldier.png' class='land_soldier' style=<?= "'left:".$i."px;'"; ?>>
+		                    		<img src='img/soldier.png' class='land_soldier'>
 		                  		<?php endfor; ?>
 	                  		<?php endif; ?>
 	                  	</font>	

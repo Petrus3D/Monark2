@@ -31,6 +31,7 @@ return [
 	'Title_Game_Mail' 		=> 'Messagerie',
 	'Title_Game_Chat' 		=> 'Chat de la partie',
 	'Title_Game_News' 		=> 'Actualités',
+	'Title_Game_Diplomacy' 	=> 'Diplomatie',
 		
 		
     'Title_GlobalDashboard' => 'Tableau de bord g�n�ral',
