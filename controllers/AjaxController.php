@@ -19,6 +19,7 @@ use app\models\User;
 use app\models\GamePlayer;
 use yii\helpers\Json;
 use yii\web\Response;
+use app\models\Building;
 
 /**
  * AjaxController implements the CRUD actions for Ajax model.
@@ -120,6 +121,9 @@ class AjaxController extends Controller
     	if(isset($dataList['GameData']))
     		$returned['gameData']			= GameData::getGameDataByIdToArray($returned['game']->getGameId());
     	
+    	if(isset($dataList['BuildingData']))
+    		$returned['buildingData']		= Building::findAllBuildingToArray();
+    	
     	if(isset($dataList['UsersData'])){
     		$usersData 						= GamePlayer::findAllGamePlayerToListUserId($gamePlayerDataGlobal);
     		$usersData[0]					= GamePlayer::findUserZero();
@@ -175,6 +179,7 @@ class AjaxController extends Controller
 		    			'CurrentTurnData' => true,
 		    			'GamePlayer' => true,
 		    			'UsersData'	=> true,
+		    			'BuildingData' => true,
 		    	));
 		    	
 		    	return $this->renderPartial('landinfo', [
@@ -190,6 +195,7 @@ class AjaxController extends Controller
 		    			'CurrentTurnData'	=> $data['currentTurnData'],
 		    			'GamePlayer'		=> $data['gamePlayer'],
 		    			'UsersData'			=> $data['usersData'],
+		    			'BuildingData'		=> $data['buildingData'],
 		    	]);
 			}
 		}

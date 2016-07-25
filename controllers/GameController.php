@@ -180,6 +180,7 @@ class GameController extends \yii\web\Controller
      * @param unknown $game_current
      */
     public function addDataToSession($game_current){
+    	$this->updateSessionData($game_current);
     	$data = $this->getGameData();
     	 
     	// Add header info to session  

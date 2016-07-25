@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\classes\BuildingClass;
 
 /**
  * This is the model class for table "building".
@@ -14,6 +15,7 @@ use Yii;
  * @property integer $building_gold_income
  * @property integer $building_petrol_income
  * @property string $building_description
+ * @property string $building_img
  */
 class Building extends \yii\db\ActiveRecord
 {
@@ -33,7 +35,7 @@ class Building extends \yii\db\ActiveRecord
         return [
             [['building_name', 'building_cost', 'building_id_need', 'building_gold_income', 'building_petrol_income', 'building_description'], 'required'],
             [['building_cost', 'building_id_need', 'building_gold_income', 'building_petrol_income'], 'integer'],
-            [['building_name'], 'string', 'max' => 128],
+            [['building_name', 'building_img'], 'string', 'max' => 128],
             [['building_description'], 'string', 'max' => 512]
         ];
     }
@@ -51,9 +53,43 @@ class Building extends \yii\db\ActiveRecord
             'building_gold_income' => 'Building Gold Income',
             'building_petrol_income' => 'Building Petrol Income',
             'building_description' => 'Building Description',
+        	'building_img'	=> 'Building Img',
         ];
     }
 
+    /**
+     *
+     * @param unknown $continent_id
+     * @return \app\classes\ContinentClass
+     */
+    public static function findBuildingById($building_id){
+    	return new BuildingClass(self::find()->where(['building_id' => $building_id])->one());
+    }
+    
+    /**
+     *
+     * @param unknown $map_id
+     * @return NULL|\app\classes\ContinentClass
+     */
+    public static function findAllBuildingToArray($buildingData=null){
+    	if($buildingData == null)
+    		$buildingData = self::findAllBuilding();
+    	$array = null;
+    	foreach ($buildingData as $key => $building){
+    		$array[$building['building_id']] = new BuildingClass($building);
+    	}
+    	return $array;
+    }
+    
+    /**
+     *
+     * @param unknown $map_id
+     * @return \app\models\Continent[]
+     */
+    public static function findAllBuilding(){
+    	return self::find()->all();
+    }
+    
     /**
      * @inheritdoc
      * @return \app\queries\BuildingQuery the active query used by this AR class.

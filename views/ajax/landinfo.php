@@ -14,7 +14,7 @@ $this->registerCssFile("@web/css/ajax.css");
 	        <tbody>
 	        	<!-- region info -->
 				<tr>
-					<td style="padding: 4px;text-align:center;"><font size='3'>
+					<td style="padding: 4px;text-align:center;"><font size='3' color="black">
 					<?php if($GameData[$land_id_array]->getGameDataCapital() > 0): ?> 
 						<?= Html::tag('span', "<img src='img/star.png' height='20px' width='20px'>", [
 	                        'title'=>"Capitale du joueur. ",
@@ -29,7 +29,7 @@ $this->registerCssFile("@web/css/ajax.css");
 				</tr>
 				<!-- units info -->
 				<tr>
-					<td style="padding: 4px;text-align:center;"><font size='3'>
+					<td style="padding: 4px;text-align:center;"><font size='3' color="black">
 					<?php $land_units = Land::LandCountUnitsToArray($GameData[$land_id_array]->getGameDataUnits());?>
                      <?php for($i=1; $i <= $land_units['canon']; $i++): ?>
                        	<img src='img/canon.png' class='land_canon' style=<?= "'left:".$i."px;'"; ?>>
@@ -50,9 +50,9 @@ $this->registerCssFile("@web/css/ajax.css");
 				</tr>
 				<!-- ressource info -->
 				<tr>
-					<td style="padding: 4px;text-align:center;"><font size='3'>
+					<td style="padding: 4px;text-align:center;"><font size='3' color="black">
 					 <?php if($GameData[$land_id_array]->getGameDataRessourceId() > 0 && $Ressource[$GameData[$land_id_array]->getGameDataRessourceId()]->getRessourceImage() != ""): ?>
-                         <?= "<img src='".$Ressource[$GameData[$land_id_array]->getGameDataRessourceId()]->getRessourceImageUrl()."' height='20px' width='20px'>"; ?>
+                         <?= "<img src='".$Ressource[$GameData[$land_id_array]->getGameDataRessourceId()]->getRessourceImageUrl()."' height='20px' width='20px'>".$Ressource[$GameData[$land_id_array]->getGameDataRessourceId()]->getRessourceName(); ?>
                     <?php else: ?>
                     	<?= Yii::t('ajax', 'Text_Land_No_Ressource'); ?>
                     <?php endif; ?>
@@ -60,8 +60,23 @@ $this->registerCssFile("@web/css/ajax.css");
 				</tr>
 				<!-- building info -->
 				<tr>
-					<td style="padding: 4px;text-align:center;"><font size='3'>
-					
+					<td style="padding: 4px;text-align:center;"><font size='3' color="black">
+					<?php $i = 0; ?>
+					<?php foreach($GameData[$land_id_array]->getGameDataBuildings() as $building): ?>
+						<?php if($building != null && $BuildingData[$building]->getBuildingId() > 0): ?>
+							<i class="<?= $BuildingData[$building]->getBuildingImg() ?>"></i>
+							<?= Html::tag('span', $BuildingData[$building]->getBuildingName(), [
+				                          'title'=> $BuildingData[$building]->getBuildingDescription(),
+				                          'data-toggle'=>'tooltip',
+				                          'data-placement' => 'auto',
+				                          'style'=>'text-decoration: none; cursor:pointer;'
+				            ]); ?>
+				            <?php $i++; ?>
+			            <?php endif; ?>
+			        <?php endforeach; ?>
+		            <?php if($i == 0): ?>
+                    	<?= Yii::t('ajax', 'Text_Land_No_Building'); ?>
+                    <?php endif; ?>
 					</font></td>
 				</tr>
 				<!-- frontiere info -->
