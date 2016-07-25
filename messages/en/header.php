@@ -23,7 +23,7 @@ return [
 	'Logout'       	=> 'Logout',
 	'Profile'       => 'Profile',
 	'Friends'       => 'Friends',
-	'Stats'       	=> 'My stats',
+	'Settings'      => 'Settings',
 	'Language'      => 'Language',
 
 		

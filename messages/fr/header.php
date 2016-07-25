@@ -23,7 +23,7 @@ return [
 	'Logout'       	=> 'Déconnexion',
 	'Profile'       => 'Profil',
 	'Friends'       => 'Amis',
-	'Stats'       	=> 'Stats',
+	'Settings'      => 'Options',
 	'Language'      => 'Language',
     
 		

@@ -22,12 +22,13 @@ return [
 	/* Text */
 	'Text_Land_Not_User_Turn'	=> 'Aucune action disponible <br> Veuillez attendre votre tour...',	
 	'Text_Land_No_Ressource'	=> 'Pas de ressource',
-	'Text_Land_No_Building'		=> 'pas de construction',
+	'Text_Land_No_Building'		=> 'Pas de construction',
+		
 		
 	/* Buttons */
 	'Button_Land_Build' => 'Construire',
 	'Button_Land_Buy' => 'Acheter',
 	'Button_Land_Atk' => 'Attaquer',
-	
+	'Button_Land_Move' => 'Deplacer des troupes',
 ];
 ?>

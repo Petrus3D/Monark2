@@ -46,7 +46,7 @@ class Frontier extends \yii\db\ActiveRecord
             'frontier_map_id' => 'Frontier Map ID',
         ];
     }
-
+    
     /**
      * 
      * @param unknown $userFrontierArray

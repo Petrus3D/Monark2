@@ -28,5 +28,6 @@ return [
 	'Button_Land_Build' => 'Build',
 	'Button_Land_Buy' => 'Buy',
 	'Button_Land_Atk' => 'Attack',
+	'Button_Land_Move' => 'Move units',
 ];
 ?>

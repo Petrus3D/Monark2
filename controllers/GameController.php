@@ -40,7 +40,7 @@ class GameController extends \yii\web\Controller
 						'class' => AccessControl::className(),
 						'rules' => [
 								[
-										'actions' => ['map'],
+										'actions' => ['map', 'diplomacy', 'news'],
 										'allow' => Access::UserIsInStartedGame(), // Into a started game
 								],
 								[
@@ -262,6 +262,24 @@ class GameController extends \yii\web\Controller
     public function actionMail()
     {
     	return $this->render('mail');
+    }
+    
+    /**
+     *
+     * @return string
+     */
+    public function actionNews()
+    {
+    	return $this->render('news');
+    }  
+    
+    /**
+     *
+     * @return string
+     */
+    public function actionDiplomacy()
+    {
+    	return $this->render('diplomacy');
     }
     
     /**

@@ -48,7 +48,7 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
                                 <a href="#"><?php print(Yii::t('header', 'Profile')); ?></a>
                             </div>
                             <div class="col-xs-4 text-center">
-                                <a href="#"><?php print(Yii::t('header', 'Stats')); ?></a>
+                                <a href="#"><?php print(Yii::t('header', 'Settings')); ?></a>
                             </div>
                             <div class="col-xs-4 text-center">
                                 <a href="#"><?php print(Yii::t('header', 'Friends')); ?></a>

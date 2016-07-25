@@ -20,6 +20,7 @@ use app\models\GamePlayer;
 use yii\helpers\Json;
 use yii\web\Response;
 use app\models\Building;
+use app\models\Frontier;
 
 /**
  * AjaxController implements the CRUD actions for Ajax model.
@@ -130,6 +131,14 @@ class AjaxController extends Controller
     		$returned['usersData'] 			= $usersData;
     	}
     	
+    	if(isset($dataList['Frontier'])){
+    		if(Yii::$app->session['Frontier'] == null) Yii::$app->session->set("Frontier", Frontier::findAllFrontier($returned['game']->getMapId()));
+    		if(!isset($returned['gameData'])) $returned['gameData'] = GameData::getGameDataByIdToArray($returned['game']->getGameId());
+    		
+    		$returned['frontierData'] 		= Yii::$app->session['Frontier'];
+    		$returned['userFrontierData']	= Frontier::userHaveFrontierLandArray($returned['gameData'], $returned['user']->getUserID(), $returned['frontierData']);
+    	}
+    	
     	return $returned;
     }
     
@@ -180,6 +189,7 @@ class AjaxController extends Controller
 		    			'GamePlayer' => true,
 		    			'UsersData'	=> true,
 		    			'BuildingData' => true,
+		    			'Frontier' => true,
 		    	));
 		    	
 		    	return $this->renderPartial('landinfo', [
@@ -196,6 +206,8 @@ class AjaxController extends Controller
 		    			'GamePlayer'		=> $data['gamePlayer'],
 		    			'UsersData'			=> $data['usersData'],
 		    			'BuildingData'		=> $data['buildingData'],
+		    			'FrontierData'		=> $data['frontierData'],
+		    			'UserFrontierData'	=> $data['userFrontierData'],
 		    	]);
 			}
 		}

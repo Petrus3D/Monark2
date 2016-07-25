@@ -108,6 +108,10 @@ a.desc:after {
   background-color: #5CCCFF;
 }
 
+.table-no-style th:hover, tr:hover td{
+  background: transparent;
+}
+
 /* DIV */
 .div-center{
 	width: 50%;
