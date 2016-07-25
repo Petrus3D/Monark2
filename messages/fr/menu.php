@@ -30,6 +30,7 @@ return [
     'Title_Game'            => 'Le jeu',
 	'Title_Game_Mail' 		=> 'Messagerie',
 	'Title_Game_Chat' 		=> 'Chat de la partie',
+	'Title_Game_News' 		=> 'Actualités',
 		
 		
     'Title_GlobalDashboard' => 'Tableau de bord g�n�ral',

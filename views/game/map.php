@@ -31,8 +31,6 @@ $this->registerCssFile("@web/css/map.css");
         Modal::end();
     ?>
     <!-- End Modal Js -->
-
-	<?php print_r($UserFrontier)?> 
 	<?php Pjax::begin(['id' => 'map_content']); ?>
 	<div id='map_content'>
 		<?php $user_units = 0; ?>

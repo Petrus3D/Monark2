@@ -28,6 +28,7 @@ return [
 	'Title_Game_Lobby'      => 'Game lobby',	
 	'Title_Game_Mail' 		=> 'Message box',
 	'Title_Game_Chat' 		=> 'Game chat',
+	'Title_Game_News' 		=> 'Game news',
 		
     'Title_Create'          => 'Start corporation',
     'Title_Dashboard'       => 'Dashboard',
