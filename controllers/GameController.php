@@ -122,7 +122,7 @@ class GameController extends \yii\web\Controller
 				'refresh_time' => $this->refreshTime,
 				'text' => array(
 						'turn_finished' 			=> Yii::t('header', 'Text_Turn_Finished'),
-						'modal_loading_content'		=> '<center><font size=3>'.Yii::t('map', 'Modal_Loading').'...</font><br><img src=img/loading.gif></center>',
+						'modal_loading_content'		=> '<center><font size=3>'.Yii::t('map', 'Modal_Loading').'...</font><br><img src=img/site/loading.gif></center>',
 						'modal_error_content'		=> '<center><font size=3>'.Yii::t('map', 'Modal_Error').'</font></center>',
 				),
 				'url'	=> array(

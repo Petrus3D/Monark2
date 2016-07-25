@@ -192,7 +192,7 @@ class AjaxController extends Controller
 		    			'Frontier' => true,
 		    	));
 		    	
-		    	return $this->renderPartial('landinfo', [
+		    	return $this->renderPartial('land_info', [
 		    			'land_id' 			=> $urlArgsArray['land_id'],
 		    			'land_id_array'		=> $urlArgsArray['land_id'] - 1, 
 		    			'Game'				=> $data['game'],

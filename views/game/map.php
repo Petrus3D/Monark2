@@ -55,7 +55,7 @@ $this->registerCssFile("@web/css/map.css");
                          	<!-- <?= $land->getLandName(); ?> -->
                          	<?= $land->getLandName(); ?>
                          	<?php if($data->getGameDataCapital() >= 1): ?>
-	                        	<?= "<img src='img/star.png' height='20px' width='20px'>"; ?>
+	                        	<?= "<img src='img/game/star.png' height='20px' width='20px'>"; ?>
 	                        <?php endif; ?>
                          	<?php if(\app\models\Frontier::userHaveFrontierLand($UserFrontier, $land->getLandId())): ?>
 	                         	<!-- Land data -->   
@@ -71,13 +71,13 @@ $this->registerCssFile("@web/css/map.css");
                         		<!-- Units -->
 		                     	<?php $land_units = Land::LandCountUnitsToArray($data->getGameDataUnits());?>
 		                     	<?php for($i=1; $i <= $land_units['canon']; $i++): ?>
-		                       		<img src='img/canon.png' class='land_canon'>
+		                       		<img src='img/game/canon.png' class='land_canon'>
 		                   		<?php endfor; ?>
 		                    	<?php for($i=1; $i <= $land_units['horseman']; $i++): ?>
-		                        	<img src='img/horseman.png' class='land_horseman'>
+		                        	<img src='img/game/horseman.png' class='land_horseman'>
 		                    	<?php endfor; ?>
 		                    	<?php for($i=1; $i <= $land_units['soldier']; $i++): ?>
-		                    		<img src='img/soldier.png' class='land_soldier'>
+		                    		<img src='img/game/soldier.png' class='land_soldier'>
 		                  		<?php endfor; ?>
 	                  		<?php endif; ?>
 	                  	</font>	

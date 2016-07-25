@@ -23,7 +23,7 @@ return [
 	'Text_Land_Not_User_Turn'	=> 'Aucune action disponible <br> Veuillez attendre votre tour...',	
 	'Text_Land_No_Ressource'	=> 'Pas de ressource',
 	'Text_Land_No_Building'		=> 'Pas de construction',
-		
+	'Text_Land_Frontier'		=> 'Frontières',
 		
 	/* Buttons */
 	'Button_Land_Build' => 'Construire',
