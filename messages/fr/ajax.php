@@ -25,11 +25,19 @@ return [
 	'Text_Land_No_Building'		=> 'Pas de construction',
 	'Text_Land_Frontier'		=> 'Frontières',
 	'Text_Buy_Not_More_Money'	=> "Vous n'avez plus d'argent",
+	'Text_Buy_Units'			=> 'Unités',
+	'Text_Buy_Units_Pending'	=> 'unités présentes',
+	'Text_Buy_To_Recruit'		=> "Troupes à recruter",
 		
 	/* Buttons */
-	'Button_Land_Build' => 'Construire',
-	'Button_Land_Buy' => 'Acheter',
-	'Button_Land_Atk' => 'Attaquer',
-	'Button_Land_Move' => 'Deplacer des troupes',
+	'Button_Land_Build' 		=> 'Construire',
+	'Button_Land_Buy' 			=> 'Recruter',
+	'Button_Land_Atk' 			=> 'Attaquer',
+	'Button_Land_Move' 			=> 'Deplacer des troupes',
+		
+	/* Error */
+	'Error' 					=> 'Erreur inconnue.',
+	'Error_Turn' 				=> "Erreur : votre tour est terminé.",
+	'Error_Buy_Gold' 			=> "Erreur : vous n'avez pas assez d'argent.",
 ];
 ?>

@@ -173,6 +173,23 @@ class Turn extends \yii\db\ActiveRecord
     }
     
     /**
+     * 
+     * @param unknown $game_id
+     * @param unknown $turn_id
+     * @param unknown $gold
+     * @return number
+     */
+    public static function updateGoldTurn($game_id, $turn_id, $gold){
+    	return Yii::$app->db->createCommand()->update("turn_game_data", [
+    			'turn_gold'              => $gold,
+    	],[
+    			'turn_game_id'           => $game_id,
+    			'turn_id'                => $turn_id,
+    	])
+    	->execute();
+    }
+    
+    /**
      * @inheritdoc
      * @return \app\queries\TurnQuery the active query used by this AR class.
      */

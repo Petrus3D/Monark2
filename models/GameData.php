@@ -146,6 +146,23 @@ class GameData extends \yii\db\ActiveRecord
     }
     
     /**
+     * 
+     * @param unknown $game_id
+     * @param unknown $land_id
+     * @param unknown $units
+     */
+    public static function updateUnitsGameData($game_id, $land_id, $units){
+    	return Yii::$app->db->createCommand()->update("game_data", [
+    			'game_data_units'           => $units,
+    	],[
+    			'game_data_game_id'         => $game_id,
+    			'game_data_land_id'         => $land_id,
+    	])
+    	->execute();
+    }
+    
+    
+    /**
      * @inheritdoc
      * @return GameDataQuery the active query used by this AR class.
      */
