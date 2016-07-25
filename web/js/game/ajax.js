@@ -1,3 +1,5 @@
+// $(".modal-dialog ").css({"top" : "75px"});
+
 // Land
 function getLandData(land){
 	var land_name 		= $("img[i="+land+"]").attr("alt");
@@ -52,5 +54,4 @@ $(document).on("click", "#end_of_turn_link", function(){
     $("#end_of_turn_link").html("<font color=white> " + config["text"]["turn_finished"] + " !</font>");
     $("#end_of_turn_link").attr("origin", "");
 	CallAjaxMethod("newturn", new Array(), null);
-    $(".modal-dialog ").css({"top" : "75px"});
 });

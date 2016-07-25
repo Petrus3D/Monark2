@@ -34,7 +34,7 @@ class AjaxController extends Controller
 						'class' => AccessControl::className(),
 						'rules' => [
 								[
-										'actions' => ['newturn', 'landinfo', 'header'],
+										'actions' => ['newturn', 'landinfo', 'header', 'buybegin', 'buyaction', 'buildbegin', 'buildaction', 'attackbegin', 'attackaction', 'movebegin', 'moveaction'],
 										'allow' => Access::UserIsInStartedGame(), // Into a started game
 								],
 								[
@@ -163,56 +163,256 @@ class AjaxController extends Controller
 	
 	/**
 	 * 
+	 * @return mixed|NULL|string
+	 */
+	public function getJson(){
+		$urlparams = Yii::$app->request->queryParams;
+		
+		if(array_key_exists('args', $urlparams) && Json::decode($urlparams['args'], true) != null)
+			return Json::decode($urlparams['args'], true);
+		return null;
+	}
+	
+	/**
+	 * 
 	 * @param unknown $land_id
 	 * @param unknown $game
 	 * @param unknown $user
 	 * @return NULL
-	 */
+	 */ 
 	public function actionLandinfo($land_id=null, $game=null, $user=null){
-		$urlparams = Yii::$app->request->queryParams;
-
-		if(array_key_exists('args', $urlparams) && Json::decode($urlparams['args'], true) != null){
-			$urlArgsArray = Json::decode($urlparams['args'], true);
-
-			if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
-		    	// Load data
-		    	$data = $this->getData(array(
-		    			'game_id' => true,
-		    			'user_id' => true,
-		    			'User' => true,
-		    			'Ressource' => true,
-		    			'Color' => true,
-		    			'Continent' => true,
-		    			'Land' => true,
-		    			'GameData' => true,
-		    			'CurrentTurnData' => true,
-		    			'GamePlayer' => true,
-		    			'UsersData'	=> true,
-		    			'BuildingData' => true,
-		    			'Frontier' => true,
-		    	));
-		    	
-		    	return $this->renderPartial('land_info', [
-		    			'land_id' 			=> $urlArgsArray['land_id'],
-		    			'land_id_array'		=> $urlArgsArray['land_id'] - 1, 
-		    			'Game'				=> $data['game'],
-		    			'User'				=> $data['user'],
-		    			'Ressource'			=> $data['ressource'],
-		    			'Color'				=> $data['color'],
-		    			'Continent'			=> $data['continent'],
-		    			'Land'				=> $data['land'],
-		    			'GameData'			=> $data['gameData'],
-		    			'CurrentTurnData'	=> $data['currentTurnData'],
-		    			'GamePlayer'		=> $data['gamePlayer'],
-		    			'UsersData'			=> $data['usersData'],
-		    			'BuildingData'		=> $data['buildingData'],
-		    			'FrontierData'		=> $data['frontierData'],
-		    			'UserFrontierData'	=> $data['userFrontierData'],
-		    	]);
-			}
+		$urlArgsArray = $this->getJson();
+		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+	    	// Load data     
+	    	$data = $this->getData(array(
+	    			'game_id' => true,
+	    			'user_id' => true,
+	    			'User' => true,
+	    			'Ressource' => true,
+	    			'Color' => true,
+	    			'Continent' => true,
+	    			'Land' => true,
+	    			'GameData' => true,
+	    			'CurrentTurnData' => true,
+	    			'GamePlayer' => true,
+	    			'UsersData'	=> true,
+	    			'BuildingData' => true,
+	    			'Frontier' => true,
+	    	));
+	    	
+	    	return $this->renderPartial('land_info', [
+	    			'land_id' 			=> $urlArgsArray['land_id'],
+	    			'land_id_array'		=> $urlArgsArray['land_id'] - 1, 
+	    			'Game'				=> $data['game'],
+	    			'User'				=> $data['user'],
+	    			'Ressource'			=> $data['ressource'],
+	    			'Color'				=> $data['color'],
+	    			'Continent'			=> $data['continent'],
+	    			'Land'				=> $data['land'],
+	    			'GameData'			=> $data['gameData'],
+	    			'CurrentTurnData'	=> $data['currentTurnData'],
+	    			'GamePlayer'		=> $data['gamePlayer'],
+	    			'UsersData'			=> $data['usersData'],
+	    			'BuildingData'		=> $data['buildingData'],
+	    			'FrontierData'		=> $data['frontierData'],
+	    			'UserFrontierData'	=> $data['userFrontierData'],
+	    	]);
 		}
 		
 		return $this->returnError();
 	}
-    
+	
+	public function actionBuybegin(){
+		$urlArgsArray = $this->getJson();
+		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+			// Load data
+			$data = $this->getData(array(
+					'game_id' => true,
+					'user_id' => true,
+					'Land' => true,
+					'User' => true,
+					'GameData' => true,
+					'CurrentTurnData' => true,
+			));
+			
+			return $this->renderPartial('buy_begin', [
+					'land_id' 			=> $urlArgsArray['land_id'],
+					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
+					'Game'				=> $data['game'],
+					'User'				=> $data['user'],
+					'Land'				=> $data['land'],
+					'GameData'			=> $data['gameData'],
+					'CurrentTurnData'	=> $data['currentTurnData'],
+			]);
+		}
+		return $this->returnError();
+	}
+	
+	public function actionBuyaction(){
+		$urlArgsArray = $this->getJson();
+		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+			// Load data
+			$data = $this->getData(array(
+					'game_id' => true,
+					'user_id' => true,
+					'User' => true,
+					'GameData' => true,
+					'CurrentTurnData' => true,
+			));
+				
+			return $this->renderPartial('buy_action', [
+					'land_id' 			=> $urlArgsArray['land_id'],
+					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
+					'Game'				=> $data['game'],
+					'User'				=> $data['user'],
+					'GameData'			=> $data['gameData'],
+					'CurrentTurnData'	=> $data['currentTurnData'],
+			]);
+		}
+		return $this->returnError();
+	}
+	
+	public function actionBuildbegin(){
+		$urlArgsArray = $this->getJson();
+		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+			// Load data
+			$data = $this->getData(array(
+					'game_id' => true,
+					'user_id' => true,
+					'User' => true,
+					'GameData' => true,
+					'CurrentTurnData' => true,
+			));
+				
+			return $this->renderPartial('build_begin', [
+					'land_id' 			=> $urlArgsArray['land_id'],
+					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
+					'Game'				=> $data['game'],
+					'User'				=> $data['user'],
+					'GameData'			=> $data['gameData'],
+					'CurrentTurnData'	=> $data['currentTurnData'],
+			]);
+		}
+		return $this->returnError();
+	}
+	
+	public function actionBuildaction(){
+		$urlArgsArray = $this->getJson();
+		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+			// Load data
+			$data = $this->getData(array(
+					'game_id' => true,
+					'user_id' => true,
+					'User' => true,
+					'GameData' => true,
+					'CurrentTurnData' => true,
+			));
+				
+			return $this->renderPartial('build_action', [
+					'land_id' 			=> $urlArgsArray['land_id'],
+					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
+					'Game'				=> $data['game'],
+					'User'				=> $data['user'],
+					'GameData'			=> $data['gameData'],
+					'CurrentTurnData'	=> $data['currentTurnData'],
+			]);
+		}
+		return $this->returnError();
+	}
+	
+	public function actionAttackbegin(){
+		$urlArgsArray = $this->getJson();
+		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+			// Load data
+			$data = $this->getData(array(
+					'game_id' => true,
+					'user_id' => true,
+					'User' => true,
+					'GameData' => true,
+					'CurrentTurnData' => true,
+			));
+				
+			return $this->renderPartial('attack_begin', [
+					'land_id' 			=> $urlArgsArray['land_id'],
+					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
+					'Game'				=> $data['game'],
+					'User'				=> $data['user'],
+					'GameData'			=> $data['gameData'],
+					'CurrentTurnData'	=> $data['currentTurnData'],
+			]);
+		}
+		return $this->returnError();
+	}
+	
+	public function actionAttackaction(){
+		$urlArgsArray = $this->getJson();
+		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+			// Load data
+			$data = $this->getData(array(
+					'game_id' => true,
+					'user_id' => true,
+					'User' => true,
+					'GameData' => true,
+					'CurrentTurnData' => true,
+			));
+				
+			return $this->renderPartial('attack_action', [
+					'land_id' 			=> $urlArgsArray['land_id'],
+					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
+					'Game'				=> $data['game'],
+					'User'				=> $data['user'],
+					'GameData'			=> $data['gameData'],
+					'CurrentTurnData'	=> $data['currentTurnData'],
+			]);
+		}
+		return $this->returnError();
+	}
+	
+	public function actionMovebegin(){
+		$urlArgsArray = $this->getJson();
+		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+			// Load data
+			$data = $this->getData(array(
+					'game_id' => true,
+					'user_id' => true,
+					'User' => true,
+					'GameData' => true,
+					'CurrentTurnData' => true,
+			));
+				
+			return $this->renderPartial('move_begin', [
+					'land_id' 			=> $urlArgsArray['land_id'],
+					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
+					'Game'				=> $data['game'],
+					'User'				=> $data['user'],
+					'GameData'			=> $data['gameData'],
+					'CurrentTurnData'	=> $data['currentTurnData'],
+			]);
+		}
+		return $this->returnError();
+	}
+	
+	public function actionMoveaction(){
+		$urlArgsArray = $this->getJson();
+		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+			// Load data
+			$data = $this->getData(array(
+					'game_id' => true,
+					'user_id' => true,
+					'User' => true,
+					'GameData' => true,
+					'CurrentTurnData' => true,
+			));
+				
+			return $this->renderPartial('move_action', [
+					'land_id' 			=> $urlArgsArray['land_id'],
+					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
+					'Game'				=> $data['game'],
+					'User'				=> $data['user'],
+					'GameData'			=> $data['gameData'],
+					'CurrentTurnData'	=> $data['currentTurnData'],
+			]);
+		}
+		return $this->returnError();
+	}
 }

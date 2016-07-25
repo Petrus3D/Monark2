@@ -20,10 +20,11 @@ return [
 	/* Title */
 	
 	/* Text */
-	'Text_Land_Not_User_Turn'	=> 'No actions available <br> Please wait your turn...',
+	'Text_Not_User_Turn'		=> 'No actions available <br> Please wait your turn...',
 	'Text_Land_No_Ressource'	=> 'No ressource',
 	'Text_Land_No_Building'		=> 'No building',
 	'Text_Land_Frontier'		=> 'Frontier with',
+	'Text_Buy_Not_More_Money'	=> 'You no longer have money',
 		
 	/* Buttons */
 	'Button_Land_Build' => 'Build',
