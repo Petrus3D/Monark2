@@ -29,7 +29,7 @@ use app\models\GamePlayer;
  */
 class Game extends \yii\db\ActiveRecord
 {
-	
+
     /**
      * @inheritdoc
      */
@@ -57,34 +57,34 @@ class Game extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'game_id' => 'Game ID',
+            'game_id' => Yii::t('game', 'Txt_Game_ID'),
             'game_name' => Yii::t('game', 'Tab_Game_Name'),
-            'game_owner_id' => Yii::t('game', 'Tab_Owner_Name'),
-            'game_max_player' => 'Game Max Player',
-            'game_create_time' => 'Game Create Time',
-            'game_statut' => 'Game Statut',
-            'game_map_id' => 'Game Map ID',
-            'game_mod_id' => 'Game Mod ID',
-            'game_turn_time' => 'Game Turn Time',
-            'game_difficulty_id' => 'Game Difficulty ID',
-            'game_won_user_id' => 'Game Won User ID',
-            'game_won_time' => 'Game Won Time',
-            'game_pwd' => 'Game Pwd',
-            'game_key' => 'Game Key',
+            'game_owner_id' => Yii::t('game', 'Txt_Game_ID'),
+            'game_max_player' => Yii::t('game', 'Txt_Game_Max_Player'),
+            'game_create_time' => Yii::t('game', 'Txt_Game_Create_Time'),
+            'game_statut' => Yii::t('game', 'Txt_Game_Statut'),
+            'game_map_id' => Yii::t('game', 'Txt_Game_Map_ID'),
+            'game_mod_id' => Yii::t('game', 'Txt_Game_Mod_ID'),
+            'game_turn_time' => Yii::t('game', 'Txt_Game_Turn_Time'),
+            'game_difficulty_id' => Yii::t('game', 'Txt_Game_Difficulty_ID'),
+            'game_won_user_id' => Yii::t('game', 'Txt_Game_Won_User_ID'),
+            'game_won_time' => Yii::t('game', 'Txt_Game_Won_Time'),
+            'game_pwd' => Yii::t('game', 'Txt_Game_Pwd'),
+            'game_key' => Yii::t('game', 'Txt_Game_Key'),
         ];
     }
-
+		
     /**
-     * 
+     *
      * @param unknown $user_id
      * @return \app\models\User|NULL
      */
     public static function getUserOwner($user_id){
     	return User::findUserById($user_id);
     }
-    
+
     /**
-     * 
+     *
      * @param unknown $gameName
      * @return boolean
      */
@@ -94,7 +94,7 @@ class Game extends \yii\db\ActiveRecord
     	else
     		return false;
     }
-    
+
     /**
      *
      * @param unknown $gameName
@@ -103,35 +103,35 @@ class Game extends \yii\db\ActiveRecord
     public static function getGameByName($gameName){
     	return new GameClass(self::find()->where(['game_name' => (new Crypt($gameName))->s_decrypt()])->one());
     }
-    
+
     /**
-     * 
+     *
      * @param unknown $gameId
      * @return \app\classes\GameClass
      */
     public static function getGameById($game_Id){
     	return new GameClass(self::find()->where(['game_id' => $game_Id])->one());
     }
-    
+
     /**
-     * 
+     *
      * @param unknown $game_name
      */
     public static function decryptGameName($game_name){
     	return (new Crypt($game_name))->s_decrypt();
     }
-    
+
     /**
-     * 
+     *
      * @param unknown $game_Id
      * @return number
      */
     public static function getGameCountPlayer($game_Id){
     	return (new GamePlayer())->gameCountPlayer($game_Id);
     }
-    
+
     /**
-     * 
+     *
      * @param String $game_name
      * @param String $game_pwd
      * @param Integer $game_max_player
@@ -154,9 +154,9 @@ class Game extends \yii\db\ActiveRecord
     			'game_key' => 0,
     	])->execute();
     }
-    
+
     /**
-     * 
+     *
      * @param unknown $game_id
      * @param unknown $statut
      * @return number
@@ -164,7 +164,7 @@ class Game extends \yii\db\ActiveRecord
     public static function updateGameStatut($game_id, $statut){
     	return Yii::$app->db->createCommand()->update('game', ['game_statut' => $statut], ['game_id' => $game_id])->execute();
     }
-    
+
     /**
      * @inheritdoc
      * @return GameQuery the active query used by this AR class.
