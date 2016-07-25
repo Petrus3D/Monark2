@@ -45,7 +45,7 @@ return [
 	'Text_Units' => 'Unités',
 	'Text_Turn_Own' => 'Temps restant',
 	'Text_Turn_Finished' => 'Tour terminé',
-	'Text_Turn_Other' 	=> 'Patientez, tour de.',
+	'Text_Turn_Other' 	=> 'Patientez, tour de',
 	'Text_Your_turn'	=>  "C'est votre tour !",
 	'Text_Lost_Connection'=>  'Connexion perdue avec le serveur',
 		
