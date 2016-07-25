@@ -24,6 +24,8 @@ use app\models\Users;
 use app\classes\Access;
 use app\assets\AppAsset;
 use yii\base\Object;
+use app\models\Frontier;
+use app\models\Building;
 
 class GameController extends \yii\web\Controller
 {
@@ -173,8 +175,10 @@ class GameController extends \yii\web\Controller
     	if(Yii::$app->session['Ressource'] == null)	Yii::$app->session->set("Ressource", Ressource::findAllRessourcesToArray());
     	if(Yii::$app->session['Map'] == null)		Yii::$app->session->set("Map", Map::findMapById($game_current->getMapId()));
     	if(Yii::$app->session['Color'] == null)		Yii::$app->session->set("Color", Color::findAllColorToArray());
+    	if(Yii::$app->session['Frontier'] == null)	Yii::$app->session->set("Frontier", Frontier::findAllFrontier($game_current->getMapId())); 
+    	if(Yii::$app->session['Building'] == null)	Yii::$app->session->set("Building", Building::findAllBuildingToArray());
     }
-    
+     
     /**
      *
      * @param unknown $game_current
@@ -204,6 +208,7 @@ class GameController extends \yii\web\Controller
     	$game_player 	= new GamePlayer();
     	$game_data		= new GameData();
     	$turn_data		= new Turn();
+    	$frontier_data	= new Frontier();
     	$game_current 	= Game::getGameById(Yii::$app->session['Game']->getGameId());
     	 
     	// Datas
@@ -214,7 +219,8 @@ class GameController extends \yii\web\Controller
     	$turnData				= $turn_data::getLastTurnByGameId($game_current->getGameId());
     	$userData 				= $game_player::findAllGamePlayerToListUserId($gamePlayerDataGlobal);
     	$userData[0]			= $game_player::findUserZero();
-    	 
+    	$userFrontierData		= $frontier_data::userHaveFrontierLandArray($gameData, Yii::$app->session['User']->getUserID(), Yii::$app->session['Frontier']);
+
     	// Return
     	return array(
     			'Game'			=> $game_current,
@@ -222,10 +228,11 @@ class GameController extends \yii\web\Controller
     			'GameData'		=> $gameData,
     			'TurnData'		=> $turnData,
     			'UserData'		=> $userData,
+    			'FrontierData'	=> $userFrontierData,
     	);
     }
     
-    /**
+    /** 
      *
      * @return string
      */
@@ -498,11 +505,11 @@ class GameController extends \yii\web\Controller
     	if($this->checkStarted(Yii::$app->session['Game']->getGameId())){
     		//$urlparams 		= Yii::$app->request->queryParams;
 
+    		// Session
+    		$this->updateSessionData(Yii::$app->session['Game']);
+    		
 	    	// Get data
 	    	$dataArray = $this->getGameData();
-	    	
-	    	// Session
-	    	$this->updateSessionData($dataArray['Game']);
 	    	
 	    	// Data to map
 	    	return $this->render('map', [
@@ -512,11 +519,14 @@ class GameController extends \yii\web\Controller
 	    			'Map' 			=> Yii::$app->session['Map'],
 	    			'Land'			=> Yii::$app->session['Land'],
 	    			'Color'			=> Yii::$app->session['Color'],
+	    			'Frontier'		=> Yii::$app->session['Frontier'],
+	    			'Building'		=> Yii::$app->session['Building'],
 	    			'Game' 			=> $dataArray['Game'],
 	    			'GamePlayer' 	=> $dataArray['GamePlayer'],
 	    			'GameData' 		=> $dataArray['GameData'],
 	    			'Turn' 			=> $dataArray['TurnData'],
 	    			'Users'			=> $dataArray['UserData'],
+	    			'UserFrontier'	=> $dataArray['FrontierData'],
 	    			'RefreshTime'	=> $this->refreshTime,
 	    	]);
     	}else
