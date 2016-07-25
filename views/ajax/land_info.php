@@ -151,7 +151,7 @@ $this->registerCssFile("@web/css/ajax.css");
 					        </td>
 							<?php elseif($visible): ?>
 							<td>
-								<?= Yii::t('ajax', 'Text_Land_Not_User_Turn'); ?>
+								<?= Yii::t('ajax', 'Text_Not_User_Turn'); ?>
 							</td>
 							<?php endif; ?>
 						</tr>
