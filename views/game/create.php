@@ -17,21 +17,21 @@ $this->title = Yii::t('game', 'Title_Create');
         'id' => 'login-form',
         'options' => ['class' => 'form-horizontal'],
         'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label'],
+            'template' => "{label}\n<div class=\"col-lg-2\">{input}</div>\n<div class=\"col-lg-4\">{error}</div>",
+            'labelOptions' => ['class' => 'col-lg-3 control-label'],
         ],
     ]); ?>
 
-        <?= $form->field($model, 'game_name')->textInput() ?>
-        <?= $form->field($model, 'game_max_player')->textInput() ?>
+        <?= $form->field($model, 'game_name')->textInput()->label(Yii::t('game', 'Tab_Game_Name')) ?>
+        <?= $form->field($model, 'game_max_player')->textInput(['type' => 'number'])->label(Yii::t('game', 'Txt_Game_Max_Player')) ?>
         <!--<? //$form->field($model, 'game_map_id') ?>
         <? //$form->field($model, 'game_mod_id') ?>
         <? //$form->field($model, 'game_difficulty_id') ?>-->
-        <?= $form->field($model, 'game_pwd')->passwordInput() ?>
-    
+        <?= $form->field($model, 'game_pwd')->passwordInput()->label(Yii::t('game', 'Txt_Game_Pwd')) ?>
+
         <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('Create', ['class' => 'btn btn-primary', 'name' => 'create-button']) ?>
+            <div class="col-lg-offset-3 col-lg-2">
+                <?= Html::submitButton(Yii::t('game', 'Title_Create'), ['class' => 'btn btn-primary', 'name' => 'create-button']) ?>
             </div>
         </div>
 

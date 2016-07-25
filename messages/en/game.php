@@ -25,14 +25,14 @@ return [
 	'Title_Map' => 'Map',
 	'Title_Game_Mail' => 'Message box',
 	'Title_Game_Chat' => 'Game chat',
-		
+
 	/* Tab */
 	'Tab_Game_Name' => 'Game Name',
 	'Tab_Owner_Name' => 'Owner Name',
 	'Tab_Max_Player' => "Players",
 	'Tab_Create_Time' => "Create time",
 	'Tab_Rejoin' => "Join the game",
-		
+
     /* Text*/
     'Creation_Rules' => 'Please complete the form to create your game :',
     'Join_Rules' => 'Please enter the password of the game :',
@@ -49,8 +49,20 @@ return [
 	'Txt_Player_Creation' => 'Creating players',
 	'Txt_Land_Assignation' => 'Assigning country',
 	'Txt_Finalization' => 'Finalization',
-    
-	/* Errors & success */	
+	'Txt_Game_Owner_ID' => 'Game owner ID',
+	'Txt_Game_Max_Player' => 'Game Max Player',
+	'Txt_Game_Create_Time' => 'Game Create Time',
+	'Txt_Game_Statut' => 'Game Statut',
+	'Txt_Game_Map_ID' => 'Game Map ID',
+	'Txt_Game_Mod_ID' => 'Game Mod ID',
+	'Txt_Game_Turn_Time' => 'Game Turn Time',
+	'Txt_Game_Difficulty_ID' => 'Game Difficulty ID',
+	'Txt_Game_Won_User_ID' => 'Game Won User ID',
+	'Txt_Game_Won_Time' => 'Game Won Time',
+	'Txt_Game_Pwd' => 'Game Pwd',
+	'Txt_Game_Key' => 'Game Key',
+
+	/* Errors & success */
 	'Error_Name_Already_Use' => 'Game name already used',
     'Error_Password_Incorrect' => 'A password is required : incorrect password.',
     'Error_User_Already_In_Game' => 'You are already playing in another game !',
@@ -67,8 +79,8 @@ return [
 	'Success_Game_Created' => 'Game created.',
 	'Success_Game_Join' => 'Game joined.',
 	'Notice_Game_Quit' => 'Game exited.',
-		
-    /* Buttons */ 
+
+    /* Buttons */
     'Button_Send' => 'Send',
     'Button_Game_Create' => 'Create a game',
     'Button_Game_Enter' => 'Join the game',
