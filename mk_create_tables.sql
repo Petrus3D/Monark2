@@ -1357,6 +1357,7 @@ CREATE TABLE IF NOT EXISTS `game` (
   `game_won_time` int(12) NOT NULL,
   `game_pwd` varchar(512) NOT NULL,
   `game_key` varchar(256) NOT NULL,
+  `game_map_cont` int(12) NOT NULL,
   PRIMARY KEY (`game_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 

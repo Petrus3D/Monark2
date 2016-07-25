@@ -28,7 +28,7 @@ return [
 
 		/* Tabs */
 		'Tab_Game_Name' => 'Nom de la partie',
-		'Tab_Owner_Name' => "Proprietaire",
+		'Tab_Owner_Name' => "Propriétaire",
 		'Tab_Max_Player' => "Nombre de joueurs",
 		'Tab_Create_Time' => "Date de creation",
 		'Tab_Rejoin' => "Rejoindre",
@@ -45,7 +45,7 @@ return [
 		'Text_Date' => 'd/m/Y',
 		'Text_Load_Title' => 'Avancement',
 		'Txt_Map_Creation' => 'Création de la carte',
-		'Txt_Region_Creation' => 'Création des regions',
+		'Txt_Region_Creation' => 'Création des régions',
 		'Txt_Player_Creation' => 'Création des joueurs',
 		'Txt_Land_Assignation' => 'Assignation des pays',
 		'Txt_Finalization' => 'Finalisation',
@@ -60,24 +60,24 @@ return [
 		'Txt_Game_Won_User_ID' => 'ID du gagnant',
 		'Txt_Game_Won_Time' => 'Meilleur temps',
 		'Txt_Game_Pwd' => 'Mot de passe de la partie',
-		'Txt_Game_Key' => 'Clé de la partie', 
+		'Txt_Game_Key' => 'Clé de la partie',
 
 		/* Errors & success */
 		'Error_Name_Already_Use' => 'Nom de partie déjà utilisé',
 		'Error_Password_Incorrect' => 'Un mot de passe est nécessaire : mot de passe incorrect.',
-		'Error_User_Already_In_Game' => 'Vous étes déjà dans une autre partie !',
+		'Error_User_Already_In_Game' => 'Vous êtes déjà dans une autre partie !',
 		'Error_Game_Full' => 'La partie est pleine.',
 		'Error_Game_Cant_Join' => 'Impossible de rejoindre la partie.',
 		'Error_Game_Not_Exist' => "La partie n'existe plus.",
-		'Error_Start_Multiple_Color' => "La partie n'a pas pu démarrer : Plusieurs joueurs ont la méme couleur.",
-		'Error_Start_Not_Ready' => "La partie n'a pas pu démarrer : les joueurs ne sont pas préts.",
+		'Error_Start_Multiple_Color' => "La partie n'a pas pu démarrer : Plusieurs joueurs ont la même couleur.",
+		'Error_Start_Not_Ready' => "La partie n'a pas pu démarrer : les joueurs ne sont pas prêts.",
 		'Error_Start_Stop' => "La partie n'a pas pu démarrer.",
 		'Error_Max_Player_Nb' => "Le nombre de joueur maximum est 10.",
 		'Error_Not_Owner'	=> "Vous n'avez pas les droits nécessaires pour réaliser cette opération.",
 		'Success_User_Left_Game' => 'Vous avez quitté la partie.',
 		'Success_User_Enter_Game_{params}' => 'Vous avez rejoint la partie : {params}.',
-		'Success_Game_Created' => 'Partie crée.',
-		'Success_Game_Join' => 'Partie rejoint.',
+		'Success_Game_Created' => 'Partie créée.',
+		'Success_Game_Join' => 'Partie rejointe.',
 		'Notice_Game_Quit' => 'Partie quittée.',
 
 		/* Buttons */

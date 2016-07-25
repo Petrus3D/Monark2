@@ -1,4 +1,5 @@
 .settings/
-/web/assets/
+web/assets/
 .project
 .buildpath
+config/db.php

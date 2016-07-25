@@ -59,7 +59,7 @@ class Game extends \yii\db\ActiveRecord
         return [
             'game_id' => Yii::t('game', 'Txt_Game_ID'),
             'game_name' => Yii::t('game', 'Tab_Game_Name'),
-            'game_owner_id' => Yii::t('game', 'Txt_Game_ID'),
+            'game_owner_id' => Yii::t('game', 'Txt_Game_Owner_ID'),
             'game_max_player' => Yii::t('game', 'Txt_Game_Max_Player'),
             'game_create_time' => Yii::t('game', 'Txt_Game_Create_Time'),
             'game_statut' => Yii::t('game', 'Txt_Game_Statut'),
@@ -73,7 +73,7 @@ class Game extends \yii\db\ActiveRecord
             'game_key' => Yii::t('game', 'Txt_Game_Key'),
         ];
     }
-		
+
     /**
      *
      * @param unknown $user_id
