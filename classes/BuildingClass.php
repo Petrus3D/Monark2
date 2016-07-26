@@ -41,6 +41,10 @@ class BuildingClass{
 		return ucfirst($this->buildingName);
 	}
 	
+	public function getBuildingNeed(){
+		return $this->buildingIdNeed;
+	}
+	
 	public function getBuildingDescription(){
 		return $this->buildingDescription;
 	}

@@ -25,9 +25,13 @@ return [
 	'Text_Land_No_Building'		=> 'Pas de construction',
 	'Text_Land_Frontier'		=> 'Frontières',
 	'Text_No_More_Money'		=> "Vous n'avez plus d'argent",
+	'Text_Ressource_In_Land'	=> 'Ressources en',
 	'Text_Buy_Units'			=> 'Unités',
 	'Text_Buy_Units_Pending'	=> 'unités présentes',
 	'Text_Buy_To_Recruit'		=> "Troupes à recruter",
+	'Text_Build_In_Land'		=> 'Construit en',
+	'Text_Build_Able_Land'		=> 'Constructions possibles en',
+	'Text_Land_Nothing_To_Build'=> 'Rien à construire',
 		
 	/* Buttons */
 	'Button_Land_Build' 		=> 'Construire',
@@ -35,6 +39,7 @@ return [
 	'Button_Land_Atk' 			=> 'Attaquer',
 	'Button_Land_Move' 			=> 'Deplacer des troupes',
 	'Button_Return' 			=> 'Retour',
+	
 		
 	/* Error */
 	'Error' 					=> 'Erreur inconnue.',

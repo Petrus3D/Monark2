@@ -58,6 +58,29 @@ class Building extends \yii\db\ActiveRecord
     }
 
     /**
+     * 
+     * @param unknown $existantBuildingsId
+     * @param unknown $landRessourceId
+     * @param unknown $buildingData
+     */
+    public static function getBuildingsToBuild($existantBuildingsId, $landRessourceId, $buildingData){
+    	$returned = array();
+    	foreach ($buildingData as $building) {
+			
+			// If building answer the ressource needs
+    		if($building->getBuildingNeed() == $landRessourceId || $building->getBuildingNeed() == 0){
+    	
+    			// If not already build
+    			if (!in_array($building->getBuildingId(), $existantBuildingsId)) {
+    				array_push($returned, $building);
+    			}
+    		}
+    	}
+    	
+    	return $returned;
+    }
+    
+    /**
      *
      * @param unknown $continent_id
      * @return \app\classes\ContinentClass

@@ -19,3 +19,18 @@ $(document).on("click", ".buy_action_link", function(){
 	CallAjaxMethod("buyaction", {"land_id":land_id, 'units':units}, {'title': " Recrutement en cours...", 'title_with_land_name' : true}, land_id);
 });
 
+// Build
+// begin
+$(document).on("click", ".build_link", function(){
+	$(".build_link").html("...");
+	var land_id = $(this).attr("i");
+	CallAjaxMethod("buildbegin", {"land_id":land_id}, {'title': " Construire", 'title_with_land_name' : true}, land_id);
+});
+// action
+/*$(document).on("click", ".buy_action_link", function(){
+	$(".buy_action_link").html("...");
+	var land_id = $(this).attr("i");
+	var units = $("#input_select_unit_number").val();
+	CallAjaxMethod("buyaction", {"land_id":land_id, 'units':units}, {'title': " Recrutement en cours...", 'title_with_land_name' : true}, land_id);
+});*/
+
