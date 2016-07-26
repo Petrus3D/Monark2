@@ -295,16 +295,24 @@ class AjaxController extends Controller
 		return $this->returnError();
 	}
 	
+	/**
+	 * 
+	 * @return string
+	 */
 	public function actionBuildbegin(){
-		$urlArgsArray = $this->getJson();
-		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+		$urlArgsArray = $this->getJson(array('land_id'));
+		if($urlArgsArray != null){
 			// Load data
 			$data = $this->getData(array(
 					'game_id' => true,
 					'user_id' => true,
+					'Land' => true,
 					'User' => true,
 					'GameData' => true,
 					'CurrentTurnData' => true,
+					'Ressource' => true,
+					'CurrentTurnData' => true,
+					'BuildingData' => true,
 			));
 				
 			return $this->renderPartial('build_begin', [
@@ -312,8 +320,11 @@ class AjaxController extends Controller
 					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
+					'Land'				=> $data['land'],
+					'Ressource'			=> $data['ressource'],
 					'GameData'			=> $data['gameData'],
 					'CurrentTurnData'	=> $data['currentTurnData'],
+					'BuildingData'		=> $data['buildingData'],
 			]);
 		}
 		return $this->returnError();

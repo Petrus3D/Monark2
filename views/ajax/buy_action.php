@@ -15,5 +15,8 @@ $this->registerCssFile("@web/css/ajax.css");
 				<?= Yii::t('ajax', $error); ?>
 			</font>
 		</div>
+		<div class="div-center">
+			<?= "<a href='#Buy' class='buy_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-success'><i class='fa fa-arrow-left'></i> ".Yii::t('ajax', 'Button_Return')." </span></a>"; ?>
+		</div>
 	<?php endif; ?>
 </div>

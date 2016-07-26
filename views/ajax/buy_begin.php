@@ -29,7 +29,7 @@ $this->registerCssFile("@web/css/ajax.css");
 		<?php else: ?>
 			<div class="alert alert-danger" style="text-align:center;">
 				<font size='3'>
-					<?= Yii::t('ajax', 'Text_Buy_Not_More_Money'); ?>
+					<?= Yii::t('ajax', 'Text_No_More_Money'); ?>
 				</font>
 			</div>
 		<?php endif; ?>

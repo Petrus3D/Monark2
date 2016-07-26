@@ -24,7 +24,7 @@ return [
 	'Text_Land_No_Ressource'	=> 'No ressource',
 	'Text_Land_No_Building'		=> 'No building',
 	'Text_Land_Frontier'		=> 'Frontier with',
-	'Text_Buy_Not_More_Money'	=> 'You no longer have money',
+	'Text_No_More_Money'		=> 'You no longer have money',
 	'Text_Buy_Units'			=> 'Units',
 	'Text_Buy_Units_Pending'	=> 'units pending',
 	'Text_Buy_To_Recruit'		=> 'Recruit unit',
@@ -34,6 +34,7 @@ return [
 	'Button_Land_Buy' 			=> 'Recruit',
 	'Button_Land_Atk' 			=> 'Attack',
 	'Button_Land_Move' 			=> 'Move units',
+	'Button_Return' 			=> 'Return',
 		
 	/* Error */
 	'Error' 					=> 'Unknow error.',
