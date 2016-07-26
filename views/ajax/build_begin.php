@@ -31,7 +31,7 @@ $this->registerCssFile("@web/css/ajax.css");
 								<?php foreach($GameData[$land_id_array]->getGameDataBuildings() as $building): ?>
 									<?php if($building != null && $BuildingData[$building]->getBuildingId() > 0): ?>
 										<td style="padding: 4px;"><font size='3' color="black">
-												<i class="<?= $BuildingData[$building]->getBuildingImg() ?>"></i>
+												<?= $BuildingData[$building]->getBuildingImg() ?>
 												<?= Html::tag('span', $BuildingData[$building]->getBuildingName(), [
 									                          'title'=> $BuildingData[$building]->getBuildingDescription(),
 									                          'data-toggle'=>'tooltip',
@@ -58,7 +58,7 @@ $this->registerCssFile("@web/css/ajax.css");
 							<?php foreach($toBuildArray as $building): ?>
 								<?php if($building->getBuildingId() > 0): ?>
 									<tr><td style="width:100%;"><font size='3' color="black">
-											<i class="<?= $building->getBuildingImg() ?>"></i>
+											<?= $building->getBuildingImg() ?>
 											<?= Html::tag('span', $building->getBuildingName(), [
 								                          'title'=> $building->getBuildingDescription(),
 								                          'data-toggle'=>'tooltip',

@@ -65,7 +65,7 @@ $this->registerCssFile("@web/css/map.css");
 	                            <!-- Buildings -->
 	                            <?php foreach($GameData[$land->getLandId()-1]->getGameDataBuildings() as $building): ?>
 									<?php if($building != null && $Building[$building]->getBuildingId() > 0): ?>
-										<i class="<?= $Building[$building]->getBuildingImg() ?>"></i>
+										<?= $Building[$building]->getBuildingImg() ?>
 						            <?php endif; ?>
 						        <?php endforeach; ?>
                         		<!-- Units -->

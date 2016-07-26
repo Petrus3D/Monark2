@@ -74,7 +74,7 @@ $this->registerCssFile("@web/css/ajax.css");
 						<?php $i = 0; ?>
 						<?php foreach($GameData[$land_id_array]->getGameDataBuildings() as $building): ?>
 							<?php if($building != null && $BuildingData[$building]->getBuildingId() > 0): ?>
-								<i class="<?= $BuildingData[$building]->getBuildingImg() ?>"></i>
+								<?= $BuildingData[$building]->getBuildingImg() ?>
 								<?= Html::tag('span', $BuildingData[$building]->getBuildingName(), [
 					                          'title'=> $BuildingData[$building]->getBuildingDescription(),
 					                          'data-toggle'=>'tooltip',

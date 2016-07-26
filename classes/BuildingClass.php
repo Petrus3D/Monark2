@@ -1,7 +1,7 @@
 <?php
 
 namespace app\classes;
-
+use Yii;
 /**
  * 
  * @author Paul
@@ -50,6 +50,9 @@ class BuildingClass{
 	}
 	
 	public function getBuildingImg(){
-		return $this->buildingImg;
+		if (strpos($this->buildingImg, '.png') === false)
+			return "<i class='".$this->buildingImg."'></i>";
+		else
+			return "<img src='img/game/".$this->buildingImg."' height='20px' width='20px'>";
 	}
 }
