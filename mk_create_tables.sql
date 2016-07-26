@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 26 Juillet 2016 à 00:12
+-- Généré le :  Mer 27 Juillet 2016 à 00:27
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -90,11 +90,11 @@ CREATE TABLE IF NOT EXISTS `building` (
 --
 
 INSERT INTO `building` (`building_id`, `building_name`, `building_cost`, `building_id_need`, `building_gold_income`, `building_petrol_income`, `building_description`, `building_img`) VALUES
-(1, 'Forteresse', 5, 0, 0, 0, 'Permet de lancer 1 dé supplémentaire pour le défenseur s''il possède un nombre suffisant de troupe. ', 'glyphicon glyphicon-tower'),
-(2, 'Camp de préparation', 4, 0, 0, 0, 'Permet de lancer 1 dé supplémentaire pour l''attaquant s''il possède un nombre suffisant de troupe. ', 'glyphicon glyphicon-tent'),
-(3, 'Mine d''or', 8, 1, 3, 0, 'Exploitation de la ressource OR : gros avantage sur le revenu du joueur.', 'gold.png'),
-(4, 'Mine d''argent', 5, 2, 2, 0, 'Exploitation de la ressource OR : avantage sur le revenu du joueur.', 'silver.png'),
-(5, 'Mine de Bronze', 3, 3, 1, 0, 'Exploitation de la ressource OR : léger avantage sur le revenu du joueur.', 'iron.png');
+(1, 'fortress', 5, 0, 0, 0, 'fortress_description', 'glyphicon glyphicon-tower'),
+(2, 'training_camp', 4, 0, 0, 0, 'training_camp_description', 'glyphicon glyphicon-tent'),
+(3, 'gold_mine', 8, 1, 3, 0, 'gold_mine_description', 'gold.png'),
+(4, 'silver_mine', 5, 2, 2, 0, 'silver_mine_description', 'silver.png'),
+(5, 'iron_mine', 3, 3, 1, 0, 'iron_mine_description', 'iron.png');
 
 -- --------------------------------------------------------
 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `buy` (
   `buy_units_nb` int(11) NOT NULL,
   `buy_build_id` int(11) NOT NULL,
   PRIMARY KEY (`buy_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Contenu de la table `buy`
@@ -122,7 +122,14 @@ INSERT INTO `buy` (`buy_id`, `buy_user_id`, `buy_turn_id`, `buy_game_id`, `buy_u
 (3, 268, 58, 20, 50, 0),
 (4, 268, 58, 20, 11, 0),
 (5, 268, 58, 20, 11, 0),
-(6, 268, 58, 20, 4, 0);
+(6, 268, 58, 20, 4, 0),
+(7, 269, 65, 20, 10, 0),
+(8, 269, 65, 20, 5, 0),
+(9, 269, 65, 20, 5, 0),
+(10, 269, 65, 20, 5, 0),
+(11, 269, 65, 20, 10, 0),
+(12, 269, 65, 20, 0, 2),
+(13, 269, 65, 20, 0, 5);
 
 -- --------------------------------------------------------
 
@@ -162,7 +169,6 @@ CREATE TABLE IF NOT EXISTS `chat_read` (
 CREATE TABLE IF NOT EXISTS `color` (
   `color_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
   `color_name` varchar(64) NOT NULL,
-  `color_fr` varchar(64) NOT NULL,
   `color_codeHex` varchar(128) NOT NULL,
   `color_code` varchar(128) NOT NULL,
   `color_css` varchar(128) NOT NULL,
@@ -177,18 +183,18 @@ CREATE TABLE IF NOT EXISTS `color` (
 -- Contenu de la table `color`
 --
 
-INSERT INTO `color` (`color_id`, `color_name`, `color_fr`, `color_codeHex`, `color_code`, `color_css`, `color_font_chat`, `color_font_news`, `color_font_other`, `color_hide`) VALUES
-(1, 'grey', 'Grey', '0x80;0x80;0x80;', '201;201;201;', 'C6C3C5', 'black', 'grey', 'grey', 1),
-(2, 'red', 'Red', '0xFF;0;0;', '255;0;0;', 'FF7373', 'white', 'red', 'red', 0),
-(3, 'blue', 'Blue', '0;0;0xFF;', '0;0;255;', '2676FF', 'black', 'blue', 'blue', 0),
-(4, 'green', 'Green', '0;0xFF;0;', '0;255;0;', '26FF4E', 'black', 'green', '#00FF40', 0),
-(5, 'yellow', 'Yellow', '0xFF;0xFF;0x00;', '214;255;0;', 'E9FF51', 'black', '#D5D200', 'yellow', 0),
-(6, 'black', 'Black', '0x00;0x00;0x00;', '0;0;0;', '3C3C3C', 'white', 'black', 'black', 0),
-(7, 'orange', 'Orange', '0xFF;0x99;0x00;', '255;165;0;', 'FF9A40', 'black', 'orange', 'orange', 0),
-(8, 'purple', 'Purple', '0x80;0x00;0x80;', '255;0;219;', 'FF40D3', 'black', 'purple', '#FF63E3', 0),
-(9, 'white', 'White', '', '252;255;249;', 'FFFAFA', 'black', 'white', 'white', 0),
-(10, 'turquoise', 'Turquoise', '', '0;255;230;', '00FFE6', 'black', '#00FFE6', '#00FFE6', 0),
-(11, 'pink', 'Pink', '', '239;0;255;', '00FFE6', 'white', '#EF00FF', '#EF00FF', 0);
+INSERT INTO `color` (`color_id`, `color_name`, `color_codeHex`, `color_code`, `color_css`, `color_font_chat`, `color_font_news`, `color_font_other`, `color_hide`) VALUES
+(1, 'grey', '0x80;0x80;0x80;', '201;201;201;', 'C6C3C5', 'black', 'grey', 'grey', 1),
+(2, 'red', '0xFF;0;0;', '255;0;0;', 'FF7373', 'white', 'red', 'red', 0),
+(3, 'blue', '0;0;0xFF;', '0;0;255;', '2676FF', 'black', 'blue', 'blue', 0),
+(4, 'green', '0;0xFF;0;', '0;255;0;', '26FF4E', 'black', 'green', '#00FF40', 0),
+(5, 'yellow', '0xFF;0xFF;0x00;', '214;255;0;', 'E9FF51', 'black', '#D5D200', 'yellow', 0),
+(6, 'black', '0x00;0x00;0x00;', '0;0;0;', '3C3C3C', 'white', 'black', 'black', 0),
+(7, 'orange', '0xFF;0x99;0x00;', '255;165;0;', 'FF9A40', 'black', 'orange', 'orange', 0),
+(8, 'purple', '0x80;0x00;0x80;', '255;0;219;', 'FF40D3', 'black', 'purple', '#FF63E3', 0),
+(9, 'white', '', '252;255;249;', 'FFFAFA', 'black', 'white', 'white', 0),
+(10, 'turquoise', '', '0;255;230;', '00FFE6', 'black', '#00FFE6', '#00FFE6', 0),
+(11, 'pink', '', '239;0;255;', '00FFE6', 'white', '#EF00FF', '#EF00FF', 0);
 
 -- --------------------------------------------------------
 
@@ -697,6 +703,7 @@ CREATE TABLE IF NOT EXISTS `game` (
   `game_create_time` int(12) NOT NULL,
   `game_statut` int(12) NOT NULL,
   `game_map_id` int(11) NOT NULL,
+  `game_map_cont` int(11) NOT NULL,
   `game_mod_id` int(12) NOT NULL,
   `game_turn_time` int(11) NOT NULL,
   `game_difficulty_id` int(12) NOT NULL,
@@ -711,10 +718,10 @@ CREATE TABLE IF NOT EXISTS `game` (
 -- Contenu de la table `game`
 --
 
-INSERT INTO `game` (`game_id`, `game_name`, `game_owner_id`, `game_max_player`, `game_create_time`, `game_statut`, `game_map_id`, `game_mod_id`, `game_turn_time`, `game_difficulty_id`, `game_won_user_id`, `game_won_time`, `game_pwd`, `game_key`) VALUES
-(20, 'KKF2uStg23GuOLtyMwH3efQHRYUXr8Q4uq+n35zLIO4=', 269, 4, 1467756950, 50, 1, 0, 0, 0, 0, 0, 'Qz+MxwBUa9xEX5dZMx7/vECgaxwnpEsOPzJsAfGk2A5yHVbevbx5tEQGVqXo2/F4UJgooz1Z4olWlUWYMRrug1LWIW1eyp2CrPbmF4n5AR/RqcwTpL5M7Fb3f2ce8eJi|xVpfQsJ2kPkyROIFoXZOWXUG5F7YcgwcB1hcmY+ANEA=', '0'),
-(21, 'rXSa8cf6Xo4p7wAI/cWmdL2yvhPpHC32uLfIV0kMD7s=', 268, 2, 1467788633, 0, 1, 0, 0, 0, 0, 0, 'nWLuWM8Bs1N9MK2bSFJzy99FC/zmbgSJER6xSc13jENlsMUMDzWO/FWG+1tnBMfNEYIlaN7HPj6PYhCma6Z4RuCx+kwobYCxGFDM2TVAPLc4rLlZLIwZvYhX2M+p1iLY|Pkw+SlB7zZCBEvI4PxNtEo20AbR13jD/cpJuMw4pJ2U=', '0'),
-(22, 'SBuFfByaORCOFC9I3qGdIig8+lcquJFW4GFK6KFWxjk=', 268, 3, 1467814714, 0, 1, 0, 0, 0, 0, 0, 'VYugfxfuTTDtV/GkgHB7WbsjLjvjYtK+Uth2GTXNoPYfw0Kn+wtilOe+4xZZyq1PFpyoxBTkDxvMvA0sm8L+60+pgm9guQaNkuZNPCJzS6DZqLqy3fJTI7ezBtNEGNBC|6mKCzP2s4b266LDpYIyTzQJ7i18jVNZlgO4UdBdUyko=', '0');
+INSERT INTO `game` (`game_id`, `game_name`, `game_owner_id`, `game_max_player`, `game_create_time`, `game_statut`, `game_map_id`, `game_map_cont`, `game_mod_id`, `game_turn_time`, `game_difficulty_id`, `game_won_user_id`, `game_won_time`, `game_pwd`, `game_key`) VALUES
+(20, 'KKF2uStg23GuOLtyMwH3efQHRYUXr8Q4uq+n35zLIO4=', 269, 4, 1467756950, 50, 1, 0, 0, 0, 0, 0, 0, 'Qz+MxwBUa9xEX5dZMx7/vECgaxwnpEsOPzJsAfGk2A5yHVbevbx5tEQGVqXo2/F4UJgooz1Z4olWlUWYMRrug1LWIW1eyp2CrPbmF4n5AR/RqcwTpL5M7Fb3f2ce8eJi|xVpfQsJ2kPkyROIFoXZOWXUG5F7YcgwcB1hcmY+ANEA=', '0'),
+(21, 'rXSa8cf6Xo4p7wAI/cWmdL2yvhPpHC32uLfIV0kMD7s=', 268, 2, 1467788633, 0, 1, 0, 0, 0, 0, 0, 0, 'nWLuWM8Bs1N9MK2bSFJzy99FC/zmbgSJER6xSc13jENlsMUMDzWO/FWG+1tnBMfNEYIlaN7HPj6PYhCma6Z4RuCx+kwobYCxGFDM2TVAPLc4rLlZLIwZvYhX2M+p1iLY|Pkw+SlB7zZCBEvI4PxNtEo20AbR13jD/cpJuMw4pJ2U=', '0'),
+(22, 'SBuFfByaORCOFC9I3qGdIig8+lcquJFW4GFK6KFWxjk=', 268, 3, 1467814714, 0, 1, 0, 0, 0, 0, 0, 0, 'VYugfxfuTTDtV/GkgHB7WbsjLjvjYtK+Uth2GTXNoPYfw0Kn+wtilOe+4xZZyq1PFpyoxBTkDxvMvA0sm8L+60+pgm9guQaNkuZNPCJzS6DZqLqy3fJTI7ezBtNEGNBC|6mKCzP2s4b266LDpYIyTzQJ7i18jVNZlgO4UdBdUyko=', '0');
 
 -- --------------------------------------------------------
 
@@ -770,7 +777,7 @@ INSERT INTO `game_data` (`game_data_id`, `game_data_game_id`, `game_data_user_id
 (28, 20, 0, 0, 28, 4, 0, 3, ''),
 (29, 20, 0, 0, 29, 3, 0, 0, ''),
 (30, 20, 0, 0, 30, 3, 0, 3, ''),
-(31, 20, 269, 269, 31, 4, 269, 3, '1'),
+(31, 20, 269, 269, 31, 23, 269, 3, '1;2;5'),
 (32, 20, 0, 0, 32, 3, 0, 3, ''),
 (33, 20, 0, 0, 33, 4, 0, 0, ''),
 (34, 20, 0, 0, 34, 3, 0, 0, ''),
@@ -1222,7 +1229,7 @@ CREATE TABLE IF NOT EXISTS `turn` (
   `turn_gold_base` int(12) NOT NULL,
   `turn_income` int(12) NOT NULL,
   PRIMARY KEY (`turn_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=61 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=66 ;
 
 --
 -- Contenu de la table `turn`
@@ -1261,7 +1268,12 @@ INSERT INTO `turn` (`turn_id`, `turn_game_id`, `turn_user_id`, `turn_time`, `tur
 (57, 20, 269, 1469222768, 1, 98, 98, 12),
 (58, 20, 268, 1469222773, 1468865954, 3, 20, 2),
 (59, 20, 64, 1469484513, 1468866691, 20, 20, 2),
-(60, 20, 270, 1469484513, 1468866691, 20, 20, 2);
+(60, 20, 270, 1469484513, 1468866691, 20, 20, 2),
+(61, 20, 269, 1469557886, 1, 110, 110, 12),
+(62, 20, 268, 1469559865, 1468865954, 5, 5, 2),
+(63, 20, 64, 1469564545, 1468866691, 22, 22, 2),
+(64, 20, 270, 1469564545, 1468866691, 22, 22, 2),
+(65, 20, 269, 1469564552, 1, 80, 122, 12);
 
 -- --------------------------------------------------------
 
