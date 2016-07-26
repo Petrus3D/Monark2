@@ -11,7 +11,6 @@ use app\classes\ColorClass;
  *
  * @property string $color_id
  * @property string $color_name
- * @property string $color_fr
  * @property string $color_codeHex
  * @property string $color_code
  * @property string $color_css
@@ -36,9 +35,9 @@ class Color extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['color_name', 'color_fr', 'color_codeHex', 'color_code', 'color_css', 'color_font_chat', 'color_font_news', 'color_font_other', 'color_hide'], 'required'],
+            [['color_name', 'color_codeHex', 'color_code', 'color_css', 'color_font_chat', 'color_font_news', 'color_font_other', 'color_hide'], 'required'],
             [['color_hide'], 'integer'],
-            [['color_name', 'color_fr'], 'string', 'max' => 64],
+            [['color_name'], 'string', 'max' => 64],
             [['color_codeHex', 'color_code', 'color_css', 'color_font_chat', 'color_font_news', 'color_font_other'], 'string', 'max' => 128]
         ];
     }

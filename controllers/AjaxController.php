@@ -248,7 +248,6 @@ class AjaxController extends Controller
 			
 			return $this->renderPartial('buy_begin', [
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'Land'				=> $data['land'],
@@ -284,7 +283,6 @@ class AjaxController extends Controller
 			return $this->renderPartial('buy_action', [
 					'error'				=> $buyError,
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
 					'units'				=> $urlArgsArray['units'],
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
@@ -317,7 +315,7 @@ class AjaxController extends Controller
 				
 			return $this->renderPartial('build_begin', [
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
+
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'Land'				=> $data['land'],
@@ -350,16 +348,17 @@ class AjaxController extends Controller
 					'BuildingData' => true,
 			));
 				
-			// Buy update
-			$buy = new Buy();
+			// Build
+			/*$buy = new Buy();
 			$buy->BuyInit($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData'], $urlArgsArray['units']);
 			$buyError = $buy->BuyCheck();
-			if($buyError === true) $buy->BuyExec();
+			if($buyError === true) $buy->BuyExec();*/
+			$buildError = "";
 		
 			return $this->renderPartial('build_action', [
-					'error'				=> $buyError,
+					'error'				=> $buildError,
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
+					'building_id'		=> $urlArgsArray['building_id'],
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'Land'				=> $data['land'],
@@ -386,7 +385,6 @@ class AjaxController extends Controller
 				
 			return $this->renderPartial('attack_begin', [
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'GameData'			=> $data['gameData'],
@@ -410,7 +408,6 @@ class AjaxController extends Controller
 				
 			return $this->renderPartial('attack_action', [
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'GameData'			=> $data['gameData'],
@@ -434,7 +431,6 @@ class AjaxController extends Controller
 				
 			return $this->renderPartial('move_begin', [
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'GameData'			=> $data['gameData'],
@@ -458,7 +454,6 @@ class AjaxController extends Controller
 				
 			return $this->renderPartial('move_action', [
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'GameData'			=> $data['gameData'],

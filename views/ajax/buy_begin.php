@@ -12,7 +12,7 @@ $this->registerCssFile("@web/css/ajax.css");
 		<?php if($CurrentTurnData->getTurnGold() > 0): ?>
 			<table>
 				<tr>
-					<td id='td-show-units-def' style="padding: 4px;"><font size='4'><?= Yii::t('ajax', 'Text_Buy_Units'); ?> <?= $Land[$land_id]->getLandName() ?> : </font><font size='4'><?= $GameData[$land_id_array]->getGameDataUnits()." ".Yii::t('ajax', 'Text_Buy_Units_Pending')?></font></td>
+					<td id='td-show-units-def' style="padding: 4px;"><font size='4'><?= Yii::t('ajax', 'Text_Buy_Units'); ?> <?= $Land[$land_id]->getLandName() ?> : </font><font size='4'><?= $GameData[$land_id]->getGameDataUnits()." ".Yii::t('ajax', 'Text_Buy_Units_Pending')?></font></td>
 				</tr>
 				<tr>
 					<td id="td-select_unit_number" style="padding: 4px;">

@@ -44,6 +44,6 @@ return [
 	/* Error */
 	'Error' 					=> 'Erreur inconnue.',
 	'Error_Turn' 				=> "Erreur : votre tour est terminé.",
-	'Error_Buy_Gold' 			=> "Erreur : vous n'avez pas assez d'argent.",
+	'Error_Gold' 				=> "Erreur : vous n'avez pas assez d'argent.",
 ];
 ?>

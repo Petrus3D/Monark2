@@ -12,7 +12,7 @@ $this->registerCssFile("@web/css/ajax.css");
 	<?php $land 		= $Land[$land_id]; ?>
 	<?php $visible 		= Frontier::userHaveFrontierLand($UserFrontierData, $land_id);?>
 	<?php $userTurn 	= $CurrentTurnData->getTurnUserId() == $User->getId();?>
-	<?php $userLand 	= $GameData[$land_id_array]->getGameDataUserId() == $User->getId(); ?>
+	<?php $userLand 	= $GameData[$land_id]->getGameDataUserId() == $User->getId(); ?>
 	<?php $landFrontier = Frontier::landHaveFrontierLandArray($FrontierData, $land_id) ?>
 	<table class="table-no-style" style="width:100%;table-layout:fixed;">
 		<tr style="width:100%;">
@@ -22,7 +22,7 @@ $this->registerCssFile("@web/css/ajax.css");
 		        	<!-- region info -->
 					<tr>
 						<td style="padding: 4px;text-align:center;"><font size='3' color="black">
-						<?php if($GameData[$land_id_array]->getGameDataCapital() > 0): ?> 
+						<?php if($GameData[$land_id]->getGameDataCapital() > 0): ?> 
 							<?= Html::tag('span', "<img src='img/game/star.png' height='20px' width='20px'>", [
 		                        'title'=>"Capitale du joueur. ",
 		                        'data-toggle'=>'tooltip',
@@ -38,7 +38,7 @@ $this->registerCssFile("@web/css/ajax.css");
 					<?php if($visible): ?>
 					<tr>
 						<td style="padding: 4px;text-align:center;"><font size='3' color="black">
-						<?php $land_units = Land::LandCountUnitsToArray($GameData[$land_id_array]->getGameDataUnits());?>
+						<?php $land_units = Land::LandCountUnitsToArray($GameData[$land_id]->getGameDataUnits());?>
 	                     <?php for($i=1; $i <= $land_units['canon']; $i++): ?>
 	                       	<img src='img/game/canon.png' class='land_canon' style=<?= "'left:".$i."px;'"; ?>>
 	                   	<?php endfor; ?>
@@ -53,15 +53,15 @@ $this->registerCssFile("@web/css/ajax.css");
 					<?php endif; ?>
 					<!-- owner info -->
 					<tr>
-						<td style="padding: 4px;text-align:center;"><font size='3' color="#<?= $Color[$GamePlayer[$GameData[$land_id_array]->getGameDataUserId()]->getGamePlayerColorId()]->getColorCSS(); ?>">
-							<?= $UsersData[$GameData[$land_id_array]->getGameDataUserId()]->getUserName(); ?>
+						<td style="padding: 4px;text-align:center;"><font size='3' color="#<?= $Color[$GamePlayer[$GameData[$land_id]->getGameDataUserId()]->getGamePlayerColorId()]->getColorCSS(); ?>">
+							<?= $UsersData[$GameData[$land_id]->getGameDataUserId()]->getUserName(); ?>
 						</font></td>
 					</tr>
 					<!-- ressource info -->
 					<tr>
 						<td style="padding: 4px;text-align:center;"><font size='3' color="black">
-						 <?php if($GameData[$land_id_array]->getGameDataRessourceId() > 0 && $Ressource[$GameData[$land_id_array]->getGameDataRessourceId()]->getRessourceImage() != ""): ?>
-	                         <?= "<img src='".$Ressource[$GameData[$land_id_array]->getGameDataRessourceId()]->getRessourceImageUrl()."' height='20px' width='20px'>".$Ressource[$GameData[$land_id_array]->getGameDataRessourceId()]->getRessourceName(); ?>
+						 <?php if($GameData[$land_id]->getGameDataRessourceId() > 0 && $Ressource[$GameData[$land_id]->getGameDataRessourceId()]->getRessourceImage() != ""): ?>
+	                         <?= "<img src='".$Ressource[$GameData[$land_id]->getGameDataRessourceId()]->getRessourceImageUrl()."' height='20px' width='20px'>".$Ressource[$GameData[$land_id]->getGameDataRessourceId()]->getRessourceName(); ?>
 	                    <?php else: ?>
 	                    	<?= Yii::t('ajax', 'Text_Land_No_Ressource'); ?>
 	                    <?php endif; ?>
@@ -72,7 +72,7 @@ $this->registerCssFile("@web/css/ajax.css");
 					<tr>
 						<td style="padding: 4px;text-align:center;"><font size='3' color="black">
 						<?php $i = 0; ?>
-						<?php foreach($GameData[$land_id_array]->getGameDataBuildings() as $building): ?>
+						<?php foreach($GameData[$land_id]->getGameDataBuildings() as $building): ?>
 							<?php if($building != null && $BuildingData[$building]->getBuildingId() > 0): ?>
 								<?= $BuildingData[$building]->getBuildingImg() ?>
 								<?= Html::tag('span', $BuildingData[$building]->getBuildingName(), [
@@ -95,7 +95,7 @@ $this->registerCssFile("@web/css/ajax.css");
 						<td style="padding: 4px;text-align:center;"><font size='3'>
 							<font color="black"><?= Yii::t('ajax', 'Text_Land_Frontier'); ?> : </font> <br>
 							<?php foreach($landFrontier as $frontierLandId): ?>
-								<font size='3' color="#<?= $Color[$GamePlayer[$GameData[$frontierLandId - 1]->getGameDataUserId()]->getGamePlayerColorId()]->getColorCSS(); ?>">
+								<font size='3' color="#<?= $Color[$GamePlayer[$GameData[$frontierLandId]->getGameDataUserId()]->getGamePlayerColorId()]->getColorCSS(); ?>">
 									<?= $Land[$frontierLandId]->getLandName(); ?><br>
 								</font>
 							<?php endforeach; ?>
@@ -106,7 +106,7 @@ $this->registerCssFile("@web/css/ajax.css");
 			</td>
 			<td style="width:40%;">
 				<div class="div-center">
-					<img src=<?= "'".$land->getLandImageTempUrl($Color[$GamePlayer[$GameData[$land_id_array]->getGameDataUserId()]->getGamePlayerColorId()]->getColorName2())."'"; ?> style="width:130%"> 
+					<img src=<?= "'".$land->getLandImageTempUrl($Color[$GamePlayer[$GameData[$land_id]->getGameDataUserId()]->getGamePlayerColorId()]->getColorName2())."'"; ?> style="width:130%"> 
 				</div>
 			</td>
 		</tr>

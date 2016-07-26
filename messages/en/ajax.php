@@ -43,6 +43,6 @@ return [
 	/* Error */
 	'Error' 					=> 'Unknow error.',
 	'Error_Turn' 				=> 'Error : this is not your turn.',
-	'Error_Buy_Gold' 			=> 'Error : you have not enough gold.',
+	'Error_Gold' 				=> 'Error : you have not enough gold.',
 ];
 ?>

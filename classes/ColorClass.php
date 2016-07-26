@@ -13,7 +13,6 @@ class ColorClass{
 
 	 private $colorId;
 	 private $colorName;
-	 private $colorFr;
 	 private $colorCodeHex;
 	 private $colorCode;
 	 private $colorCss;
@@ -28,7 +27,6 @@ class ColorClass{
 	public function __construct($colorData) {
 		$this->colorId 					= $colorData['color_id'];
 		$this->colorName 				= $colorData['color_name'];
-		$this->colorFr 					= $colorData['color_fr'];
 		$this->colorCodeHex 			= $colorData['color_codeHex'];
 		$this->colorCode 				= $colorData['color_code'];
 		$this->colorCss 				= $colorData['color_css'];
@@ -60,5 +58,9 @@ class ColorClass{
 
 	public function getColorFontChat(){
 		return $this->colorFontChat;
+	}
+	
+	public function getColorFontOther(){
+		return $this->colorFontOther;
 	}
 }

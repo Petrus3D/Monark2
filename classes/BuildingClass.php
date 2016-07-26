@@ -45,6 +45,10 @@ class BuildingClass{
 		return $this->buildingIdNeed;
 	}
 	
+	public function getBuildingCost(){ 
+		return $this->buildingCost;
+	}
+	
 	public function getBuildingDescription(){
 		return Yii::t('building', $this->buildingDescription);
 	}

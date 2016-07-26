@@ -79,7 +79,7 @@ class GameData extends \yii\db\ActiveRecord
     public static function getGameDataByIdToArray($game_Id){
     	$returned = array();
     	foreach (self::getGameDataById($game_Id) as $data)
-    		array_push($returned, new GameDataClass($data));
+    		$returned[$data['game_data_land_id']] = new GameDataClass($data);
     	return $returned;
     }
     

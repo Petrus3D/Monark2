@@ -51,7 +51,7 @@ $this->registerCssFile("@web/css/map.css");
 	                </a>
 	               <!-- Title -->
 	               <div class="land_title" style=<?= "'top:".$land->getLandPositionTop()."em;left:".$land->getLandPositionLeft()."em;'"; ?>>
-                        <font color=<?= "'".$Color[$GamePlayer[$data->getGameDataUserId()]->getGamePlayerColorId()]->getColorName()."'"; ?>>
+                        <font color=<?= "'".$Color[$GamePlayer[$data->getGameDataUserId()]->getGamePlayerColorId()]->getColorFontOther()."'"; ?>>
                          	<!-- <?= $land->getLandName(); ?> -->
                          	<?= $land->getLandName(); ?>
                          	<?php if($data->getGameDataCapital() >= 1): ?>
@@ -63,7 +63,7 @@ $this->registerCssFile("@web/css/map.css");
 	                                <?= "<img src='".$Ressource[$data->getGameDataRessourceId()]->getRessourceImageUrl()."' height='20px' width='20px'>"; ?>
 	                            <?php endif; ?>
 	                            <!-- Buildings -->
-	                            <?php foreach($GameData[$land->getLandId()-1]->getGameDataBuildings() as $building): ?>
+	                            <?php foreach($GameData[$land->getLandId()]->getGameDataBuildings() as $building): ?>
 									<?php if($building != null && $Building[$building]->getBuildingId() > 0): ?>
 										<?= $Building[$building]->getBuildingImg() ?>
 						            <?php endif; ?>

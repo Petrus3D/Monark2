@@ -79,7 +79,7 @@ class Buy extends \yii\db\ActiveRecord
     	$this->units 	= $units;
     	
     	// Calc
-    	$this->futur_units 	= $this->units + $this->gameData[$this->land_id - 1]->getGameDataUnits();
+    	$this->futur_units 	= $this->units + $this->gameData[$this->land_id]->getGameDataUnits();
     	$this->futur_gold 	= $this->turn->getTurnGold() - $this->units;
     }
     
@@ -93,7 +93,7 @@ class Buy extends \yii\db\ActiveRecord
     		// Turn check
     		if($this->turn->getTurnUserId() == $this->user->getUserID()){
     			// Land check
-    			if($this->gameData[$this->land_id - 1]->getGameDataUserId() == $this->user->getUserID()){
+    			if($this->gameData[$this->land_id]->getGameDataUserId() == $this->user->getUserID()){
     					return true;
     			}else{
     				return "Error";
@@ -102,7 +102,7 @@ class Buy extends \yii\db\ActiveRecord
     			return "Error_Turn";
     		}
     	}else{
-    		return "Error_Buy_Gold";
+    		return "Error_Gold";
     	}
     	
     }
