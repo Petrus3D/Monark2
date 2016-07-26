@@ -24,12 +24,25 @@ return [
 	'Text_Land_No_Ressource'	=> 'No ressource',
 	'Text_Land_No_Building'		=> 'No building',
 	'Text_Land_Frontier'		=> 'Frontier with',
-	'Text_Buy_Not_More_Money'	=> 'You no longer have money',
+	'Text_No_More_Money'		=> 'You no longer have money',
+	'Text_Ressource_In_Land'	=> 'Ressources in',
+	'Text_Buy_Units'			=> 'Units',
+	'Text_Buy_Units_Pending'	=> 'units pending',
+	'Text_Buy_To_Recruit'		=> 'Recruit unit',
+	'Text_Build_In_Land'		=> 'Build in',
+	'Text_Build_Able_Land'		=> 'Possible constructions in',
+	'Text_Land_Nothing_To_Build'=> 'Nothing to build',
 		
 	/* Buttons */
-	'Button_Land_Build' => 'Build',
-	'Button_Land_Buy' => 'Buy',
-	'Button_Land_Atk' => 'Attack',
-	'Button_Land_Move' => 'Move units',
+	'Button_Land_Build' 		=> 'Build',
+	'Button_Land_Buy' 			=> 'Recruit',
+	'Button_Land_Atk' 			=> 'Attack',
+	'Button_Land_Move' 			=> 'Move units',
+	'Button_Return' 			=> 'Return',
+		
+	/* Error */
+	'Error' 					=> 'Unknow error.',
+	'Error_Turn' 				=> 'Error : this is not your turn.',
+	'Error_Buy_Gold' 			=> 'Error : you have not enough gold.',
 ];
 ?>

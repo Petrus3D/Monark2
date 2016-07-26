@@ -11,55 +11,54 @@ use Yii;
  */
 class ColorClass{
 
-	 private $color_id;
-	 private $color_name;
-	 private $color_fr;
-	 private $color_codeHex;
-	 private $color_code;
-	 private $color_css;
-	 private $color_font_chat;
-	 private $color_font_news;
-	 private $color_font_other;
-	 private $color_hide;
+	 private $colorId;
+	 private $colorName;
+	 private $colorFr;
+	 private $colorCodeHex;
+	 private $colorCode;
+	 private $colorCss;
+	 private $colorFontChat;
+	 private $colorFontNews;
+	 private $colorFontOther;
+	 private $colorHide;
 
 	/**
 	 *
 	 */
 	public function __construct($colorData) {
-		// DB data
-		$this->color_id 					= $colorData['color_id'];
-		$this->color_name 				= Yii::t('color', $colorData['color_name']);
-		$this->color_fr 					= $colorData['color_fr'];
-		$this->color_codeHex 			= $colorData['color_codeHex'];
-		$this->color_code 				= $colorData['color_code'];
-		$this->color_css 					= $colorData['color_css'];
-		$this->color_font_chat 		= $colorData['color_font_chat'];
-		$this->color_font_news 		= $colorData['color_font_news'];
-		$this->color_font_other 	= $colorData['color_font_other'];
-		$this->color_hide 				= $colorData['color_hide'];
+		$this->colorId 					= $colorData['color_id'];
+		$this->colorName 				= $colorData['color_name'];
+		$this->colorFr 					= $colorData['color_fr'];
+		$this->colorCodeHex 			= $colorData['color_codeHex'];
+		$this->colorCode 				= $colorData['color_code'];
+		$this->colorCss 				= $colorData['color_css'];
+		$this->colorFontChat 			= $colorData['color_font_chat'];
+		$this->colorFontNews 			= $colorData['color_font_news'];
+		$this->colorFontOther 			= $colorData['color_font_other'];
+		$this->colorHide 				= $colorData['color_hide'];
 	}
 
 	public function getColorId(){
-		return $this->color_id;
+		return $this->colorId;
 	}
 
 	public function getColorName(){
-		return ucfirst($this->color_name);
+		return Yii::t('color', $this->colorName);
 	}
 
 	public function getColorName2(){
-		return $this->color_name;
+		return $this->colorName;
 	}
 
 	public function getColorCode(){
-		return $this->color_code;
+		return $this->colorCode;
 	}
 
 	public function getColorCSS(){
-		return $this->color_css;
+		return $this->colorCss;
 	}
 
 	public function getColorFontChat(){
-		return $this->color_font_chat;
+		return $this->colorFontChat;
 	}
 }

@@ -21,6 +21,7 @@ use yii\helpers\Json;
 use yii\web\Response;
 use app\models\Building;
 use app\models\Frontier;
+use app\models\Buy;
 
 /**
  * AjaxController implements the CRUD actions for Ajax model.
@@ -165,12 +166,18 @@ class AjaxController extends Controller
 	 * 
 	 * @return mixed|NULL|string
 	 */
-	public function getJson(){
+	public function getJson($arrayParams){
 		$urlparams = Yii::$app->request->queryParams;
-		
+		$returned = array();
 		if(array_key_exists('args', $urlparams) && Json::decode($urlparams['args'], true) != null)
-			return Json::decode($urlparams['args'], true);
-		return null;
+			$urlArgsArray = Json::decode($urlparams['args'], true);
+			foreach ($arrayParams as $params){
+				if(array_key_exists($params, $urlArgsArray) && $urlArgsArray[$params] != null)
+					$returned[$params] = $urlArgsArray[$params];
+				else 
+					return null;					
+			}
+		return $returned;
 	}
 	
 	/**
@@ -181,8 +188,8 @@ class AjaxController extends Controller
 	 * @return NULL
 	 */ 
 	public function actionLandinfo($land_id=null, $game=null, $user=null){
-		$urlArgsArray = $this->getJson();
-		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+		$urlArgsArray = $this->getJson(array('land_id'));
+		if($urlArgsArray != null){
 	    	// Load data     
 	    	$data = $this->getData(array(
 	    			'game_id' => true,
@@ -222,9 +229,13 @@ class AjaxController extends Controller
 		return $this->returnError();
 	}
 	
+	/**
+	 * 
+	 * @return string
+	 */
 	public function actionBuybegin(){
-		$urlArgsArray = $this->getJson();
-		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+		$urlArgsArray = $this->getJson(array('land_id'));
+		if($urlArgsArray != null){
 			// Load data
 			$data = $this->getData(array(
 					'game_id' => true,
@@ -248,9 +259,13 @@ class AjaxController extends Controller
 		return $this->returnError();
 	}
 	
+	/**
+	 * 
+	 * @return string
+	 */
 	public function actionBuyaction(){
-		$urlArgsArray = $this->getJson();
-		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+		$urlArgsArray = $this->getJson(array('land_id', 'units'));
+		if($urlArgsArray != null){		
 			// Load data
 			$data = $this->getData(array(
 					'game_id' => true,
@@ -259,10 +274,18 @@ class AjaxController extends Controller
 					'GameData' => true,
 					'CurrentTurnData' => true,
 			));
-				
+			
+			// Buy update
+			$buy = new Buy();
+			$buy->BuyInit($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData'], $urlArgsArray['units']);
+			$buyError = $buy->BuyCheck();
+			if($buyError === true) $buy->BuyExec();
+
 			return $this->renderPartial('buy_action', [
+					'error'				=> $buyError,
 					'land_id' 			=> $urlArgsArray['land_id'],
 					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
+					'units'				=> $urlArgsArray['units'],
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'GameData'			=> $data['gameData'],
@@ -272,16 +295,24 @@ class AjaxController extends Controller
 		return $this->returnError();
 	}
 	
+	/**
+	 * 
+	 * @return string
+	 */
 	public function actionBuildbegin(){
-		$urlArgsArray = $this->getJson();
-		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+		$urlArgsArray = $this->getJson(array('land_id'));
+		if($urlArgsArray != null){
 			// Load data
 			$data = $this->getData(array(
 					'game_id' => true,
 					'user_id' => true,
+					'Land' => true,
 					'User' => true,
 					'GameData' => true,
 					'CurrentTurnData' => true,
+					'Ressource' => true,
+					'CurrentTurnData' => true,
+					'BuildingData' => true,
 			));
 				
 			return $this->renderPartial('build_begin', [
@@ -289,32 +320,53 @@ class AjaxController extends Controller
 					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
+					'Land'				=> $data['land'],
+					'Ressource'			=> $data['ressource'],
 					'GameData'			=> $data['gameData'],
 					'CurrentTurnData'	=> $data['currentTurnData'],
+					'BuildingData'		=> $data['buildingData'],
 			]);
 		}
 		return $this->returnError();
 	}
 	
+	/**
+	 * 
+	 * @return string
+	 */
 	public function actionBuildaction(){
-		$urlArgsArray = $this->getJson();
-		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+		$urlArgsArray = $this->getJson(array('land_id', 'building_id'));
+		if($urlArgsArray != null){
 			// Load data
 			$data = $this->getData(array(
 					'game_id' => true,
 					'user_id' => true,
+					'Land' => true,
 					'User' => true,
 					'GameData' => true,
 					'CurrentTurnData' => true,
+					'Ressource' => true,
+					'CurrentTurnData' => true,
+					'BuildingData' => true,
 			));
 				
+			// Buy update
+			$buy = new Buy();
+			$buy->BuyInit($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData'], $urlArgsArray['units']);
+			$buyError = $buy->BuyCheck();
+			if($buyError === true) $buy->BuyExec();
+		
 			return $this->renderPartial('build_action', [
+					'error'				=> $buyError,
 					'land_id' 			=> $urlArgsArray['land_id'],
 					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
+					'Land'				=> $data['land'],
+					'Ressource'			=> $data['ressource'],
 					'GameData'			=> $data['gameData'],
 					'CurrentTurnData'	=> $data['currentTurnData'],
+					'BuildingData'		=> $data['buildingData'],
 			]);
 		}
 		return $this->returnError();

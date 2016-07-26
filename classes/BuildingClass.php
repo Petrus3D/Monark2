@@ -38,11 +38,15 @@ class BuildingClass{
 	}
 	
 	public function getBuildingName(){
-		return ucfirst($this->buildingName);
+		return Yii::t('building', $this->buildingName);
+	}
+	
+	public function getBuildingNeed(){
+		return $this->buildingIdNeed;
 	}
 	
 	public function getBuildingDescription(){
-		return $this->buildingDescription;
+		return Yii::t('building', $this->buildingDescription);
 	}
 	
 	public function getBuildingImg(){

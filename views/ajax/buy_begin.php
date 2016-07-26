@@ -12,36 +12,32 @@ $this->registerCssFile("@web/css/ajax.css");
 		<?php if($CurrentTurnData->getTurnGold() > 0): ?>
 			<table>
 				<tr>
-					<td style="padding: 4px;"><font size='3'>Pays d'arrivé : </font>
-					<font size='4'></font></td>
-				</tr>
-				<tr>
-				<tr>
-					<td id='td-show-units-def' style="padding: 4px;"><font size='3'>Unités en <?= $Land[$land_id]->getLandName() ?> : </font><font size='4'><?= $GameData[$land_id_array]->getGameDataUnits() ?> unité(s) présente(s)</font></td>
+					<td id='td-show-units-def' style="padding: 4px;"><font size='4'><?= Yii::t('ajax', 'Text_Buy_Units'); ?> <?= $Land[$land_id]->getLandName() ?> : </font><font size='4'><?= $GameData[$land_id_array]->getGameDataUnits()." ".Yii::t('ajax', 'Text_Buy_Units_Pending')?></font></td>
 				</tr>
 				<tr>
 					<td id="td-select_unit_number" style="padding: 4px;">
-						<font size='3'>Troupes à acheter : </font>
-						<input type="number" id="input_select_unit_number" name="input_select_unit_number" 
+						<font size='4'><?= Yii::t('ajax', 'Text_Buy_To_Recruit'); ?> :</font>
+						<input style="color: #C0C0C0;" type="number" id="input_select_unit_number" name="input_select_unit_number" 
 						value=<?= "'".$CurrentTurnData->getTurnGold()."'" ?> min="0" 
 						max=<?= "'".$CurrentTurnData->getTurnGold()."'" ?> >
 					</td>
 				</tr>
 			</table>
-					<center>
-					<?= "<a href='#StartBuy' class='start_buy_link' i='".$land_id."' style='text-decoration:none;'><div class='btn btn-success'>Acheter les troupes</div></a>"; ?>
-					</center>
+			<div class="div-center">
+					<?= "<a href='#StartBuy' class='buy_action_link' i='".$land_id."' style='text-decoration:none;'><div class='btn btn-success'><i class='fa fa-usd'></i> ".Yii::t('ajax', 'Button_Land_Buy')."</div></a>"; ?>
+			</div>
 		<?php else: ?>
-				</tr>
-			</table>
-			<br>
 			<div class="alert alert-danger" style="text-align:center;">
-				<font size='4'>
-					<?= Yii::t('ajax', 'Text_Buy_Not_More_Money'); ?>
+				<font size='3'>
+					<?= Yii::t('ajax', 'Text_No_More_Money'); ?>
 				</font>
 			</div>
 		<?php endif; ?>
 	<?php else: ?>
-		<?= Yii::t('ajax', 'Text_Not_User_Turn'); ?>
+		<div class="alert alert-danger" style="text-align:center;">
+			<font size='3'>
+				<?= Yii::t('ajax', 'Text_Not_User_Turn'); ?>
+			</font>
+		</div>
 	<?php endif; ?>
 </div>

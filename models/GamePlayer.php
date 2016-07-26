@@ -6,7 +6,6 @@ use Yii;
 use app\queries\GamePlayerQuery;
 use app\classes\UserClass;
 use app\classes\GamePlayerClass;
-use app\classes\Crypt;
 
 /**
  * This is the model class for table "game_player".
@@ -295,7 +294,7 @@ class GamePlayer extends \yii\db\ActiveRecord
     			if($value > 1 OR $value < 0) $value = 0;
     		}
     		if(isset($key) && isset($value))
-    			Yii::$app->db->createCommand()->update('game_player', [$key => $value], ['game_player_user_id' => $user_id, 'game_player_game_id' => $game_id])->execute();
+    			Yii::$app->db->createCommand()->update(self::tableName(), [$key => $value], ['game_player_user_id' => $user_id, 'game_player_game_id' => $game_id])->execute();
     	}
     	return null;
     }
@@ -307,7 +306,7 @@ class GamePlayer extends \yii\db\ActiveRecord
      * @return number
      */
     public static function updateEnterInGame($user_id, $game_id){
-    	return Yii::$app->db->createCommand()->update('game_player', ['game_player_quit' => 0], ['game_player_user_id' => $user_id, 'game_player_game_id' => $game_id])->execute();
+    	return Yii::$app->db->createCommand()->update(self::tableName(), ['game_player_quit' => 0], ['game_player_user_id' => $user_id, 'game_player_game_id' => $game_id])->execute();
     }
 
     /**
@@ -318,7 +317,7 @@ class GamePlayer extends \yii\db\ActiveRecord
     public static function updateUserTurnOrder($game_id){
     	$updated = self::setUserTurnOrderToArray($game_id);
     	foreach ($updated as $key => $user) {
-    		Yii::$app->db->createCommand()->update('game_player', ['game_player_order' => $key], ['game_player_game_id' => $game_id, 'game_player_user_id' => $user->getUserID()])->execute();
+    		Yii::$app->db->createCommand()->update(self::tableName(), ['game_player_order' => $key], ['game_player_game_id' => $game_id, 'game_player_user_id' => $user->getUserID()])->execute();
     	}
     	return $updated;
     }
@@ -327,8 +326,7 @@ class GamePlayer extends \yii\db\ActiveRecord
      *
      */
     public static function gameExitPlayer($user_id, $game_id){
-    	Yii::$app->db->createCommand()
-    	->update("game_player", [
+    	Yii::$app->db->createCommand()->update(self::tableName(), [
     			'game_player_quit'		=> 1,
     	],[
     			'game_player_user_id'   => $user_id,
@@ -343,7 +341,7 @@ class GamePlayer extends \yii\db\ActiveRecord
      * @return \app\classes\GameClass
      */
     public static function userInsertJoinGame($game_id, $user_id){
-    	Yii::$app->db->createCommand()->insert("game_player",[
+    	Yii::$app->db->createCommand()->insert(self::tableName(),[
     			'game_player_region_id' => 1,
     			'game_player_difficulty_id' => 1,
     			'game_player_statut' => 0,

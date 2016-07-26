@@ -2,6 +2,8 @@
 
 namespace app\classes;
 
+use app\models\Building;
+
 /**
  * 
  * @author Paul
@@ -60,5 +62,9 @@ class GameDataClass{
 	
 	public function getGameDataUnits(){
 		return $this->gameDataUnits;
+	}
+	
+	public function getGameDataBuildingsToBuild($landRessourceId, $buildingData){
+		return Building::getBuildingsToBuild($this->getGameDataBuildings(), $landRessourceId, $buildingData);
 	}
 }
