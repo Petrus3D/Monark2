@@ -45,6 +45,7 @@ class LandClass{
 	}
 	
 	public function getLandName(){
+		//return Yii::t('land', $this->landName);
 		return $this->landName;
 	}
 	

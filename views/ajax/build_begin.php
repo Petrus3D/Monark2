@@ -24,40 +24,40 @@ $this->registerCssFile("@web/css/ajax.css");
 				</tr>
 				<tr>
 					<td>
-						<div class="div-center"><table>
+						<div class="div-center"><table style="width:100%;table-layout:fixed;">
 							<tr>
-								<td style="padding: 4px;"><font size='4'><?= Yii::t('ajax', 'Text_Build_In_Land'); ?> <?= $Land[$land_id]->getLandName() ?> : </font></td>
-							</tr>
-							<?php $i = 0; ?>
-							<?php foreach($GameData[$land_id_array]->getGameDataBuildings() as $building): ?>
-								<?php if($building != null && $BuildingData[$building]->getBuildingId() > 0): ?>
-									<tr><td style="padding: 4px;text-align:center;"><font size='3' color="black">
-											<i class="<?= $BuildingData[$building]->getBuildingImg() ?>"></i>
-											<?= Html::tag('span', $BuildingData[$building]->getBuildingName(), [
-								                          'title'=> $BuildingData[$building]->getBuildingDescription(),
-								                          'data-toggle'=>'tooltip',
-								                          'data-placement' => 'auto',
-								                          'style'=>'text-decoration: none; cursor:pointer;'
-								            ]); ?>
-						            <?php $i++; ?>
-						            </font></td></tr>
-					            <?php endif; ?>
-					        <?php endforeach; ?>
-				            <?php if($i == 0): ?>
-		                    	<tr><td style="padding: 4px;text-align:center;"><font size='3' color="black"><?= Yii::t('ajax', 'Text_Land_No_Building'); ?></font></td></tr>
-		                    <?php endif; ?>
+								<td style="padding: 4px;text-align:center;"><font size='4'><?= Yii::t('ajax', 'Text_Build_In_Land'); ?> <?= $Land[$land_id]->getLandName() ?> : </font></td>
+								<?php $i = 0; ?>
+								<?php foreach($GameData[$land_id_array]->getGameDataBuildings() as $building): ?>
+									<?php if($building != null && $BuildingData[$building]->getBuildingId() > 0): ?>
+										<td style="padding: 4px;"><font size='3' color="black">
+												<i class="<?= $BuildingData[$building]->getBuildingImg() ?>"></i>
+												<?= Html::tag('span', $BuildingData[$building]->getBuildingName(), [
+									                          'title'=> $BuildingData[$building]->getBuildingDescription(),
+									                          'data-toggle'=>'tooltip',
+									                          'data-placement' => 'auto',
+									                          'style'=>'text-decoration: none; cursor:pointer;'
+									            ]); ?>
+							            <?php $i++; ?>
+							            </font></td>
+						            <?php endif; ?>
+						        <?php endforeach; ?>
+					            <?php if($i == 0): ?>
+			                    	<td style="padding: 4px;text-align:center;"><font size='3' color="black"><?= Yii::t('ajax', 'Text_Land_No_Building'); ?></font></td>
+			                    <?php endif; ?>
+			              </tr>
 					</table></div>
 				</tr>
 				<tr>
 					<td>
-					<div class="div-center"><table>
+					<div class="div-center"><table style="width:100%;table-layout:fixed;">
 							<tr>
 								<td style="padding: 4px;text-align:center;"><font size='4'><?= Yii::t('ajax', 'Text_Build_Able_Land'); ?> <?= $Land[$land_id]->getLandName() ?> : </font></td>
 							</tr>
 							<?php $i = 0; ?>
 							<?php foreach($toBuildArray as $building): ?>
 								<?php if($building->getBuildingId() > 0): ?>
-									<tr><td style="padding: 4px;"><font size='3' color="black">
+									<tr><td style="width:100%;"><font size='3' color="black">
 											<i class="<?= $building->getBuildingImg() ?>"></i>
 											<?= Html::tag('span', $building->getBuildingName(), [
 								                          'title'=> $building->getBuildingDescription(),
@@ -65,8 +65,8 @@ $this->registerCssFile("@web/css/ajax.css");
 								                          'data-placement' => 'auto',
 								                          'style'=>'text-decoration: none; cursor:pointer;'
 								            ]); ?>
-								            <?= "<a href='#StartBuild' class='buy_action_link btn btn-success' i='".$land_id."' building='".$building->getBuildingName()."' style='text-decoration:none;'>
-											<i class='fa fa-gavel'></i> ".Yii::t('ajax', 'Button_Land_Build')." ".$building->getBuildingName()."</a>"; ?>
+									            <?= "<a href='#StartBuild' class='buy_action_link btn btn-success' i='".$land_id."' building='".$building->getBuildingName()."' style='text-decoration:none;'>
+												<i class='fa fa-gavel'></i> ".Yii::t('ajax', 'Button_Land_Build')." ".$building->getBuildingName()."</a>"; ?>
 							            <?php $i++; ?>    
 							       	</font></td></tr>
 					            <?php endif; ?>

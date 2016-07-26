@@ -38,6 +38,7 @@ class BuildingClass{
 	}
 	
 	public function getBuildingName(){
+		//return Yii::t('building', $this->buildingName);
 		return ucfirst($this->buildingName);
 	}
 	
@@ -46,6 +47,7 @@ class BuildingClass{
 	}
 	
 	public function getBuildingDescription(){
+		//return Yii::t('building', $this->buildingDescription);
 		return $this->buildingDescription;
 	}
 	
