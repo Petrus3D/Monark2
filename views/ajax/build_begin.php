@@ -65,7 +65,7 @@ $this->registerCssFile("@web/css/ajax.css");
 								                          'data-placement' => 'auto',
 								                          'style'=>'text-decoration: none; cursor:pointer;'
 								            ]); ?></td><td>
-									            <?= "<a href='#StartBuild' class='build_action_link btn btn-success' i='".$land_id."' building_i='".$building->getBuildingName()."' style='text-decoration:none;'>
+									            <?= "<a href='#StartBuild' class='build_action_link btn btn-success' i='".$land_id."' building_i='".$building->getBuildingId()."' style='text-decoration:none;'>
 												<i class='fa fa-gavel'></i> ".Yii::t('ajax', 'Button_Land_Build')." ".$building->getBuildingName()." </a>"; ?> 
 							            <?php $i++; ?>    
 							       	</font></td></tr>

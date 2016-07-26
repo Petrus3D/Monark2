@@ -150,10 +150,45 @@ class GameData extends \yii\db\ActiveRecord
      * @param unknown $game_id
      * @param unknown $land_id
      * @param unknown $units
+     * @return number
      */
     public static function updateUnitsGameData($game_id, $land_id, $units){
     	return Yii::$app->db->createCommand()->update(self::tableName(), [
     			'game_data_units'           => $units,
+    	],[
+    			'game_data_game_id'         => $game_id,
+    			'game_data_land_id'         => $land_id,
+    	])
+    	->execute();
+    }
+    
+    /**
+     * 
+     * @param unknown $game_id
+     * @param unknown $land_id
+     * @param unknown $buildings
+     * @return number
+     */
+    public static function updateBuildingGameData($game_id, $land_id, $buildings){
+    	return Yii::$app->db->createCommand()->update(self::tableName(), [
+    			'game_data_buildings'       => $buildings,
+    	],[
+    			'game_data_game_id'         => $game_id,
+    			'game_data_land_id'         => $land_id,
+    	])
+    	->execute();
+    }
+    
+    /**
+     * 
+     * @param unknown $game_id
+     * @param unknown $land_id
+     * @param unknown $user_id
+     * @return number
+     */
+    public static function updateUserIdGameData($game_id, $land_id, $user_id){
+    	return Yii::$app->db->createCommand()->update(self::tableName(), [
+    			'game_data_user_id'         => $user_id,
     	],[
     			'game_data_game_id'         => $game_id,
     			'game_data_land_id'         => $land_id,

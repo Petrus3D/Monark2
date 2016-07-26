@@ -349,11 +349,10 @@ class AjaxController extends Controller
 			));
 				
 			// Build
-			/*$buy = new Buy();
-			$buy->BuyInit($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData'], $urlArgsArray['units']);
-			$buyError = $buy->BuyCheck();
-			if($buyError === true) $buy->BuyExec();*/
-			$buildError = "";
+			$build = new Building();
+			$build->BuildInit($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData'], $urlArgsArray['building_id'], $data['buildingData']);
+			$buildError = $build->BuildCheck();
+			if($buildError === true) $build->BuildExec();
 		
 			return $this->renderPartial('build_action', [
 					'error'				=> $buildError,

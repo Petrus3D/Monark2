@@ -52,6 +52,10 @@ class GameDataClass{
 		return $this->gameDataRessourceId;
 	}
 	
+	public function getGameDataBuildingsSQL(){
+		return $this->gameDataBuildings;
+	}
+	
 	public function getGameDataBuildings(){
 		return explode(";", $this->gameDataBuildings);
 	}
