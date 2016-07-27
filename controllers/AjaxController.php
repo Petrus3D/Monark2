@@ -22,6 +22,7 @@ use yii\web\Response;
 use app\models\Building;
 use app\models\Frontier;
 use app\models\Buy;
+use app\models\Move;
 
 /**
  * AjaxController implements the CRUD actions for Ajax model.
@@ -315,7 +316,6 @@ class AjaxController extends Controller
 				
 			return $this->renderPartial('build_begin', [
 					'land_id' 			=> $urlArgsArray['land_id'],
-
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'Land'				=> $data['land'],
@@ -344,7 +344,6 @@ class AjaxController extends Controller
 					'GameData' => true,
 					'CurrentTurnData' => true,
 					'Resource' => true,
-					'CurrentTurnData' => true,
 					'BuildingData' => true,
 			));
 				
@@ -416,32 +415,45 @@ class AjaxController extends Controller
 		return $this->returnError();
 	}
 	
+	/**
+	 * 
+	 * @return string
+	 */
 	public function actionMovebegin(){
-		$urlArgsArray = $this->getJson();
-		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+		$urlArgsArray = $this->getJson(array('land_id'));
+		if($urlArgsArray != null){
 			// Load data
 			$data = $this->getData(array(
 					'game_id' => true,
 					'user_id' => true,
+					'Land' => true,
 					'User' => true,
 					'GameData' => true,
 					'CurrentTurnData' => true,
+					'Frontier' => true,
 			));
 				
 			return $this->renderPartial('move_begin', [
 					'land_id' 			=> $urlArgsArray['land_id'],
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
+					'Land'				=> $data['land'],
 					'GameData'			=> $data['gameData'],
 					'CurrentTurnData'	=> $data['currentTurnData'],
+					'FrontierData'		=> $data['frontierData'],
+					'UserFrontierData'	=> $data['userFrontierData'],
 			]);
 		}
 		return $this->returnError();
 	}
 	
+	/**
+	 * 
+	 * @return string
+	 */
 	public function actionMoveaction(){
-		$urlArgsArray = $this->getJson();
-		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+		$urlArgsArray = $this->getJson(array('land_id', 'land_id_to', 'units'));
+		if($urlArgsArray != null){
 			// Load data
 			$data = $this->getData(array(
 					'game_id' => true,
@@ -449,14 +461,26 @@ class AjaxController extends Controller
 					'User' => true,
 					'GameData' => true,
 					'CurrentTurnData' => true,
+					'Frontier' => true,
 			));
 				
+			// Move
+			$move = new Move();
+			$move->MoveInit($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData'], $urlArgsArray['land_id_to'], $urlArgsArray['units'], $data['frontierData']);
+			$moveError = $move->MoveCheck();
+			if($moveError === true) $move->MoveExec();
+		
 			return $this->renderPartial('move_action', [
+					'error'				=> $moveError,
 					'land_id' 			=> $urlArgsArray['land_id'],
+					'land_id_to'		=> $urlArgsArray['land_id_to'],
+					'units'				=> $urlArgsArray['units'],
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'GameData'			=> $data['gameData'],
 					'CurrentTurnData'	=> $data['currentTurnData'],
+					'FrontierData'		=> $data['frontierData'],
+					'UserFrontierData'	=> $data['userFrontierData'],
 			]);
 		}
 		return $this->returnError();

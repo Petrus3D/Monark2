@@ -24,17 +24,22 @@ return [
 	'Text_Land_No_Resource'		=> 'Pas de ressource',
 	'Text_Land_No_Building'		=> 'Pas de construction',
 	'Text_Land_Frontier'		=> 'Frontières',
+	'Text_Land_No_User_Frontier'=> "Vous n'avez pas de pays frontalier",
 	'Text_No_More_Money'		=> "Vous n'avez plus d'argent",
 	'Text_Resource_In_Land'		=> 'Ressources en',
 	'Text_Units'				=> 'Unités',
+	'Text_Units_In'				=> 'Unités en',
 	'Text_Owner'				=> 'Propriétaire',
 	'Text_Owner_Player'			=> 'Vous',
 	'Text_Resource'				=> 'Ressource',
-	'Text_Buy_Units_Pending'	=> 'unités présentes',
+	'Text_Units_Pending'		=> 'unités présentes',
 	'Text_Buy_To_Recruit'		=> "Troupes à recruter",
 	'Text_Build_In_Land'		=> 'Construit en',
 	'Text_Build_Able_Land'		=> 'Constructions possibles en',
 	'Text_Build_Other'			=> 'Construire un autre bâtiment',
+	'Text_Move_Cant'			=> "Pas d'unité à deplacer",
+	'Text_Move_Units_NB'		=> "Unités à deplacer",
+	'Text_Move_Able_Land'		=> 'Destinations possibles',
 	'Text_Land_Nothing_To_Build'=> 'Rien à construire',
 		
 	/* Buttons */
@@ -49,5 +54,6 @@ return [
 	'Error' 					=> 'Erreur inconnue.',
 	'Error_Turn' 				=> "Erreur : votre tour est terminé.",
 	'Error_Gold' 				=> "Erreur : vous n'avez pas assez d'argent.",
+	'Error_Units' 				=> "Erreur : vous devez conserver au minimum 1 unité sur votre territoire.",
 ];
 ?>
