@@ -59,12 +59,12 @@ $this->registerCssFile("@web/css/map.css");
 	                        <?php endif; ?>
                          	<?php if(\app\models\Frontier::userHaveFrontierLand($UserFrontier, $land->getLandId())): ?>
 	                         	<!-- Land data -->   
-	                            <?php if($data->getGameDataRessourceId() > 0 && $Ressource[$data->getGameDataRessourceId()]->getRessourceImage() != ""): ?>
-	                                <?= "<img src='".$Ressource[$data->getGameDataRessourceId()]->getRessourceImageUrl()."' height='20px' width='20px'>"; ?>
+	                            <?php if($data->getGameDataResourceId() > 0 && $Resource[$data->getGameDataResourceId()]->getResourceImage() != ""): ?>
+	                                <?= "<img src='".$Resource[$data->getGameDataResourceId()]->getResourceImageUrl()."' height='20px' width='20px'>"; ?>
 	                            <?php endif; ?>
 	                            <!-- Buildings -->
 	                            <?php foreach($GameData[$land->getLandId()]->getGameDataBuildings() as $building): ?>
-									<?php if($building != null && $Building[$building]->getBuildingId() > 0): ?>
+									<?php if($building != null && $Building[$building]->getBuildingId() > 0 && $Building[$building]->getBuildingNeed() == 0): ?>
 										<?= $Building[$building]->getBuildingImg() ?>
 						            <?php endif; ?>
 						        <?php endforeach; ?>

@@ -21,12 +21,14 @@ return [
 	
 	/* Text */
 	'Text_Not_User_Turn'		=> 'No actions available <br> Please wait your turn...',
-	'Text_Land_No_Ressource'	=> 'No ressource',
+	'Text_Land_No_Resource'		=> 'No resource',
 	'Text_Land_No_Building'		=> 'No building',
 	'Text_Land_Frontier'		=> 'Frontier with',
 	'Text_No_More_Money'		=> 'You no longer have money',
-	'Text_Ressource_In_Land'	=> 'Ressources in',
-	'Text_Buy_Units'			=> 'Units',
+	'Text_Resource_In_Land'		=> 'Resources in',
+	'Text_Units'				=> 'Units',
+	'Text_Owner'				=> 'Owner',
+	'Text_Resource'				=> 'Resource',
 	'Text_Buy_Units_Pending'	=> 'units pending',
 	'Text_Buy_To_Recruit'		=> 'Recruit unit',
 	'Text_Build_In_Land'		=> 'Build in',

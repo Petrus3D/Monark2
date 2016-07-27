@@ -8,17 +8,17 @@ $this->registerCssFile("@web/css/ajax.css");
 ?>
 <div class="build-view-ajax">
 	<?php $userTurn 	= $CurrentTurnData->getTurnUserId() == $User->getId();?>
-	<?php $toBuildArray = $GameData[$land_id]->getGameDataBuildingsToBuild($GameData[$land_id]->getGameDataRessourceId(), $BuildingData); ?>
+	<?php $toBuildArray = $GameData[$land_id]->getGameDataBuildingsToBuild($GameData[$land_id]->getGameDataResourceId(), $BuildingData); ?>
 	<?php if($userTurn): ?>
 		<?php if($CurrentTurnData->getTurnGold() > 0): ?>
 			<table class="table-no-style" style="width:100%;table-layout: auto;">
 				<tr>
-					<td><font size='4'> <?= Yii::t('ajax', 'Text_Ressource_In_Land'); ?> <?= $Land[$land_id]->getLandName() ?> : </font>
+					<td><font size='4'> <?= Yii::t('ajax', 'Text_Resource_In_Land'); ?> <?= $Land[$land_id]->getLandName() ?> : </font>
 					<font size='3' color="black">
-						 <?php if($GameData[$land_id]->getGameDataRessourceId() > 0 && $Ressource[$GameData[$land_id]->getGameDataRessourceId()]->getRessourceImage() != ""): ?>
-	                         <?= "<img src='".$Ressource[$GameData[$land_id]->getGameDataRessourceId()]->getRessourceImageUrl()."' height='20px' width='20px'>".$Ressource[$GameData[$land_id]->getGameDataRessourceId()]->getRessourceName(); ?>
+						 <?php if($GameData[$land_id]->getGameDataResourceId() > 0 && $Resource[$GameData[$land_id]->getGameDataResourceId()]->getResourceImage() != ""): ?>
+	                         <?= "<img src='".$Resource[$GameData[$land_id]->getGameDataResourceId()]->getResourceImageUrl()."' height='20px' width='20px'>".$Resource[$GameData[$land_id]->getGameDataResourceId()]->getResourceName(); ?>
 	                    <?php else: ?>
-	                    	<?= Yii::t('ajax', 'Text_Land_No_Ressource'); ?>
+	                    	<?= Yii::t('ajax', 'Text_Land_No_Resource'); ?>
 	                    <?php endif; ?>
 					</font></td>
 				</tr>

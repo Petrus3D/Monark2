@@ -38,7 +38,13 @@ $this->registerCssFile("@web/css/ajax.css");
 					<?php if($visible): ?>
 					<tr>
 						<td style="padding: 4px;text-align:center;"><font size='3' color="black">
-						<?php $land_units = Land::LandCountUnitsToArray($GameData[$land_id]->getGameDataUnits());?>
+						<?php $land_units = Land::LandCountUnitsToArray($GameData[$land_id]->getGameDataUnits()); ?>
+						<?= Html::tag('span', Yii::t('ajax', 'Text_Units')." :", [
+					                          'title'=> $GameData[$land_id]->getGameDataUnits()." ".Yii::t('ajax', 'Text_Units'),
+					                          'data-toggle'=>'tooltip',
+					                          'data-placement' => 'auto',
+					                          'style'=>'text-decoration: none; cursor:pointer;'
+					            ]); ?>
 	                     <?php for($i=1; $i <= $land_units['canon']; $i++): ?>
 	                       	<img src='img/game/canon.png' class='land_canon' style=<?= "'left:".$i."px;'"; ?>>
 	                   	<?php endfor; ?>
@@ -53,17 +59,18 @@ $this->registerCssFile("@web/css/ajax.css");
 					<?php endif; ?>
 					<!-- owner info -->
 					<tr>
-						<td style="padding: 4px;text-align:center;"><font size='3' color="#<?= $Color[$GamePlayer[$GameData[$land_id]->getGameDataUserId()]->getGamePlayerColorId()]->getColorCSS(); ?>">
+						<td style="padding: 4px;text-align:center;"><font size='3' color="black"> <?= Yii::t('ajax', 'Text_Owner'); ?> : </font><font size='4' color="#<?= $Color[$GamePlayer[$GameData[$land_id]->getGameDataUserId()]->getGamePlayerColorId()]->getColorCSS(); ?>">
 							<?= $UsersData[$GameData[$land_id]->getGameDataUserId()]->getUserName(); ?>
 						</font></td>
 					</tr>
-					<!-- ressource info -->
+					<!-- Resource info -->
 					<tr>
 						<td style="padding: 4px;text-align:center;"><font size='3' color="black">
-						 <?php if($GameData[$land_id]->getGameDataRessourceId() > 0 && $Ressource[$GameData[$land_id]->getGameDataRessourceId()]->getRessourceImage() != ""): ?>
-	                         <?= "<img src='".$Ressource[$GameData[$land_id]->getGameDataRessourceId()]->getRessourceImageUrl()."' height='20px' width='20px'>".$Ressource[$GameData[$land_id]->getGameDataRessourceId()]->getRessourceName(); ?>
+						<?= Yii::t('ajax', 'Text_Resource'); ?> :
+						 <?php if($GameData[$land_id]->getGameDataResourceId() > 0 && $Resource[$GameData[$land_id]->getGameDataResourceId()]->getResourceImage() != ""): ?>
+	                         <?= "<img src='".$Resource[$GameData[$land_id]->getGameDataResourceId()]->getResourceImageUrl()."' height='20px' width='20px'>".$Resource[$GameData[$land_id]->getGameDataResourceId()]->getResourceName(); ?>
 	                    <?php else: ?>
-	                    	<?= Yii::t('ajax', 'Text_Land_No_Ressource'); ?>
+	                    	<?= Yii::t('ajax', 'Text_Land_No_Resource'); ?>
 	                    <?php endif; ?>
 						</font></td>
 					</tr>

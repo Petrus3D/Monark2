@@ -12,7 +12,7 @@ use app\classes\Access;
 use app\models\Land;
 use app\models\GameData;
 use app\models\Color;
-use app\models\Ressource;
+use app\models\Resource;
 use app\models\Continent;
 use app\models\Game;
 use app\models\User;
@@ -74,7 +74,7 @@ class AjaxController extends Controller
     /**
      * 
      * @param unknown $dataList
-     * @return \app\classes\GameClass[]|\app\models\User[]|NULL[]|\app\classes\RessourceClass[][]|\app\models\NULL[]|\app\classes\ColorClass[]|\app\models\Continent[][]|\app\models\Land[][]|\app\classes\TurnClass[]|\app\models\number[][]|Session[]
+     * @return \app\classes\GameClass[]|\app\models\User[]|NULL[]|\app\classes\ResourceClass[][]|\app\models\NULL[]|\app\classes\ColorClass[]|\app\models\Continent[][]|\app\models\Land[][]|\app\classes\TurnClass[]|\app\models\number[][]|Session[]
      */
     public function getData($dataList){
 		$returned = array();
@@ -87,9 +87,9 @@ class AjaxController extends Controller
     		$returned['user'] 				= Yii::$app->session['User'];}else{
     		$returned['user'] 				= User::findUserById($dataList['user_id']);}
     		
-    	if(Yii::$app->session['Ressource'] == null && isset($dataList['Ressource'])){
-    		$returned['ressource'] 			= Ressource::findAllRessourcesToArray();}else{
-    		$returned['ressource'] 			= Yii::$app->session['Ressource'];}
+    	if(Yii::$app->session['Resource'] == null && isset($dataList['Resource'])){
+    		$returned['resource'] 			= Resource::findAllResourcesToArray();}else{
+    		$returned['resource'] 			= Yii::$app->session['Resource'];}
     		
     	if(Yii::$app->session['Color'] == null && isset($dataList['Color'])){
     		$returned['color'] 				= Color::findAllColorToArray();}else{
@@ -195,7 +195,7 @@ class AjaxController extends Controller
 	    			'game_id' => true,
 	    			'user_id' => true,
 	    			'User' => true,
-	    			'Ressource' => true,
+	    			'Resource' => true,
 	    			'Color' => true,
 	    			'Continent' => true,
 	    			'Land' => true,
@@ -212,7 +212,7 @@ class AjaxController extends Controller
 	    			'land_id_array'		=> $urlArgsArray['land_id'] - 1, 
 	    			'Game'				=> $data['game'],
 	    			'User'				=> $data['user'],
-	    			'Ressource'			=> $data['ressource'],
+	    			'Resource'			=> $data['resource'],
 	    			'Color'				=> $data['color'],
 	    			'Continent'			=> $data['continent'],
 	    			'Land'				=> $data['land'],
@@ -308,7 +308,7 @@ class AjaxController extends Controller
 					'User' => true,
 					'GameData' => true,
 					'CurrentTurnData' => true,
-					'Ressource' => true,
+					'Resource' => true,
 					'CurrentTurnData' => true,
 					'BuildingData' => true,
 			));
@@ -319,7 +319,7 @@ class AjaxController extends Controller
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'Land'				=> $data['land'],
-					'Ressource'			=> $data['ressource'],
+					'Resource'			=> $data['resource'],
 					'GameData'			=> $data['gameData'],
 					'CurrentTurnData'	=> $data['currentTurnData'],
 					'BuildingData'		=> $data['buildingData'],
@@ -343,7 +343,7 @@ class AjaxController extends Controller
 					'User' => true,
 					'GameData' => true,
 					'CurrentTurnData' => true,
-					'Ressource' => true,
+					'Resource' => true,
 					'CurrentTurnData' => true,
 					'BuildingData' => true,
 			));
@@ -361,7 +361,7 @@ class AjaxController extends Controller
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'Land'				=> $data['land'],
-					'Ressource'			=> $data['ressource'],
+					'Resource'			=> $data['resource'],
 					'GameData'			=> $data['gameData'],
 					'CurrentTurnData'	=> $data['currentTurnData'],
 					'BuildingData'		=> $data['buildingData'],

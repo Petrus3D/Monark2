@@ -16,7 +16,7 @@ use app\classes\GameDataClass;
  * @property integer $game_data_land_id
  * @property integer $game_data_units
  * @property integer $game_data_capital
- * @property integer $game_data_ressource_id
+ * @property integer $game_data_resource_id
  * @property string $game_data_buildings
  */
 class GameData extends \yii\db\ActiveRecord
@@ -38,8 +38,8 @@ class GameData extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['game_data_game_id', 'game_data_user_id', 'game_data_user_id_base', 'game_data_land_id', 'game_data_units', 'game_data_capital', 'game_data_ressource_id', 'game_data_buildings'], 'required'],
-            [['game_data_game_id', 'game_data_user_id', 'game_data_user_id_base', 'game_data_land_id', 'game_data_units', 'game_data_capital', 'game_data_ressource_id'], 'integer'],
+            [['game_data_game_id', 'game_data_user_id', 'game_data_user_id_base', 'game_data_land_id', 'game_data_units', 'game_data_capital', 'game_data_resource_id', 'game_data_buildings'], 'required'],
+            [['game_data_game_id', 'game_data_user_id', 'game_data_user_id_base', 'game_data_land_id', 'game_data_units', 'game_data_capital', 'game_data_resource_id'], 'integer'],
             [['game_data_buildings'], 'string', 'max' => 128]
         ];
     }
@@ -57,7 +57,7 @@ class GameData extends \yii\db\ActiveRecord
             'game_data_land_id' => 'Game Data Land ID',
             'game_data_units' => 'Game Data Units',
             'game_data_capital' => 'Game Data Capital',
-            'game_data_ressource_id' => 'Game Data Ressource ID',
+            'game_data_resource_id' => 'Game Data resource ID',
             'game_data_buildings' => 'Game Data Buildings',
         ];
     }
@@ -123,12 +123,12 @@ class GameData extends \yii\db\ActiveRecord
     /**
      * 
      * @param unknown $assignedLands
-     * @param unknown $assignedRessources
+     * @param unknown $assignedResources
      * @param unknown $landData
      * @param unknown $gameData
      * @return boolean
      */
-    public static function createGameData($assignedLands, $assignedRessources, $landData, $gameData){
+    public static function createGameData($assignedLands, $assignedResources, $landData, $gameData){
     	$default_units_user_add = 1;
     	foreach($landData as $land){
     		Yii::$app->db->createCommand()->insert(self::tableName(), [
@@ -138,7 +138,7 @@ class GameData extends \yii\db\ActiveRecord
     	 		'game_data_land_id'       => $land->getLandId(),
     	 		'game_data_units'         => (array_key_exists($land->getLandId(), $assignedLands) ? ($land->getLandBaseUnits() + $default_units_user_add) : $land->getLandBaseUnits()),
     	 		'game_data_capital'       => (array_key_exists($land->getLandId(), $assignedLands) ? $assignedLands[$land->getLandId()]['game_player_user_id'] : 0),
-    	 		'game_data_ressource_id'  => $assignedRessources[$land->getLandId()],
+    	 		'game_data_resource_id'   => $assignedResources[$land->getLandId()],
     	 		'game_data_buildings'     => (array_key_exists($land->getLandId(), $assignedLands) ? "1;" : ""),
     		])->execute();
     	}

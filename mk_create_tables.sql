@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 27 Juillet 2016 à 00:27
+-- Généré le :  Mer 27 Juillet 2016 à 18:48
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -236,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `difficulty` (
   `difficulty_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
   `difficulty_name` varchar(256) NOT NULL,
   `difficulty_rate_bot_units` int(12) NOT NULL,
-  `difficulty_rate_ressources` int(12) NOT NULL,
+  `difficulty_rate_resources` int(12) NOT NULL,
   `difficulty_rate_oper` varchar(64) NOT NULL,
   `difficulty_rate_units_atk` int(12) NOT NULL,
   `difficulty_rate_units_def` int(12) NOT NULL,
@@ -255,7 +255,7 @@ CREATE TABLE IF NOT EXISTS `difficulty` (
 -- Contenu de la table `difficulty`
 --
 
-INSERT INTO `difficulty` (`difficulty_id`, `difficulty_name`, `difficulty_rate_bot_units`, `difficulty_rate_ressources`, `difficulty_rate_oper`, `difficulty_rate_units_atk`, `difficulty_rate_units_def`, `difficulty_rate_atk_frt`, `difficulty_rate_def_pc`, `difficulty_rate_exec_atk`, `difficulty_rate_exec_def`, `difficulty_rate_exec_build`, `difficulty_marge_frt`, `difficulty_marge_pc`, `difficulty_build_mine`) VALUES
+INSERT INTO `difficulty` (`difficulty_id`, `difficulty_name`, `difficulty_rate_bot_units`, `difficulty_rate_resources`, `difficulty_rate_oper`, `difficulty_rate_units_atk`, `difficulty_rate_units_def`, `difficulty_rate_atk_frt`, `difficulty_rate_def_pc`, `difficulty_rate_exec_atk`, `difficulty_rate_exec_def`, `difficulty_rate_exec_build`, `difficulty_marge_frt`, `difficulty_marge_pc`, `difficulty_build_mine`) VALUES
 (1, 'Very_easy', 50, 50, '+', 100, 80, 70, 70, 60, 60, 70, 30, 30, 70),
 (2, 'Easy', 30, 30, '+', 90, 70, 60, 60, 70, 70, 80, 35, 35, 75),
 (3, 'Normal', 0, 0, '+', 80, 60, 60, 60, 80, 80, 90, 40, 40, 80),
@@ -737,7 +737,7 @@ CREATE TABLE IF NOT EXISTS `game_data` (
   `game_data_land_id` int(12) NOT NULL,
   `game_data_units` int(12) NOT NULL,
   `game_data_capital` int(12) NOT NULL,
-  `game_data_ressource_id` int(12) NOT NULL,
+  `game_data_resource_id` int(12) NOT NULL,
   `game_data_buildings` varchar(128) NOT NULL,
   PRIMARY KEY (`game_data_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48 ;
@@ -746,7 +746,7 @@ CREATE TABLE IF NOT EXISTS `game_data` (
 -- Contenu de la table `game_data`
 --
 
-INSERT INTO `game_data` (`game_data_id`, `game_data_game_id`, `game_data_user_id`, `game_data_user_id_base`, `game_data_land_id`, `game_data_units`, `game_data_capital`, `game_data_ressource_id`, `game_data_buildings`) VALUES
+INSERT INTO `game_data` (`game_data_id`, `game_data_game_id`, `game_data_user_id`, `game_data_user_id_base`, `game_data_land_id`, `game_data_units`, `game_data_capital`, `game_data_resource_id`, `game_data_buildings`) VALUES
 (1, 20, 269, 0, 1, 3, 0, 3, ''),
 (2, 20, 269, 0, 2, 3, 0, 0, ''),
 (3, 20, 269, 0, 3, 4, 0, 3, ''),
@@ -1153,24 +1153,24 @@ INSERT INTO `pact_list` (`pact_list_id`, `pact_list_name`, `pact_list_visibility
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ressource`
+-- Structure de la table `resource`
 --
 
-CREATE TABLE IF NOT EXISTS `ressource` (
-  `ressource_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `ressource_name` varchar(128) NOT NULL,
-  `ressource_freq` int(12) NOT NULL,
-  `ressource_img` varchar(128) NOT NULL,
-  `ressource_building_id` int(11) NOT NULL,
-  `ressource_description` varchar(512) NOT NULL,
-  PRIMARY KEY (`ressource_id`)
+CREATE TABLE IF NOT EXISTS `resource` (
+  `resource_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
+  `resource_name` varchar(128) NOT NULL,
+  `resource_freq` int(12) NOT NULL,
+  `resource_img` varchar(128) NOT NULL,
+  `resource_building_id` int(11) NOT NULL,
+  `resource_description` varchar(512) NOT NULL,
+  PRIMARY KEY (`resource_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Contenu de la table `ressource`
+-- Contenu de la table `resource`
 --
 
-INSERT INTO `ressource` (`ressource_id`, `ressource_name`, `ressource_freq`, `ressource_img`, `ressource_building_id`, `ressource_description`) VALUES
+INSERT INTO `resource` (`resource_id`, `resource_name`, `resource_freq`, `resource_img`, `resource_building_id`, `resource_description`) VALUES
 (1, 'Or', 5, 'gold', 3, 'Exploitable avec : Mine d''or <br>\r\nBonus : gros avantage sur le revenu si exploitée'),
 (2, 'Argent', 12, 'silver', 4, 'Exploitable avec : Mine d''argent <br>\r\nBonus : avantage sur le revenu si exploité'),
 (3, 'Bronze', 25, 'iron', 5, 'Exploitable avec : Mine de bronze <br>\r\nBonus : léger avantage sur le revenu si exploité');

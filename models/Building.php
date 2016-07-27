@@ -110,7 +110,7 @@ class Building extends \yii\db\ActiveRecord
     			// Building check
     			if(isset($this->buildingData[$this->building_id]) 
     				&& !$this->buildingAlreadyBuild($this->gameData, $this->building_id, $this->building_id)
-    				&& in_array($this->building_id, $this->getBuildingsToBuildId($this->gameData[$this->land_id]->getGameDataBuildings(), $this->gameData[$this->land_id]->getGameDataRessourceId(), $this->buildingData))){
+    				&& in_array($this->building_id, $this->getBuildingsToBuildId($this->gameData[$this->land_id]->getGameDataBuildings(), $this->gameData[$this->land_id]->getGameDataResourceId(), $this->buildingData))){
     				return true;
     			}else{
     				return "Error";
@@ -153,13 +153,13 @@ class Building extends \yii\db\ActiveRecord
     /**
      * 
      * @param unknown $existantBuildingsId
-     * @param unknown $landRessourceId
+     * @param unknown $landResourceId
      * @param unknown $buildingData
      * @return NULL[]
      */
-    public static function getBuildingsToBuildId($existantBuildingsId, $landRessourceId, $buildingData){
+    public static function getBuildingsToBuildId($existantBuildingsId, $landResourceId, $buildingData){
     	$returned = array();
-    	foreach (self::getBuildingsToBuild($existantBuildingsId, $landRessourceId, $buildingData) as $building)
+    	foreach (self::getBuildingsToBuild($existantBuildingsId, $landResourceId, $buildingData) as $building)
     		$returned[$building->getBuildingId()] = $building->getBuildingId();
     	return $returned;
     }
@@ -167,15 +167,15 @@ class Building extends \yii\db\ActiveRecord
     /**
      * 
      * @param unknown $existantBuildingsId
-     * @param unknown $landRessourceId
+     * @param unknown $landResourceId
      * @param unknown $buildingData
      */
-    public static function getBuildingsToBuild($existantBuildingsId, $landRessourceId, $buildingData){
+    public static function getBuildingsToBuild($existantBuildingsId, $landResourceId, $buildingData){
     	$returned = array();
     	foreach ($buildingData as $building) {
 			
-			// If building answer the ressource needs
-    		if($building->getBuildingNeed() == $landRessourceId || $building->getBuildingNeed() == 0){
+			// If building answer the Resource needs
+    		if($building->getBuildingNeed() == $landResourceId || $building->getBuildingNeed() == 0){
     	
     			// If not already build
     			if (!in_array($building->getBuildingId(), $existantBuildingsId)) {
