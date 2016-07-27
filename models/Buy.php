@@ -130,7 +130,7 @@ class Buy extends \yii\db\ActiveRecord
      * @param unknown $user_id
      * @param number $count
      */
-    public static function userLastBuy($game_id, $user_id, $count=5){
+    public static function userLastBuy($game_id, $user_id, $count=4){
     	$i = 0;
     	$returned = array();
     	foreach (self::userLastBuyAll($game_id, $user_id) as $buy){
@@ -149,7 +149,7 @@ class Buy extends \yii\db\ActiveRecord
   	 */
     //->limit($count)
     public static function userLastBuyAll($game_id, $user_id){
-    	return self::find()->where(['buy_game_id' => $game_id])->andWhere(['buy_user_id' => $user_id])->orderBy(['buy_time' => SORT_ASC])->all();
+    	return self::find()->where(['buy_game_id' => $game_id])->andWhere(['buy_user_id' => $user_id])->orderBy(['buy_time' => SORT_DESC])->all();
     }
     
     /**

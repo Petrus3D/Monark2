@@ -27,6 +27,7 @@ return [
 	'Text_Land_No_User_Frontier'=> 'You do not have a border country',
 	'Text_No_More_Money'		=> 'You no longer have money',
 	'Text_Resource_In_Land'		=> 'Resources in',
+	'Text_In'					=> 'in',
 	'Text_Units'				=> 'Units',
 	'Text_Units_In'				=> 'Units in',
 	'Text_Owner'				=> 'Owner',
