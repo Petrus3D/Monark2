@@ -49,16 +49,10 @@ function CallAjaxMethodModal(action, args, modal=null, land=null) {
     });
 }
 
-//Function used to call PHP Ajax function to update div 
-function CallAjaxMethodDiv(action, args, div=null, land=null) {
+//Function used to call PHP Ajax function to update header info
+function CallAjaxMethodHeader(action, args, focus=null) {
 	// URL
 	var url = config["url"]["ajax"] + "/"+action+"&args="+ JSON.stringify(args);
-	
-	// Land
-	if(land != null){
-		var land = getLandData(land);
-		modal["land_name"] = land["land_name"];
-	}
     
 	// Ajax call
 	$.ajax({
@@ -66,26 +60,19 @@ function CallAjaxMethodDiv(action, args, div=null, land=null) {
         dataType : "html",  
         mimeType: "application/json",
         beforeSend:function(){
-        	// Modal
-        	//if(modal != null){ShowModalLoading(modal);}
-
+        	if(focus != null){ShowDropdownLoading(focus);}
         },
         success: function(data) {
         	// If no error
         	if(data != config["ajax"]["error"]){
-        		// Modal
-            	//if(modal != null){modal['content'] = data;UpdateModalContent(modal);ModalInfo();}
-            	          
-            	reloadPjax();
+            	if(focus != null){focus['content'] = data;UpdateDropdownContent(focus);}
         	}else{
-        		// Modal
-        		//(modal != null){UpdateModalError();ModalError();}
+        		if(focus != null){UpdateDropdownError(focus);}
         	}
         },
         error: function(){    
         	alert("error : " + url);
-        	// Modal
-        	//(modal != null){UpdateModalError();ModalError();}
+        	if(focus != null){UpdateDropdownError(focus);}
         }
     });
 }

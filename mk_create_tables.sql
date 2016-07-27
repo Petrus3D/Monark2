@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 27 Juillet 2016 à 20:56
+-- Généré le :  Mer 27 Juillet 2016 à 21:28
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -107,35 +107,12 @@ CREATE TABLE IF NOT EXISTS `buy` (
   `buy_user_id` int(11) NOT NULL,
   `buy_turn_id` int(11) NOT NULL,
   `buy_game_id` int(11) NOT NULL,
+  `buy_land_id` int(12) NOT NULL,
   `buy_units_nb` int(11) NOT NULL,
   `buy_build_id` int(11) NOT NULL,
   `buy_time` int(12) NOT NULL,
   PRIMARY KEY (`buy_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
-
---
--- Contenu de la table `buy`
---
-
-INSERT INTO `buy` (`buy_id`, `buy_user_id`, `buy_turn_id`, `buy_game_id`, `buy_units_nb`, `buy_build_id`, `buy_time`) VALUES
-(1, 268, 58, 20, 10, 0, 0),
-(2, 268, 58, 20, 30, 0, 0),
-(3, 268, 58, 20, 50, 0, 0),
-(4, 268, 58, 20, 11, 0, 0),
-(5, 268, 58, 20, 11, 0, 0),
-(6, 268, 58, 20, 4, 0, 0),
-(7, 269, 65, 20, 10, 0, 0),
-(8, 269, 65, 20, 5, 0, 0),
-(9, 269, 65, 20, 5, 0, 0),
-(10, 269, 65, 20, 5, 0, 0),
-(11, 269, 65, 20, 10, 0, 0),
-(12, 269, 65, 20, 0, 2, 0),
-(13, 269, 65, 20, 0, 5, 0),
-(14, 269, 65, 20, 0, 5, 0),
-(15, 269, 65, 20, 0, 2, 0),
-(16, 269, 65, 20, 0, 1, 0),
-(17, 269, 65, 20, 0, 2, 0),
-(18, 269, 65, 20, 0, 1, 0);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1245,7 +1222,7 @@ CREATE TABLE IF NOT EXISTS `turn` (
   `turn_gold_base` int(12) NOT NULL,
   `turn_income` int(12) NOT NULL,
   PRIMARY KEY (`turn_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=66 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
 
 --
 -- Contenu de la table `turn`
@@ -1289,7 +1266,11 @@ INSERT INTO `turn` (`turn_id`, `turn_game_id`, `turn_user_id`, `turn_time`, `tur
 (62, 20, 268, 1469559865, 1468865954, 5, 5, 2),
 (63, 20, 64, 1469564545, 1468866691, 22, 22, 2),
 (64, 20, 270, 1469564545, 1468866691, 22, 22, 2),
-(65, 20, 269, 1469564552, 1, 59, 122, 12);
+(65, 20, 269, 1469564552, 1, 59, 122, 12),
+(66, 20, 268, 1469646187, 1468865954, 7, 7, 2),
+(67, 20, 64, 1469646196, 1468866691, 24, 24, 2),
+(68, 20, 270, 1469646196, 1468866691, 24, 24, 2),
+(69, 20, 269, 1469646219, 1, 71, 71, 12);
 
 -- --------------------------------------------------------
 

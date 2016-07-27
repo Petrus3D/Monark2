@@ -124,6 +124,8 @@ class GameController extends \yii\web\Controller
 						'turn_finished' 			=> Yii::t('header', 'Text_Turn_Finished'),
 						'modal_loading_content'		=> '<center><font size=3>'.Yii::t('map', 'Modal_Loading').'...</font><br><img src=img/site/loading.gif></center>',
 						'modal_error_content'		=> '<center><font size=3>'.Yii::t('map', 'Modal_Error').'</font></center>',
+						'dropdown_loading_content'	=> '<img src=img/site/loading.gif height="20px" width="20px"><br>',
+						'dropdown_error_content'	=> '<font size=3>'.Yii::t('map', 'Modal_Error').'</font>',
 				),
 				'url'	=> array(
 						'ajax' => Yii::$app->urlManager->createUrl(['ajax'])

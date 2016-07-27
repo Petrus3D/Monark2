@@ -36,7 +36,7 @@ class AjaxController extends Controller
 						'class' => AccessControl::className(),
 						'rules' => [
 								[
-										'actions' => ['newturn', 'landinfo', 'header', 'buybegin', 'buyaction', 'buildbegin', 'buildaction', 'attackbegin', 'attackaction', 'movebegin', 'moveaction'],
+										'actions' => ['newturn', 'landinfo', 'header', 'buybegin', 'buyaction', 'buildbegin', 'buildaction', 'attackbegin', 'attackaction', 'movebegin', 'moveaction', 'lastgold'],
 										'allow' => Access::UserIsInStartedGame(), // Into a started game
 								],
 								[
@@ -486,5 +486,29 @@ class AjaxController extends Controller
 			]);
 		}
 		return $this->returnError();
+	}
+	
+	/**
+	 * 
+	 * @return string
+	 */
+	public function actionLastgold(){
+		// Load data
+		$data = $this->getData(array(
+				'game_id' => true,
+				'user_id' => true,
+				'Land' => true,
+				'CurrentTurnData' => true,
+				'BuildingData'	=> true,
+		));
+
+		$lastBuy = Buy::userLastBuy($data['game']->getGameId(), $data['user']->getUserID());
+		
+		return $this->renderPartial('lastbuy', [
+				'Land'				=> $data['land'],
+				'BuildingData'		=> $data['buildingData'],
+				'CurrentTurnData'	=> $data['currentTurnData'],
+				'lastBuy'			=> $lastBuy,
+		]);
 	}
 }

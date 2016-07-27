@@ -30,6 +30,7 @@ class AppAsset extends AssetBundle
     		'js/game/modals.js',
     		'js/game/anim.js',
     		'js/game/header.js',
+    		'js/game/header_dropdown.js',
     ];
     public $depends = [
     		'rmrevin\yii\fontawesome\AssetBundle',

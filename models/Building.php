@@ -133,7 +133,7 @@ class Building extends \yii\db\ActiveRecord
     
     	Turn::updateGoldTurn($this->game->getGameId(), $this->turn->getTurnId(), $this->futur_gold);
     
-    	Buy::insertBuyLog($this->user->getUserID(), $this->turn->getTurnId(), $this->game->getGameId(), 0, $this->building_id);
+    	Buy::insertBuyLog($this->user->getUserID(), $this->turn->getTurnId(), $this->game->getGameId(), $this->land_id, 0, $this->building_id);
     }
     
     /**
