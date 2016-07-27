@@ -78,8 +78,8 @@ class Frontier extends \yii\db\ActiveRecord
     			
     			// Others
     			foreach (self::landHaveFrontierLandArray($frontierData, $land->getGameDataLandId()) as $landFrontier){
-    				if(!in_array($landFrontier, $userFrontierArray))
-    					array_push($userFrontierArray, $landFrontier);
+    				if(!in_array($landFrontier->getFrontierLandIdTwo(), $userFrontierArray))
+    					array_push($userFrontierArray, $landFrontier->getFrontierLandIdTwo());
     			}
     		}
     	}
@@ -90,12 +90,26 @@ class Frontier extends \yii\db\ActiveRecord
      * 
      * @param unknown $frontierData
      * @param unknown $land_id
+     * @return unknown[]
+     */
+    public static function landHaveFrontierLandArrayId($frontierData, $land_id){
+    	$landFrontierArray = array();
+    	foreach(self::landHaveFrontierLandArray($frontierData, $land_id) as $frontier)
+    		$landFrontierArray[$frontier->getFrontierLandIdTwo()] = $frontier->getFrontierLandIdTwo();
+    	return $landFrontierArray;
+    }
+    
+    /**
+     * 
+     * @param unknown $frontierData
+     * @param unknown $land_id
+     * @return unknown[]
      */
     public static function landHaveFrontierLandArray($frontierData, $land_id){
     	$landFrontierArray = array();
     	foreach($frontierData as $frontier){
     		if($frontier['frontier_land_id_one'] == $land_id){
-    			array_push($landFrontierArray, $frontier['frontier_land_id_two']);
+    			$landFrontierArray[$frontier['frontier_land_id_two']] = new FrontierClass($frontier);
     		}
     	}
     	return $landFrontierArray;

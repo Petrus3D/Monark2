@@ -1,4 +1,4 @@
-# Your-Corp
-Manage a compagny on your broswer !
-Choose a world, a state and a city and create your corp.
-Choose a work and build the futur of your first compagny !
+# Monark V2
+Risk game on broswer.<br>
+Multiplayer strategy game.<br>
+It's totaly free !!<br>

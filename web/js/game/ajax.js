@@ -8,8 +8,8 @@ function getLandData(land){
 	return {"land_id":land, "land_name":land_name, "land_position":land_position};
 }
 
-// Function used to call PHP Ajax function 
-function CallAjaxMethod(action, args, modal=null, land=null) {
+// Function used to call PHP Ajax function to show Modal 
+function CallAjaxMethodModal(action, args, modal=null, land=null) {
 	// URL
 	var url = config["url"]["ajax"] + "/"+action+"&args="+ JSON.stringify(args);
 	
@@ -49,9 +49,30 @@ function CallAjaxMethod(action, args, modal=null, land=null) {
     });
 }
 
-//New turn
-$(document).on("click", "#end_of_turn_link", function(){
-    $("#end_of_turn_link").html("<font color=white> " + config["text"]["turn_finished"] + " !</font>");
-    $("#end_of_turn_link").attr("origin", "");
-	CallAjaxMethod("newturn", new Array(), null);
-});
+//Function used to call PHP Ajax function to update header info
+function CallAjaxMethodHeader(action, args, focus=null) {
+	// URL
+	var url = config["url"]["ajax"] + "/"+action+"&args="+ JSON.stringify(args);
+    
+	// Ajax call
+	$.ajax({
+        url: url,
+        dataType : "html",  
+        mimeType: "application/json",
+        beforeSend:function(){
+        	if(focus != null){ShowDropdownLoading(focus);}
+        },
+        success: function(data) {
+        	// If no error
+        	if(data != config["ajax"]["error"]){
+            	if(focus != null){focus['content'] = data;UpdateDropdownContent(focus);}
+        	}else{
+        		if(focus != null){UpdateDropdownError(focus);}
+        	}
+        },
+        error: function(){    
+        	alert("error : " + url);
+        	if(focus != null){UpdateDropdownError(focus);}
+        }
+    });
+}

@@ -8,30 +8,30 @@ $this->registerCssFile("@web/css/ajax.css");
 ?>
 <div class="build-view-ajax">
 	<?php $userTurn 	= $CurrentTurnData->getTurnUserId() == $User->getId();?>
-	<?php $toBuildArray = $GameData[$land_id_array]->getGameDataBuildingsToBuild($GameData[$land_id_array]->getGameDataRessourceId(), $BuildingData); ?>
+	<?php $toBuildArray = $GameData[$land_id]->getGameDataBuildingsToBuild($GameData[$land_id]->getGameDataResourceId(), $BuildingData); ?>
 	<?php if($userTurn): ?>
 		<?php if($CurrentTurnData->getTurnGold() > 0): ?>
-			<table style="width:100%;table-layout:fixed;">
+			<table class="table-no-style" style="width:100%;table-layout: auto;">
 				<tr>
-					<td style="padding: 4px;text-align:center;"><font size='4'><?= Yii::t('ajax', 'Text_Ressource_In_Land'); ?> <?= $Land[$land_id]->getLandName() ?> : </font>
+					<td><font size='4'> <?= Yii::t('ajax', 'Text_Resource_In_Land'); ?> <?= $Land[$land_id]->getLandName() ?> : </font>
 					<font size='3' color="black">
-						 <?php if($GameData[$land_id_array]->getGameDataRessourceId() > 0 && $Ressource[$GameData[$land_id_array]->getGameDataRessourceId()]->getRessourceImage() != ""): ?>
-	                         <?= "<img src='".$Ressource[$GameData[$land_id_array]->getGameDataRessourceId()]->getRessourceImageUrl()."' height='20px' width='20px'>".$Ressource[$GameData[$land_id_array]->getGameDataRessourceId()]->getRessourceName(); ?>
+						 <?php if($GameData[$land_id]->getGameDataResourceId() > 0 && $Resource[$GameData[$land_id]->getGameDataResourceId()]->getResourceImage() != ""): ?>
+	                         <?= "<img src='".$Resource[$GameData[$land_id]->getGameDataResourceId()]->getResourceImageUrl()."' height='20px' width='20px'>".$Resource[$GameData[$land_id]->getGameDataResourceId()]->getResourceName(); ?>
 	                    <?php else: ?>
-	                    	<?= Yii::t('ajax', 'Text_Land_No_Ressource'); ?>
+	                    	<?= Yii::t('ajax', 'Text_Land_No_Resource'); ?>
 	                    <?php endif; ?>
 					</font></td>
 				</tr>
 				<tr>
 					<td>
-						<div class="div-center"><table style="width:100%;table-layout:fixed;">
+						<table>
 							<tr>
-								<td style="padding: 4px;text-align:center;"><font size='4'><?= Yii::t('ajax', 'Text_Build_In_Land'); ?> <?= $Land[$land_id]->getLandName() ?> : </font></td>
+								<td style="padding: 4px;"><font size='4'><?= Yii::t('ajax', 'Text_Build_In_Land'); ?> <?= $Land[$land_id]->getLandName() ?> : </font></td>
 								<?php $i = 0; ?>
-								<?php foreach($GameData[$land_id_array]->getGameDataBuildings() as $building): ?>
+								<?php foreach($GameData[$land_id]->getGameDataBuildings() as $building): ?>
 									<?php if($building != null && $BuildingData[$building]->getBuildingId() > 0): ?>
 										<td style="padding: 4px;"><font size='3' color="black">
-												<i class="<?= $BuildingData[$building]->getBuildingImg() ?>"></i>
+												<?= $BuildingData[$building]->getBuildingImg() ?>
 												<?= Html::tag('span', $BuildingData[$building]->getBuildingName(), [
 									                          'title'=> $BuildingData[$building]->getBuildingDescription(),
 									                          'data-toggle'=>'tooltip',
@@ -46,27 +46,27 @@ $this->registerCssFile("@web/css/ajax.css");
 			                    	<td style="padding: 4px;text-align:center;"><font size='3' color="black"><?= Yii::t('ajax', 'Text_Land_No_Building'); ?></font></td>
 			                    <?php endif; ?>
 			              </tr>
-					</table></div>
+					</table>
 				</tr>
 				<tr>
 					<td>
-					<div class="div-center"><table style="width:100%;table-layout:fixed;">
+					<table style="text-align:center;">
 							<tr>
-								<td style="padding: 4px;text-align:center;"><font size='4'><?= Yii::t('ajax', 'Text_Build_Able_Land'); ?> <?= $Land[$land_id]->getLandName() ?> : </font></td>
+								<td style="padding: 4px;"><font size='4'><?= Yii::t('ajax', 'Text_Build_Able_Land'); ?> <?= $Land[$land_id]->getLandName() ?> : </font></td>
 							</tr>
 							<?php $i = 0; ?>
 							<?php foreach($toBuildArray as $building): ?>
 								<?php if($building->getBuildingId() > 0): ?>
-									<tr><td style="width:100%;"><font size='3' color="black">
-											<i class="<?= $building->getBuildingImg() ?>"></i>
-											<?= Html::tag('span', $building->getBuildingName(), [
+									<tr><td><font size='3' color="black">
+											<?= $building->getBuildingImg() ?>
+											<?= Html::tag('span', $building->getBuildingName()." (".$building->getBuildingCost()." <i class='fa fa-usd'></i>)", [
 								                          'title'=> $building->getBuildingDescription(),
 								                          'data-toggle'=>'tooltip',
 								                          'data-placement' => 'auto',
 								                          'style'=>'text-decoration: none; cursor:pointer;'
-								            ]); ?>
-									            <?= "<a href='#StartBuild' class='buy_action_link btn btn-success' i='".$land_id."' building='".$building->getBuildingName()."' style='text-decoration:none;'>
-												<i class='fa fa-gavel'></i> ".Yii::t('ajax', 'Button_Land_Build')." ".$building->getBuildingName()."</a>"; ?>
+								            ]); ?></td><td>
+									            <?= "<a href='#StartBuild' class='build_action_link btn btn-success' i='".$land_id."' building_i='".$building->getBuildingId()."' style='text-decoration:none;'>
+												<i class='fa fa-gavel'></i> ".Yii::t('ajax', 'Button_Land_Build')." ".$building->getBuildingName()." </a>"; ?> 
 							            <?php $i++; ?>    
 							       	</font></td></tr>
 					            <?php endif; ?>
@@ -74,7 +74,7 @@ $this->registerCssFile("@web/css/ajax.css");
 				            <?php if($i == 0): ?>
 		                    	<tr><td style="padding: 4px;text-align:center;"><font size='3' color="black"><?= Yii::t('ajax', 'Text_Land_Nothing_To_Build'); ?></font></td></tr>
 		                    <?php endif; ?>
-					</table></div>
+					</table>
 				</tr>
 			</table>
 		<?php else: ?>

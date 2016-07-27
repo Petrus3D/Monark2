@@ -3,11 +3,11 @@
 namespace app\queries;
 
 /**
- * This is the ActiveQuery class for [[\app\models\Ressource]].
+ * This is the ActiveQuery class for [[\app\models\Resource]].
  *
- * @see \app\models\Ressource
+ * @see \app\models\Resource
  */
-class RessourceQuery extends \yii\db\ActiveQuery
+class ResourceQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -17,7 +17,7 @@ class RessourceQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return \app\models\Ressource[]|array
+     * @return \app\models\Resource[]|array
      */
     public function all($db = null)
     {
@@ -26,7 +26,7 @@ class RessourceQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return \app\models\Ressource|array|null
+     * @return \app\models\Resource|array|null
      */
     public function one($db = null)
     {

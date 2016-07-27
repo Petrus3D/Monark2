@@ -16,7 +16,7 @@ use app\models\GamePlayer;
 use app\models\Color;
 use app\models\Continent;
 use app\models\Land;
-use app\models\Ressource;
+use app\models\Resource;
 use app\models\GameData;
 use app\models\Map;
 use app\models\Turn;
@@ -124,6 +124,8 @@ class GameController extends \yii\web\Controller
 						'turn_finished' 			=> Yii::t('header', 'Text_Turn_Finished'),
 						'modal_loading_content'		=> '<center><font size=3>'.Yii::t('map', 'Modal_Loading').'...</font><br><img src=img/site/loading.gif></center>',
 						'modal_error_content'		=> '<center><font size=3>'.Yii::t('map', 'Modal_Error').'</font></center>',
+						'dropdown_loading_content'	=> '<img src=img/site/loading.gif height="20px" width="20px"><br>',
+						'dropdown_error_content'	=> '<font size=3>'.Yii::t('map', 'Modal_Error').'</font>',
 				),
 				'url'	=> array(
 						'ajax' => Yii::$app->urlManager->createUrl(['ajax'])
@@ -172,7 +174,7 @@ class GameController extends \yii\web\Controller
     	//Yii::$app->session['Land'] = null;
     	if(Yii::$app->session['Contient'] == null)	Yii::$app->session->set("Continent", Continent::findAllContinentToArray($game_current->getMapId()));
     	if(Yii::$app->session['Land'] == null)		Yii::$app->session->set("Land", Land::findAllLandsToArray($game_current->getMapId()));
-    	if(Yii::$app->session['Ressource'] == null)	Yii::$app->session->set("Ressource", Ressource::findAllRessourcesToArray());
+    	if(Yii::$app->session['Resource'] == null)	Yii::$app->session->set("Resource", Resource::findAllResourcesToArray());
     	if(Yii::$app->session['Map'] == null)		Yii::$app->session->set("Map", Map::findMapById($game_current->getMapId()));
     	if(Yii::$app->session['Color'] == null)		Yii::$app->session->set("Color", Color::findAllColorToArray());
     	if(Yii::$app->session['Frontier'] == null)	Yii::$app->session->set("Frontier", Frontier::findAllFrontier($game_current->getMapId())); 
@@ -456,14 +458,14 @@ class GameController extends \yii\web\Controller
 		    		$game_player 	= new GamePlayer();
 		    		$game_current 	= (new Game())->getGameById($urlparams['gid']);
 		    		$land		 	= new Land();
-		    		$res		 	= new Ressource();
+		    		$res		 	= new Resource();
 		    		$game_data		= new GameData();
 		    		$turn			= new Turn();
 		    		$continentData	= (new Continent())->findAllContinent($game_current->getMapId());
 		    		$mapData		= (new Map())->findMapById($game_current->getMapId());
 		    		
 		    		// Datas
-		    		$ressourceData 	= $res->findAllRessources();
+		    		$resourceData 	= $res->findAllResources();
 		    		$landData		= $land->findAllLandsToArray($game_current->getMapId());
 			    	$gamePlayerData = $game_player->findAllGamePlayer($game_current->getGameId());
 			    	
@@ -476,14 +478,14 @@ class GameController extends \yii\web\Controller
 			    				// Assign Lands
 			    				$assignedLands 		= $land->assignLandsToArray($gamePlayerData, $game_current, $continentData, $mapData);
 		
-			    				// Assign Ressources
-			    				$assignedRessources = $res->assignRessourcesToArray($landData, $ressourceData);
+			    				// Assign Resources
+			    				$assignedResources 	= $res->assignResourcesToArray($landData, $resourceData);
 			    				
 			    				// Create Game Data
-			    				$game_data->createGameData($assignedLands, $assignedRessources, $landData, $game_current);
+			    				$game_data->createGameData($assignedLands, $assignedResources, $landData, $game_current);
 			    				
 						    	// Create turn order
-						    	$gameTurnOrder = $game_player->updateUserTurnOrder($game_current->getGameId());
+						    	$gameTurnOrder 		= $game_player->updateUserTurnOrder($game_current->getGameId());
 						    	
 						    	// Create first turn
 						    	$turn->createGameFirstTurn($game_current->getGameId() , array_values($gameTurnOrder)[0]->getUserID());
@@ -532,7 +534,7 @@ class GameController extends \yii\web\Controller
 	    	// Data to map
 	    	return $this->render('map', [
 	    			'User' 			=> Yii::$app->session['User'],
-	    			'Ressource' 	=> Yii::$app->session['Ressource'],
+	    			'Resource' 		=> Yii::$app->session['Resource'],
 	    			'Continent' 	=> Yii::$app->session['Contient'],
 	    			'Map' 			=> Yii::$app->session['Map'],
 	    			'Land'			=> Yii::$app->session['Land'],

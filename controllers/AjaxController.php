@@ -12,7 +12,7 @@ use app\classes\Access;
 use app\models\Land;
 use app\models\GameData;
 use app\models\Color;
-use app\models\Ressource;
+use app\models\Resource;
 use app\models\Continent;
 use app\models\Game;
 use app\models\User;
@@ -22,6 +22,7 @@ use yii\web\Response;
 use app\models\Building;
 use app\models\Frontier;
 use app\models\Buy;
+use app\models\Move;
 
 /**
  * AjaxController implements the CRUD actions for Ajax model.
@@ -35,7 +36,7 @@ class AjaxController extends Controller
 						'class' => AccessControl::className(),
 						'rules' => [
 								[
-										'actions' => ['newturn', 'landinfo', 'header', 'buybegin', 'buyaction', 'buildbegin', 'buildaction', 'attackbegin', 'attackaction', 'movebegin', 'moveaction'],
+										'actions' => ['newturn', 'landinfo', 'header', 'buybegin', 'buyaction', 'buildbegin', 'buildaction', 'attackbegin', 'attackaction', 'movebegin', 'moveaction', 'lastgold'],
 										'allow' => Access::UserIsInStartedGame(), // Into a started game
 								],
 								[
@@ -74,7 +75,7 @@ class AjaxController extends Controller
     /**
      * 
      * @param unknown $dataList
-     * @return \app\classes\GameClass[]|\app\models\User[]|NULL[]|\app\classes\RessourceClass[][]|\app\models\NULL[]|\app\classes\ColorClass[]|\app\models\Continent[][]|\app\models\Land[][]|\app\classes\TurnClass[]|\app\models\number[][]|Session[]
+     * @return \app\classes\GameClass[]|\app\models\User[]|NULL[]|\app\classes\ResourceClass[][]|\app\models\NULL[]|\app\classes\ColorClass[]|\app\models\Continent[][]|\app\models\Land[][]|\app\classes\TurnClass[]|\app\models\number[][]|Session[]
      */
     public function getData($dataList){
 		$returned = array();
@@ -87,9 +88,9 @@ class AjaxController extends Controller
     		$returned['user'] 				= Yii::$app->session['User'];}else{
     		$returned['user'] 				= User::findUserById($dataList['user_id']);}
     		
-    	if(Yii::$app->session['Ressource'] == null && isset($dataList['Ressource'])){
-    		$returned['ressource'] 			= Ressource::findAllRessourcesToArray();}else{
-    		$returned['ressource'] 			= Yii::$app->session['Ressource'];}
+    	if(Yii::$app->session['Resource'] == null && isset($dataList['Resource'])){
+    		$returned['resource'] 			= Resource::findAllResourcesToArray();}else{
+    		$returned['resource'] 			= Yii::$app->session['Resource'];}
     		
     	if(Yii::$app->session['Color'] == null && isset($dataList['Color'])){
     		$returned['color'] 				= Color::findAllColorToArray();}else{
@@ -195,7 +196,7 @@ class AjaxController extends Controller
 	    			'game_id' => true,
 	    			'user_id' => true,
 	    			'User' => true,
-	    			'Ressource' => true,
+	    			'Resource' => true,
 	    			'Color' => true,
 	    			'Continent' => true,
 	    			'Land' => true,
@@ -212,7 +213,7 @@ class AjaxController extends Controller
 	    			'land_id_array'		=> $urlArgsArray['land_id'] - 1, 
 	    			'Game'				=> $data['game'],
 	    			'User'				=> $data['user'],
-	    			'Ressource'			=> $data['ressource'],
+	    			'Resource'			=> $data['resource'],
 	    			'Color'				=> $data['color'],
 	    			'Continent'			=> $data['continent'],
 	    			'Land'				=> $data['land'],
@@ -248,7 +249,6 @@ class AjaxController extends Controller
 			
 			return $this->renderPartial('buy_begin', [
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'Land'				=> $data['land'],
@@ -284,7 +284,6 @@ class AjaxController extends Controller
 			return $this->renderPartial('buy_action', [
 					'error'				=> $buyError,
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
 					'units'				=> $urlArgsArray['units'],
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
@@ -310,18 +309,17 @@ class AjaxController extends Controller
 					'User' => true,
 					'GameData' => true,
 					'CurrentTurnData' => true,
-					'Ressource' => true,
+					'Resource' => true,
 					'CurrentTurnData' => true,
 					'BuildingData' => true,
 			));
 				
 			return $this->renderPartial('build_begin', [
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'Land'				=> $data['land'],
-					'Ressource'			=> $data['ressource'],
+					'Resource'			=> $data['resource'],
 					'GameData'			=> $data['gameData'],
 					'CurrentTurnData'	=> $data['currentTurnData'],
 					'BuildingData'		=> $data['buildingData'],
@@ -345,25 +343,24 @@ class AjaxController extends Controller
 					'User' => true,
 					'GameData' => true,
 					'CurrentTurnData' => true,
-					'Ressource' => true,
-					'CurrentTurnData' => true,
+					'Resource' => true,
 					'BuildingData' => true,
 			));
 				
-			// Buy update
-			$buy = new Buy();
-			$buy->BuyInit($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData'], $urlArgsArray['units']);
-			$buyError = $buy->BuyCheck();
-			if($buyError === true) $buy->BuyExec();
+			// Build
+			$build = new Building();
+			$build->BuildInit($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData'], $urlArgsArray['building_id'], $data['buildingData']);
+			$buildError = $build->BuildCheck();
+			if($buildError === true) $build->BuildExec();
 		
 			return $this->renderPartial('build_action', [
-					'error'				=> $buyError,
+					'error'				=> $buildError,
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
+					'building_id'		=> $urlArgsArray['building_id'],
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'Land'				=> $data['land'],
-					'Ressource'			=> $data['ressource'],
+					'Resource'			=> $data['resource'],
 					'GameData'			=> $data['gameData'],
 					'CurrentTurnData'	=> $data['currentTurnData'],
 					'BuildingData'		=> $data['buildingData'],
@@ -386,7 +383,6 @@ class AjaxController extends Controller
 				
 			return $this->renderPartial('attack_begin', [
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'GameData'			=> $data['gameData'],
@@ -410,7 +406,6 @@ class AjaxController extends Controller
 				
 			return $this->renderPartial('attack_action', [
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'GameData'			=> $data['gameData'],
@@ -420,33 +415,46 @@ class AjaxController extends Controller
 		return $this->returnError();
 	}
 	
+	/**
+	 * 
+	 * @return string
+	 */
 	public function actionMovebegin(){
-		$urlArgsArray = $this->getJson();
-		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+		$urlArgsArray = $this->getJson(array('land_id'));
+		if($urlArgsArray != null){
 			// Load data
 			$data = $this->getData(array(
 					'game_id' => true,
 					'user_id' => true,
+					'Land' => true,
 					'User' => true,
 					'GameData' => true,
 					'CurrentTurnData' => true,
+					'Frontier'	=> true,
 			));
+			
+			$frontierData = Frontier::landHaveFrontierLandArrayId($data['frontierData'], $urlArgsArray['land_id']);
 				
 			return $this->renderPartial('move_begin', [
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
+					'Land'				=> $data['land'],
 					'GameData'			=> $data['gameData'],
 					'CurrentTurnData'	=> $data['currentTurnData'],
+					'frontierData'		=> $frontierData,
 			]);
 		}
 		return $this->returnError();
 	}
 	
+	/**
+	 * 
+	 * @return string
+	 */
 	public function actionMoveaction(){
-		$urlArgsArray = $this->getJson();
-		if(array_key_exists('land_id', $urlArgsArray) && $urlArgsArray['land_id'] != null){
+		$urlArgsArray = $this->getJson(array('land_id', 'land_id_to', 'units'));
+		if($urlArgsArray != null){
 			// Load data
 			$data = $this->getData(array(
 					'game_id' => true,
@@ -454,17 +462,53 @@ class AjaxController extends Controller
 					'User' => true,
 					'GameData' => true,
 					'CurrentTurnData' => true,
+					'Frontier' => true,
 			));
 				
+			$frontierData = Frontier::landHaveFrontierLandArrayId($data['frontierData'], $urlArgsArray['land_id']);
+			
+			// Move
+			$move = new Move();
+			$move->MoveInit($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData'], $urlArgsArray['land_id_to'], $urlArgsArray['units'], $frontierData);
+			$moveError = $move->MoveCheck();
+			if($moveError === true) $move->MoveExec();
+		
 			return $this->renderPartial('move_action', [
+					'error'				=> $moveError,
 					'land_id' 			=> $urlArgsArray['land_id'],
-					'land_id_array'		=> $urlArgsArray['land_id'] - 1,
+					'land_id_to'		=> $urlArgsArray['land_id_to'],
+					'units'				=> $urlArgsArray['units'],
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
 					'GameData'			=> $data['gameData'],
 					'CurrentTurnData'	=> $data['currentTurnData'],
+					'frontierData'		=> $frontierData,
 			]);
 		}
 		return $this->returnError();
+	}
+	
+	/**
+	 * 
+	 * @return string
+	 */
+	public function actionLastgold(){
+		// Load data
+		$data = $this->getData(array(
+				'game_id' => true,
+				'user_id' => true,
+				'Land' => true,
+				'CurrentTurnData' => true,
+				'BuildingData'	=> true,
+		));
+
+		$lastBuy = Buy::userLastBuy($data['game']->getGameId(), $data['user']->getUserID());
+		
+		return $this->renderPartial('lastbuy', [
+				'Land'				=> $data['land'],
+				'BuildingData'		=> $data['buildingData'],
+				'CurrentTurnData'	=> $data['currentTurnData'],
+				'lastBuy'			=> $lastBuy,
+		]);
 	}
 }

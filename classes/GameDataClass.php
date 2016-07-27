@@ -18,7 +18,7 @@ class GameDataClass{
 	private $gameDataLandId;
 	private $gameDataUnits;
 	private $gameDataCapital;
-	private $gameDataRessourceId;
+	private $gameDataResourceId;
 	private $gameDataBuildings;
 	
 	/**
@@ -32,7 +32,7 @@ class GameDataClass{
 		$this->gameDataLandId 		= $gameData['game_data_land_id'];
 		$this->gameDataUnits 		= $gameData['game_data_units'];
 		$this->gameDataCapital 		= $gameData['game_data_capital'];
-		$this->gameDataRessourceId 	= $gameData['game_data_ressource_id'];
+		$this->gameDataResourceId 	= $gameData['game_data_resource_id'];
 		$this->gameDataBuildings 	= $gameData['game_data_buildings'];
 	}
 	
@@ -48,8 +48,12 @@ class GameDataClass{
 		return $this->gameDataLandId;
 	}
 	
-	public function getGameDataRessourceId(){
-		return $this->gameDataRessourceId;
+	public function getGameDataResourceId(){
+		return $this->gameDataResourceId;
+	}
+	
+	public function getGameDataBuildingsSQL(){
+		return $this->gameDataBuildings;
 	}
 	
 	public function getGameDataBuildings(){
@@ -64,7 +68,7 @@ class GameDataClass{
 		return $this->gameDataUnits;
 	}
 	
-	public function getGameDataBuildingsToBuild($landRessourceId, $buildingData){
-		return Building::getBuildingsToBuild($this->getGameDataBuildings(), $landRessourceId, $buildingData);
+	public function getGameDataBuildingsToBuild($landResourceId, $buildingData){
+		return Building::getBuildingsToBuild($this->getGameDataBuildings(), $landResourceId, $buildingData);
 	}
 }

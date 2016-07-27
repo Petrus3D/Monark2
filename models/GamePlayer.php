@@ -192,7 +192,7 @@ class GamePlayer extends \yii\db\ActiveRecord
      * @return \app\classes\ColorClass
      */
     public static function findGamePlayerById($player_id){
-    	return new ColorClass(self::find()->where(['color_id' => $color_id])->one());
+    	return new GamePlayerClass(self::find()->where(['color_id' => $color_id])->one());
     }
 
     /**

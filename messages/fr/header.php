@@ -17,8 +17,9 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    /* Title */
-
+    // Title
+	'Title_Last_Buy'=>  'Derniers achats',
+		
     // header
 	'Logout'       	=> 'Déconnexion',
 	'Profile'       => 'Profil',

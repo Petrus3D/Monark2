@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\classes\BuyClass;
 
 /**
  * This is the model class for table "buy".
@@ -11,8 +12,10 @@ use Yii;
  * @property integer $buy_user_id
  * @property integer $buy_turn_id
  * @property integer $buy_game_id
+ * @property integer $buy_land_id
  * @property integer $buy_units_nb
  * @property integer $buy_build_id
+ * @property integer $buy_time
  */
 class Buy extends \yii\db\ActiveRecord
 {
@@ -40,8 +43,8 @@ class Buy extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['buy_user_id', 'buy_turn_id', 'buy_game_id', 'buy_units_nb', 'buy_build_id'], 'required'],
-            [['buy_user_id', 'buy_turn_id', 'buy_game_id', 'buy_units_nb', 'buy_build_id'], 'integer']
+            [['buy_user_id', 'buy_turn_id', 'buy_game_id', 'buy_units_nb', 'buy_build_id', 'buy_time', 'buy_land_id'], 'required'],
+            [['buy_user_id', 'buy_turn_id', 'buy_game_id', 'buy_units_nb', 'buy_build_id', 'buy_time', 'buy_land_id'], 'integer']
         ];
     }
 
@@ -57,6 +60,8 @@ class Buy extends \yii\db\ActiveRecord
             'buy_game_id' => 'Buy Game ID',
             'buy_units_nb' => 'Buy Units Nb',
             'buy_build_id' => 'Buy Build ID',
+        	'buy_time'	=> 'Buy Time',
+        	'buy_land_id' => 'Buy Land Id',
         ];
     }
 
@@ -79,7 +84,7 @@ class Buy extends \yii\db\ActiveRecord
     	$this->units 	= $units;
     	
     	// Calc
-    	$this->futur_units 	= $this->units + $this->gameData[$this->land_id - 1]->getGameDataUnits();
+    	$this->futur_units 	= $this->units + $this->gameData[$this->land_id]->getGameDataUnits();
     	$this->futur_gold 	= $this->turn->getTurnGold() - $this->units;
     }
     
@@ -93,7 +98,7 @@ class Buy extends \yii\db\ActiveRecord
     		// Turn check
     		if($this->turn->getTurnUserId() == $this->user->getUserID()){
     			// Land check
-    			if($this->gameData[$this->land_id - 1]->getGameDataUserId() == $this->user->getUserID()){
+    			if($this->gameData[$this->land_id]->getGameDataUserId() == $this->user->getUserID()){
     					return true;
     			}else{
     				return "Error";
@@ -102,7 +107,7 @@ class Buy extends \yii\db\ActiveRecord
     			return "Error_Turn";
     		}
     	}else{
-    		return "Error_Buy_Gold";
+    		return "Error_Gold";
     	}
     	
     }
@@ -116,7 +121,35 @@ class Buy extends \yii\db\ActiveRecord
     
     	Turn::updateGoldTurn($this->game->getGameId(), $this->turn->getTurnId(), $this->futur_gold);
     
-    	self::insertBuyLog($this->user->getUserID(), $this->turn->getTurnId(), $this->game->getGameId(), $this->units, 0);
+    	self::insertBuyLog($this->user->getUserID(), $this->turn->getTurnId(), $this->game->getGameId(), $this->land_id, $this->units, 0);
+    }
+    
+    /**
+     * 
+     * @param unknown $game_id
+     * @param unknown $user_id
+     * @param number $count
+     */
+    public static function userLastBuy($game_id, $user_id, $count=4){
+    	$i = 0;
+    	$returned = array();
+    	foreach (self::userLastBuyAll($game_id, $user_id) as $buy){
+    		array_push($returned, new BuyClass($buy));
+    		$i++;
+    		if($i == $count) break; // PAS OUF
+    	}
+    	return $returned;
+    }
+    
+  	/**
+  	 * 
+  	 * @param unknown $game_id
+  	 * @param unknown $user_id
+  	 * @return \app\models\Buy[]
+  	 */
+    //->limit($count)
+    public static function userLastBuyAll($game_id, $user_id){
+    	return self::find()->where(['buy_game_id' => $game_id])->andWhere(['buy_user_id' => $user_id])->orderBy(['buy_time' => SORT_DESC])->all();
     }
     
     /**
@@ -124,17 +157,20 @@ class Buy extends \yii\db\ActiveRecord
      * @param unknown $user_id
      * @param unknown $turn_id
      * @param unknown $game_id
+     * @param unknown $land_id
      * @param unknown $units
      * @param unknown $building_id
      * @return number
      */
-    public static function insertBuyLog($user_id, $turn_id, $game_id, $units, $building_id){
+    public static function insertBuyLog($user_id, $turn_id, $game_id, $land_id, $units, $building_id){
     	return Yii::$app->db->createCommand()->insert(self::tableName(), [
     			'buy_user_id'   => $user_id,
     			'buy_turn_id'   => $turn_id,
     			'buy_game_id'   => $game_id,
+    			'buy_land_id'   => $land_id,
     			'buy_units_nb' 	=> $units,
     			'buy_build_id'  => $building_id,
+    			'buy_time'  	=> time(),
     	])->execute();
     }
     

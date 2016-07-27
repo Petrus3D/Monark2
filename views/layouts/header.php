@@ -76,11 +76,10 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
                         </li>
                     </ul>
                 </li>
-                <!-- User Account: style can be found in dropdown.less -->
                 
-                <li>
+                <!--<li>
                     <a href="#" data-toggle="control-sidebar"><i class="fa fa-plus"></i></a>
-                </li>
+                </li>-->
            	</ul>
         </div>
         	<?php if(isset(Yii::$app->session['Game']) && Yii::$app->session['MapData'] != null): ?>           	        
@@ -115,32 +114,37 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 						        <?php endif; ?>
 						        </a>
 		                	</li>
-		                	<li id='current_gold'>
-		                		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                	<li id='current_gold_content' class="dropdown tasks-menu">
+		                		<a href="#" id='current_gold_link' class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 					          		<font size='3'><?= Yii::t('header', 'Text_Gold') ?>  : <i class="fa fa-usd"> <?= Yii::$app->session['MapData']['LastTurnData']->getTurnGold() ?> </i></font>
 					          	</a>
+					          	<ul class="dropdown-menu" style="width:100%">
+					              <li class="header"><?= Yii::t('header', 'Title_Last_Buy') ?> </li>
+					              <li><ul class="menu"></ul></li>
+					              <!--<li class="footer"><a href="<?= Yii::$app->urlManager->createUrl(['game/gold']) ?>">View all</a></li>-->
+					            </ul>
 		                	</li>
-		                	<li id='gold_per_turn' class="header_game_content">
-		                		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                	<li class="dropdown tasks-menu">
+		                		<a href="#" id='gold_per_turn' class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 					           		<font size='3'><?= Yii::t('header', 'Text_Income') ?>  : <i class="fa fa-usd"> <?= GameData::GoldGameDataUser(null, Yii::$app->session['Game']->getGameId(), Yii::$app->session['User']->getUserID(), $count_lands) ?> / tr </i></font>
 					           	</a>
 		                	</li>
-		                	<li id='count_region' class="header_game_content">
-		                		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                	<li class="dropdown tasks-menu">
+		                		<a href="#" id='count_region' class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 					          		<font size='3'><?= Yii::t('header', 'Text_Country') ?> : <?= $count_lands ?> </font>
 					          	</a>
 		                	</li>
-		                	<li id='count_units' class="header_game_content">
-		                		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                	<li class="dropdown tasks-menu">
+		                		<a href="#" id='count_units' class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 					          		<font size='3'><?= Yii::t('header', 'Text_Units') ?>  : <?= $count_units ?> </font>
 					          	</a>
 		                	</li>
-		                	<li id='header_messages' class="dropdown messages-menu">
-					            <a href="#" class="dropdown-toggle" data-toggle="dropdown">  
+		                	<li class="dropdown tasks-menu">
+					            <a href="#" id='header_messages' class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">  
 						            <i class="fa fa-envelope-o"></i>
 						            <span class="label label-success">4</span>
 					            </a>
-					            <ul class="dropdown-menu">
+					            <ul class="dropdown-menu" style="width:100%">
 					              <!--<li class="header">You have 10 notifications</li>-->
 					              <li>
 					                <!-- inner menu: contains the actual data -->
@@ -151,12 +155,12 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 					              <li class="footer"><a href="<?= Yii::$app->urlManager->createUrl(['game/mail']) ?>">View all</a></li>
 					            </ul>
 		                	</li>
-		                	<li id='header_chat' class="dropdown chat-menu">
-					            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                	<li class="dropdown tasks-menu">
+					            <a href="#" id='header_chat' class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 						            <i class="fa fa-weixin"></i>
 						            <span class="label label-warning">4</span>
 					            </a>
-					            <ul class="dropdown-menu">
+					            <ul class="dropdown-menu" style="width:100%">
 					              <!--<li class="header">You have 10 notifications</li>-->
 					              <li>
 					                <!-- inner menu: contains the actual data -->
@@ -167,12 +171,12 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 					              <li class="footer"><a href="<?= Yii::$app->urlManager->createUrl(['game/chat']) ?>">View all</a></li>
 					            </ul>
 		                	</li>
-		                	<li id='header_alert' class="dropdown alert-menu">
-					            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                	<li class="dropdown tasks-menu">
+					            <a href="#" id='header_alert' class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 					              	<i class="fa fa fa-flag-o"></i>
 					              	<span class="label label-danger">4</span>
 					            </a>
-					            <ul class="dropdown-menu">
+					            <ul class="dropdown-menu" style="width:100%">
 					              <!--<li class="header">You have 10 notifications</li>-->
 					              <li>
 					                <!-- inner menu: contains the actual data -->
