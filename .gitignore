@@ -3,4 +3,6 @@ web/assets/
 .project
 .buildpath
 config/db.php
+config/db_srv.php
 temp.txt
+config/db_local.php

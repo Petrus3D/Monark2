@@ -76,11 +76,10 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
                         </li>
                     </ul>
                 </li>
-                <!-- User Account: style can be found in dropdown.less -->
                 
-                <li>
+                <!--<li>
                     <a href="#" data-toggle="control-sidebar"><i class="fa fa-plus"></i></a>
-                </li>
+                </li>-->
            	</ul>
         </div>
         	<?php if(isset(Yii::$app->session['Game']) && Yii::$app->session['MapData'] != null): ?>           	        
