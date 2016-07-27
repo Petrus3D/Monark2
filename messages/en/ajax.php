@@ -33,6 +33,7 @@ return [
 	'Text_Buy_To_Recruit'		=> 'Recruit unit',
 	'Text_Build_In_Land'		=> 'Build in',
 	'Text_Build_Able_Land'		=> 'Possible constructions in',
+	'Text_Build_Other'			=> 'Build another',
 	'Text_Land_Nothing_To_Build'=> 'Nothing to build',
 		
 	/* Buttons */

@@ -2,6 +2,8 @@
 
 namespace app\classes;
 
+use Yii;
+
 /**
  * 
  * @author Paul
@@ -33,7 +35,11 @@ class ResourceClass{
 	}
 	
 	public function getResourceName(){
-		return $this->resourceName;
+		return Yii::t('resource', $this->resourceName);
+	}
+	
+	public function getResourceDescription(){
+		return Yii::t('resource', $this->resourceDescription);
 	}
 	
 	public function getResourceFreq(){

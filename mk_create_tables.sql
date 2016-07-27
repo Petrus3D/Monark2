@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 27 Juillet 2016 à 18:48
+-- Généré le :  Mer 27 Juillet 2016 à 19:06
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `buy` (
   `buy_units_nb` int(11) NOT NULL,
   `buy_build_id` int(11) NOT NULL,
   PRIMARY KEY (`buy_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Contenu de la table `buy`
@@ -129,7 +129,12 @@ INSERT INTO `buy` (`buy_id`, `buy_user_id`, `buy_turn_id`, `buy_game_id`, `buy_u
 (10, 269, 65, 20, 5, 0),
 (11, 269, 65, 20, 10, 0),
 (12, 269, 65, 20, 0, 2),
-(13, 269, 65, 20, 0, 5);
+(13, 269, 65, 20, 0, 5),
+(14, 269, 65, 20, 0, 5),
+(15, 269, 65, 20, 0, 2),
+(16, 269, 65, 20, 0, 1),
+(17, 269, 65, 20, 0, 2),
+(18, 269, 65, 20, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -749,10 +754,10 @@ CREATE TABLE IF NOT EXISTS `game_data` (
 INSERT INTO `game_data` (`game_data_id`, `game_data_game_id`, `game_data_user_id`, `game_data_user_id_base`, `game_data_land_id`, `game_data_units`, `game_data_capital`, `game_data_resource_id`, `game_data_buildings`) VALUES
 (1, 20, 269, 0, 1, 3, 0, 3, ''),
 (2, 20, 269, 0, 2, 3, 0, 0, ''),
-(3, 20, 269, 0, 3, 4, 0, 3, ''),
+(3, 20, 269, 0, 3, 4, 0, 3, '5;2'),
 (4, 20, 269, 0, 4, 3, 0, 0, ''),
 (5, 20, 269, 0, 5, 4, 0, 3, ''),
-(6, 20, 269, 0, 6, 4, 0, 3, ''),
+(6, 20, 269, 0, 6, 4, 0, 3, '1'),
 (7, 20, 269, 0, 7, 3, 0, 0, ''),
 (8, 20, 269, 0, 8, 4, 0, 0, ''),
 (9, 20, 269, 0, 9, 3, 0, 0, ''),
@@ -764,7 +769,7 @@ INSERT INTO `game_data` (`game_data_id`, `game_data_game_id`, `game_data_user_id
 (15, 20, 0, 0, 15, 4, 0, 0, ''),
 (16, 20, 268, 268, 16, 6, 268, 0, '1'),
 (17, 20, 0, 0, 17, 4, 0, 0, ''),
-(18, 20, 269, 0, 18, 4, 0, 0, ''),
+(18, 20, 269, 0, 18, 4, 0, 0, '2;1'),
 (19, 20, 0, 0, 19, 4, 0, 0, ''),
 (20, 20, 0, 0, 20, 3, 0, 0, ''),
 (21, 20, 0, 0, 21, 3, 0, 3, ''),
@@ -1171,9 +1176,9 @@ CREATE TABLE IF NOT EXISTS `resource` (
 --
 
 INSERT INTO `resource` (`resource_id`, `resource_name`, `resource_freq`, `resource_img`, `resource_building_id`, `resource_description`) VALUES
-(1, 'Or', 5, 'gold', 3, 'Exploitable avec : Mine d''or <br>\r\nBonus : gros avantage sur le revenu si exploitée'),
-(2, 'Argent', 12, 'silver', 4, 'Exploitable avec : Mine d''argent <br>\r\nBonus : avantage sur le revenu si exploité'),
-(3, 'Bronze', 25, 'iron', 5, 'Exploitable avec : Mine de bronze <br>\r\nBonus : léger avantage sur le revenu si exploité');
+(1, 'gold', 5, 'gold', 3, 'gold_description'),
+(2, 'silver', 12, 'silver', 4, 'silver_description'),
+(3, 'iron', 25, 'iron', 5, 'iron_description');
 
 -- --------------------------------------------------------
 
@@ -1273,7 +1278,7 @@ INSERT INTO `turn` (`turn_id`, `turn_game_id`, `turn_user_id`, `turn_time`, `tur
 (62, 20, 268, 1469559865, 1468865954, 5, 5, 2),
 (63, 20, 64, 1469564545, 1468866691, 22, 22, 2),
 (64, 20, 270, 1469564545, 1468866691, 22, 22, 2),
-(65, 20, 269, 1469564552, 1, 80, 122, 12);
+(65, 20, 269, 1469564552, 1, 59, 122, 12);
 
 -- --------------------------------------------------------
 
