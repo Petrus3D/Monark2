@@ -101,7 +101,8 @@ class Move extends \yii\db\ActiveRecord
     			// Land check TODO CHECK FRONTIER
     			if($this->gameData[$this->land_id_from]->getGameDataUserId() == $this->user->getUserID()
     			   && $this->gameData[$this->land_id_to]->getGameDataUserId() == $this->user->getUserID()
-    				&& $this->units > 0){
+    				&& $this->units > 0
+    				 && isset($this->frontierData[$this->land_id_to])){
     				return true;
     			}else{
     				return "Error";

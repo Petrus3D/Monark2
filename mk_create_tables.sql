@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 27 Juillet 2016 à 19:06
+-- Généré le :  Mer 27 Juillet 2016 à 20:56
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -109,6 +109,7 @@ CREATE TABLE IF NOT EXISTS `buy` (
   `buy_game_id` int(11) NOT NULL,
   `buy_units_nb` int(11) NOT NULL,
   `buy_build_id` int(11) NOT NULL,
+  `buy_time` int(12) NOT NULL,
   PRIMARY KEY (`buy_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
@@ -116,25 +117,25 @@ CREATE TABLE IF NOT EXISTS `buy` (
 -- Contenu de la table `buy`
 --
 
-INSERT INTO `buy` (`buy_id`, `buy_user_id`, `buy_turn_id`, `buy_game_id`, `buy_units_nb`, `buy_build_id`) VALUES
-(1, 268, 58, 20, 10, 0),
-(2, 268, 58, 20, 30, 0),
-(3, 268, 58, 20, 50, 0),
-(4, 268, 58, 20, 11, 0),
-(5, 268, 58, 20, 11, 0),
-(6, 268, 58, 20, 4, 0),
-(7, 269, 65, 20, 10, 0),
-(8, 269, 65, 20, 5, 0),
-(9, 269, 65, 20, 5, 0),
-(10, 269, 65, 20, 5, 0),
-(11, 269, 65, 20, 10, 0),
-(12, 269, 65, 20, 0, 2),
-(13, 269, 65, 20, 0, 5),
-(14, 269, 65, 20, 0, 5),
-(15, 269, 65, 20, 0, 2),
-(16, 269, 65, 20, 0, 1),
-(17, 269, 65, 20, 0, 2),
-(18, 269, 65, 20, 0, 1);
+INSERT INTO `buy` (`buy_id`, `buy_user_id`, `buy_turn_id`, `buy_game_id`, `buy_units_nb`, `buy_build_id`, `buy_time`) VALUES
+(1, 268, 58, 20, 10, 0, 0),
+(2, 268, 58, 20, 30, 0, 0),
+(3, 268, 58, 20, 50, 0, 0),
+(4, 268, 58, 20, 11, 0, 0),
+(5, 268, 58, 20, 11, 0, 0),
+(6, 268, 58, 20, 4, 0, 0),
+(7, 269, 65, 20, 10, 0, 0),
+(8, 269, 65, 20, 5, 0, 0),
+(9, 269, 65, 20, 5, 0, 0),
+(10, 269, 65, 20, 5, 0, 0),
+(11, 269, 65, 20, 10, 0, 0),
+(12, 269, 65, 20, 0, 2, 0),
+(13, 269, 65, 20, 0, 5, 0),
+(14, 269, 65, 20, 0, 5, 0),
+(15, 269, 65, 20, 0, 2, 0),
+(16, 269, 65, 20, 0, 1, 0),
+(17, 269, 65, 20, 0, 2, 0),
+(18, 269, 65, 20, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -755,12 +756,12 @@ INSERT INTO `game_data` (`game_data_id`, `game_data_game_id`, `game_data_user_id
 (1, 20, 269, 0, 1, 3, 0, 3, ''),
 (2, 20, 269, 0, 2, 3, 0, 0, ''),
 (3, 20, 269, 0, 3, 4, 0, 3, '5;2'),
-(4, 20, 269, 0, 4, 3, 0, 0, ''),
+(4, 20, 269, 0, 4, 2, 0, 0, ''),
 (5, 20, 269, 0, 5, 4, 0, 3, ''),
-(6, 20, 269, 0, 6, 4, 0, 3, '1'),
+(6, 20, 269, 0, 6, 5, 0, 3, '1'),
 (7, 20, 269, 0, 7, 3, 0, 0, ''),
-(8, 20, 269, 0, 8, 4, 0, 0, ''),
-(9, 20, 269, 0, 9, 3, 0, 0, ''),
+(8, 20, 269, 0, 8, 6, 0, 0, ''),
+(9, 20, 269, 0, 9, 1, 0, 0, ''),
 (10, 20, 0, 0, 10, 3, 0, 0, ''),
 (11, 20, 64, 64, 11, 5, 64, 0, '1'),
 (12, 20, 0, 0, 12, 3, 0, 0, ''),
@@ -1105,7 +1106,17 @@ CREATE TABLE IF NOT EXISTS `move` (
   `move_land_id_arrive` int(11) NOT NULL,
   `move_units` int(11) NOT NULL,
   PRIMARY KEY (`move_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Contenu de la table `move`
+--
+
+INSERT INTO `move` (`move_id`, `move_game_id`, `move_user_id`, `move_time`, `move_land_id_from`, `move_land_id_arrive`, `move_units`) VALUES
+(1, 20, 269, 1469644697, 6, 4, 2),
+(2, 20, 269, 1469644819, 4, 6, 3),
+(3, 20, 269, 1469645005, 9, 8, 1),
+(4, 20, 269, 1469645035, 9, 8, 1);
 
 -- --------------------------------------------------------
 

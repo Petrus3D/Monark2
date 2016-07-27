@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\classes\BuyClass;
 
 /**
  * This is the model class for table "buy".
@@ -13,6 +14,7 @@ use Yii;
  * @property integer $buy_game_id
  * @property integer $buy_units_nb
  * @property integer $buy_build_id
+ * @property integer $buy_time
  */
 class Buy extends \yii\db\ActiveRecord
 {
@@ -40,8 +42,8 @@ class Buy extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['buy_user_id', 'buy_turn_id', 'buy_game_id', 'buy_units_nb', 'buy_build_id'], 'required'],
-            [['buy_user_id', 'buy_turn_id', 'buy_game_id', 'buy_units_nb', 'buy_build_id'], 'integer']
+            [['buy_user_id', 'buy_turn_id', 'buy_game_id', 'buy_units_nb', 'buy_build_id', 'buy_time'], 'required'],
+            [['buy_user_id', 'buy_turn_id', 'buy_game_id', 'buy_units_nb', 'buy_build_id', 'buy_time'], 'integer']
         ];
     }
 
@@ -57,6 +59,7 @@ class Buy extends \yii\db\ActiveRecord
             'buy_game_id' => 'Buy Game ID',
             'buy_units_nb' => 'Buy Units Nb',
             'buy_build_id' => 'Buy Build ID',
+        	'buy_time'	=> 'Buy Time',
         ];
     }
 
@@ -121,6 +124,17 @@ class Buy extends \yii\db\ActiveRecord
     
     /**
      * 
+     * @param unknown $game_id
+     * @param unknown $user_id
+     * @param number $count
+     * @return \app\classes\BuyClass
+     */
+    public static function userLastBuy($game_id, $user_id, $count=5){
+    	return new BuyClass(self::find()->where(['buy_game_id' => $game_Id])->andWhere(['buy_user_id' => $user_id])->orderBy(['buy_time' => SORT_ASC])->limit($count));
+    }
+    
+    /**
+     * 
      * @param unknown $user_id
      * @param unknown $turn_id
      * @param unknown $game_id
@@ -135,6 +149,7 @@ class Buy extends \yii\db\ActiveRecord
     			'buy_game_id'   => $game_id,
     			'buy_units_nb' 	=> $units,
     			'buy_build_id'  => $building_id,
+    			'buy_time'  	=> time(),
     	])->execute();
     }
     
