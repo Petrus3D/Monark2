@@ -3,3 +3,4 @@ web/assets/
 .project
 .buildpath
 config/db.php
+temp.txt
