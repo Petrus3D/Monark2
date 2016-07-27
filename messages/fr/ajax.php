@@ -28,6 +28,7 @@ return [
 	'Text_Resource_In_Land'		=> 'Ressources en',
 	'Text_Units'				=> 'Unités',
 	'Text_Owner'				=> 'Propriétaire',
+	'Text_Owner_Player'			=> 'Vous',
 	'Text_Resource'				=> 'Ressource',
 	'Text_Buy_Units_Pending'	=> 'unités présentes',
 	'Text_Buy_To_Recruit'		=> "Troupes à recruter",

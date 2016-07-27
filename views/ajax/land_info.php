@@ -60,7 +60,11 @@ $this->registerCssFile("@web/css/ajax.css");
 					<!-- owner info -->
 					<tr>
 						<td style="padding: 4px;text-align:center;"><font size='3' color="black"> <?= Yii::t('ajax', 'Text_Owner'); ?> : </font><font size='4' color="#<?= $Color[$GamePlayer[$GameData[$land_id]->getGameDataUserId()]->getGamePlayerColorId()]->getColorCSS(); ?>">
-							<?= $UsersData[$GameData[$land_id]->getGameDataUserId()]->getUserName(); ?>
+							<?php if($userLand): ?>
+								<?= Yii::t('ajax', 'Text_Owner_Player'); ?>
+							<?php else: ?>
+							 	<?= $UsersData[$GameData[$land_id]->getGameDataUserId()]->getUserName(); ?>
+							<?php endif; ?>
 						</font></td>
 					</tr>
 					<!-- Resource info -->
@@ -68,7 +72,12 @@ $this->registerCssFile("@web/css/ajax.css");
 						<td style="padding: 4px;text-align:center;"><font size='3' color="black">
 						<?= Yii::t('ajax', 'Text_Resource'); ?> :
 						 <?php if($GameData[$land_id]->getGameDataResourceId() > 0 && $Resource[$GameData[$land_id]->getGameDataResourceId()]->getResourceImage() != ""): ?>
-	                         <?= "<img src='".$Resource[$GameData[$land_id]->getGameDataResourceId()]->getResourceImageUrl()."' height='20px' width='20px'>".$Resource[$GameData[$land_id]->getGameDataResourceId()]->getResourceName(); ?>
+	                         <?= Html::tag('span', "<img src='".$Resource[$GameData[$land_id]->getGameDataResourceId()]->getResourceImageUrl()."' height='20px' width='20px'>".$Resource[$GameData[$land_id]->getGameDataResourceId()]->getResourceName(), [
+					                          'title'=> $Resource[$GameData[$land_id]->getGameDataResourceId()]->getResourceDescription(),
+					                          'data-toggle'=>'tooltip',
+					                          'data-placement' => 'auto',
+					                          'style'=>'text-decoration: none; cursor:pointer;'
+					            ]); ?>
 	                    <?php else: ?>
 	                    	<?= Yii::t('ajax', 'Text_Land_No_Resource'); ?>
 	                    <?php endif; ?>

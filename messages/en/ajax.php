@@ -28,6 +28,7 @@ return [
 	'Text_Resource_In_Land'		=> 'Resources in',
 	'Text_Units'				=> 'Units',
 	'Text_Owner'				=> 'Owner',
+	'Text_Owner_Player'			=> 'You',
 	'Text_Resource'				=> 'Resource',
 	'Text_Buy_Units_Pending'	=> 'units pending',
 	'Text_Buy_To_Recruit'		=> 'Recruit unit',
