@@ -430,8 +430,10 @@ class AjaxController extends Controller
 					'User' => true,
 					'GameData' => true,
 					'CurrentTurnData' => true,
-					'Frontier' => true,
+					'Frontier'	=> true,
 			));
+			
+			$frontierData = Frontier::landHaveFrontierLandArrayId($data['frontierData'], $urlArgsArray['land_id']);
 				
 			return $this->renderPartial('move_begin', [
 					'land_id' 			=> $urlArgsArray['land_id'],
@@ -440,8 +442,7 @@ class AjaxController extends Controller
 					'Land'				=> $data['land'],
 					'GameData'			=> $data['gameData'],
 					'CurrentTurnData'	=> $data['currentTurnData'],
-					'FrontierData'		=> $data['frontierData'],
-					'UserFrontierData'	=> $data['userFrontierData'],
+					'frontierData'		=> $frontierData,
 			]);
 		}
 		return $this->returnError();
@@ -464,9 +465,11 @@ class AjaxController extends Controller
 					'Frontier' => true,
 			));
 				
+			$frontierData = Frontier::landHaveFrontierLandArrayId($data['frontierData'], $urlArgsArray['land_id']);
+			
 			// Move
 			$move = new Move();
-			$move->MoveInit($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData'], $urlArgsArray['land_id_to'], $urlArgsArray['units'], $data['frontierData']);
+			$move->MoveInit($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData'], $urlArgsArray['land_id_to'], $urlArgsArray['units'], $frontierData);
 			$moveError = $move->MoveCheck();
 			if($moveError === true) $move->MoveExec();
 		
@@ -479,8 +482,7 @@ class AjaxController extends Controller
 					'User'				=> $data['user'],
 					'GameData'			=> $data['gameData'],
 					'CurrentTurnData'	=> $data['currentTurnData'],
-					'FrontierData'		=> $data['frontierData'],
-					'UserFrontierData'	=> $data['userFrontierData'],
+					'frontierData'		=> $frontierData,
 			]);
 		}
 		return $this->returnError();

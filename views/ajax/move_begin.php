@@ -48,7 +48,20 @@ $this->registerCssFile("@web/css/ajax.css");
 								<td style="padding: 4px;"><font size='4'><?= Yii::t('ajax', 'Text_Move_Able_Land'); ?> : </font></td>
 							</tr>
 							<?php $i = 0; ?>
-							
+							<?php foreach($frontierData as $frontier_land_id): ?>
+								<?php if($frontier_land_id > 0 && $GameData[$frontier_land_id]->getGameDataUserId() == $User->getId()): ?>
+									<tr>
+										<td><font size='3' color="black">
+											<?= $Land[$frontier_land_id]->getLandName() ?> (<?= $GameData[$frontier_land_id]->getGameDataUnits() ?>)</font>
+										</td>
+										<td><font size='3' color="black">
+									       <?= "<a href='#StartMove' class='move_action_link btn btn-warning' i='".$land_id."' to_i='".$frontier_land_id."' style='text-decoration:none;'>
+											<i class='fa fa-truck'></i> ".Yii::t('ajax', 'Button_Move_Click')." ".$Land[$frontier_land_id]->getLandName()." </a>"; ?> 
+							            </font>   
+							       	</td></tr>
+							    	<?php $i++; ?> 
+					            <?php endif; ?>
+				        	<?php endforeach; ?>
 				            <?php if($i == 0): ?>
 		                    <tr>
 		                    	<td style="padding: 4px;text-align:center;"><font size='3' color="black">

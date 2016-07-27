@@ -1,21 +1,4 @@
-<?php foreach($toBuildArray as $building): ?>
-								<?php if($building->getBuildingId() > 0): ?>
-									<tr><td><font size='3' color="black">
-											<?= $building->getBuildingImg() ?>
-											<?= Html::tag('span', $building->getBuildingName()." (".$building->getBuildingCost()." <i class='fa fa-usd'></i>)", [
-								                          'title'=> $building->getBuildingDescription(),
-								                          'data-toggle'=>'tooltip',
-								                          'data-placement' => 'auto',
-								                          'style'=>'text-decoration: none; cursor:pointer;'
-								            ]); ?></td><td>
-									            <?= "<a href='#StartMove' class='move_action_link btn btn-success' i='".$land_id."' to_i='".$building->getBuildingId()."' style='text-decoration:none;'>
-												<i class='fa fa-gavel'></i> ".Yii::t('ajax', 'Button_Land_Build')." ".$building->getBuildingName()." </a>"; ?> 
-							            <?php $i++; ?>    
-							       	</font></td></tr>
-					            <?php endif; ?>
-				        	<?php endforeach; ?>
-					
-                        
+                      
 <div id="menu_top" style="position:fixed;min-width:100%;top:43px;left:0px;text-align:center;">
             <table> 
                 <tr>

@@ -47,6 +47,7 @@ return [
 	'Button_Land_Buy' 			=> 'Recruit',
 	'Button_Land_Atk' 			=> 'Attack',
 	'Button_Land_Move' 			=> 'Move units',
+	'Button_Move_Click' 		=> 'Move to',
 	'Button_Return' 			=> 'Return',
 		
 	/* Error */

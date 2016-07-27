@@ -110,9 +110,9 @@ $this->registerCssFile("@web/css/ajax.css");
 					<tr>
 						<td style="padding: 4px;text-align:center;"><font size='3'>
 							<font color="black"><?= Yii::t('ajax', 'Text_Land_Frontier'); ?> : </font> <br>
-							<?php foreach($landFrontier as $frontierLandId): ?>
-								<font size='3' color="#<?= $Color[$GamePlayer[$GameData[$frontierLandId]->getGameDataUserId()]->getGamePlayerColorId()]->getColorCSS(); ?>">
-									<?= $Land[$frontierLandId]->getLandName(); ?><br>
+							<?php foreach($landFrontier as $frontierLand): ?>
+								<font size='3' color="#<?= $Color[$GamePlayer[$GameData[$frontierLand->getFrontierLandIdTwo()]->getGameDataUserId()]->getGamePlayerColorId()]->getColorCSS(); ?>">
+									<?= $Land[$frontierLand->getFrontierLandIdTwo()]->getLandName(); ?><br>
 								</font>
 							<?php endforeach; ?>
 						</font></td>

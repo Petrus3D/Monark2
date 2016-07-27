@@ -39,13 +39,14 @@ $(document).on("click", ".build_action_link", function(){
 $(document).on("click", ".move_link", function(){
 	$(".move_link").html("...");
 	var land_id = $(this).attr("i");
-	CallAjaxMethod("movebegin", {"land_id":land_id}, {'title': " Deplacer des troupes", 'title_with_land_name' : true}, land_id);
+	CallAjaxMethod("movebegin", {"land_id":land_id}, {'title': " Déplacer des troupes", 'title_with_land_name' : true}, land_id);
 });
 // action
 $(document).on("click", ".move_action_link", function(){
 	$(".build_action_link").html("...");
 	var land_id = $(this).attr("i");
-	var building_id = $(this).attr("building_i");
-	CallAjaxMethod("moveaction", {"land_id":land_id, 'building_id':building_id}, {'title': " Construction en cours...", 'title_with_land_name' : true}, land_id);
+	var land_id_to = $(this).attr("to_i");
+	var units = $("#input_select_unit_number").val();
+	CallAjaxMethod("moveaction", {"land_id":land_id, 'land_id_to':land_id_to, 'units':units}, {'title': " Déplacement en cours...", 'title_with_land_name' : true}, land_id);
 });
 
