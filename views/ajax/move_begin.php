@@ -9,7 +9,6 @@ $this->registerCssFile("@web/css/ajax.css");
 ?>
 <div class="move-view-ajax">
 	<?php $userTurn 	= $CurrentTurnData->getTurnUserId() == $User->getId();?>
-	<?php $toMoveArray  = ""; ?>
 	<?php $land_units 	= Land::LandCountUnitsToArray($GameData[$land_id]->getGameDataUnits()); ?>
 	<?php if($userTurn): ?>
 		<?php if($GameData[$land_id]->getGameDataUnits() > 1): ?>
