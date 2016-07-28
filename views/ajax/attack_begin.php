@@ -34,7 +34,7 @@ $this->registerCssFile("@web/css/ajax.css");
 				</tr>
 				<tr>
 					<td>
-					<table style="text-align:center;">
+					<table class="list-spaced" style="text-align:center;">
 							<tr>
 								<td style="padding: 4px;"><font size='4'><?= Yii::t('ajax', 'Text_Atk_Able_Land'); ?></font></td>
 								<td style="padding: 4px;"><font size='4'><?= Yii::t('ajax', 'Text_Atk_Units_NB'); ?></font></td>
@@ -46,7 +46,7 @@ $this->registerCssFile("@web/css/ajax.css");
 										<td><font size='3' color="black">
 											<?= $Land[$frontier_land_id]->getLandName() ?> (<?= $GameData[$frontier_land_id]->getGameDataUnits() ?>)</font>
 										</td>
-										<td id="td-select_unit_number" style="padding: 4px;">
+										<td id="td-select_unit_number">
 											<input style="color: #C0C0C0;" type="number" id="input_select_unit_number" name="input_select_unit_number" 
 											value=<?= "'".($GameData[$frontier_land_id]->getGameDataUnits() - 1)."'" ?> min="1" 
 											max=<?= "'".($GameData[$frontier_land_id]->getGameDataUnits() - 1)."'" ?> >

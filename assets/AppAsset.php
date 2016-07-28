@@ -22,6 +22,7 @@ class AppAsset extends AssetBundle
     		'css/AdminLTE.min.css',
     		'css/all-skins.min.css',
     		'css/site.css',
+    		'css/ajax.css',
     ];
     public $js = [
     		'js/app.min.js',
