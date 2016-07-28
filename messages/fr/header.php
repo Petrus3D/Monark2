@@ -45,6 +45,7 @@ return [
 	'Text_Country' => 'Régions',
 	'Text_Units' => 'Unités',
 	'Text_Turn_Own' => 'Temps restant',
+	'Text_Turn_Lenght' => 'Durée du tour',
 	'Text_Turn_Finished' => 'Tour terminé',
 	'Text_Turn_Other' 	=> 'Patientez, tour de',
 	'Text_Your_turn'	=>  "C'est votre tour !",

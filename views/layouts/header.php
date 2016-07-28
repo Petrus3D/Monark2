@@ -12,6 +12,15 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 <header class="main-header">
 
     <?= Html::a('<span class="logo-mini">' . Yii::$app->name['short'] . '</span><span class="logo-lg">' . Yii::$app->name['name'] . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+	
+	<?php 
+		// Time gestion
+		$diff = time() - Yii::$app->session['MapData']['CurrentTurnData']->getTurnTime();
+		gmdate("H:i:s", (time() - Yii::$app->session['MapData']['CurrentTurnData']->getTurnTime()));
+		if($diff < 60){				$turn_length = gmdate("s", $diff)." s";
+		}elseif($diff < 60 * 60){ 	$turn_length = gmdate("i:s", $diff);	
+		}else{						$turn_length = gmdate("H:i:s", $diff);}
+	?>
 
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -98,15 +107,24 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
             		<ul class="nav navbar-nav">
 	                	<!-- User Account: style can be found in dropdown.less -->
 					 		<li id='turn' class="header_game_content">
-							    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;padding:0px;top:8px;">
 		                		<?php if(Yii::$app->session['MapData']['CurrentTurnData']->getTurnUserId() == Yii::$app->session['User']->getUserID()): ?>
-						          		<?= Yii::t('header', 'Text_Your_turn') ?>
-						          		<span id='end_of_turn_link' class="btn btn-success">	
-						          			<?= Yii::t('header', 'Button_Turn_Own') ?> 
-						          		</span>
+						        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;top:6px;padding:0px;">	
+					          		<span class="btn btn-info">	
+					          			<?= Yii::t('header', 'Text_Turn_Lenght') ?> : <span id="turn_length"><?= $turn_length ?></span> 
+					          		</span>&nbsp;&nbsp;
+					          		<span class="btn btn-success">
+					          			<font size="4"><?= Yii::t('header', 'Text_Your_turn') ?></font>
+					          		</span>&nbsp;&nbsp;
+					          		<span id='end_of_turn_link' class="btn btn-success">	
+					          			<?= Yii::t('header', 'Button_Turn_Own') ?> 
+					          		</span>
 						        <?php else: ?>
-						        	<span>
-						        		<font size='3' color='white'><?= Yii::t('header', 'Text_Turn_Other') ?> </font>
+						        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;top:6px;padding:0px;">
+						        	<span id='turn_length' class="btn btn-info">	
+					          			<?= Yii::t('header', 'Text_Turn_Lenght') ?> : <span id="turn_length"><?= $turn_length ?></span> 
+					          		</span>&nbsp;&nbsp;
+						        	<span class="btn btn-info">
+						        		<font size="4">&nbsp;&nbsp;<?= Yii::t('header', 'Text_Turn_Other') ?></font>
 	    								<font size='4' color='#<?=Yii::$app->session['Color'][Yii::$app->session['MapData']['GamePlayer'][Yii::$app->session['MapData']['CurrentTurnData']->getTurnUserId()]->getGamePlayerColorId()]->getColorCss()?>'>
 	            							<?=Yii::$app->session['MapData']['UserData'][Yii::$app->session['MapData']['GamePlayer'][Yii::$app->session['MapData']['CurrentTurnData']->getTurnUserId()]->getGamePlayerUserId()]->getUserName()?>
 	            						</font>

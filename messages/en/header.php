@@ -45,6 +45,7 @@ return [
     'Text_Country' => 'Countries',
     'Text_Units' => 'Units',
     'Text_Turn_Own' => 'Remaining time',
+	'Text_Turn_Lenght' => 'Turn length',
     'Text_Turn_Finished' => 'Turn finished',
     'Text_Turn_Other' => 'Please wait, turn of',
 	'Text_Your_turn'	=>  "It's your turn !",
