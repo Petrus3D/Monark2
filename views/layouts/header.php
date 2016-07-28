@@ -17,7 +17,7 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 		// Time gestion
 		$diff = time() - Yii::$app->session['MapData']['CurrentTurnData']->getTurnTime();
 		gmdate("H:i:s", (time() - Yii::$app->session['MapData']['CurrentTurnData']->getTurnTime()));
-		if($diff < 60){				$turn_length = gmdate("s", $diff)." s";
+		if($diff < 60){				$turn_length = gmdate("s", $diff);
 		}elseif($diff < 60 * 60){ 	$turn_length = gmdate("i:s", $diff);	
 		}else{						$turn_length = gmdate("H:i:s", $diff);}
 	?>
@@ -120,7 +120,7 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 					          		</span>
 						        <?php else: ?>
 						        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;top:6px;padding:0px;">
-						        	<span id='turn_length' class="btn btn-info">	
+						        	<span class="btn btn-info">	
 					          			<?= Yii::t('header', 'Text_Turn_Lenght') ?> : <span id="turn_length"><?= $turn_length ?></span> 
 					          		</span>&nbsp;&nbsp;
 						        	<span class="btn btn-info">
