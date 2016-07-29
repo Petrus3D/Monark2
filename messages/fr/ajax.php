@@ -45,6 +45,7 @@ return [
 	'Text_Atk_Able_Land'		=> 'Pays attaquants possibles',
 	'Text_Atk_Units_NB'			=> 'Unités à mobiliser',
 	'Text_Land_Nothing_To_Build'=> 'Rien à construire',
+	'Text_Not_Owner'			=> "Vous n'êtes pas le propriétaire",
 		
 	/* Buttons */
 	'Button_Land_Build' 		=> 'Construire',
