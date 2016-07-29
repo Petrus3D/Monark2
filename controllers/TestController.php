@@ -18,11 +18,11 @@ class TestController extends Controller
                 'only' => ['mdp', 'username', 'newturn', 'generateallcolors'],
                 'rules' => [
                     [
-                        'allow' => true, // have access (true to generateallcolors)
+                        'allow' => false, // have access (true to generateallcolors)
                         'roles' => ['@'], // Connected
                     ],
                     [
-                        'allow' => true, // No access (true to generateallcolors)
+                        'allow' => false, // No access (true to generateallcolors)
                         'roles'=>['?'], // Guests
                     ],
                 ],
