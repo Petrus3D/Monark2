@@ -78,7 +78,7 @@ class AjaxController extends Controller
      * @param unknown $dataList
      * @return \app\classes\GameClass[]|\app\models\User[]|NULL[]|\app\classes\ResourceClass[][]|\app\models\NULL[]|\app\classes\ColorClass[]|\app\models\Continent[][]|\app\models\Land[][]|\app\classes\TurnClass[]|\app\models\number[][]|Session[]
      */
-    public function getData($dataList){
+    private function getData($dataList){
 		$returned = array();
 
     	if($dataList['game_id'] === true){
