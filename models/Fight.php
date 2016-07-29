@@ -145,13 +145,66 @@ class Fight extends \yii\db\ActiveRecord
     {
     	$fight = new Fight();
     	$fight->FightStart();
+    	$data = $fight->FightResult();
     	
-    	GameData::updateUnitsGameData($this->game->getGameId(), $this->land_id_atk, $this->futur_units);
+    	// Calc
+    	if($data['conquest'] == 1){
+    		$atk_final_units 		= $this->gameData[$data['atk_land_id']]->getGameDataUnits() - $data['atk_engage_units'];
+    		$def_final_units 		= $data['atk_result_units'];
+    		$def_land_final_user_id	= $this->gameData[$data['atk_land_id']]->getGameDataUserId();
+    	}else{
+    		$atk_final_units 		= $this->gameData[$data['atk_land_id']]->getGameDataUnits() - $data['atk_result_units'];
+    		$def_final_units 		= $this->gameData[$data['def_land_id']]->getGameDataUnits() - $data['def_result_units'];
+    		$def_land_final_user_id	= $this->gameData[$data['def_land_id']]->getGameDataUserId();
+    	}
+    	
+    	
+    	GameData::updateUnitsGameData($this->game->getGameId(), $data['atk_land_id'], $atk_final_units);
     
-    	GameData::updateUnitsGameData($this->game->getGameId(), $this->land_id_def, $this->futur_units);
+    	GameData::updateUnitsGameData($this->game->getGameId(), $data['def_land_id'], $data['def_result_units']);
     
+    	GameData::updateUserIdGameData($this->game->getGameId(), $data['def_land_id'], $def_land_final_user_id);
+    	
     	// insert fight data
-    	//self::insertBuyLog($this->user->getUserID(), $this->turn->getTurnId(), $this->game->getGameId(), $this->land_id, $this->units, 0);
+		self::insertFightLog(
+				$this->game->getGameId(),
+				$this->gameData[$data['atk_land_id']]->getGameDataUserId(),
+				$this->gameData[$data['def_land_id']]->getGameDataUserId(),
+				$data['atk_land_id'],
+				$data['def_land_id'],
+				$atk_lost_unit,
+				$def_lost_unit,
+				$atk_units,
+				$def_units,
+				$atk_nb_units,
+				$def_nb_units,
+				$data['thimble_atk'],
+				$data['thimble_def'],
+				$this->turn->getTurnId(),
+				$data['conquest']
+		);
+    }
+    
+    
+    public static function insertFightLog($game_id, $atk_user_id, $def_user_id, $atk_land_id, $def_land_id, $atk_lost_unit, $def_lost_unit, $atk_units, $def_units, $atk_nb_units, $def_nb_units, $thimble_atk, $thimble_def, $turn_id, $conquest){
+    	return Yii::$app->db->createCommand()->insert(self::tableName(), [
+    			'fight_game_id'			=> $game_id,
+    			'fight_atk_user_id'		=> $atk_user_id,
+    			'fight_def_user_id'		=> $def_user_id,
+    			'fight_atk_land_id'		=> $atk_land_id,
+    			'fight_def_land_id'		=> $def_land_id,
+    			'fight_atk_lost_unit'	=> $atk_lost_unit,
+    			'fight_def_lost_unit'	=> $def_lost_unit,
+    			'fight_atk_units'		=> $atk_units,
+    			'fight_def_units'		=> $def_units,
+    			'fight_atk_nb_units'	=> $atk_nb_units,
+    			'fight_def_nb_units'	=> $def_nb_units,
+    			'fight_thimble_atk'		=> $thimble_atk,
+    			'fight_thimble_def'		=> $thimble_def,
+    			'fight_time'			=> time(),
+    			'fight_turn_id'			=> $this->turn,
+    			'fight_conquest'		=> $conquest,
+    	])->execute();
     }
     
     /**

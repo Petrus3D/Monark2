@@ -14,6 +14,44 @@ use app\models\Fight;
 class Fight
 {
 
+	private $gameData;
+	private $atk_max_units;
+	private $def_max_units;
+	private $bonus_fort;
+	private $bonus_camp;
+	private $camp_build_id;
+	private $fort_build_id;
+	private $conquest;
+	private $atk_land_id;
+	private $atk_user_id;
+	private $atk_units_origin;
+	private $atk_units;
+	private $atk_current_units;
+	private $atk_have_camp;
+	private $atk_max_unit;
+	private $atk_max_unit_final;
+	private $def_land_id ;
+	private $def_user_id;
+	private $def_units_origin;
+	private $def_units;
+	private $def_current_units;
+	private $def_have_camp;
+	private $def_max_unit;
+	private $def_max_unit_final;
+	private $fight_nb;
+	private $atk_thimble_form;
+	private $def_thimble_form;
+	
+	private $atk_thimble_array;
+	private $def_thimble_array;
+	private $atk_fighting_units;
+	private $def_fighting_units;
+	private $atk_thimble_form;
+	private $def_thimble_form;
+	private $atk_units_form;
+	private $def_units_form;
+	
+	
 	public function FightInformations($atk_land_id, $def_land_id, $atk_units, $game_data)
     {
 		// Initialization
@@ -24,12 +62,14 @@ class Fight
     	$this->bonus_camp			= Fight::$CampBonusUnits;
     	$this->camp_build_id 		= Building::$CampId;
     	$this->fort_build_id 		= Building::$FortId;
+    	$this->conquest				= 0;
     	
     	// Attaker
     	$this->atk_land_id 			= $atk_land_id;
     	$this->atk_user_id 			= $this->gameData[$this->atk_land_id]->getGameDataUserId();
     	$this->atk_units_origin 	= $atk_units;
     	$this->atk_units 			= $this->atk_units_origin;
+    	$this->atk_current_units	= $this->atk_units;
     	$this->atk_have_camp		= (in_array($this->camp_build_id, $this->gameData[$this->atk_land_id]->getGameDataBuildings()))? true : false;
     	$this->atk_max_unit			= ($this->atk_units >= $this->atk_max_units)? $this->atk_max_units : $this->atk_units;
     	$this->atk_max_unit_final	= $this->atk_have_camp*$this->bonus_camp + $this->atk_max_units;
@@ -38,191 +78,163 @@ class Fight
     	$this->def_land_id 			= $def_land_id;
     	$this->def_user_id 			= $this->gameData[$this->def_land_id]->getGameDataUserId();
     	$this->def_units_origin 	= $this->gameData[$this->def_land_id]->getGameDataUnits();
-    	$this->def_units 			= $this->atk_units_origin;
+    	$this->def_units 			= $this->def_units_origin;
+    	$this->def_current_units	= $this->def_units;
     	$this->def_have_camp		= (in_array($this->fort_build_id, $this->gameData[$this->def_land_id]->getGameDataBuildings()))? true : false;
     	$this->def_max_unit			= ($this->def_units >= $this->def_max_units)? $this->def_max_units : $this->def_units;
     	$this->def_max_unit_final	= $this->buildings_of_def_user*$this->bonus_fort + $this->def_max_units;
     	
     	// Init fight
-    	$this->nb_fight 			= 0;
-    	$this->atk_thimble_form 	= array();
-    	$this->def_thimble_form		= array();
+    	$this->fight_nb 			= 0;
+    	$this->atk_thimble_form 	= "";
+    	$this->def_thimble_form		= "";
     	
       }
 
+    /**
+      * 
+      */
+    private function InitRound(){
+    	$this->atk_thimble_array	= array();
+    	$this->def_thimble_array	= array();
+    	$this->atk_fighting_units	= 0;
+    	$this->def_fighting_units	= 0;
+    	$this->atk_thimble_form		.= "/";
+    	$this->def_thimble_form		.= "/";
+    	$this->atk_units_form		.= "/";
+    	$this->def_units_form		.= "/";
+    }
+    
+    private function setAtkFightingUnits(){
+    	if($this->atk_current_units > $this->max_unit_atk){
+    		$this->atk_fighting_units = $this->max_unit_atk;
+    	}else{
+    		$this->atk_fighting_units = $this->atk_current_units;
+    	}
+    }
+    
+    private function setDefFightingUnits(){
+    	if($this->def_current_units > $this->max_unit_def){
+    		$this->def_fighting_units = $this->max_unit_def;
+    	}else{
+    		$this->def_fighting_units = $this->def_current_units;
+    	}
+    }
+    
+    /**
+     * 
+     * @param unknown $thimble_array
+     * @param unknown $thimble_form
+     * @return string
+     */
+    private function setThimbleForm($thimble_array, $thimble_form){
+    	foreach($thimble_array as $thimble){
+    		$thimble_form.= $thimble.";";
+    	}
+    	return $thimble_form;
+    }
+    
+    /**
+     * 
+     * @param unknown $fightingUnits
+     */
+    private function setThimble($fightingUnits){
+    	$returned = array();
+    	for($i=0; $i < $fightingUnits; $i++){
+    		array_push($returned, rand(1, 6));
+    	}
+    	return $returned;
+    }
+    
+    private function startFight($atk, $def){
+    	if($atk > $def && $atk[$i] !="" && $def !="")
+    	{
+    		$this->def_current_units--;
+    	}else{
+    		$this->atk_current_units--;
+    	}
+    }
+    
+    private function setWin(){
+    	if($this->def_current_units == 0){
+    		$this->conquest = 1;
+    	}else{
+    		$this->conquest = 0;
+    	}
+    }
+    
+    /**
+     * 
+     */
     public function FightStart()
     {
-    	
-
     	/* Boucle qui se terminera quand un des camps aura perdu */
     	while($this->atk_current_units > 0 && $this->def_current_units > 0)
     	{
-    		/* Initialisation */
-    		$this->atk_thimble_array	= array();
-    		$this->def_thimble_array	= array();
-    		$this->atk_fighting_units	= 0;
-			$this->def_fighting_units	= 0;
-			$this->atk_thimble_form		.= "/";
-			$this->def_thimble_form		.= "/";
-			$this->atk_units_form		.= "/";
-			$this->def_units_form		.= "/";
+    		// Init
+    		$this->InitRound();
+    		
+    		/**
+    		 * Attacker
+    		 */
+    		// Set fighting units
+			$this->setAtkFightingUnits();
 
-    		/* Attaquant */
-    		// On détermine par rapport au max, le nombre d'unités dispo
-    		if($this->atk_current_units > $this->max_unit_atk){
-    		$this->atk_fighting_units = $this->max_unit_atk;}else{
-    		$this->atk_fighting_units = $this->atk_current_units;}
-
-    		// Lancé
-			for($i=0; $i < $this->atk_fighting_units; $i++){array_push($this->atk_thimble_array, rand(1, 6));}
-
-			// Rangement
+    		// Set Atk thimble 
+    		$this->atk_thimble_array = $this->setThimble($this->atk_fighting_units);
+			
+			// Sort thimble
 			rsort($this->atk_thimble_array);	
 
-			
-			/* Défenseur */
-			// On détermine par rapport au max, le nombre d'unités dispo
-    		if($this->def_current_units > $this->max_unit_def){
-    		$this->def_fighting_units = $this->max_unit_def;}else{
-    		$this->def_fighting_units = $this->def_current_units;}
+			/**
+			 * Defender
+			 */
+			// Set fighting units
+    		$this->setDefFightingUnits();
 
-    		// Lancé
-			for($i=0; $i < $this->def_fighting_units; $i++){array_push($this->def_thimble_array, rand(1, 6));}
+    		// Set Def thimble
+    		$this->def_thimble_array = $this->setThimble($this->def_fighting_units);
 
-			// Rangement
+			// Sort thimble
 			rsort($this->def_thimble_array);	
 
+			/**
+			 * Set forms
+			 */
 			// Reg units
 			$this->atk_units_form	.= $this->atk_current_units;
 			$this->def_units_form	.= $this->def_current_units;
 
 			// Reg thimbles
-			for ($i=0; $i < count($this->atk_thimble_array); $i++) { 
-	    		$this->atk_thimble_form.= $this->atk_thimble_array[$i].";";
-		    }
-		    
-		    for ($i=0; $i < count($this->def_thimble_array); $i++) { 
-		    	$this->def_thimble_form.= $this->def_thimble_array[$i].";";
-		    } 
+		    $this->atk_thimble_form = $this->setThimbleForm($this->atk_thimble_array, $this->atk_thimble_form);
+		    $this->def_thimble_form = $this->setThimbleForm($this->def_thimble_array, $this->def_thimble_form);
 
-
-			/* Résultat */
-			$max_fight = min($this->atk_fighting_units, $this->def_fighting_units)-1;
-			// Pour chaque dés
-			for($i=0;$i <= $max_fight; $i++){
-
-				// L'attaquant gagne
-				if($this->atk_thimble_array[$i] > $this->def_thimble_array[$i] 
-					&& $this->atk_thimble_array[$i] !="" 
-					&& $this->def_thimble_array[$i] !=""){
-					$this->def_current_units--;
-				// Le défenseur gagne	
-				}else{
-					$this->atk_current_units--;}
+		    /**
+		     * Fight
+		     */
+			$fight_max = min($this->atk_fighting_units, $this->def_fighting_units)-1;
+			for($i=0;$i <= $fight_max; $i++){
+				$this->startFight($this->atk_thimble_array[$i], $this->def_thimble_array[$i]);
 			}
-
-			$this->nb_fight++;
+			$this->fight_nb++;
     	}
 
-    	if($this->atk_units_form == null){$this->atk_units_form = "";}
-	    if($this->def_units_form == null){$this->def_units_form = "";}
-
-    	// L'attaquant gagne
-    	if($this->def_current_units == 0){
-    		$this->conquest = 1;
-    	}else{
-	    	$this->conquest = 0;
-	    }
-
-    	/* Enregistrement des resultats dans la BD */
-    	//$this->FightUpdate();
-    	// add action
-
+    	/**
+    	 * Result
+    	 */
+    	$this->setWin();
     }
-
-    private function FightUpdate()
-    {
-    	// L'attaquant gagne
-    	if($this->conquest == 1){
-	    	// Attaquant
-	    	$atk_final = $this->atk_land_info['units'] - $this->origin_atk_units;
-	    	Yii::$app->db->createCommand()
-	            ->update("game_data", [
-	            	'units'           	=> $atk_final,
-	            	],[
-	            	'game_id'           => $this->game_id,
-	            	'land_id'           => $this->atk_land_id,
-	            	])
-	            ->execute();
-
-	        // Defenseur
-	    	Yii::$app->db->createCommand()
-	            ->update("game_data", [
-	            	'units'           	=> $this->atk_current_units,
-	            	'user_id'			=> $this->atk_land_info['user_id'],
-	            	],[
-	            	'game_id'           => $this->game_id,
-	            	'land_id'           => $this->def_land_id,
-	            	])
-	            ->execute();
-
-        // Le défenseur gagne
-	    }else{
-	    	// Attaquant
-	    	$atk_final = $this->atk_land_info['units'] - $this->origin_atk_units;
-	    	Yii::$app->db->createCommand()
-	            ->update("game_data", [
-	            	'units'           	=> $atk_final,
-	            	],[
-	            	'game_id'           => $this->game_id,
-	            	'land_id'           => $this->atk_land_id,
-	            	])
-	            ->execute();
-
-	        // Defenseur
-	    	Yii::$app->db->createCommand()
-	            ->update("game_data", [
-	            	'units'           	=> $this->def_current_units,
-	            	],[
-	            	'game_id'           => $this->game_id,
-	            	'land_id'           => $this->def_land_id,
-	            	])
-	            ->execute();
-	    }
-
-	    /* Add in Fight-Data DB */
-	    Yii::$app->db->createCommand()->insert("fight_data", [
-            'game_id'           => $this->game_id,
-            'atk_user_id'		=> $this->atk_land_info['user_id'],
-            'def_user_id'		=> $this->def_land_info['user_id'],
-            'atk_land_id'		=> $this->atk_land_info['land_id'],
-            'def_land_id'		=> $this->def_land_info['land_id'],
-            'atk_lost_unit'		=> $this->atk_units - $this->atk_current_units,
-            'def_lost_unit'		=> $this->def_land_info['units'] - $this->def_current_units,
-            'atk_units'			=> $this->atk_units_form,
-            'def_units'			=> $this->def_units_form,
-            'thimble_atk'		=> $this->atk_thimble_form,
-            'thimble_def'		=> $this->def_thimble_form,
-            'atk_nb_units'		=> $this->atk_units,
-            'def_nb_units'		=> $this->def_base_units,
-            'time'              => time(),
-            'turn_id'			=> $this->current_turn_info['id'],
-            'conquest'			=> $this->conquest,
-        ])->execute();
-    }
-
 
     public function FightResult()
     {
     	return array(
-    		'atk_land_id'		=> $this->atk_land_info['land_id'],
-            'def_land_id'		=> $this->def_land_info['land_id'],
-    		'nb_fight' 			=> $this->nb_fight,
-    		'def_engage_units' 	=> $this->def_land_info['units'], 
+    		'atk_land_id'		=> $this->atk_land_id,
+            'def_land_id'		=> $this->def_land_id,
+    		'fight_nb' 			=> $this->fight_nb,
+    		'def_engage_units' 	=> $this->def_units_origin, 
     		'def_result_units' 	=> $this->def_current_units,
-    		'atk_engage_units' 	=> $this->atk_units, 
+    		'atk_engage_units' 	=> $this->atk_units_origin, 
     		'atk_result_units' 	=> $this->atk_current_units,
-    		//'fight_data_id' 	=> FightData::LastFightGameDataInformations($this->game_id)['id'],
     		'conquest' 			=> $this->conquest,
     		'thimble_atk'		=> $this->atk_thimble_form,
             'thimble_def'		=> $this->def_thimble_form,
