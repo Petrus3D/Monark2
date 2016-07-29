@@ -42,7 +42,7 @@ $this->registerCssFile("@web/css/ajax.css");
 				</tr>
 				<tr>
 					<td>
-					<table style="text-align:center;">
+					<table class="list-spaced" style="text-align:center;">
 							<tr>
 								<td style="padding: 4px;"><font size='4'><?= Yii::t('ajax', 'Text_Move_Able_Land'); ?> : </font></td>
 							</tr>

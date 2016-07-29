@@ -23,10 +23,14 @@ class AppAsset extends AssetBundle
     		'css/all-skins.min.css',
     		'css/site.css',
     		'css/ajax.css',
+    		'css/context.css',
+    		'css/jquery.contextMenu.css',
     ];
     public $js = [
     		'js/app.min.js',
     		'js/utils.js',
+    		'js/jquery.contextMenu.js',
+    		'js/jquery.ui.position.js',
     		'js/json.min.js',
     		'js/game/modals.js',
     		'js/game/anim.js',
