@@ -13,16 +13,7 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 
     <?= Html::a('<span class="logo-mini">' . Yii::$app->name['short'] . '</span><span class="logo-lg">' . Yii::$app->name['name'] . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
 	
-	<?php 
-		// Time gestion
-		$diff = time() - Yii::$app->session['MapData']['CurrentTurnData']->getTurnTime();
-		gmdate("H:i:s", (time() - Yii::$app->session['MapData']['CurrentTurnData']->getTurnTime()));
-		if($diff < 60){				$turn_length = gmdate("s", $diff);
-		}elseif($diff < 60 * 60){ 	$turn_length = gmdate("i:s", $diff);	
-		}else{						$turn_length = gmdate("H:i:s", $diff);}
-	?>
-
-    <nav class="navbar navbar-static-top" role="navigation">
+	<nav class="navbar navbar-static-top" role="navigation">
 
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
@@ -91,7 +82,15 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
                 </li>-->
            	</ul>
         </div>
-        	<?php if(isset(Yii::$app->session['Game']) && Yii::$app->session['MapData'] != null): ?>           	        
+        	<?php if(isset(Yii::$app->session['Game']) && Yii::$app->session['MapData'] != null): ?>
+        	<?php 
+				// Time gestion
+				$diff = time() - Yii::$app->session['MapData']['CurrentTurnData']->getTurnTime();
+				gmdate("H:i:s", (time() - Yii::$app->session['MapData']['CurrentTurnData']->getTurnTime()));
+				if($diff < 60){				$turn_length = gmdate("s", $diff);
+				}elseif($diff < 60 * 60){ 	$turn_length = gmdate("i:s", $diff);	
+				}else{ 						$turn_length = gmdate("H:i:s", $diff);}
+			?>       	        
         		<div id='navbar-menu-game' class="navbar-custom-menu">
             		<?php Pjax::begin(['id' => 'navbar-menu-game-data']); ?>
             		<?php
