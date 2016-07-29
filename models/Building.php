@@ -30,6 +30,9 @@ class Building extends \yii\db\ActiveRecord
 	private $futur_gold;
 	private $futur_buildings;
     
+	public static $FortId = 1;
+	public static $CampId = 2;
+	
     /**
      * @inheritdoc
      */

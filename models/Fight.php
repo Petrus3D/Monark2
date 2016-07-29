@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\classes\Fight;
 
 /**
  * This is the model class for table "fight".
@@ -27,6 +28,23 @@ use Yii;
  */
 class Fight extends \yii\db\ActiveRecord
 {
+	
+	private $land_id_atk;
+	private $user;
+	private $game;
+	private $gameData;
+	private $turn;
+	private $units_atk;
+	private $land_id_def;
+	private $futur_units_atk;
+    private	$futur_units_def;
+    private $buildingData;
+    
+    public static $FortBonusUnits = 1;
+    public static $CampBonusUnits = 1;
+	public static $DefenderMaxUnits = 2;
+	public static $AttakerMaxUnits = 3;
+    
     /**
      * @inheritdoc
      */
@@ -73,6 +91,69 @@ class Fight extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     *
+     * @param unknown $land_id
+     * @param unknown $user
+     * @param unknown $game
+     * @param unknown $gameData
+     * @param unknown $turn
+     * @param unknown $units
+     */
+    public function FightInit($land_id, $user, $game, $gameData, $turn, $buildingData, $land_id_atk, $units_atk){
+    	// Data
+    	$this->land_id_atk 	= $land_id;
+    	$this->land_id_def 	= $land_id_atk;
+    	$this->user 		= $user;
+    	$this->game 		= $game;
+    	$this->gameData 	= $gameData;
+    	$this->turn 		= $turn;
+    	$this->units_atk 	= $units_atk;
+    	$this->buildingData = $buildingData;
+    	
+    	// Calc
+    	$this->futur_units_atk 	= 0;
+    	$this->futur_units_def 	= 0;
+    }
+    
+    /**
+     *
+     * @return string
+     */
+    public function FightCheck(){
+    	// Turn check
+    	if($this->turn->getTurnUserId() == $this->user->getUserID()){
+    		// Land check
+    		// TODO ADD CONQUEST IN TURN CHECK
+    		if($this->gameData[$this->land_id_atk]->getGameDataUserId() == $this->user->getUserID()
+    			&& $this->gameData[$this->land_id_def]->getGameDataUserId() != $this->user->getUserID()
+    			&& isset($this->frontierData[$this->land_id_def])
+    			&& $this->units_atk > 0){
+    				return true;
+    		}else{
+    			return "Error";
+    		}
+    	}else{
+    		return "Error_Turn";
+    	}
+    }
+    
+    /**
+     *
+     */
+    public function FightExec()
+    {
+    	$fight = new Fight();
+    	$fight->FightStart();
+    	
+    	GameData::updateUnitsGameData($this->game->getGameId(), $this->land_id_atk, $this->futur_units);
+    
+    	GameData::updateUnitsGameData($this->game->getGameId(), $this->land_id_def, $this->futur_units);
+    
+    	// insert fight data
+    	//self::insertBuyLog($this->user->getUserID(), $this->turn->getTurnId(), $this->game->getGameId(), $this->land_id, $this->units, 0);
+    }
+    
     /**
      * @inheritdoc
      * @return \app\queries\FightQuery the active query used by this AR class.

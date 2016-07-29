@@ -421,7 +421,14 @@ class AjaxController extends Controller
 					'CurrentTurnData' => true,
 			));
 				
+			// Attack
+			$fight = new Fight();
+			$fight->FightInit($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData'], $urlArgsArray['atk_id'], $urlArgsArray['units']);
+			$fightError = $fight->FightCheck();
+			if($fightError === true) $fight->FightExec();
+			
 			return $this->renderAjax('attack_action', [
+					'error'				=> $fightError,
 					'land_id' 			=> $urlArgsArray['land_id'],
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
