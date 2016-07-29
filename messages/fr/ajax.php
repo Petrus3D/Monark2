@@ -36,7 +36,7 @@ return [
 	'Text_Resource'				=> 'Ressource',
 	'Text_Units_Pending'		=> 'unités présentes',
 	'Text_Buy_To_Recruit'		=> "Troupes à recruter",
-	'Text_Build_In_Land'		=> 'Construit en',
+	'Text_Build_In_Land'		=> 'Construit en', 
 	'Text_Build_Able_Land'		=> 'Constructions possibles en',
 	'Text_Build_Other'			=> 'Construire un autre bâtiment',
 	'Text_Move_Cant'			=> "Pas d'unité à deplacer",
