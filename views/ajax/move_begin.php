@@ -10,7 +10,7 @@ $this->registerCssFile("@web/css/ajax.css");
 <div class="move-view-ajax">
 	<?php $userTurn 	= $CurrentTurnData->getTurnUserId() == $User->getId();?>
 	<?php $land_units 	= Land::LandCountUnitsToArray($GameData[$land_id]->getGameDataUnits()); ?>
-	<?php $landUser 	= $GameData[$land_id]->getGameDataUserId() === $User->getId(); ?>
+	<?php $landUser 	=  $GameData[$land_id]->getGameDataUserId() == $User->getId(); ?>
 	<?php if($landUser): ?>
 		<?php if($userTurn): ?>
 			<?php if($GameData[$land_id]->getGameDataUnits() > 1): ?>

@@ -8,7 +8,7 @@ $this->registerCssFile("@web/css/ajax.css");
 ?>
 <div class="build-view-ajax">
 	<?php $userTurn 	= $CurrentTurnData->getTurnUserId() == $User->getId();?>
-	<?php $landUser 	= $GameData[$land_id]->getGameDataUserId() === $User->getId(); ?>
+	<?php $landUser 	= $GameData[$land_id]->getGameDataUserId() == $User->getId(); ?>
 	<?php if($landUser): ?>
 	<?php $toBuildArray = $GameData[$land_id]->getGameDataBuildingsToBuild($GameData[$land_id]->getGameDataResourceId(), $BuildingData); ?>
 		<?php if($userTurn): ?>

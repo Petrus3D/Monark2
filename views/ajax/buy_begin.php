@@ -8,7 +8,7 @@ $this->registerCssFile("@web/css/ajax.css");
 ?>
 <div class="buy-view-ajax">
 	<?php $userTurn = $CurrentTurnData->getTurnUserId() == $User->getId();?>
-	<?php $landUser 	= $GameData[$land_id]->getGameDataUserId() === $User->getId(); ?>
+	<?php $landUser = $GameData[$land_id]->getGameDataUserId() == $User->getId(); ?>
 	<?php if($landUser): ?>
 		<?php if($userTurn): ?>
 			<?php if($CurrentTurnData->getTurnGold() > 0): ?>
