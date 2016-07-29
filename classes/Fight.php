@@ -240,6 +240,7 @@ class Fight
             'thimble_def'		=> $this->def_thimble_form,
             'atk_units'			=> $this->atk_units_form,
             'def_units'			=> $this->def_units_form,
+    		'def_base_units'	=> $this->def_base_units,
     	);
     }
 } 
