@@ -27,19 +27,19 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `admin` (
-  `admin_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `admin_user_key` varchar(1024) NOT NULL,
-  `admin_user_pwd` varchar(512) NOT NULL,
-  `admin_user_id` int(11) NOT NULL,
-  PRIMARY KEY (`admin_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `admin_id` int(11),  unsigned NOT NULL AUTO_INCREMENT,
+  `admin_user_key` varchar(1024),  NOT NULL,
+  `admin_user_pwd` varchar(512),  NOT NULL,
+  `admin_user_id` int(11),  NOT NULL,
+  PRIMARY KEY (`admin_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Contenu de la table `admin`
 --
 
-INSERT INTO `admin` (`admin_id`, `admin_user_key`, `admin_user_pwd`, `admin_user_id`) VALUES
-(1, 'Wqtp72Kjs8BNhq0j1MCOthPaucmECRssMa+hbrGYhFfZSr1g8r4AnQfnUEF4dHB3s7en7gpCoHq0S6tg2vmMLWa95frY68PEwkO3kmxP0pUAtJ9kxD4eoDRjXI9V/d09|1eKDbYFmTKTW/kZ+qG3sjZfIoniPbt/FCl2M+fBDVsU=', '5Boe1sIs1nt7uz6D6KULL8d7ha2mRUxdYLWq0hN1KaQ=', 67);
+INSERT INTO `admin` (`admin_id`, `admin_user_key`, `admin_user_pwd`, `admin_user_id`),  VALUES
+(1, 'Wqtp72Kjs8BNhq0j1MCOthPaucmECRssMa+hbrGYhFfZSr1g8r4AnQfnUEF4dHB3s7en7gpCoHq0S6tg2vmMLWa95frY68PEwkO3kmxP0pUAtJ9kxD4eoDRjXI9V/d09|1eKDbYFmTKTW/kZ+qG3sjZfIoniPbt/FCl2M+fBDVsU=', '5Boe1sIs1nt7uz6D6KULL8d7ha2mRUxdYLWq0hN1KaQ=', 67), ;
 
 -- --------------------------------------------------------
 
@@ -48,9 +48,9 @@ INSERT INTO `admin` (`admin_id`, `admin_user_key`, `admin_user_pwd`, `admin_user
 --
 
 CREATE TABLE IF NOT EXISTS `alert` (
-  `alert_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`alert_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `alert_id` int(11),  unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`alert_id`),
+),  ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -59,13 +59,13 @@ CREATE TABLE IF NOT EXISTS `alert` (
 --
 
 CREATE TABLE IF NOT EXISTS `ban` (
-  `ban_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `ban_user_id` int(11) NOT NULL,
-  `ban_reason` varchar(512) NOT NULL,
-  `ban_time` int(11) NOT NULL,
-  `ban_end_time` int(11) NOT NULL,
-  PRIMARY KEY (`ban_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `ban_id` int(11),  unsigned NOT NULL AUTO_INCREMENT,
+  `ban_user_id` int(11),  NOT NULL,
+  `ban_reason` varchar(512),  NOT NULL,
+  `ban_time` int(11),  NOT NULL,
+  `ban_end_time` int(11),  NOT NULL,
+  PRIMARY KEY (`ban_id`),
+),  ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -74,27 +74,27 @@ CREATE TABLE IF NOT EXISTS `ban` (
 --
 
 CREATE TABLE IF NOT EXISTS `building` (
-  `building_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `building_name` varchar(128) NOT NULL,
-  `building_cost` int(12) NOT NULL,
-  `building_id_need` int(12) NOT NULL,
-  `building_gold_income` int(12) NOT NULL,
-  `building_petrol_income` int(12) NOT NULL,
-  `building_description` varchar(512) NOT NULL,
-  `building_img` varchar(128) NOT NULL,
-  PRIMARY KEY (`building_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `building_id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `building_name` varchar(128),  NOT NULL,
+  `building_cost` int(12),  NOT NULL,
+  `building_id_need` int(12),  NOT NULL,
+  `building_gold_income` int(12),  NOT NULL,
+  `building_petrol_income` int(12),  NOT NULL,
+  `building_description` varchar(512),  NOT NULL,
+  `building_img` varchar(128),  NOT NULL,
+  PRIMARY KEY (`building_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `building`
 --
 
-INSERT INTO `building` (`building_id`, `building_name`, `building_cost`, `building_id_need`, `building_gold_income`, `building_petrol_income`, `building_description`, `building_img`) VALUES
+INSERT INTO `building` (`building_id`, `building_name`, `building_cost`, `building_id_need`, `building_gold_income`, `building_petrol_income`, `building_description`, `building_img`),  VALUES
 (1, 'fortress', 5, 0, 0, 0, 'fortress_description', 'glyphicon glyphicon-tower'),
 (2, 'training_camp', 4, 0, 0, 0, 'training_camp_description', 'glyphicon glyphicon-tent'),
 (3, 'gold_mine', 8, 1, 3, 0, 'gold_mine_description', 'gold.png'),
 (4, 'silver_mine', 5, 2, 2, 0, 'silver_mine_description', 'silver.png'),
-(5, 'iron_mine', 3, 3, 1, 0, 'iron_mine_description', 'iron.png');
+(5, 'iron_mine', 3, 3, 1, 0, 'iron_mine_description', 'iron.png'), ;
 
 -- --------------------------------------------------------
 
@@ -103,16 +103,16 @@ INSERT INTO `building` (`building_id`, `building_name`, `building_cost`, `buildi
 --
 
 CREATE TABLE IF NOT EXISTS `buy` (
-  `buy_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `buy_user_id` int(11) NOT NULL,
-  `buy_turn_id` int(11) NOT NULL,
-  `buy_game_id` int(11) NOT NULL,
-  `buy_land_id` int(12) NOT NULL,
-  `buy_units_nb` int(11) NOT NULL,
-  `buy_build_id` int(11) NOT NULL,
-  `buy_time` int(12) NOT NULL,
-  PRIMARY KEY (`buy_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `buy_id` int(11),  unsigned NOT NULL AUTO_INCREMENT,
+  `buy_user_id` int(11),  NOT NULL,
+  `buy_turn_id` int(11),  NOT NULL,
+  `buy_game_id` int(11),  NOT NULL,
+  `buy_land_id` int(12),  NOT NULL,
+  `buy_units_nb` int(11),  NOT NULL,
+  `buy_build_id` int(11),  NOT NULL,
+  `buy_time` int(12),  NOT NULL,
+  PRIMARY KEY (`buy_id`),
+),  ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -121,13 +121,13 @@ CREATE TABLE IF NOT EXISTS `buy` (
 --
 
 CREATE TABLE IF NOT EXISTS `chat` (
-  `chat_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `chat_game_id` int(12) NOT NULL,
-  `chat_user_id` int(12) NOT NULL,
-  `chat_message` varchar(256) NOT NULL,
-  `chat_time` int(12) NOT NULL,
-  PRIMARY KEY (`chat_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `chat_id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `chat_game_id` int(12),  NOT NULL,
+  `chat_user_id` int(12),  NOT NULL,
+  `chat_message` varchar(256),  NOT NULL,
+  `chat_time` int(12),  NOT NULL,
+  PRIMARY KEY (`chat_id`),
+),  ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -136,12 +136,12 @@ CREATE TABLE IF NOT EXISTS `chat` (
 --
 
 CREATE TABLE IF NOT EXISTS `chat_read` (
-  `chat_read_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `chat_read_game_id` int(12) NOT NULL,
-  `chat_read_message_id` int(12) NOT NULL,
-  `chat_read_user_id` int(12) NOT NULL,
-  PRIMARY KEY (`chat_read_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `chat_read_id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `chat_read_game_id` int(12),  NOT NULL,
+  `chat_read_message_id` int(12),  NOT NULL,
+  `chat_read_user_id` int(12),  NOT NULL,
+  PRIMARY KEY (`chat_read_id`),
+),  ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -150,23 +150,23 @@ CREATE TABLE IF NOT EXISTS `chat_read` (
 --
 
 CREATE TABLE IF NOT EXISTS `color` (
-  `color_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `color_name` varchar(64) NOT NULL,
-  `color_codeHex` varchar(128) NOT NULL,
-  `color_code` varchar(128) NOT NULL,
-  `color_css` varchar(128) NOT NULL,
-  `color_font_chat` varchar(128) NOT NULL,
-  `color_font_news` varchar(128) NOT NULL,
-  `color_font_other` varchar(128) NOT NULL,
-  `color_hide` int(11) NOT NULL,
-  PRIMARY KEY (`color_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+  `color_id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `color_name` varchar(64),  NOT NULL,
+  `color_codeHex` varchar(128),  NOT NULL,
+  `color_code` varchar(128),  NOT NULL,
+  `color_css` varchar(128),  NOT NULL,
+  `color_font_chat` varchar(128),  NOT NULL,
+  `color_font_news` varchar(128),  NOT NULL,
+  `color_font_other` varchar(128),  NOT NULL,
+  `color_hide` int(11),  NOT NULL,
+  PRIMARY KEY (`color_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Contenu de la table `color`
 --
 
-INSERT INTO `color` (`color_id`, `color_name`, `color_codeHex`, `color_code`, `color_css`, `color_font_chat`, `color_font_news`, `color_font_other`, `color_hide`) VALUES
+INSERT INTO `color` (`color_id`, `color_name`, `color_codeHex`, `color_code`, `color_css`, `color_font_chat`, `color_font_news`, `color_font_other`, `color_hide`),  VALUES
 (1, 'grey', '0x80;0x80;0x80;', '201;201;201;', 'C6C3C5', 'black', 'grey', 'grey', 1),
 (2, 'red', '0xFF;0;0;', '255;0;0;', 'FF7373', 'white', 'red', 'red', 0),
 (3, 'blue', '0;0;0xFF;', '0;0;255;', '2676FF', 'black', 'blue', 'blue', 0),
@@ -177,7 +177,7 @@ INSERT INTO `color` (`color_id`, `color_name`, `color_codeHex`, `color_code`, `c
 (8, 'purple', '0x80;0x00;0x80;', '255;0;219;', 'FF40D3', 'black', 'purple', '#FF63E3', 0),
 (9, 'white', '', '252;255;249;', 'FFFAFA', 'black', 'white', 'white', 0),
 (10, 'turquoise', '', '0;255;230;', '00FFE6', 'black', '#00FFE6', '#00FFE6', 0),
-(11, 'pink', '', '239;0;255;', '00FFE6', 'white', '#EF00FF', '#EF00FF', 0);
+(11, 'pink', '', '239;0;255;', '00FFE6', 'white', '#EF00FF', '#EF00FF', 0), ;
 
 -- --------------------------------------------------------
 
@@ -186,28 +186,28 @@ INSERT INTO `color` (`color_id`, `color_name`, `color_codeHex`, `color_code`, `c
 --
 
 CREATE TABLE IF NOT EXISTS `continent` (
-  `continent_id` int(16) NOT NULL AUTO_INCREMENT,
-  `continent_name` varchar(126) NOT NULL,
-  `continent_bonus` int(16) NOT NULL,
-  `continent_land_id_begin` int(16) NOT NULL,
-  `continent_land_id_end` int(16) NOT NULL,
-  `continent_hide` int(11) NOT NULL,
-  `continent_map_id` int(11) NOT NULL,
-  PRIMARY KEY (`continent_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+  `continent_id` int(16),  NOT NULL AUTO_INCREMENT,
+  `continent_name` varchar(126),  NOT NULL,
+  `continent_bonus` int(16),  NOT NULL,
+  `continent_land_id_begin` int(16),  NOT NULL,
+  `continent_land_id_end` int(16),  NOT NULL,
+  `continent_hide` int(11),  NOT NULL,
+  `continent_map_id` int(11),  NOT NULL,
+  PRIMARY KEY (`continent_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `continent`
 --
 
-INSERT INTO `continent` (`continent_id`, `continent_name`, `continent_bonus`, `continent_land_id_begin`, `continent_land_id_end`, `continent_hide`, `continent_map_id`) VALUES
+INSERT INTO `continent` (`continent_id`, `continent_name`, `continent_bonus`, `continent_land_id_begin`, `continent_land_id_end`, `continent_hide`, `continent_map_id`),  VALUES
 (1, 'Europe', 5, 1, 7, 0, 1),
 (2, 'Asia', 7, 8, 19, 0, 1),
 (3, 'North_America', 5, 20, 28, 0, 1),
 (4, 'South_America', 2, 29, 32, 0, 1),
 (5, 'Africa', 3, 33, 38, 0, 1),
 (6, 'Oceania', 2, 39, 42, 0, 1),
-(7, 'Antarctica', 2, 43, 47, 1, 1);
+(7, 'Antarctica', 2, 43, 47, 1, 1), ;
 
 -- --------------------------------------------------------
 
@@ -216,34 +216,34 @@ INSERT INTO `continent` (`continent_id`, `continent_name`, `continent_bonus`, `c
 --
 
 CREATE TABLE IF NOT EXISTS `difficulty` (
-  `difficulty_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `difficulty_name` varchar(256) NOT NULL,
-  `difficulty_rate_bot_units` int(12) NOT NULL,
-  `difficulty_rate_resources` int(12) NOT NULL,
-  `difficulty_rate_oper` varchar(64) NOT NULL,
-  `difficulty_rate_units_atk` int(12) NOT NULL,
-  `difficulty_rate_units_def` int(12) NOT NULL,
-  `difficulty_rate_atk_frt` int(12) NOT NULL,
-  `difficulty_rate_def_pc` int(12) NOT NULL,
-  `difficulty_rate_exec_atk` int(12) NOT NULL,
-  `difficulty_rate_exec_def` int(12) NOT NULL,
-  `difficulty_rate_exec_build` int(12) NOT NULL,
-  `difficulty_marge_frt` int(12) NOT NULL,
-  `difficulty_marge_pc` int(12) NOT NULL,
-  `difficulty_build_mine` int(12) NOT NULL,
-  PRIMARY KEY (`difficulty_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `difficulty_id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `difficulty_name` varchar(256),  NOT NULL,
+  `difficulty_rate_bot_units` int(12),  NOT NULL,
+  `difficulty_rate_resources` int(12),  NOT NULL,
+  `difficulty_rate_oper` varchar(64),  NOT NULL,
+  `difficulty_rate_units_atk` int(12),  NOT NULL,
+  `difficulty_rate_units_def` int(12),  NOT NULL,
+  `difficulty_rate_atk_frt` int(12),  NOT NULL,
+  `difficulty_rate_def_pc` int(12),  NOT NULL,
+  `difficulty_rate_exec_atk` int(12),  NOT NULL,
+  `difficulty_rate_exec_def` int(12),  NOT NULL,
+  `difficulty_rate_exec_build` int(12),  NOT NULL,
+  `difficulty_marge_frt` int(12),  NOT NULL,
+  `difficulty_marge_pc` int(12),  NOT NULL,
+  `difficulty_build_mine` int(12),  NOT NULL,
+  PRIMARY KEY (`difficulty_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `difficulty`
 --
 
-INSERT INTO `difficulty` (`difficulty_id`, `difficulty_name`, `difficulty_rate_bot_units`, `difficulty_rate_resources`, `difficulty_rate_oper`, `difficulty_rate_units_atk`, `difficulty_rate_units_def`, `difficulty_rate_atk_frt`, `difficulty_rate_def_pc`, `difficulty_rate_exec_atk`, `difficulty_rate_exec_def`, `difficulty_rate_exec_build`, `difficulty_marge_frt`, `difficulty_marge_pc`, `difficulty_build_mine`) VALUES
+INSERT INTO `difficulty` (`difficulty_id`, `difficulty_name`, `difficulty_rate_bot_units`, `difficulty_rate_resources`, `difficulty_rate_oper`, `difficulty_rate_units_atk`, `difficulty_rate_units_def`, `difficulty_rate_atk_frt`, `difficulty_rate_def_pc`, `difficulty_rate_exec_atk`, `difficulty_rate_exec_def`, `difficulty_rate_exec_build`, `difficulty_marge_frt`, `difficulty_marge_pc`, `difficulty_build_mine`),  VALUES
 (1, 'Very_easy', 50, 50, '+', 100, 80, 70, 70, 60, 60, 70, 30, 30, 70),
 (2, 'Easy', 30, 30, '+', 90, 70, 60, 60, 70, 70, 80, 35, 35, 75),
 (3, 'Normal', 0, 0, '+', 80, 60, 60, 60, 80, 80, 90, 40, 40, 80),
 (4, 'Hard', 2, 30, '-', 70, 50, 50, 50, 90, 90, 95, 50, 50, 90),
-(5, 'Very_hard', 4, 50, '-', 60, 40, 40, 40, 100, 100, 100, 60, 60, 100);
+(5, 'Very_hard', 4, 50, '-', 60, 40, 40, 40, 100, 100, 100, 60, 60, 100), ;
 
 -- --------------------------------------------------------
 
@@ -252,25 +252,25 @@ INSERT INTO `difficulty` (`difficulty_id`, `difficulty_name`, `difficulty_rate_b
 --
 
 CREATE TABLE IF NOT EXISTS `fight` (
-  `fight_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `fight_game_id` int(12) NOT NULL,
-  `fight_atk_user_id` int(12) NOT NULL,
-  `fight_def_user_id` int(12) NOT NULL,
-  `fight_atk_land_id` int(12) NOT NULL,
-  `fight_def_land_id` int(12) NOT NULL,
-  `fight_atk_lost_unit` int(12) NOT NULL,
-  `fight_def_lost_unit` int(12) NOT NULL,
-  `fight_atk_units` varchar(2048) NOT NULL,
-  `fight_def_units` varchar(2048) NOT NULL,
-  `fight_atk_nb_units` int(11) NOT NULL,
-  `fight_def_nb_units` int(11) NOT NULL,
-  `fight_thimble_atk` varchar(2048) NOT NULL,
-  `fight_thimble_def` varchar(2048) NOT NULL,
-  `fight_time` int(12) NOT NULL,
-  `fight_turn_id` int(12) NOT NULL,
-  `fight_conquest` int(12) NOT NULL,
-  PRIMARY KEY (`fight_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `fight_id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `fight_game_id` int(12),  NOT NULL,
+  `fight_atk_user_id` int(12),  NOT NULL,
+  `fight_def_user_id` int(12),  NOT NULL,
+  `fight_atk_land_id` int(12),  NOT NULL,
+  `fight_def_land_id` int(12),  NOT NULL,
+  `fight_atk_lost_unit` int(12),  NOT NULL,
+  `fight_def_lost_unit` int(12),  NOT NULL,
+  `fight_atk_units` varchar(2048),  NOT NULL,
+  `fight_def_units` varchar(2048),  NOT NULL,
+  `fight_atk_nb_units` int(11),  NOT NULL,
+  `fight_def_nb_units` int(11),  NOT NULL,
+  `fight_thimble_atk` varchar(2048),  NOT NULL,
+  `fight_thimble_def` varchar(2048),  NOT NULL,
+  `fight_time` int(12),  NOT NULL,
+  `fight_turn_id` int(12),  NOT NULL,
+  `fight_conquest` int(12),  NOT NULL,
+  PRIMARY KEY (`fight_id`),
+),  ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -279,18 +279,18 @@ CREATE TABLE IF NOT EXISTS `fight` (
 --
 
 CREATE TABLE IF NOT EXISTS `frontier` (
-  `frontier_id` int(16) NOT NULL AUTO_INCREMENT,
-  `frontier_land_id_one` int(16) NOT NULL,
-  `frontier_land_id_two` int(16) NOT NULL,
-  `frontier_map_id` int(11) NOT NULL,
-  PRIMARY KEY (`frontier_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=382 ;
+  `frontier_id` int(16),  NOT NULL AUTO_INCREMENT,
+  `frontier_land_id_one` int(16),  NOT NULL,
+  `frontier_land_id_two` int(16),  NOT NULL,
+  `frontier_map_id` int(11),  NOT NULL,
+  PRIMARY KEY (`frontier_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=382 ;
 
 --
 -- Contenu de la table `frontier`
 --
 
-INSERT INTO `frontier` (`frontier_id`, `frontier_land_id_one`, `frontier_land_id_two`, `frontier_map_id`) VALUES
+INSERT INTO `frontier` (`frontier_id`, `frontier_land_id_one`, `frontier_land_id_two`, `frontier_map_id`),  VALUES
 (1, 1, 2, 1),
 (2, 1, 7, 1),
 (3, 1, 4, 1),
@@ -670,7 +670,7 @@ INSERT INTO `frontier` (`frontier_id`, `frontier_land_id_one`, `frontier_land_id
 (378, 93, 89, 2),
 (379, 93, 94, 2),
 (380, 94, 93, 2),
-(381, 94, 89, 2);
+(381, 94, 89, 2), ;
 
 -- --------------------------------------------------------
 
@@ -679,32 +679,32 @@ INSERT INTO `frontier` (`frontier_id`, `frontier_land_id_one`, `frontier_land_id
 --
 
 CREATE TABLE IF NOT EXISTS `game` (
-  `game_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `game_name` varchar(256) NOT NULL,
-  `game_owner_id` int(12) NOT NULL,
-  `game_max_player` int(12) NOT NULL,
-  `game_create_time` int(12) NOT NULL,
-  `game_statut` int(12) NOT NULL,
-  `game_map_id` int(11) NOT NULL,
-  `game_map_cont` int(11) NOT NULL,
-  `game_mod_id` int(12) NOT NULL,
-  `game_turn_time` int(11) NOT NULL,
-  `game_difficulty_id` int(12) NOT NULL,
-  `game_won_user_id` int(12) NOT NULL,
-  `game_won_time` int(12) NOT NULL,
-  `game_pwd` varchar(512) NOT NULL,
-  `game_key` varchar(256) NOT NULL,
-  PRIMARY KEY (`game_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+  `game_id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `game_name` varchar(256),  NOT NULL,
+  `game_owner_id` int(12),  NOT NULL,
+  `game_max_player` int(12),  NOT NULL,
+  `game_create_time` int(12),  NOT NULL,
+  `game_statut` int(12),  NOT NULL,
+  `game_map_id` int(11),  NOT NULL,
+  `game_map_cont` int(11),  NOT NULL,
+  `game_mod_id` int(12),  NOT NULL,
+  `game_turn_time` int(11),  NOT NULL,
+  `game_difficulty_id` int(12),  NOT NULL,
+  `game_won_user_id` int(12),  NOT NULL,
+  `game_won_time` int(12),  NOT NULL,
+  `game_pwd` varchar(512),  NOT NULL,
+  `game_key` varchar(256),  NOT NULL,
+  PRIMARY KEY (`game_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
 -- Contenu de la table `game`
 --
 
-INSERT INTO `game` (`game_id`, `game_name`, `game_owner_id`, `game_max_player`, `game_create_time`, `game_statut`, `game_map_id`, `game_map_cont`, `game_mod_id`, `game_turn_time`, `game_difficulty_id`, `game_won_user_id`, `game_won_time`, `game_pwd`, `game_key`) VALUES
+INSERT INTO `game` (`game_id`, `game_name`, `game_owner_id`, `game_max_player`, `game_create_time`, `game_statut`, `game_map_id`, `game_map_cont`, `game_mod_id`, `game_turn_time`, `game_difficulty_id`, `game_won_user_id`, `game_won_time`, `game_pwd`, `game_key`),  VALUES
 (20, 'KKF2uStg23GuOLtyMwH3efQHRYUXr8Q4uq+n35zLIO4=', 269, 4, 1467756950, 50, 1, 0, 0, 0, 0, 0, 0, 'Qz+MxwBUa9xEX5dZMx7/vECgaxwnpEsOPzJsAfGk2A5yHVbevbx5tEQGVqXo2/F4UJgooz1Z4olWlUWYMRrug1LWIW1eyp2CrPbmF4n5AR/RqcwTpL5M7Fb3f2ce8eJi|xVpfQsJ2kPkyROIFoXZOWXUG5F7YcgwcB1hcmY+ANEA=', '0'),
 (21, 'rXSa8cf6Xo4p7wAI/cWmdL2yvhPpHC32uLfIV0kMD7s=', 268, 2, 1467788633, 0, 1, 0, 0, 0, 0, 0, 0, 'nWLuWM8Bs1N9MK2bSFJzy99FC/zmbgSJER6xSc13jENlsMUMDzWO/FWG+1tnBMfNEYIlaN7HPj6PYhCma6Z4RuCx+kwobYCxGFDM2TVAPLc4rLlZLIwZvYhX2M+p1iLY|Pkw+SlB7zZCBEvI4PxNtEo20AbR13jD/cpJuMw4pJ2U=', '0'),
-(22, 'SBuFfByaORCOFC9I3qGdIig8+lcquJFW4GFK6KFWxjk=', 268, 3, 1467814714, 0, 1, 0, 0, 0, 0, 0, 0, 'VYugfxfuTTDtV/GkgHB7WbsjLjvjYtK+Uth2GTXNoPYfw0Kn+wtilOe+4xZZyq1PFpyoxBTkDxvMvA0sm8L+60+pgm9guQaNkuZNPCJzS6DZqLqy3fJTI7ezBtNEGNBC|6mKCzP2s4b266LDpYIyTzQJ7i18jVNZlgO4UdBdUyko=', '0');
+(22, 'SBuFfByaORCOFC9I3qGdIig8+lcquJFW4GFK6KFWxjk=', 268, 3, 1467814714, 0, 1, 0, 0, 0, 0, 0, 0, 'VYugfxfuTTDtV/GkgHB7WbsjLjvjYtK+Uth2GTXNoPYfw0Kn+wtilOe+4xZZyq1PFpyoxBTkDxvMvA0sm8L+60+pgm9guQaNkuZNPCJzS6DZqLqy3fJTI7ezBtNEGNBC|6mKCzP2s4b266LDpYIyTzQJ7i18jVNZlgO4UdBdUyko=', '0'), ;
 
 -- --------------------------------------------------------
 
@@ -713,23 +713,23 @@ INSERT INTO `game` (`game_id`, `game_name`, `game_owner_id`, `game_max_player`, 
 --
 
 CREATE TABLE IF NOT EXISTS `game_data` (
-  `game_data_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `game_data_game_id` int(12) NOT NULL,
-  `game_data_user_id` int(12) NOT NULL,
-  `game_data_user_id_base` int(12) NOT NULL,
-  `game_data_land_id` int(12) NOT NULL,
-  `game_data_units` int(12) NOT NULL,
-  `game_data_capital` int(12) NOT NULL,
-  `game_data_resource_id` int(12) NOT NULL,
-  `game_data_buildings` varchar(128) NOT NULL,
-  PRIMARY KEY (`game_data_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48 ;
+  `game_data_id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `game_data_game_id` int(12),  NOT NULL,
+  `game_data_user_id` int(12),  NOT NULL,
+  `game_data_user_id_base` int(12),  NOT NULL,
+  `game_data_land_id` int(12),  NOT NULL,
+  `game_data_units` int(12),  NOT NULL,
+  `game_data_capital` int(12),  NOT NULL,
+  `game_data_resource_id` int(12),  NOT NULL,
+  `game_data_buildings` varchar(128),  NOT NULL,
+  PRIMARY KEY (`game_data_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48 ;
 
 --
 -- Contenu de la table `game_data`
 --
 
-INSERT INTO `game_data` (`game_data_id`, `game_data_game_id`, `game_data_user_id`, `game_data_user_id_base`, `game_data_land_id`, `game_data_units`, `game_data_capital`, `game_data_resource_id`, `game_data_buildings`) VALUES
+INSERT INTO `game_data` (`game_data_id`, `game_data_game_id`, `game_data_user_id`, `game_data_user_id_base`, `game_data_land_id`, `game_data_units`, `game_data_capital`, `game_data_resource_id`, `game_data_buildings`),  VALUES
 (1, 20, 269, 0, 1, 3, 0, 3, ''),
 (2, 20, 269, 0, 2, 3, 0, 0, ''),
 (3, 20, 269, 0, 3, 4, 0, 3, '5;2'),
@@ -776,7 +776,7 @@ INSERT INTO `game_data` (`game_data_id`, `game_data_game_id`, `game_data_user_id
 (44, 20, 0, 0, 44, 3, 0, 0, ''),
 (45, 20, 0, 0, 45, 3, 0, 0, ''),
 (46, 20, 0, 0, 46, 3, 0, 0, ''),
-(47, 20, 0, 0, 47, 3, 0, 0, '');
+(47, 20, 0, 0, 47, 3, 0, 0, ''), ;
 
 -- --------------------------------------------------------
 
@@ -785,25 +785,25 @@ INSERT INTO `game_data` (`game_data_id`, `game_data_game_id`, `game_data_user_id
 --
 
 CREATE TABLE IF NOT EXISTS `game_player` (
-  `game_player_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `game_player_region_id` int(12) NOT NULL,
-  `game_player_difficulty_id` int(12) NOT NULL DEFAULT '1',
-  `game_player_statut` int(12) DEFAULT '1',
-  `game_player_game_id` int(12) NOT NULL,
-  `game_player_user_id` int(12) NOT NULL,
-  `game_player_color_id` int(12) NOT NULL,
-  `game_player_enter_time` int(12) NOT NULL,
-  `game_player_order` int(12) NOT NULL,
-  `game_player_bot` int(12) NOT NULL,
-  `game_player_quit` int(12) NOT NULL,
-  PRIMARY KEY (`game_player_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
+  `game_player_id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `game_player_region_id` int(12),  NOT NULL,
+  `game_player_difficulty_id` int(12),  NOT NULL DEFAULT '1',
+  `game_player_statut` int(12),  DEFAULT '1',
+  `game_player_game_id` int(12),  NOT NULL,
+  `game_player_user_id` int(12),  NOT NULL,
+  `game_player_color_id` int(12),  NOT NULL,
+  `game_player_enter_time` int(12),  NOT NULL,
+  `game_player_order` int(12),  NOT NULL,
+  `game_player_bot` int(12),  NOT NULL,
+  `game_player_quit` int(12),  NOT NULL,
+  PRIMARY KEY (`game_player_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
 
 --
 -- Contenu de la table `game_player`
 --
 
-INSERT INTO `game_player` (`game_player_id`, `game_player_region_id`, `game_player_difficulty_id`, `game_player_statut`, `game_player_game_id`, `game_player_user_id`, `game_player_color_id`, `game_player_enter_time`, `game_player_order`, `game_player_bot`, `game_player_quit`) VALUES
+INSERT INTO `game_player` (`game_player_id`, `game_player_region_id`, `game_player_difficulty_id`, `game_player_statut`, `game_player_game_id`, `game_player_user_id`, `game_player_color_id`, `game_player_enter_time`, `game_player_order`, `game_player_bot`, `game_player_quit`),  VALUES
 (17, 5, 1, 1, 22, 269, 1, 1468000906, 0, 0, 1),
 (18, 3, 1, 1, 22, 268, 4, 1468008679, 0, 0, 1),
 (19, 1, 1, 1, 22, 270, 7, 1468339014, 0, 0, 1),
@@ -812,7 +812,7 @@ INSERT INTO `game_player` (`game_player_id`, `game_player_region_id`, `game_play
 (33, 3, 1, 1, 20, 269, 2, 1468658181, 3, 0, 0),
 (34, 1, 1, 1, 20, 270, 4, 1468658906, 2, 0, 0),
 (35, 1, 1, 1, 20, 64, 8, 1468664890, 1, 0, 1),
-(36, 1, 1, 1, 20, 268, 5, 1468680350, 4, 0, 0);
+(36, 1, 1, 1, 20, 268, 5, 1468680350, 4, 0, 0), ;
 
 -- --------------------------------------------------------
 
@@ -821,18 +821,18 @@ INSERT INTO `game_player` (`game_player_id`, `game_player_region_id`, `game_play
 --
 
 CREATE TABLE IF NOT EXISTS `harbor` (
-  `harbor_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `harbor_land_id_one` int(12) NOT NULL,
-  `harbor_land_id_two` int(12) NOT NULL,
-  `harbor_map_id` int(11) NOT NULL,
-  PRIMARY KEY (`harbor_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+  `harbor_id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `harbor_land_id_one` int(12),  NOT NULL,
+  `harbor_land_id_two` int(12),  NOT NULL,
+  `harbor_map_id` int(11),  NOT NULL,
+  PRIMARY KEY (`harbor_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Contenu de la table `harbor`
 --
 
-INSERT INTO `harbor` (`harbor_id`, `harbor_land_id_one`, `harbor_land_id_two`, `harbor_map_id`) VALUES
+INSERT INTO `harbor` (`harbor_id`, `harbor_land_id_one`, `harbor_land_id_two`, `harbor_map_id`),  VALUES
 (1, 28, 12, 1),
 (2, 12, 28, 1),
 (3, 31, 41, 1),
@@ -842,7 +842,7 @@ INSERT INTO `harbor` (`harbor_id`, `harbor_land_id_one`, `harbor_land_id_two`, `
 (7, 48, 57, 2),
 (8, 57, 48, 2),
 (9, 79, 95, 2),
-(10, 95, 79, 2);
+(10, 95, 79, 2), ;
 
 -- --------------------------------------------------------
 
@@ -851,119 +851,120 @@ INSERT INTO `harbor` (`harbor_id`, `harbor_land_id_one`, `harbor_land_id_two`, `
 --
 
 CREATE TABLE IF NOT EXISTS `land` (
-  `land_id` int(16) unsigned NOT NULL AUTO_INCREMENT,
-  `land_name` varchar(128) NOT NULL,
-  `land_map_id` int(11) NOT NULL,
-  `land_abv` varchar(128) NOT NULL,
-  `land_image` varchar(128) NOT NULL,
-  `land_continent_id` int(16) NOT NULL,
-  `land_position_top` varchar(16) NOT NULL,
-  `land_position_left` varchar(16) NOT NULL,
-  `land_base_units` int(4) NOT NULL,
-  `land_harbor` int(4) NOT NULL,
+  `land_id` int(16)  unsigned NOT NULL AUTO_INCREMENT,
+  `land_name` varchar(128)  NOT NULL,
+  `land_map_id` int(11)  NOT NULL,
+  `land_abv` varchar(128)  NOT NULL,
+  `land_image` varchar(128)  NOT NULL,
+  `land_continent_id` int(16)  NOT NULL,
+  `land_position_top` varchar(16)  NOT NULL,
+  `land_position_left` varchar(16)  NOT NULL,
+  `land_base_units` int(4)  NOT NULL,
+  `land_harbor` int(4)  NOT NULL,
   PRIMARY KEY (`land_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=96 ;
+)  ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=96 ;
 
 --
 -- Contenu de la table `land`
 --
 
 INSERT INTO `land` (`land_id`, `land_name`, `land_map_id`, `land_abv`, `land_image`, `land_continent_id`, `land_position_top`, `land_position_left`, `land_base_units`, `land_harbor`) VALUES
-(1, 'Grande-Bretagne', 1, 'GB', '', 1, '6.3', '34', 3, 0),
-(2, 'Islande', 1, '', '', 1, '3.4', '30.5', 3, 0),
-(3, 'Europe du Nord', 1, 'EU-Nord', '', 1, '6.55', '38.55', 4, 0),
-(4, 'Scandinavie', 1, '', '', 1, '3.1', '38.95', 3, 0),
-(5, 'Europe du Sud', 1, 'Eu-Sud', '', 1, '9.6', '39.35', 4, 0),
-(6, 'Ukraine', 1, '', '', 1, '3.3', '43.00', 4, 0),
-(7, 'Europe Ouest', 1, 'EU-Ouest', 'Europe Occidentale', 1, '8.95', '35.2', 3, 0),
-(8, 'Afghanistan', 1, '', '', 2, '7.75', '49.95', 4, 0),
-(9, 'Chine', 1, '', '', 2, '9.55', '57.85', 3, 0),
-(10, 'Inde', 1, '', '', 2, '13.05', '54.55', 3, 0),
-(11, 'Tchita', 1, '', '', 2, '5.05', '60.6', 4, 0),
-(12, 'Japon', 1, '', '', 2, '11.1', '74.4', 3, 1),
-(13, 'Kamchatka', 1, '', '', 2, '3.45', '69.8', 3, 0),
-(14, 'Moyen-Orient', 1, '', '', 2, '11.9', '44.8', 3, 0),
-(15, 'Mongolie', 1, '', '', 2, '8.25', '60.7', 4, 0),
-(16, 'Siam', 1, '', '', 2, '16.4', '64.4', 3, 0),
-(17, 'Sibérie', 1, '', 'Siberie', 2, '1.45', '54.85', 4, 0),
-(18, 'Oural', 1, '', '', 2, '2.75', '51.27', 4, 0),
-(19, 'Yakoutie', 1, '', '', 2, '2.4', '60.95', 4, 0),
-(20, 'Alaska', 1, '', '', 3, '2.35', '0', 3, 0),
-(21, 'Alberta', 1, '', '', 3, '5.5', '6.7', 3, 0),
-(22, 'Amérique centrale', 1, 'USA-Centrale', 'Amerique-centrale', 3, '14.05', '6.05', 3, 0),
-(23, 'Etats de l''Est', 1, 'USA-Est', 'Etats-de-Est', 3, '8.75', '8.85', 3, 0),
-(24, 'Groenland', 1, '', '', 3, '1.3', '24.1', 3, 0),
-(25, 'Territoires du Nord-Ouest', 1, 'Terres-NO', '', 3, '1.45', '6.45', 3, 0),
-(26, 'Ontario', 1, '', '', 1, '5.4', '13.1', 4, 0),
-(27, 'Québec', 1, '', 'Quebec', 3, '4.75', '18.45', 3, 0),
-(28, 'Etats de l''Ouest', 1, 'USA-Ouest', 'Etats-de-Ouest', 3, '8.85', '5.2', 4, 1),
-(29, 'Argentine', 1, '', '', 4, '30.35', '18.25', 3, 0),
-(30, 'Brésil', 1, '', 'Bresil', 4, '22.95', '17.15', 3, 0),
-(31, 'Pérou', 1, '', 'Perou', 4, '24.1', '14.87', 3, 1),
-(32, 'Venezuela', 1, '', '', 4, '20.6', '15.435', 3, 0),
-(33, 'Afrique Centrale', 1, 'Afr-Centrale', '', 5, '21.9', '40.1', 4, 0),
-(34, 'Afrique Orientale', 1, 'Afr-Est', '', 5, '17.95', '43.95', 3, 0),
-(35, 'Egypte', 1, '', '', 5, '14.75', '40.35', 3, 0),
-(36, 'Madagascar', 1, '', '', 5, '29.2', '50.5', 3, 1),
-(37, 'Afrique du Nord', 1, 'Afr-Nord', '', 5, '13.3', '32.25', 3, 0),
-(38, 'Afrique du Sud', 1, 'Afr-Sud', '', 5, '27.3', '40.95', 3, 0),
-(39, 'Australie Orientale', 1, 'Aust-Est', '', 6, '29.4', '74.55', 3, 0),
-(40, 'Indonésie', 1, '', 'Indonesie', 6, '18.9', '65.5', 3, 0),
-(41, 'Nouvelle Guinée', 1, 'Nouv Guinée', 'Nouvelle-Guinee', 6, '24.9', '75.5', 3, 1),
-(42, 'Australie Occidentale', 1, 'Austr-Ouest', '', 6, '30.3', '70.05', 3, 1),
-(43, 'Terre de Mac-Robertson', 1, 'Mac-Robertson', 'Antarctique Oceanie', 7, '41.7', '63', 3, 0),
-(44, 'Terre Victoria', 1, '', 'Antarctique Asiat', 7, '41.7', '53', 3, 0),
-(45, 'Terre de la Reine-Maud', 1, 'Reine-Maud', 'Antarctique Europeenne', 7, '42.2', '38.85', 3, 0),
-(46, 'Terre Marie Byrd', 1, '', 'Antarctique Am-Sud', 7, '40.9', '24', 3, 0),
-(47, 'Terre d''Ellsworth', 1, '', 'Antarctique Ouest', 7, '43.8', '8.85', 3, 0),
-(48, 'Washington', 2, '', '', 0, '0.95', '19', 4, 1),
-(49, 'Oregon', 2, '', '', 0, '4.5', '16.5', 3, 0),
-(50, 'Californie', 2, '', '', 0, '11', '15.5', 4, 0),
-(51, 'Nevada', 2, '', '', 0, '12.4', '19.95', 3, 0),
-(52, 'Idaho', 2, '', '', 0, '2.3', '24.75', 4, 0),
-(53, 'Utah', 2, '', '', 0, '13.9', '27.05', 3, 0),
-(54, 'Arizona', 2, '', '', 0, '22.35', '24.45', 4, 0),
-(55, 'Wyoming', 2, '', '', 0, '9.9', '31.75', 3, 0),
-(56, 'Montana', 2, '', '', 0, '2.65', '28.2', 3, 0),
-(57, 'Alaska', 2, '', 'Alaska_USA', 0, '-0.5', '0', 3, 1),
-(58, 'Texas', 2, '', '', 0, '24.8', '35.5', 3, 0),
-(59, 'Dakota du Nord', 2, 'Dakota Nord', 'Dakota-Nord', 0, '4.5', '40.8', 4, 0),
-(60, 'Dakota du Sud', 2, 'Dakota Sud', 'Dakota-Sud', 0, '9.45', '40.5', 4, 0),
-(61, 'Nouveau Mexique', 2, 'N. Mexique', 'New-Mexique', 0, '23.2', '32', 4, 0),
-(62, 'Nebraska', 2, '', '', 0, '14.2', '40.2', 3, 0),
-(63, 'Colorado', 2, '', '', 0, '16.7', '33.2', 4, 0),
-(64, 'Kansas', 2, '', '', 0, '19.3', '42.1', 4, 0),
-(65, 'Oklahoma', 2, '', '', 0, '23.9', '40.95', 3, 0),
-(66, 'Minnesota', 2, '', '', 0, '4.25', '48.55', 3, 0),
-(67, 'Lowa', 2, '', '', 0, '13.6', '49.05', 4, 0),
-(68, 'Missouri', 2, '', '', 0, '18.2', '50.3', 4, 0),
-(69, 'Arkansas', 2, '', '', 0, '24.85', '51.75', 4, 0),
-(70, 'Louisiane', 2, '', '', 0, '30.2', '52.75', 3, 0),
-(71, 'Mississippi', 2, '', '', 0, '26.9', '56.25', 4, 0),
-(72, 'Wisconsin', 2, '', '', 0, '6.85', '53.4', 3, 0),
-(73, 'Illinois', 2, '', '', 0, '14.95', '55.4', 3, 0),
-(74, 'Michigan', 2, '', '', 0, '9.15', '60.8', 3, 0),
-(75, 'Indiana', 2, '', '', 0, '15.65', '59.95', 4, 0),
-(76, 'Kentucky', 2, '', '', 0, '20', '58.4', 3, 0),
-(77, 'Tennessee', 2, '', '', 0, '23.45', '57.6', 3, 0),
-(78, 'Alabama', 2, '', '', 0, '26.55', '60.55', 4, 0),
-(79, 'Floride', 2, '', '', 0, '32.7', '61.7', 3, 1),
-(80, 'Géorgie', 2, '', 'Georgie', 0, '26.15', '63.75', 3, 0),
-(81, 'Ohio', 2, '', '', 0, '14.6', '63.2', 4, 0),
-(82, 'Caroline du Sud', 2, 'Caroline-Sud', 'Caroline-Sud', 0, '25.55', '66.75', 4, 0),
-(83, 'Caroline du Nord', 2, 'Caroline-Nord', 'Caroline-Nord', 0, '22.1', '65.4', 3, 0),
-(84, 'Virginie', 2, '', '', 0, '18.2', '66.5', 3, 0),
-(85, 'Virginie de l''Ouest', 2, 'Virginie-Ouest', 'Virginie-Ouest', 0, '16.8', '66.9', 3, 0),
-(86, 'Maryland', 2, '', '', 0, '15.8', '71', 4, 0),
-(87, 'Pennsylvanie', 2, '', '', 0, '13.45', '68.55', 4, 0),
-(88, 'New Jersey', 2, '', 'New-Jersey', 0, '14.25', '74.65', 3, 0),
-(89, 'New York', 2, '', 'New-York', 0, '8.15', '69.2', 4, 0),
-(90, 'Maine', 2, '', '', 0, '3', '77.9', 3, 0),
-(91, 'Vermont', 2, '', '', 0, '7.65', '75.6', 3, 0),
-(92, 'Nouveau Hampshire', 2, 'N. Hampshire', 'New-Hampshire', 0, '7.15', '77.2', 4, 0),
-(93, 'Massachusetts', 2, '', '', 0, '10.8', '76.5', 3, 0),
-(94, 'Connecticut', 2, '', '', 0, '12.3', '76.55', 4, 0),
-(95, 'Hawaii', 2, '', '', 0, '35', '78', 3, 1);
+(1, 'Britain', 1, 'GB', 'britain', 1, '6.3', '34', 3, 0),
+(2, 'Iceland', 1, '', 'iceland', 1, '3.4', '30.5', 3, 0),
+(3, 'Northern Europe', 1, ' EU-North', 'northern-europe', 1, '6.55', '38.55', 4, 0),
+(4, 'Scandinavia', 1, '', 'scandinavia', 1, '3.1', '38.95', 3, 0),
+(5, 'Southern Europe', 1, ' Eu-South', 'southern-europe', 1, '9.6', '39.35', 4, 0),
+(6, 'Ukraine', 1, '', 'ukraine', 1, '3.3', '43.00', 4, 0),
+(7, 'Western Europe', 1, ' EU-Western', 'western-europe', 1, '8.95', '35.2', 3, 0),
+(8, 'Afghanistan', 1, '', 'afghanistan', 2, '7.75', '49.95', 4, 0),
+(9, 'China', 1, '', 'china', 2, '9.55', '57.85', 3, 0),
+(10, 'India', 1, '', 'india', 2, '13.05', '54.55', 3, 0),
+(11, 'Tchita', 1, '', 'tchita', 2, '5.05', '60.6', 4, 0),
+(12, 'Japan', 1, '', 'japan', 2, '11.1', '74.4', 3, 1),
+(13, 'Kamchatka', 1, '', 'kamchatka', 2, '3.45', '69.8', 3, 0),
+(14, 'Middle East', 1, '', 'middle-east', 2, '11.9', '44.8', 3, 0),
+(15, 'Mongolia', 1, '', 'mongolia', 2, '8.25', '60.7', 4, 0),
+(16, 'Siam', 1, '', 'siam', 2, '16.4', '64.4', 3, 0),
+(17, 'Siberia', 1, '', 'siberia', 2, '1.45', '54.85', 4, 0),
+(18, 'Urals', 1, '', 'urals', 2, '2.75', '51.27', 4, 0),
+(19, 'Yakutia', 1, '', 'yakutia', 2, '2.4', '60.95', 4, 0),
+(20, 'Alaska', 1, '', 'alaska', 3, '2.35', '0', 3, 0),
+(21, 'Alberta', 1, '', 'alberta', 3, '5.5', '6.7', 3, 0),
+(22, 'Central America', 1, 'USA-Central', 'central-america', 3, '14.05', '6.05', 3, 0),
+(23, 'States of the East', 1, 'USA East', 'states-of-the-east', 3, '8.75', '8.85', 3, 0),
+(24, 'Greenland', 1, '', 'greenland', 3, '1.3', '24.1', 3, 0),
+(25, 'Northwest Territories', 1, 'Land-NO', 'northwest-territories', 3, '1.45', '6.45', 3, 0),
+(26, 'Ontario', 1, '', 'ontario', 1, '5.4', '13.1', 4, 0),
+(27, 'Quebec', 1, '', 'quebec', 3, '4.75', '18.45', 3, 0),
+(28, 'States of the West', 1, 'USA-West', 'states-of-the-west', 3, '8.85', '5.2', 4, 1),
+(29, 'Argentina', 1, '', 'argentina', 4, '30.35', '18.25', 3, 0),
+(30, 'Brazil', 1, '', 'brazil', 4, '22.95', '17.15', 3, 0),
+(31, 'Peru', 1, '', 'peru', 4, '24.1', '14.87', 3, 1),
+(32, 'Venezuela', 1, '', 'venezuela', 4, '20.6', '15.435', 3, 0),
+(33, 'Central Africa', 1, ' Afr Central', 'central-africa', 5, '21.9', '40.1', 4, 0),
+(34, 'East Africa', 1, 'Afr East', 'east-africa', 5, '17.95', '43.95', 3, 0),
+(35, 'Egypt', 1, '', 'egypt', 5, '14.75', '40.35', 3, 0),
+(36, 'Madagascar', 1, '', 'madagascar', 5, '29.2', '50.5', 3, 1),
+(37, 'North Africa', 1, 'Afr-Nord', 'north-africa', 5, '13.3', '32.25', 3, 0),
+(38, 'South Africa', 1, 'Afr-South', 'south-africa', 5, '27.3', '40.95', 3, 0),
+(39, 'East Australia', 1, ' Aust-East', 'east-australia', 6, '29.4', '74.55', 3, 0),
+(40, 'Indonesia', 1, '', 'indonesia', 6, '18.9', '65.5', 3, 0),
+(41, 'New Guinea', 1, 'New New Guinea', 'new-guinea', 6, '24.9', '75.5', 3, 1),
+(42, 'Western Australia', 1, 'Austr-West', 'western-australia', 6, '30.3', '70.05', 3, 1),
+(43, 'Land of Mac Robertson', 1, 'Mac-Robertson', 'land-of-mac-robertson', 7, '41.7', '63', 3, 0),
+(44, 'Victoria Land', 1, '', 'victoria-land', 7, '41.7', '53', 3, 0),
+(45, 'Queen Maud Land', 1, 'Queen Maud', 'queen-maud-land', 7, '42.2', '38.85', 3, 0),
+(46, 'Marie Byrd Land', 1, '', 'marie-byrd-land', 7, '40.9', '24', 3, 0),
+(47, 'Land of Ellsworth', 1, '', 'land-of-ellsworth', 7, '43.8', '8.85', 3, 0),
+(48, 'Washington', 2, '', 'washington', 0, '0.95', '19', 4, 1),
+(49, 'Oregon ', 2, '', 'oregon-', 0, '4.5', '16.5', 3, 0),
+(50, 'California', 2, '', 'california', 0, '11', '15.5', 4, 0),
+(51, 'Nevada', 2, '', 'nevada', 0, '12.4', '19.95', 3, 0),
+(52, 'Idaho ', 2, '', 'idaho-', 0, '2.3', '24.75', 4, 0),
+(53, 'Utah ', 2, '', 'utah-', 0, '13.9', '27.05', 3, 0),
+(54, 'Arizona', 2, '', 'arizona', 0, '22.35', '24.45', 4, 0),
+(55, 'Wyoming', 2, '', 'wyoming', 0, '9.9', '31.75', 3, 0),
+(56, 'Montana', 2, '', 'montana', 0, '2.65', '28.2', 3, 0),
+(57, 'Alaska', 2, '', 'alaska', 0, '-0.5', '0', 3, 1),
+(58, 'Texas', 2, '', 'texas', 0, '24.8', '35.5', 3, 0),
+(59, 'North Dakota', 2, 'North Dakota', 'north-dakota', 0, '4.5', '40.8', 4, 0),
+(60, 'South Dakota', 2, 'South Dakota', 'south-dakota', 0, '9.45', '40.5', 4, 0),
+(61, 'New Mexico', 2, 'N. Mexico', 'new-mexico', 0, '23.2', '32', 4, 0),
+(62, 'Nebraska', 2, '', 'nebraska', 0, '14.2', '40.2', 3, 0),
+(63, 'Colorado', 2, '', 'colorado', 0, '16.7', '33.2', 4, 0),
+(64, 'Kansas', 2, '', 'kansas', 0, '19.3', '42.1', 4, 0),
+(65, 'Oklahoma', 2, '', 'oklahoma', 0, '23.9', '40.95', 3, 0),
+(66, 'Minnesota', 2, '', 'minnesota', 0, '4.25', '48.55', 3, 0),
+(67, 'Lowa', 2, '', 'lowa', 0, '13.6', '49.05', 4, 0),
+(68, 'Missouri', 2, '', 'missouri', 0, '18.2', '50.3', 4, 0),
+(69, 'Arkansas', 2, '', 'arkansas', 0, '24.85', '51.75', 4, 0),
+(70, 'Louisiana', 2, '', 'louisiana', 0, '30.2', '52.75', 3, 0),
+(71, 'Mississippi', 2, '', 'mississippi', 0, '26.9', '56.25', 4, 0),
+(72, 'Wisconsin', 2, '', 'wisconsin', 0, '6.85', '53.4', 3, 0),
+(73, 'Illinois', 2, '', 'illinois', 0, '14.95', '55.4', 3, 0),
+(74, 'Michigan', 2, '', 'michigan', 0, '9.15', '60.8', 3, 0),
+(75, 'Indiana ', 2, '', 'indiana-', 0, '15.65', '59.95', 4, 0),
+(76, 'Kentucky', 2, '', 'kentucky', 0, '20', '58.4', 3, 0),
+(77, 'Tennessee', 2, '', 'tennessee', 0, '23.45', '57.6', 3, 0),
+(78, 'Alabama', 2, '', 'alabama', 0, '26.55', '60.55', 4, 0),
+(79, 'Florida', 2, '', 'florida', 0, '32.7', '61.7', 3, 1),
+(80, 'Georgia', 2, '', 'georgia', 0, '26.15', '63.75', 3, 0),
+(81, 'Ohio', 2, '', 'ohio', 0, '14.6', '63.2', 4, 0),
+(82, 'South Carolina', 2, 'South Carolina', 'south-carolina', 0, '25.55', '66.75', 4, 0),
+(83, 'North Carolina', 2, 'North Carolina', 'north-carolina', 0, '22.1', '65.4', 3, 0),
+(84, 'Virginia', 2, '', 'virginia', 0, '18.2', '66.5', 3, 0),
+(85, 'Western Virginia', 2, '', 'western-virginia', 0, '16.8', '66.9', 3, 0),
+(86, 'Maryland', 2, '', 'maryland', 0, '15.8', '71', 4, 0),
+(87, 'PA', 2, '', 'pa', 0, '13.45', '68.55', 4, 0),
+(88, 'New Jersey', 2, '', 'new-jersey', 0, '14.25', '74.65', 3, 0),
+(89, 'New York', 2, '', 'new-york', 0, '8.15', '69.2', 4, 0),
+(90, 'Maine', 2, '', 'maine', 0, '3', '77.9', 3, 0),
+(91, 'Vermont', 2, '', 'vermont', 0, '7.65', '75.6', 3, 0),
+(92, 'New Hampshire', 2, 'N. Hampshire', 'new-hampshire', 0, '7.15', '77.2', 4, 0),
+(93, 'Massachusetts', 2, '', 'massachusetts', 0, '10.8', '76.5', 3, 0),
+(94, 'Connecticut', 2, '', 'connecticut', 0, '12.3', '76.55', 4, 0),
+(95, 'Hawaii', 2, '', 'hawaii', 0, '35', '78', 3, 1);
+
 
 -- --------------------------------------------------------
 
@@ -972,28 +973,28 @@ INSERT INTO `land` (`land_id`, `land_name`, `land_map_id`, `land_abv`, `land_ima
 --
 
 CREATE TABLE IF NOT EXISTS `map` (
-  `map_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `map_name` varchar(128) NOT NULL,
-  `map_music` varchar(128) NOT NULL,
-  `map_leftmenutop_top` int(11) NOT NULL,
-  `map_leftmenutop_left` int(11) NOT NULL,
-  `map_rightmenutop_top` int(11) NOT NULL,
-  `map_rightmenutop_left` int(11) NOT NULL,
-  `map_continent` int(11) NOT NULL,
-  `map_land_id_begin` int(11) NOT NULL,
-  `map_land_id_end` int(11) NOT NULL,
-  PRIMARY KEY (`map_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `map_id` int(11),  unsigned NOT NULL AUTO_INCREMENT,
+  `map_name` varchar(128),  NOT NULL,
+  `map_music` varchar(128),  NOT NULL,
+  `map_leftmenutop_top` int(11),  NOT NULL,
+  `map_leftmenutop_left` int(11),  NOT NULL,
+  `map_rightmenutop_top` int(11),  NOT NULL,
+  `map_rightmenutop_left` int(11),  NOT NULL,
+  `map_continent` int(11),  NOT NULL,
+  `map_land_id_begin` int(11),  NOT NULL,
+  `map_land_id_end` int(11),  NOT NULL,
+  PRIMARY KEY (`map_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `map`
 --
 
-INSERT INTO `map` (`map_id`, `map_name`, `map_music`, `map_leftmenutop_top`, `map_leftmenutop_left`, `map_rightmenutop_top`, `map_rightmenutop_left`, `map_continent`, `map_land_id_begin`, `map_land_id_end`) VALUES
+INSERT INTO `map` (`map_id`, `map_name`, `map_music`, `map_leftmenutop_top`, `map_leftmenutop_left`, `map_rightmenutop_top`, `map_rightmenutop_left`, `map_continent`, `map_land_id_begin`, `map_land_id_end`),  VALUES
 (1, 'World', 'Schwarzweiss-War_Theme.mp3', 35, 1, 33, 83, 1, 1, 47),
 (2, 'USA', 'Schwarzweiss-Drums_of_liberty.mp3', 35, 1, 30, 84, 0, 48, 95),
 (3, 'Europe', '', 0, 0, 0, 0, 0, 0, 0),
-(4, 'France', '', 0, 0, 0, 0, 0, 0, 0);
+(4, 'France', '', 0, 0, 0, 0, 0, 0, 0), ;
 
 -- --------------------------------------------------------
 
@@ -1002,25 +1003,25 @@ INSERT INTO `map` (`map_id`, `map_name`, `map_music`, `map_leftmenutop_top`, `ma
 --
 
 CREATE TABLE IF NOT EXISTS `message` (
-  `id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `game_id` int(12) NOT NULL,
-  `time` int(12) NOT NULL,
-  `message` varchar(256) NOT NULL,
-  `subject` varchar(128) NOT NULL,
-  `pact_id` int(12) NOT NULL,
-  `user_send_id` int(12) NOT NULL,
-  `user_receive_id` int(12) NOT NULL,
-  `del` int(8) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `game_id` int(12),  NOT NULL,
+  `time` int(12),  NOT NULL,
+  `message` varchar(256),  NOT NULL,
+  `subject` varchar(128),  NOT NULL,
+  `pact_id` int(12),  NOT NULL,
+  `user_send_id` int(12),  NOT NULL,
+  `user_receive_id` int(12),  NOT NULL,
+  `del` int(8),  NOT NULL,
+  PRIMARY KEY (`id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `message`
 --
 
-INSERT INTO `message` (`id`, `game_id`, `time`, `message`, `subject`, `pact_id`, `user_send_id`, `user_receive_id`, `del`) VALUES
+INSERT INTO `message` (`id`, `game_id`, `time`, `message`, `subject`, `pact_id`, `user_send_id`, `user_receive_id`, `del`),  VALUES
 (1, 11, 1441724952, 'GarZz souhaite vous proposer un pacte de Non agression de <span id=''nb_tr''>6</span> tours.', 'Proposition de pacte', 1, 243, 67, 0),
-(2, 11, 1441724961, 'herklos a accepté votre proposition de pacte de Non agression de <span id=''nb_tr''>6</span> tours.', 'Proposition de pacte signée', 0, 67, 243, 0);
+(2, 11, 1441724961, 'herklos a accepté votre proposition de pacte de Non agression de <span id=''nb_tr''>6</span> tours.', 'Proposition de pacte signée', 0, 67, 243, 0), ;
 
 -- --------------------------------------------------------
 
@@ -1029,20 +1030,20 @@ INSERT INTO `message` (`id`, `game_id`, `time`, `message`, `subject`, `pact_id`,
 --
 
 CREATE TABLE IF NOT EXISTS `message_read` (
-  `id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `game_id` int(12) NOT NULL,
-  `message_id` int(12) NOT NULL,
-  `user_receive_id` int(12) NOT NULL,
-  `time` int(12) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `game_id` int(12),  NOT NULL,
+  `message_id` int(12),  NOT NULL,
+  `user_receive_id` int(12),  NOT NULL,
+  `time` int(12),  NOT NULL,
+  PRIMARY KEY (`id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Contenu de la table `message_read`
 --
 
-INSERT INTO `message_read` (`id`, `game_id`, `message_id`, `user_receive_id`, `time`) VALUES
-(1, 11, 1, 67, 1441724958);
+INSERT INTO `message_read` (`id`, `game_id`, `message_id`, `user_receive_id`, `time`),  VALUES
+(1, 11, 1, 67, 1441724958), ;
 
 -- --------------------------------------------------------
 
@@ -1051,22 +1052,22 @@ INSERT INTO `message_read` (`id`, `game_id`, `message_id`, `user_receive_id`, `t
 --
 
 CREATE TABLE IF NOT EXISTS `mod` (
-  `mod_id` int(16) unsigned NOT NULL AUTO_INCREMENT,
-  `mod_name` varchar(32) NOT NULL,
-  `mod_max_unit_atk` int(16) NOT NULL,
-  `mod_max_unit_def` int(16) NOT NULL,
-  `mod_win_condition_id` int(16) NOT NULL,
-  PRIMARY KEY (`mod_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `mod_id` int(16),  unsigned NOT NULL AUTO_INCREMENT,
+  `mod_name` varchar(32),  NOT NULL,
+  `mod_max_unit_atk` int(16),  NOT NULL,
+  `mod_max_unit_def` int(16),  NOT NULL,
+  `mod_win_condition_id` int(16),  NOT NULL,
+  PRIMARY KEY (`mod_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `mod`
 --
 
-INSERT INTO `mod` (`mod_id`, `mod_name`, `mod_max_unit_atk`, `mod_max_unit_def`, `mod_win_condition_id`) VALUES
+INSERT INTO `mod` (`mod_id`, `mod_name`, `mod_max_unit_atk`, `mod_max_unit_def`, `mod_win_condition_id`),  VALUES
 (1, 'Default', 3, 2, 1),
 (2, 'Anarchy', 100, 100, 0),
-(3, 'Capital', 3, 2, 2);
+(3, 'Capital', 3, 2, 2), ;
 
 -- --------------------------------------------------------
 
@@ -1075,25 +1076,25 @@ INSERT INTO `mod` (`mod_id`, `mod_name`, `mod_max_unit_atk`, `mod_max_unit_def`,
 --
 
 CREATE TABLE IF NOT EXISTS `move` (
-  `move_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `move_game_id` int(11) NOT NULL,
-  `move_user_id` int(11) NOT NULL,
-  `move_time` int(11) NOT NULL,
-  `move_land_id_from` int(11) NOT NULL,
-  `move_land_id_arrive` int(11) NOT NULL,
-  `move_units` int(11) NOT NULL,
-  PRIMARY KEY (`move_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `move_id` int(11),  unsigned NOT NULL AUTO_INCREMENT,
+  `move_game_id` int(11),  NOT NULL,
+  `move_user_id` int(11),  NOT NULL,
+  `move_time` int(11),  NOT NULL,
+  `move_land_id_from` int(11),  NOT NULL,
+  `move_land_id_arrive` int(11),  NOT NULL,
+  `move_units` int(11),  NOT NULL,
+  PRIMARY KEY (`move_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `move`
 --
 
-INSERT INTO `move` (`move_id`, `move_game_id`, `move_user_id`, `move_time`, `move_land_id_from`, `move_land_id_arrive`, `move_units`) VALUES
+INSERT INTO `move` (`move_id`, `move_game_id`, `move_user_id`, `move_time`, `move_land_id_from`, `move_land_id_arrive`, `move_units`),  VALUES
 (1, 20, 269, 1469644697, 6, 4, 2),
 (2, 20, 269, 1469644819, 4, 6, 3),
 (3, 20, 269, 1469645005, 9, 8, 1),
-(4, 20, 269, 1469645035, 9, 8, 1);
+(4, 20, 269, 1469645035, 9, 8, 1), ;
 
 -- --------------------------------------------------------
 
@@ -1102,24 +1103,24 @@ INSERT INTO `move` (`move_id`, `move_game_id`, `move_user_id`, `move_time`, `mov
 --
 
 CREATE TABLE IF NOT EXISTS `pact` (
-  `pact_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `pact_game_id` int(12) NOT NULL,
-  `pact_ask_user_id` int(12) NOT NULL,
-  `pact_accept_user_id` int(12) NOT NULL,
-  `pact_pact_type` int(12) NOT NULL,
-  `pact_time` int(12) NOT NULL,
-  `pact_nb_turn` int(12) NOT NULL,
-  `pact_create_turn` int(12) NOT NULL,
-  `pact_end_turn` int(12) NOT NULL,
-  PRIMARY KEY (`pact_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `pact_id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `pact_game_id` int(12),  NOT NULL,
+  `pact_ask_user_id` int(12),  NOT NULL,
+  `pact_accept_user_id` int(12),  NOT NULL,
+  `pact_pact_type` int(12),  NOT NULL,
+  `pact_time` int(12),  NOT NULL,
+  `pact_nb_turn` int(12),  NOT NULL,
+  `pact_create_turn` int(12),  NOT NULL,
+  `pact_end_turn` int(12),  NOT NULL,
+  PRIMARY KEY (`pact_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Contenu de la table `pact`
 --
 
-INSERT INTO `pact` (`pact_id`, `pact_game_id`, `pact_ask_user_id`, `pact_accept_user_id`, `pact_pact_type`, `pact_time`, `pact_nb_turn`, `pact_create_turn`, `pact_end_turn`) VALUES
-(1, 11, 67, 243, 1, 1441724961, 6, 20, 26);
+INSERT INTO `pact` (`pact_id`, `pact_game_id`, `pact_ask_user_id`, `pact_accept_user_id`, `pact_pact_type`, `pact_time`, `pact_nb_turn`, `pact_create_turn`, `pact_end_turn`),  VALUES
+(1, 11, 67, 243, 1, 1441724961, 6, 20, 26), ;
 
 -- --------------------------------------------------------
 
@@ -1128,20 +1129,20 @@ INSERT INTO `pact` (`pact_id`, `pact_game_id`, `pact_ask_user_id`, `pact_accept_
 --
 
 CREATE TABLE IF NOT EXISTS `pact_list` (
-  `pact_list_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `pact_list_name` varchar(128) NOT NULL,
-  `pact_list_visibility` int(12) NOT NULL,
-  `pact_list_exchange` int(12) NOT NULL,
-  PRIMARY KEY (`pact_list_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `pact_list_id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `pact_list_name` varchar(128),  NOT NULL,
+  `pact_list_visibility` int(12),  NOT NULL,
+  `pact_list_exchange` int(12),  NOT NULL,
+  PRIMARY KEY (`pact_list_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `pact_list`
 --
 
-INSERT INTO `pact_list` (`pact_list_id`, `pact_list_name`, `pact_list_visibility`, `pact_list_exchange`) VALUES
+INSERT INTO `pact_list` (`pact_list_id`, `pact_list_name`, `pact_list_visibility`, `pact_list_exchange`),  VALUES
 (1, 'Non agression', 0, 0),
-(2, 'Alliance', 1, 1);
+(2, 'Alliance', 1, 1), ;
 
 -- --------------------------------------------------------
 
@@ -1150,23 +1151,23 @@ INSERT INTO `pact_list` (`pact_list_id`, `pact_list_name`, `pact_list_visibility
 --
 
 CREATE TABLE IF NOT EXISTS `resource` (
-  `resource_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `resource_name` varchar(128) NOT NULL,
-  `resource_freq` int(12) NOT NULL,
-  `resource_img` varchar(128) NOT NULL,
-  `resource_building_id` int(11) NOT NULL,
-  `resource_description` varchar(512) NOT NULL,
-  PRIMARY KEY (`resource_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `resource_id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `resource_name` varchar(128),  NOT NULL,
+  `resource_freq` int(12),  NOT NULL,
+  `resource_img` varchar(128),  NOT NULL,
+  `resource_building_id` int(11),  NOT NULL,
+  `resource_description` varchar(512),  NOT NULL,
+  PRIMARY KEY (`resource_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `resource`
 --
 
-INSERT INTO `resource` (`resource_id`, `resource_name`, `resource_freq`, `resource_img`, `resource_building_id`, `resource_description`) VALUES
+INSERT INTO `resource` (`resource_id`, `resource_name`, `resource_freq`, `resource_img`, `resource_building_id`, `resource_description`),  VALUES
 (1, 'gold', 5, 'gold', 3, 'gold_description'),
 (2, 'silver', 12, 'silver', 4, 'silver_description'),
-(3, 'iron', 25, 'iron', 5, 'iron_description');
+(3, 'iron', 25, 'iron', 5, 'iron_description'), ;
 
 -- --------------------------------------------------------
 
@@ -1175,22 +1176,22 @@ INSERT INTO `resource` (`resource_id`, `resource_name`, `resource_freq`, `resour
 --
 
 CREATE TABLE IF NOT EXISTS `session` (
-  `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(16) NOT NULL,
-  `ip` varchar(16) NOT NULL,
-  `create_time` int(16) NOT NULL,
-  `session_id` varchar(128) NOT NULL,
-  `session_key` varchar(512) NOT NULL,
-  `time_closed` int(16) NOT NULL,
-  `valid` int(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=61 ;
+  `id` int(16),  unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(16),  NOT NULL,
+  `ip` varchar(16),  NOT NULL,
+  `create_time` int(16),  NOT NULL,
+  `session_id` varchar(128),  NOT NULL,
+  `session_key` varchar(512),  NOT NULL,
+  `time_closed` int(16),  NOT NULL,
+  `valid` int(5),  NOT NULL,
+  PRIMARY KEY (`id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=61 ;
 
 --
 -- Contenu de la table `session`
 --
 
-INSERT INTO `session` (`id`, `user_id`, `ip`, `create_time`, `session_id`, `session_key`, `time_closed`, `valid`) VALUES
+INSERT INTO `session` (`id`, `user_id`, `ip`, `create_time`, `session_id`, `session_key`, `time_closed`, `valid`),  VALUES
 (47, 9, '0', 1426866182, '54ef33f59895c', '1f26c42291499fe0ddb2cdb0312f9142', 1426866186, 0),
 (48, 9, '0', 1426866213, '54ef33f59895c', 'b7cbc1926a03bb816e8b7072da06b61d', 1426866220, 0),
 (49, 9, '0', 1426867900, 'fauhlnahi9vaajib4v1sie3s24', 'c7e9bc825803a427a781a4c00d4eb340', 1426867902, 0),
@@ -1204,7 +1205,7 @@ INSERT INTO `session` (`id`, `user_id`, `ip`, `create_time`, `session_id`, `sess
 (57, 14, '0', 1426886575, '8b9ogv02c484r0s5cd60f0cl17', '0f9c092934788f1f6346c1e042b07cc9', 1426886577, 0),
 (58, 14, '0', 1426886636, '8b9ogv02c484r0s5cd60f0cl17', '0c08b92abeb15d81e57b9eb9503a97b1', 1426886747, 0),
 (59, 14, '0', 1426886761, '8b9ogv02c484r0s5cd60f0cl17', '5fb70a6879e8f4bf940fc9e571249b42', 0, 1),
-(60, 9, '0', 1426887734, '54ef33f59895c', 'b5ca3666874453a7e7a77025a683f068', 0, 1);
+(60, 9, '0', 1426887734, '54ef33f59895c', 'b5ca3666874453a7e7a77025a683f068', 0, 1), ;
 
 -- --------------------------------------------------------
 
@@ -1213,22 +1214,22 @@ INSERT INTO `session` (`id`, `user_id`, `ip`, `create_time`, `session_id`, `sess
 --
 
 CREATE TABLE IF NOT EXISTS `turn` (
-  `turn_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `turn_game_id` int(12) NOT NULL,
-  `turn_user_id` int(12) NOT NULL,
-  `turn_time` int(12) NOT NULL,
-  `turn_time_begin` int(12) NOT NULL,
-  `turn_gold` int(12) NOT NULL,
-  `turn_gold_base` int(12) NOT NULL,
-  `turn_income` int(12) NOT NULL,
-  PRIMARY KEY (`turn_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
+  `turn_id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `turn_game_id` int(12),  NOT NULL,
+  `turn_user_id` int(12),  NOT NULL,
+  `turn_time` int(12),  NOT NULL,
+  `turn_time_begin` int(12),  NOT NULL,
+  `turn_gold` int(12),  NOT NULL,
+  `turn_gold_base` int(12),  NOT NULL,
+  `turn_income` int(12),  NOT NULL,
+  PRIMARY KEY (`turn_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
 
 --
 -- Contenu de la table `turn`
 --
 
-INSERT INTO `turn` (`turn_id`, `turn_game_id`, `turn_user_id`, `turn_time`, `turn_time_begin`, `turn_gold`, `turn_gold_base`, `turn_income`) VALUES
+INSERT INTO `turn` (`turn_id`, `turn_game_id`, `turn_user_id`, `turn_time`, `turn_time_begin`, `turn_gold`, `turn_gold_base`, `turn_income`),  VALUES
 (1, 20, 269, 1, 1, 5, 2, 4),
 (2, 20, 269, 1, 1, 10, 2, 4),
 (23, 20, 268, 1468865954, 1468865954, 3, 3, 3),
@@ -1270,7 +1271,7 @@ INSERT INTO `turn` (`turn_id`, `turn_game_id`, `turn_user_id`, `turn_time`, `tur
 (66, 20, 268, 1469646187, 1468865954, 7, 7, 2),
 (67, 20, 64, 1469646196, 1468866691, 24, 24, 2),
 (68, 20, 270, 1469646196, 1468866691, 24, 24, 2),
-(69, 20, 269, 1469646219, 1, 71, 71, 12);
+(69, 20, 269, 1469646219, 1, 71, 71, 12), ;
 
 -- --------------------------------------------------------
 
@@ -1279,27 +1280,27 @@ INSERT INTO `turn` (`turn_id`, `turn_game_id`, `turn_user_id`, `turn_time`, `tur
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `user_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(256) NOT NULL,
-  `user_mail` varchar(128) NOT NULL,
-  `user_ip` varchar(16) NOT NULL,
-  `user_registration_time` int(12) NOT NULL,
-  `user_last_login` int(12) NOT NULL,
-  `user_role` int(12) NOT NULL,
-  `user_type` int(11) NOT NULL,
-  `user_key` varchar(256) NOT NULL,
-  `user_authKey` varchar(128) NOT NULL,
-  `user_accessToken` varchar(128) NOT NULL,
-  `user_pwd` varchar(512) NOT NULL,
-  `user_pwd2` varchar(512) NOT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=275 ;
+  `user_id` int(12),  unsigned NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(256),  NOT NULL,
+  `user_mail` varchar(128),  NOT NULL,
+  `user_ip` varchar(16),  NOT NULL,
+  `user_registration_time` int(12),  NOT NULL,
+  `user_last_login` int(12),  NOT NULL,
+  `user_role` int(12),  NOT NULL,
+  `user_type` int(11),  NOT NULL,
+  `user_key` varchar(256),  NOT NULL,
+  `user_authKey` varchar(128),  NOT NULL,
+  `user_accessToken` varchar(128),  NOT NULL,
+  `user_pwd` varchar(512),  NOT NULL,
+  `user_pwd2` varchar(512),  NOT NULL,
+  PRIMARY KEY (`user_id`),
+),  ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=275 ;
 
 --
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_name`, `user_mail`, `user_ip`, `user_registration_time`, `user_last_login`, `user_role`, `user_type`, `user_key`, `user_authKey`, `user_accessToken`, `user_pwd`, `user_pwd2`) VALUES
+INSERT INTO `user` (`user_id`, `user_name`, `user_mail`, `user_ip`, `user_registration_time`, `user_last_login`, `user_role`, `user_type`, `user_key`, `user_authKey`, `user_accessToken`, `user_pwd`, `user_pwd2`),  VALUES
 (67, '0jsQ/fEWB3MJ5N04p61LoEzZ1baOBnp4fKIzODyyrPg=', 'paul.bouquet@gmail.com', '0', 1438282542, 0, 0, 0, 'pBtwXN6prEBitILzNvHJGbXNq3r0gW2czVIfQWHOdDA=', '', '', 'bLwg5wJtG4CfirOoa4o5hciV1TBNrzixaJzhUENKZxVcJfS7F6fauk6Vs7MJqJGh5EabOXFqhE/MRF8vK3RqwRGVhF02uYvNcjpu0xSCHGmCk/TyUI7YgC20F/WsWfKV|N0XPWNJl27vYPJpukNABDjEpR/3zorcxnEYS7eWMNks=', 'qiTwRsCYAmF8QlkMYQuO6Hpc2i580dnup6VdIQ6WwO0U/kppVIv9gDnIjqEv0+ETsY1fwts7GeM7G+Rw7GqVkx8OI9e+yY6IsqdBV6f/TRE//a3dOdg71fN8Ab2LlEd5|EfTU0TvGHNDE54THEeGD1DmpCpy8y0h06AyOOwOZymA='),
 (273, 'jnZXhf5w8ktqPDoxsQzx6BwWTuhKHXGLbPD6g5RfkaY=', 'laurent.bouquet@free.fr', '0', 1468658762, 0, 0, 0, '', '', '', '5xfjQj2Q2XI0/qLUzZ62VF75be3320GE8BHe/uBLsQqGznXsDE55piWKygJCKZAC0rddmLjpe/ky0NOCz2EPBrHVN34NvpNB8qzceDSS3S69OudHuf5g0WGpTOAVNK3M|GCk/DFjIfGMtNJKiAb5Nxui9GPpecJ8Md4RLhZ2KwvE=', '5xfjQj2Q2XI0/qLUzZ62VF75be3320GE8BHe/uBLsQqGznXsDE55piWKygJCKZAC0rddmLjpe/ky0NOCz2EPBrHVN34NvpNB8qzceDSS3S69OudHuf5g0WGpTOAVNK3M|GCk/DFjIfGMtNJKiAb5Nxui9GPpecJ8Md4RLhZ2KwvE='),
 (274, 'Q9eG1w5Z4t5xR+nmZSVNObR5W00QBxPqde+1l6O1648=', 'jeanne.bouquet.jeanne@gmail.com', '0', 1468665052, 0, 0, 0, '', '', '', 'DAfmtnregNxOYq3Grr6w9w8L2ez1TwmJk6DWa/ZJQqKUMSmqDAtkiFM+VpOp8HR0bjwwU2Zd5ODzzV7YmePZpsR65GRWPZaLVdkdC5D1qaEKkk5DnVNGIgsff959bKc4|lVQmBL9lhUe5cygfH2otxDDioobuSJJ+MgzI0jPr/OE=', 'DAfmtnregNxOYq3Grr6w9w8L2ez1TwmJk6DWa/ZJQqKUMSmqDAtkiFM+VpOp8HR0bjwwU2Zd5ODzzV7YmePZpsR65GRWPZaLVdkdC5D1qaEKkk5DnVNGIgsff959bKc4|lVQmBL9lhUe5cygfH2otxDDioobuSJJ+MgzI0jPr/OE='),
@@ -1315,7 +1316,7 @@ INSERT INTO `user` (`user_id`, `user_name`, `user_mail`, `user_ip`, `user_regist
 (269, '5dj3o1sP8Vrc7kGYMkqJH9i94N/TOjjHd/+sICahl18=', 'test47@gmail.com', '0', 1468000870, 0, 0, 0, '', '', '', 'oaYabnGbXxPt4qQmU5jl9Tfy2Z+8rIJRJmrE/nvx7JzzdveZFC6ruqIzxMK1rhZ7r9WRFkaJVpndxh9SGXh0sHZx9jQhCPvcglvchg/sOLL3BRdlxBP7cgnGccwBscGY|9o4TfFWqSMad5TudEZCP4WccTy2k9pc9nsyf96HAu0w=', 'oaYabnGbXxPt4qQmU5jl9Tfy2Z+8rIJRJmrE/nvx7JzzdveZFC6ruqIzxMK1rhZ7r9WRFkaJVpndxh9SGXh0sHZx9jQhCPvcglvchg/sOLL3BRdlxBP7cgnGccwBscGY|9o4TfFWqSMad5TudEZCP4WccTy2k9pc9nsyf96HAu0w='),
 (268, 'd13Xeyophow89lQADX3zT4gOqLBnOqJFRVaRXTEVFhs=', 'test46@gmail.com', '0', 1467756751, 0, 0, 0, '', '', '', '6tXHaeUHBP/wAXSv2VacNVsoQ0K3xyDzlnh9p3XCHS5sLqf0sLdyHHkg5PsyVts2UR1mis99l0ctpUe9/fZL/cwbDktYI8R5gPshlPeSiO/4XcE0E29a3lUsxrr3TXrI|PnUGv0CHmbF1b0XYet8/DK4FbcyaAWYc/B6/PmVdIA8=', '6tXHaeUHBP/wAXSv2VacNVsoQ0K3xyDzlnh9p3XCHS5sLqf0sLdyHHkg5PsyVts2UR1mis99l0ctpUe9/fZL/cwbDktYI8R5gPshlPeSiO/4XcE0E29a3lUsxrr3TXrI|PnUGv0CHmbF1b0XYet8/DK4FbcyaAWYc/B6/PmVdIA8='),
 (270, 'jk7yBw8LEkX7HYtDha8eCqHOIL7/nPDyHaPatB8botY=', 'test48@gds.fr', '0', 1468338897, 0, 0, 0, '', '', '', 'q4ZIwDO/pglyj1ENrVPlcEHxnyeK6kEhSzJ39DzZBK9sSbU3cHjH7SGUXZcAV6/JNzhlU32UrOpmN4YpRCgVDet8IuL21DngU985aD2smkD6PTgHtxjBMIs+Qd73wBec|Nu09GohL0GhQz4j28UHTA3h3aq/9h5hAJAISp1jXjH4=', 'q4ZIwDO/pglyj1ENrVPlcEHxnyeK6kEhSzJ39DzZBK9sSbU3cHjH7SGUXZcAV6/JNzhlU32UrOpmN4YpRCgVDet8IuL21DngU985aD2smkD6PTgHtxjBMIs+Qd73wBec|Nu09GohL0GhQz4j28UHTA3h3aq/9h5hAJAISp1jXjH4='),
-(271, 'XY+q+f3Jz39mr3dQofYJZd/5ktMau5nkwlkw/UZv2nc=', 'test49@ezfd.gr', '0', 1468579527, 0, 0, 0, '', '', '', '5oR9Mwb2qPP8cyax2p8TTiUxiGU+PSlLjpScFinuoCKTmQRSL5YmU9xrVNhdRN5Un225+s1xtMOMNuP9KGTqW2CYTlxuP0QYemhP6A3gDTFNrCOHzfZt26XAQJlAtGOb|dThvbH9Nn4uyofo+LmCGa4+FzbI6Kw0zpmKPq7h3p0I=', '5oR9Mwb2qPP8cyax2p8TTiUxiGU+PSlLjpScFinuoCKTmQRSL5YmU9xrVNhdRN5Un225+s1xtMOMNuP9KGTqW2CYTlxuP0QYemhP6A3gDTFNrCOHzfZt26XAQJlAtGOb|dThvbH9Nn4uyofo+LmCGa4+FzbI6Kw0zpmKPq7h3p0I=');
+(271, 'XY+q+f3Jz39mr3dQofYJZd/5ktMau5nkwlkw/UZv2nc=', 'test49@ezfd.gr', '0', 1468579527, 0, 0, 0, '', '', '', '5oR9Mwb2qPP8cyax2p8TTiUxiGU+PSlLjpScFinuoCKTmQRSL5YmU9xrVNhdRN5Un225+s1xtMOMNuP9KGTqW2CYTlxuP0QYemhP6A3gDTFNrCOHzfZt26XAQJlAtGOb|dThvbH9Nn4uyofo+LmCGa4+FzbI6Kw0zpmKPq7h3p0I=', '5oR9Mwb2qPP8cyax2p8TTiUxiGU+PSlLjpScFinuoCKTmQRSL5YmU9xrVNhdRN5Un225+s1xtMOMNuP9KGTqW2CYTlxuP0QYemhP6A3gDTFNrCOHzfZt26XAQJlAtGOb|dThvbH9Nn4uyofo+LmCGa4+FzbI6Kw0zpmKPq7h3p0I='), ;
 
 -- --------------------------------------------------------
 
@@ -1324,20 +1325,20 @@ INSERT INTO `user` (`user_id`, `user_name`, `user_mail`, `user_ip`, `user_regist
 --
 
 CREATE TABLE IF NOT EXISTS `version` (
-  `version_id` int(16) unsigned NOT NULL AUTO_INCREMENT,
-  `version_name` varchar(32) NOT NULL,
-  `version_time` int(16) NOT NULL,
-  PRIMARY KEY (`version_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `version_id` int(16),  unsigned NOT NULL AUTO_INCREMENT,
+  `version_name` varchar(32),  NOT NULL,
+  `version_time` int(16),  NOT NULL,
+  PRIMARY KEY (`version_id`),
+),  ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `version`
 --
 
-INSERT INTO `version` (`version_id`, `version_name`, `version_time`) VALUES
+INSERT INTO `version` (`version_id`, `version_name`, `version_time`),  VALUES
 (1, '1.1.56', 0),
 (2, '1.2.20', 0),
-(3, '1.2.45', 0);
+(3, '1.2.45', 0), ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
