@@ -18,11 +18,11 @@ class TestController extends Controller
                 'only' => ['mdp', 'username', 'newturn', 'generateallcolors'],
                 'rules' => [
                     [
-                        'allow' => false, // have access
+                        'allow' => true, // have access (true to generateallcolors)
                         'roles' => ['@'], // Connected
                     ],
                     [
-                        'allow' => false, // No access
+                        'allow' => true, // No access (true to generateallcolors)
                         'roles'=>['?'], // Guests
                     ],
                 ],
@@ -35,7 +35,7 @@ class TestController extends Controller
             ],
         ];
     }
-    
+
     public function actions()
     {
         return [
@@ -58,12 +58,12 @@ class TestController extends Controller
     {
         return $this->render('mdp');
     }
-    
+
     public function actionUsername()
     {
     	return $this->render('username');
     }
-    
+
     public function actionNewturn()
     {
     	return $this->render('newturn');

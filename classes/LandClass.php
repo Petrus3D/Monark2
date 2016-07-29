@@ -1,14 +1,15 @@
 <?php
 
 namespace app\classes;
+use Yii;
 
 /**
- * 
+ *
  * @author Paul
  *
  */
 class LandClass{
-	
+
 	private $landId;
 	private $landName;
 	private $landMapId;
@@ -19,7 +20,7 @@ class LandClass{
 	private $landPositionLeft;
 	private $landBaseUnits;
 	private $landHarbor;
-	
+
 	/**
 	 *
 	 */
@@ -35,53 +36,52 @@ class LandClass{
 		$this->landBaseUnits 	= $landData['land_base_units'];
 		$this->landHarbor 		= $landData['land_harbor'];
 	}
-	
+
 	public function getLandId(){
 		return $this->landId;
 	}
-	
+
 	public function getLandBaseUnits(){
 		return $this->landBaseUnits;
 	}
-	
+
 	public function getLandName(){
-		//return Yii::t('land', $this->landName);
-		return $this->landName;
+		return Yii::t('land', $this->landName);
 	}
-	
+
 	public function getLandAbv(){
 		return $this->landAbv;
 	}
-	
+
 	public function getLandContinentId(){
 		return $this->landContinentId;
 	}
-	
+
 	public function getLandPositionTop(){
 		return $this->landPositionTop;
 	}
-	
+
 	public function getLandPositionLeft(){
 		return $this->landPositionLeft;
 	}
-	
+
 	public function getLandHarbor(){
 		return $this->landHarbor;
 	}
-	
+
 	public function getLandImage(){
 		if($this->landImage == null)
 			return $this->landName;
 		else
 			return $this->landImage;
 	}
-	
+
 	public function getLandImageUrl(){
 		return 'img/land/'.$this->getLandImage().'.png';
 	}
-	
+
 	public function getLandImageTempUrl($colorName){
 		return 'img/land_temp/'.$this->getLandImage().'_'.$colorName.'.png';
 	}
-	
+
 }
