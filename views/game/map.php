@@ -1,12 +1,10 @@
 <?php
-use yii\helpers\Html;
-use yii\grid\GridView;
-use yii\bootstrap\Progress;
 use yii\widgets\Pjax;
 use yii\bootstrap\Modal;
 use yii\web\View;
 use app\models\Land;
 use app\controllers\AjaxController;
+use app\assets\AppAsset;
 
 
 /* @var $this yii\web\View */
@@ -17,9 +15,9 @@ $refresh_time = $this->context->refreshTime;
 $this->registerJs($this->context->getJSConfig(), View::POS_HEAD);
 
 // Call files
-$this->registerJsFile("@web/js/game/map.js", ['depends' => [dmstr\web\AdminLteAsset::className()]]);
-$this->registerJsFile("@web/js/game/game.js", ['depends' => [dmstr\web\AdminLteAsset::className()]]);
-$this->registerJsFile("@web/js/game/ajax.js", ['depends' => [dmstr\web\AdminLteAsset::className()]]);
+$this->registerJsFile("@web/js/game/map.js", ['depends' => [AppAsset::className()]]);
+$this->registerJsFile("@web/js/game/game.js", ['depends' => [AppAsset::className()]]);
+$this->registerJsFile("@web/js/game/ajax.js", ['depends' => [AppAsset::className()]]);
 $this->registerCssFile("@web/css/map.css");
 ?>
 

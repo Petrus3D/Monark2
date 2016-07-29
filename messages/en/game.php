@@ -25,6 +25,9 @@ return [
 	'Title_Map' => 'Map',
 	'Title_Game_Mail' => 'Message box',
 	'Title_Game_Chat' => 'Game chat',
+	'Title_Game_News' => 'Game news',
+	'Title_Game_Stats' => 'Game stats',
+	'Title_Game_Diplomacy' => 'Diplomacy',
 
 	/* Tab */
 	'Tab_Game_Name' => 'Game Name',

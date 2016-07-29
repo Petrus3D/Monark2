@@ -24,7 +24,7 @@ return [
     'Title_Game_Create'     => 'Create game',
     'Title_Game_Quit'       => 'Quit the game',
 	'Title_Game_Map'        => 'Show the map',
-	'Title_Game_Stats'      => 'Show stats',
+	'Title_Game_Stats'      => 'Game stats',
 	'Title_Game_Lobby'      => 'Game lobby',	
 	'Title_Game_Mail' 		=> 'Message box',
 	'Title_Game_Chat' 		=> 'Game chat',

@@ -10,7 +10,7 @@ $this->registerCssFile("@web/css/ajax.css");
 	<?php $userTurn = $CurrentTurnData->getTurnUserId() == $User->getId();?>
 	<?php if($userTurn): ?>
 		<?php if($CurrentTurnData->getTurnGold() > 0): ?>
-			<table>
+			<table class="list-spaced">
 				<tr>
 					<td id='td-show-units-def' style="padding: 4px;"><font size='4'><?= Yii::t('ajax', 'Text_Units'); ?> <?= $Land[$land_id]->getLandName() ?> : </font><font size='4'><?= $GameData[$land_id]->getGameDataUnits()." ".Yii::t('ajax', 'Text_Units_Pending')?></font></td>
 				</tr>

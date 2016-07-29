@@ -12,6 +12,7 @@ $this->registerCssFile("@web/css/ajax.css");
 	<?php $land 		= $Land[$land_id]; ?>
 	<?php $visible 		= Frontier::userHaveFrontierLand($UserFrontierData, $land_id);?>
 	<?php $userTurn 	= $CurrentTurnData->getTurnUserId() == $User->getId();?>
+	<?php $buttonDisable = ($userTurn)? "" : " disabled"; ?>
 	<?php $userLand 	= $GameData[$land_id]->getGameDataUserId() == $User->getId(); ?>
 	<?php $landFrontier = Frontier::landHaveFrontierLandArray($FrontierData, $land_id) ?>
 	<table class="table-no-style" style="width:100%;table-layout:fixed;">
@@ -133,23 +134,23 @@ $this->registerCssFile("@web/css/ajax.css");
 					<table class="table-no-style" style="width:100%;">
 					<tbody>
 						<tr>
-							<?php if($userTurn && $userLand): ?>
+							<?php if($userLand): ?>
 							<td>
-								<?= Html::tag('span', "&nbsp;<a href='#Buy' class='buy_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-success'><i class='fa fa-usd'></i> ".Yii::t('ajax', 'Button_Land_Buy')." </span></a>", [
+								<?= Html::tag('span', "&nbsp;<a href='#Buy' class='buy_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-success ".$buttonDisable."'><i class='fa fa-usd'></i> ".Yii::t('ajax', 'Button_Land_Buy')." </span></a>", [
 				                    'title'=>"Acheter des troupes pour cette région.",
 				                    'data-toggle'=>'tooltip',
 				                    'data-placement' => 'bottom',
 				                    'style'=>'text-decoration: none; cursor:pointer;'
 				                ]); ?>
 				            </td><td>
-				                <?= Html::tag('span', "&nbsp;<a href='#Build' class='build_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-primary'><i class='fa fa-gavel'></i> ".Yii::t('ajax', 'Button_Land_Build')." </span></a>", [
+				                <?= Html::tag('span', "&nbsp;<a href='#Build' class='build_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-primary".$buttonDisable."'><i class='fa fa-gavel'></i> ".Yii::t('ajax', 'Button_Land_Build')." </span></a>", [
 				                    'title'=>"Construire des bâtiments sur la région : fort, camp, mines. ",
 				                    'data-toggle'=>'tooltip',
 				                    'data-placement' => 'bottom',
 				                    'style'=>'text-decoration: none; cursor:pointer;'
 				                ]); ?>
 				            </td><td>
-				                <?= Html::tag('span', "&nbsp;<a href='#Build' class='move_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-warning'><i class='fa fa-truck'></i> ".Yii::t('ajax', 'Button_Land_Move')." </span></a>", [
+				                <?= Html::tag('span', "&nbsp;<a href='#Build' class='move_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-warning".$buttonDisable."'><i class='fa fa-truck'></i> ".Yii::t('ajax', 'Button_Land_Move')." </span></a>", [
 				                    'title'=>"Deplacer des troupes vers une autre région. ",
 				                    'data-toggle'=>'tooltip',
 				                    'data-placement' => 'bottom',
@@ -158,23 +159,24 @@ $this->registerCssFile("@web/css/ajax.css");
 					        </td>      
 					        <?php elseif(!$userLand && $visible): ?>
 					        <td>
-					        	<?= Html::tag('span', "&nbsp;<a href='#Buy' class='atk_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-danger'><i class='fa fa-bolt'></i> ".Yii::t('ajax', 'Button_Land_Atk')." </span></a>", [
+					        	<?= Html::tag('span', "&nbsp;<a href='#Buy' class='atk_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-danger".$buttonDisable."'><i class='fa fa-bolt'></i> ".Yii::t('ajax', 'Button_Land_Atk')." </span></a>", [
 					                    'title'=>"Attaquer cette région.",
 					                    'data-toggle'=>'tooltip',
 					                    'data-placement' => 'bottom',
 					                    'style'=>'text-decoration: none; cursor:pointer;'
 					                ]); ?>
 					        </td>
-							<?php elseif($visible): ?>
-							<td>
-								<?= Yii::t('ajax', 'Text_Not_User_Turn'); ?>
-							</td>
-							<?php endif; ?>
+					        <?php endif; ?>
 						</tr>
 					</tbody>
 					</table>
 				</div>
 			</td>
 		</tr>
-	</table>	
+	</table>
+	<div class="div-center">
+		<?php if(!$userTurn): ?>
+			<br><?= Yii::t('ajax', 'Text_Not_User_Turn'); ?>
+		<?php endif; ?>	
+	</div>
 </div>
