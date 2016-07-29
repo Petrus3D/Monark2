@@ -52,7 +52,7 @@ class Fight
 	private $def_units_form;
 	
 	
-	public function FightInformations($atk_land_id, $def_land_id, $atk_units, $game_data)
+	public function __construct($atk_land_id, $def_land_id, $atk_units, $game_data)
     {
 		// Initialization
 		$this->gameData				= $game_data;

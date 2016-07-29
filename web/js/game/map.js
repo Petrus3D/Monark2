@@ -62,8 +62,8 @@ $(document).on("click", ".atk_link", function(){
 $(document).on("click", ".atk_action_link", function (){
 	$(".atk_action_link").html("...");
 	var land_id = $(this).attr("i");
-	var land_atk_id = $(this).attr("to_i");
-	var units = $("#input_select_unit_number").val();
+	var land_atk_id = $(this).attr("atk_i");
+	var units =  $(this).closest('tr').children('td #td-select_unit_number').find('#input_select_unit_number').val();
 	showAtkAction(land_id, land_atk_id, units);
 });
 

@@ -143,7 +143,7 @@ class Fight extends \yii\db\ActiveRecord
      */
     public function FightExec()
     {
-    	$fight = new Fight();
+    	$fight = new Fight($this->land_id_atk, $this->land_id_def, $this->units_atk, $this->gameData);
     	$fight->FightStart();
     	$data = $fight->FightResult();
     	
@@ -158,7 +158,7 @@ class Fight extends \yii\db\ActiveRecord
     		$def_land_final_user_id	= $this->gameData[$data['def_land_id']]->getGameDataUserId();
     	}
     	
-    	
+    	// Update
     	GameData::updateUnitsGameData($this->game->getGameId(), $data['atk_land_id'], $atk_final_units);
     
     	GameData::updateUnitsGameData($this->game->getGameId(), $data['def_land_id'], $data['def_result_units']);
