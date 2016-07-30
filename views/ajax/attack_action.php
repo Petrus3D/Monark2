@@ -9,9 +9,9 @@ $this->registerCssFile("@web/css/ajax.css");
 <div class="atk-action-view-ajax">
 	<?php if($error === true): ?>
 		attaque terminée
-		<div class="div-center">
+		<!--<div class="div-center">
 			<?= "<a href='#Build' class='build_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-success'><i class='fa fa-plus'></i> ".Yii::t('ajax', 'Text_Build_Other')." </span></a>"; ?>
-		</div>
+		</div>-->
 	<?php else: ?>
 		<div class="alert alert-danger" style="text-align:center;">
 			<font size='3'>

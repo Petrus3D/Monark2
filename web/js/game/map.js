@@ -74,9 +74,9 @@ function showBuyAction(land_id, units){CallAjaxMethodModal("buyaction", {"land_i
 function showBuildBegin(land_id){CallAjaxMethodModal("buildbegin", {"land_id":land_id}, {'title': " Construire", 'title_with_land_name' : true}, land_id);}
 function showBuildAction(land_id, building_id){CallAjaxMethodModal("buildaction", {"land_id":land_id, 'building_id':building_id}, {'title': " Construction en cours...", 'title_with_land_name' : true}, land_id);}
 function showMoveBegin(land_id){CallAjaxMethodModal("movebegin", {"land_id":land_id}, {'title': " Déplacer des troupes", 'title_with_land_name' : true}, land_id);}
-function showMoveAction(land_id, land_id_to, units){CallAjaxMethodModal("moveaction", {"land_id":land_id, 'land_id_to':land_id_to, 'units':units}, {'title': " Déplacement en cours...", 'title_with_land_name' : true}, land_id);}
+function showMoveAction(land_id, land_id_to, units){CallAjaxMethodModal("moveaction", {'land_id':land_id, 'land_id_to':land_id_to, 'units':units}, {'title': " Déplacement en cours...", 'title_with_land_name' : true}, land_id);}
 function showAtkBegin(land_id){CallAjaxMethodModal("attackbegin", {"land_id":land_id}, {'title': " Attaquer", 'title_with_land_name' : true}, land_id);}
-function showAtkAction(land_id, land_atk_id, units){CallAjaxMethodModal("attackaction", {"land_id":land_id, 'atk_id':land_atk_id, 'units':units}, {'title': " Attaque en cours...", 'title_with_land_name' : true}, land_id);}
+function showAtkAction(land_id, land_atk_id, units){CallAjaxMethodModal("attackaction", {'land_id':land_id, 'atk_id':land_atk_id, 'units':units}, {'title': " Attaque en cours...", 'title_with_land_name' : true}, land_id);}
 
 // Context Menu
 $(".land_content").rightClick( function(e) {

@@ -11,9 +11,8 @@ use app\models\Fight;
  *
  */
 
-class Fight
+class FightClass
 {
-
 	private $gameData;
 	private $atk_max_units;
 	private $def_max_units;
@@ -35,12 +34,10 @@ class Fight
 	private $def_units_origin;
 	private $def_units;
 	private $def_current_units;
-	private $def_have_camp;
+	private $def_have_fort;
 	private $def_max_unit;
 	private $def_max_unit_final;
 	private $fight_nb;
-	private $atk_thimble_form;
-	private $def_thimble_form;
 	
 	private $atk_thimble_array;
 	private $def_thimble_array;
@@ -80,9 +77,9 @@ class Fight
     	$this->def_units_origin 	= $this->gameData[$this->def_land_id]->getGameDataUnits();
     	$this->def_units 			= $this->def_units_origin;
     	$this->def_current_units	= $this->def_units;
-    	$this->def_have_camp		= (in_array($this->fort_build_id, $this->gameData[$this->def_land_id]->getGameDataBuildings()))? true : false;
+    	$this->def_have_fort		= (in_array($this->fort_build_id, $this->gameData[$this->def_land_id]->getGameDataBuildings()))? true : false;
     	$this->def_max_unit			= ($this->def_units >= $this->def_max_units)? $this->def_max_units : $this->def_units;
-    	$this->def_max_unit_final	= $this->buildings_of_def_user*$this->bonus_fort + $this->def_max_units;
+    	$this->def_max_unit_final	= $this->def_have_fort*$this->bonus_fort + $this->def_max_units;
     	
     	// Init fight
     	$this->fight_nb 			= 0;
@@ -106,16 +103,16 @@ class Fight
     }
     
     private function setAtkFightingUnits(){
-    	if($this->atk_current_units > $this->max_unit_atk){
-    		$this->atk_fighting_units = $this->max_unit_atk;
+    	if($this->atk_current_units > $this->atk_max_unit_final){
+    		$this->atk_fighting_units = $this->atk_max_unit_final;
     	}else{
     		$this->atk_fighting_units = $this->atk_current_units;
     	}
     }
     
     private function setDefFightingUnits(){
-    	if($this->def_current_units > $this->max_unit_def){
-    		$this->def_fighting_units = $this->max_unit_def;
+    	if($this->def_current_units > $this->def_max_unit_final){
+    		$this->def_fighting_units = $this->def_max_unit_final;
     	}else{
     		$this->def_fighting_units = $this->def_current_units;
     	}
@@ -147,7 +144,7 @@ class Fight
     }
     
     private function startFight($atk, $def){
-    	if($atk > $def && $atk[$i] !="" && $def !="")
+    	if($atk > $def && $atk !="" && $def !="")
     	{
     		$this->def_current_units--;
     	}else{
@@ -240,7 +237,6 @@ class Fight
             'thimble_def'		=> $this->def_thimble_form,
             'atk_units'			=> $this->atk_units_form,
             'def_units'			=> $this->def_units_form,
-    		'def_base_units'	=> $this->def_base_units,
     	);
     }
 } 

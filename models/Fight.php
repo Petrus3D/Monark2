@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-use app\classes\Fight;
+use app\classes\FightClass;
 
 /**
  * This is the model class for table "fight".
@@ -38,7 +38,7 @@ class Fight extends \yii\db\ActiveRecord
 	private $land_id_def;
 	private $futur_units_atk;
     private	$futur_units_def;
-    private $buildingData;
+    private $frontierData;
     
     public static $FortBonusUnits = 1;
     public static $CampBonusUnits = 1;
@@ -100,16 +100,16 @@ class Fight extends \yii\db\ActiveRecord
      * @param unknown $turn
      * @param unknown $units
      */
-    public function FightInit($land_id, $user, $game, $gameData, $turn, $buildingData, $land_id_atk, $units_atk){
+    public function FightInit($land_id, $user, $game, $gameData, $turn, $land_id_atk, $units_atk, $frontierData){
     	// Data
-    	$this->land_id_atk 	= $land_id;
-    	$this->land_id_def 	= $land_id_atk;
+    	$this->land_id_atk 	= $land_id_atk;
+    	$this->land_id_def 	= $land_id;
     	$this->user 		= $user;
     	$this->game 		= $game;
     	$this->gameData 	= $gameData;
+    	$this->frontierData = $frontierData;
     	$this->turn 		= $turn;
     	$this->units_atk 	= $units_atk;
-    	$this->buildingData = $buildingData;
     	
     	// Calc
     	$this->futur_units_atk 	= 0;
@@ -143,7 +143,7 @@ class Fight extends \yii\db\ActiveRecord
      */
     public function FightExec()
     {
-    	$fight = new Fight($this->land_id_atk, $this->land_id_def, $this->units_atk, $this->gameData);
+    	$fight = new FightClass($this->land_id_atk, $this->land_id_def, $this->units_atk, $this->gameData);
     	$fight->FightStart();
     	$data = $fight->FightResult();
     	
@@ -153,7 +153,7 @@ class Fight extends \yii\db\ActiveRecord
     		$def_final_units 		= $data['atk_result_units'];
     		$def_land_final_user_id	= $this->gameData[$data['atk_land_id']]->getGameDataUserId();
     	}else{
-    		$atk_final_units 		= $this->gameData[$data['atk_land_id']]->getGameDataUnits() - $data['atk_result_units'];
+    		$atk_final_units 		= $this->gameData[$data['atk_land_id']]->getGameDataUnits() - $data['atk_engage_units'];
     		$def_final_units 		= $this->gameData[$data['def_land_id']]->getGameDataUnits() - $data['def_result_units'];
     		$def_land_final_user_id	= $this->gameData[$data['def_land_id']]->getGameDataUserId();
     	}
@@ -161,7 +161,7 @@ class Fight extends \yii\db\ActiveRecord
     	// Update
     	GameData::updateUnitsGameData($this->game->getGameId(), $data['atk_land_id'], $atk_final_units);
     
-    	GameData::updateUnitsGameData($this->game->getGameId(), $data['def_land_id'], $data['def_result_units']);
+    	GameData::updateUnitsGameData($this->game->getGameId(), $data['def_land_id'], $def_final_units);
     
     	GameData::updateUserIdGameData($this->game->getGameId(), $data['def_land_id'], $def_land_final_user_id);
     	
@@ -177,7 +177,7 @@ class Fight extends \yii\db\ActiveRecord
 				$data['atk_units'],
 				$data['def_units'],
 				$data['atk_engage_units'],
-				$data['def_base_units'],
+				$data['def_engage_units'],
 				$data['thimble_atk'],
 				$data['thimble_def'],
 				$this->turn->getTurnId(),
@@ -202,7 +202,7 @@ class Fight extends \yii\db\ActiveRecord
     			'fight_thimble_atk'		=> $thimble_atk,
     			'fight_thimble_def'		=> $thimble_def,
     			'fight_time'			=> time(),
-    			'fight_turn_id'			=> $this->turn,
+    			'fight_turn_id'			=> $turn_id,
     			'fight_conquest'		=> $conquest,
     	])->execute();
     }
