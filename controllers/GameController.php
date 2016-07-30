@@ -318,12 +318,12 @@ class GameController extends \yii\web\Controller
 		    	// Continent
 		    	$continents 		= new Continent();
 		    	$continentsSQL		= $continents->findAllContinent(Yii::$app->session['Game']->getMapId(), 0);
-		    	$continentsArray 	= $continents->findAllContinentToArray(Yii::$app->session['Game']->getMapId(), $continentsSQL);
+		    	$continentsArray 	= $continents->findAllContinentToArray(Yii::$app->session['Game']->getMapId());
 
 		    	// Color
 		    	$colors 			= new Color();
 		    	$colorsSQL			= $colors->findAllColor(0);
-		    	$colorsArray 		= $colors->findAllColorToArray($colorsSQL);
+		    	$colorsArray 		= $colors->findAllColorToArray();
 
 		    	// Users
 		    	$gamePlayer 		= new GamePlayer();

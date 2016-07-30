@@ -63,4 +63,8 @@ class ColorClass{
 	public function getColorFontOther(){
 		return $this->colorFontOther;
 	}
+	
+	public function getColorHide(){
+		return $this->colorHide;
+	}
 }
