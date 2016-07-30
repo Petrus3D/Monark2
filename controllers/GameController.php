@@ -167,6 +167,21 @@ class GameController extends \yii\web\Controller
     }
 
     /**
+     * 
+     */
+    public function setSessionDataNull(){
+    	Yii::$app->session['Contient'] = null;
+    	Yii::$app->session['Land'] = null;
+    	Yii::$app->session['Resource'] = null;
+    	Yii::$app->session['Map'] = null;
+    	Yii::$app->session['Color'] = null;
+    	Yii::$app->session['Frontier'] = null;	
+    	Yii::$app->session['Building'] = null;
+    	Yii::$app->session['MapData'] = null;
+    	Yii::$app->session['Game'] = null;
+    }
+    
+    /**
      *
      * @param unknown $game_current
      */
@@ -345,8 +360,7 @@ class GameController extends \yii\web\Controller
     	(new GamePlayer())->gameExitPlayer(Yii::$app->session['User']->getId(), Yii::$app->session['Game']->getGameId());
 
     	// Session
-    	Yii::$app->session['Game'] = null;
-    	Yii::$app->session['MapData'] = null;
+    	$this->setSessionDataNull();
     	Yii::$app->session->setFlash('info', Yii::t('game', 'Notice_Game_Quit'));
 
     	return $this->actionIndex();

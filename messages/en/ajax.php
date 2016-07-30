@@ -46,7 +46,8 @@ return [
 	'Text_Atk_Units_NB'			=> 'Units to mobilize',
 	'Text_Land_Nothing_To_Build'=> 'Nothing to build',
 	'Text_Not_Owner'			=> "You don't own this land",
-	'Text_Are_Owner'			=> "You own this land",	
+	'Text_Are_Owner'			=> "You own this land",
+	'Text_Conquered_This_Turn' 	=> "conquered this turn.",
 		
 	/* Buttons */
 	'Button_Land_Build' 		=> 'Build',
@@ -62,5 +63,6 @@ return [
 	'Error_Turn' 				=> 'Error : this is not your turn.',
 	'Error_Gold' 				=> 'Error : you have not enough gold.',
 	'Error_Units' 				=> "Error : you must keep at least 1 unit in your territory.",
+	'Error_Conquest' 			=> "Error : this land was conquered this turn.",
 ];
 ?>

@@ -390,8 +390,9 @@ class AjaxController extends Controller
 					'Frontier'	=> true,
 			));
 			
-			$frontierData = Frontier::landHaveFrontierLandArrayId($data['frontierData'], $urlArgsArray['land_id']);
-				
+			$frontierData 				= Frontier::landHaveFrontierLandArrayId($data['frontierData'], $urlArgsArray['land_id']);
+			$conquest_this_turn_data   	= Fight::ConquestThisTurnLandAll($data['game']->getGameId(), $data['currentTurnData']->getTurnId());
+			
 			return $this->renderAjax('attack_begin', [
 					'land_id' 			=> $urlArgsArray['land_id'],
 					'Game'				=> $data['game'],
@@ -401,6 +402,7 @@ class AjaxController extends Controller
 					'CurrentTurnData'	=> $data['currentTurnData'],
 					'BuildingData'		=> $data['buildingData'],
 					'frontierData'		=> $frontierData,
+					'conquestAll'		=> $conquest_this_turn_data,
 			]);
 		}
 		return $this->returnError();
@@ -423,7 +425,7 @@ class AjaxController extends Controller
 					'Frontier'	=> true,
 			));
 				
-			$frontierData = Frontier::landHaveFrontierLandArrayId($data['frontierData'], $urlArgsArray['land_id']);
+			$frontierData 			= Frontier::landHaveFrontierLandArrayId($data['frontierData'], $urlArgsArray['land_id']);
 			
 			// Attack
 			$fight = new Fight();

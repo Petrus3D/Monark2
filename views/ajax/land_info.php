@@ -32,7 +32,7 @@ $this->registerCssFile("@web/css/ajax.css");
 		                    ]); ?>
 		                <?php endif; ?>
 		                <?= $Land[$land_id]->getLandName() ?> 
-		                <?php if($Continent[$Land[$land_id]->getLandContinentId()] != 0): ?>
+		                <?php if($Continent[$Land[$land_id]->getLandContinentId()]->getContinentId() != 0): ?>
 		                	( <?= Yii::t('continent', $Continent[$Land[$land_id]->getLandContinentId()]->getContinentName()); ?> )
 						<?php endif; ?>
 						</font></td>
