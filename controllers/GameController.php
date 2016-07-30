@@ -484,7 +484,7 @@ class GameController extends \yii\web\Controller
 		    		$res		 	= new Resource();
 		    		$game_data		= new GameData();
 		    		$turn			= new Turn();
-		    		$continentData	= (new Continent())->findAllContinent($game_current->getMapId());
+		    		$continentData	= (new Continent())->findAllContinentToArray($game_current->getMapId());
 		    		$mapData		= (new Map())->findMapById($game_current->getMapId());
 
 		    		// Datas

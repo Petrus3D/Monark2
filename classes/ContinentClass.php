@@ -35,7 +35,27 @@ class ContinentClass{
 		return $this->continent_id;
 	}
 	
+	public function getContinentBonus(){
+		return $this->continent_bonus;
+	}
+	
 	public function getContinentName(){
 		return $this->continent_name;
+	}
+	
+	public function getContinentLandIdBegin(){
+		return $this->continent_land_id_begin;
+	}
+	
+	public function getContinentLandIdEnd(){
+		return $this->continent_land_id_end;
+	}
+	
+	public function getContinentHide(){
+		return $this->continent_hide;
+	}
+	
+	public function getContinentMapId(){
+		return $this->continent_map_id;
 	}
 }
