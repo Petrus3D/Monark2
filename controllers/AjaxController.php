@@ -24,6 +24,7 @@ use app\models\Frontier;
 use app\models\Buy;
 use app\models\Move; 
 use yii\web\View;
+use app\models\Fight;
 
 /**
  * AjaxController implements the CRUD actions for Ajax model.
@@ -419,9 +420,19 @@ class AjaxController extends Controller
 					'User' => true,
 					'GameData' => true,
 					'CurrentTurnData' => true,
+					'Frontier'	=> true,
 			));
 				
+			$frontierData = Frontier::landHaveFrontierLandArrayId($data['frontierData'], $urlArgsArray['land_id']);
+			
+			// Attack
+			$fight = new Fight();
+			$fight->FightInit($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData'], $urlArgsArray['atk_id'], $urlArgsArray['units'], $data['frontierData']);
+			$fightError = $fight->FightCheck();
+			if($fightError === true) $fight->FightExec();
+			
 			return $this->renderAjax('attack_action', [
+					'error'				=> $fightError,
 					'land_id' 			=> $urlArgsArray['land_id'],
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],

@@ -18,7 +18,7 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
-        
+
         <?php if(!Yii::$app->user->isGuest): ?>
         <div id='navbar-menu-global' class="navbar-custom-menu">
            		<ul class="nav navbar-nav">

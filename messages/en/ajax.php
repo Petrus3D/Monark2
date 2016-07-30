@@ -45,6 +45,8 @@ return [
 	'Text_Atk_Able_Land'		=> 'Possible attackers',
 	'Text_Atk_Units_NB'			=> 'Units to mobilize',
 	'Text_Land_Nothing_To_Build'=> 'Nothing to build',
+	'Text_Not_Owner'			=> "You don't own this land",
+	'Text_Are_Owner'			=> "You own this land",	
 		
 	/* Buttons */
 	'Button_Land_Build' 		=> 'Build',

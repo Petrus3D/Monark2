@@ -10,8 +10,9 @@ $this->registerCssFile("@web/css/ajax.css");
 <div class="attack-view-ajax">
 	<?php $userTurn 	= $CurrentTurnData->getTurnUserId() == $User->getId();?>
 	<?php $land_units 	= Land::LandCountUnitsToArray($GameData[$land_id]->getGameDataUnits()); ?>
-	<?php if($userTurn): ?>
-		<?php if($GameData[$land_id]->getGameDataUnits() > 1): ?>
+	<?php $landUser 	=  $GameData[$land_id]->getGameDataUserId() == $User->getId(); ?>
+	<?php if(!$landUser): ?>
+		<?php if($userTurn): ?>
 			<table class="table-no-style" style="width:100%;table-layout: auto;">
 				<tr>
 					<td><font size='4'><?= Html::tag('span', Yii::t('ajax', 'Text_Units_In')." ".$Land[$land_id]->getLandName()." :", [
@@ -72,14 +73,14 @@ $this->registerCssFile("@web/css/ajax.css");
 		<?php else: ?>
 			<div class="alert alert-danger" style="text-align:center;">
 				<font size='3'>
-					<?= Yii::t('ajax', 'Text_Move_Cant'); ?>
+					<?= Yii::t('ajax', 'Text_Not_User_Turn'); ?>
 				</font>
 			</div>
 		<?php endif; ?>
 	<?php else: ?>
 		<div class="alert alert-danger" style="text-align:center;">
 			<font size='3'>
-				<?= Yii::t('ajax', 'Text_Not_User_Turn'); ?>
+				<?= Yii::t('ajax', 'Text_Are_Owner'); ?>
 			</font>
 		</div>
 	<?php endif; ?>

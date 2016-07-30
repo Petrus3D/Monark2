@@ -98,7 +98,7 @@ class Move extends \yii\db\ActiveRecord
     	if($this->futur_units_from > 0){
     		// Turn check
     		if($this->turn->getTurnUserId() == $this->user->getUserID()){
-    			// Land check TODO CHECK FRONTIER
+    			// Land check
     			if($this->gameData[$this->land_id_from]->getGameDataUserId() == $this->user->getUserID()
     			   && $this->gameData[$this->land_id_to]->getGameDataUserId() == $this->user->getUserID()
     				&& $this->units > 0
