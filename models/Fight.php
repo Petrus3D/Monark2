@@ -158,7 +158,7 @@ class Fight extends \yii\db\ActiveRecord
     		$def_land_final_user_id	= $this->gameData[$data['atk_land_id']]->getGameDataUserId();
     	}else{
     		$atk_final_units 		= $this->gameData[$data['atk_land_id']]->getGameDataUnits() - $data['atk_engage_units'];
-    		$def_final_units 		= $this->gameData[$data['def_land_id']]->getGameDataUnits() - $data['def_result_units'];
+    		$def_final_units 		= $this->gameData[$data['def_land_id']]->getGameDataUnits() - ($data['def_engage_units'] - $data['def_result_units']);
     		$def_land_final_user_id	= $this->gameData[$data['def_land_id']]->getGameDataUserId();
     	}
     	
