@@ -171,7 +171,7 @@ class GameController extends \yii\web\Controller
      * @param unknown $game_current
      */
     public function updateSessionData($game_current){
-    	//Yii::$app->session['Land'] = null; //uncomment for debug / comment for optimization
+    	Yii::$app->session['Land'] = null; //uncomment for debug / comment for optimization
     	if(Yii::$app->session['Contient'] == null)	Yii::$app->session->set("Continent", Continent::findAllContinentToArray($game_current->getMapId()));
     	if(Yii::$app->session['Land'] == null)		Yii::$app->session->set("Land", Land::findAllLandsToArray($game_current->getMapId()));
     	if(Yii::$app->session['Resource'] == null)	Yii::$app->session->set("Resource", Resource::findAllResourcesToArray());

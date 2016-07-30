@@ -42,7 +42,7 @@ $this->registerCssFile("@web/css/ajax.css");
 							</tr>
 							<?php $i = 0; ?>
 							<?php foreach($frontierData as $frontier_land_id): ?>
-								<?php if($frontier_land_id > 0 && $GameData[$frontier_land_id]->getGameDataUserId() == $User->getId()): ?>
+								<?php if($frontier_land_id > 0 && $GameData[$frontier_land_id]->getGameDataUserId() == $User->getId() && $GameData[$frontier_land_id]->getGameDataUnits() > 1): ?>
 									<tr>
 										<td><font size='3' color="black">
 											<?= $Land[$frontier_land_id]->getLandName() ?> (<?= $GameData[$frontier_land_id]->getGameDataUnits() ?>)</font>

@@ -144,7 +144,7 @@ class Land extends \yii\db\ActiveRecord
     					$landId = rand($continentData[$antarcticId]['continent_land_id_begin'], $continentData[$antarcticId]['continent_land_id_end']);
     				}
     			}else{
-    				$landId = rand($mapData['continent_land_id_begin'], $mapData['continent_land_id_end']);
+    				$landId = rand($mapData['map_land_id_begin'], $mapData['map_land_id_end']);
     			}
     		}while(array_key_exists($landId, $assignedLand));
     
