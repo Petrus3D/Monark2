@@ -18,9 +18,13 @@
  */
 return [
 	/* Title */
-	
-	/* Text */
+	"To buy"		=> "To buy",
+	"To build"		=> "To build",
+	"To move units"		=> "To move units",
+	"To attack"		=> "To attack",
+
 	'Text_Not_User_Turn'		=> 'No actions available <br> Please wait your turn...',
+	/* Text */
 	'Text_Land_No_Resource'		=> 'No resource',
 	'Text_Land_No_Building'		=> 'No building',
 	'Text_Land_Frontier'		=> 'Frontier with',
@@ -48,7 +52,7 @@ return [
 	'Text_Not_Owner'			=> "You don't own this land",
 	'Text_Are_Owner'			=> "You own this land",
 	'Text_Conquered_This_Turn' 	=> "conquered this turn.",
-		
+
 	/* Buttons */
 	'Button_Land_Build' 		=> 'Build',
 	'Button_Land_Buy' 			=> 'Recruit',
@@ -57,7 +61,13 @@ return [
 	'Button_Land_Move' 			=> 'Move units',
 	'Button_Move_Click' 		=> 'Move to',
 	'Button_Return' 			=> 'Return',
-		
+
+	/* Tooltips */
+	"Attack this land."																				=> "Attack this land.",
+	"Move units to another land."																=> "Move units to another land.",
+	"Construct buildings on the land: fort, camp, mines."				=> "Construct buildings on the land: fort, camp, mines.",
+	"Buy units for this land."																	=> "Buy units for this land.",
+
 	/* Error */
 	'Error' 					=> 'Unknow error.',
 	'Error_Turn' 				=> 'Error : this is not your turn.',
