@@ -159,7 +159,7 @@ $this->registerCssFile("@web/css/ajax.css");
 					            <?php if(isset($conquestAll[$land_id]) && $conquestAll[$land_id] == true): ?>
 						            <td>
 						                <?= Html::tag('span', "&nbsp;<a href='#Move' class='' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-warning disabled'><i class='fa fa-truck'></i> ".Yii::t('ajax', 'Button_Land_Move_Conquest')." </span></a>", [
-						                    'title'=>"Deplacer des troupes vers une autre région. ",
+						                    'title'=> Yii::t('ajax', "Move units to another land."),
 						                    'data-toggle'=>'tooltip',
 						                    'data-placement' => 'bottom',
 						                    'style'=>'text-decoration: none; cursor:pointer;'
@@ -168,22 +168,13 @@ $this->registerCssFile("@web/css/ajax.css");
 							    <?php else : ?>
 							    	<td>
 						                <?= Html::tag('span', "&nbsp;<a href='#Move' class='".$move_link."' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-warning".$buttonDisable."'><i class='fa fa-truck'></i> ".Yii::t('ajax', 'Button_Land_Move')." </span></a>", [
-						                    'title'=>"Deplacer des troupes vers une autre région. ",
+						                    'title'=> Yii::t('ajax', "Move units to another land."),
 						                    'data-toggle'=>'tooltip',
 						                    'data-placement' => 'bottom',
 						                    'style'=>'text-decoration: none; cursor:pointer;'
 						                ]); ?>
 							        </td>
 						    	<?php endif; ?>
-		         			<td>
-				            	<?php ($buttonDisable == "")?$move_link = "move_link":$move_link = ""; ?>
-				                <?= Html::tag('span', "&nbsp;<a href='#Move' class='".$move_link."' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-warning".$buttonDisable."'><i class='fa fa-truck'></i> ".Yii::t('ajax', 'Button_Land_Move')." </span></a>", [
-				                    'title'=> Yii::t('ajax', "Move units to another land."),
-				                    'data-toggle'=>'tooltip',
-				                    'data-placement' => 'bottom',
-				                    'style'=>'text-decoration: none; cursor:pointer;'
-				                ]); ?>
-				            </td>
 					        <?php elseif(!$userLand && $visible): ?>
 					        <td>
 					        	<?php ($buttonDisable == "")?$atk_link = "atk_link":$atk_link = ""; ?>
