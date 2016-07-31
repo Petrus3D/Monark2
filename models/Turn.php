@@ -79,8 +79,8 @@ class Turn extends \yii\db\ActiveRecord
      * @param unknown $game_id
      * @param unknown $user_id
      */
-    public static function createGameFirstTurn($game_id, $user_id){
-    	self::NewTurn($game_id, $user_id);
+    public static function createGameFirstTurn($game_id, $user_id, $gameData){
+    	self::NewTurn($game_id, $user_id, $gameData);
     }
     
     /**

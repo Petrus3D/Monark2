@@ -488,7 +488,7 @@ class GameController extends \yii\web\Controller
 		    		$mapData		= (new Map())->findMapById($game_current->getMapId());
 
 		    		// Datas
-		    		$resourceData 	= $res->findAllResources();
+		    		$resourceData 	= $res->findAllResourcesToArray();
 		    		$landData		= $land->findAllLandsToArray($game_current->getMapId());
 			    	$gamePlayerData = $game_player->findAllGamePlayer($game_current->getGameId());
 
@@ -505,13 +505,13 @@ class GameController extends \yii\web\Controller
 			    				$assignedResources 	= $res->assignResourcesToArray($landData, $resourceData);
 
 			    				// Create Game Data
-			    				$game_data->createGameData($assignedLands, $assignedResources, $landData, $game_current);
+			    				$gameData = $game_data->createGameData($assignedLands, $assignedResources, $landData, $game_current);
 
 						    	// Create turn order
 						    	$gameTurnOrder 		= $game_player->updateUserTurnOrder($game_current->getGameId());
 
 						    	// Create first turn
-						    	$turn->createGameFirstTurn($game_current->getGameId() , array_values($gameTurnOrder)[0]->getUserID());
+						    	$turn->createGameFirstTurn($game_current->getGameId() , array_values($gameTurnOrder)[0]->getUserID(), $gameData);
 
 						    	// Update Game statut
 						    	(new Game())->updateGameStatut($game_current->getGameId(), 50);

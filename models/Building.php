@@ -215,7 +215,7 @@ class Building extends \yii\db\ActiveRecord
     			// Each land building
     			foreach ($land->getGameDataBuildings() as $building){
     				if(isset($buildingData[$building])
-    				&& $buildingData[$building]->getBuildingNeed() > 0)
+    				&& $buildingData[$building]->getBuildingGoldIncome() > 0)
     					if($details == null)
     						$returned += $buildingData[$building]->getBuildingGoldIncome();
     					else

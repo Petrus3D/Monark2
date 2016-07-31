@@ -131,19 +131,23 @@ class GameData extends \yii\db\ActiveRecord
      */
     public static function createGameData($assignedLands, $assignedResources, $landData, $gameData){
     	$default_units_user_add = 1;
+    	$returned = array();
     	foreach($landData as $land){
-    		Yii::$app->db->createCommand()->insert(self::tableName(), [
- 				'game_data_game_id'       => $gameData->getGameId(),
-    	 		'game_data_user_id'       => (array_key_exists($land->getLandId(), $assignedLands) ? $assignedLands[$land->getLandId()]['game_player_user_id'] : 0),
-    	 		'game_data_user_id_base'  => (array_key_exists($land->getLandId(), $assignedLands) ? $assignedLands[$land->getLandId()]['game_player_user_id'] : 0),
-    	 		'game_data_land_id'       => $land->getLandId(),
-    	 		'game_data_units'         => (array_key_exists($land->getLandId(), $assignedLands) ? ($land->getLandBaseUnits() + $default_units_user_add) : $land->getLandBaseUnits()),
-    	 		'game_data_capital'       => (array_key_exists($land->getLandId(), $assignedLands) ? $assignedLands[$land->getLandId()]['game_player_user_id'] : 0),
-    	 		'game_data_resource_id'   => $assignedResources[$land->getLandId()],
-    	 		'game_data_buildings'     => (array_key_exists($land->getLandId(), $assignedLands) ? "1;" : ""),
-    		])->execute();
+    		$returned[$land->getLandId()] = array(
+    				'game_data_game_id'       => $gameData->getGameId(),
+    				'game_data_user_id'       => (array_key_exists($land->getLandId(), $assignedLands) ? $assignedLands[$land->getLandId()]['game_player_user_id'] : 0),
+    				'game_data_user_id_base'  => (array_key_exists($land->getLandId(), $assignedLands) ? $assignedLands[$land->getLandId()]['game_player_user_id'] : 0),
+    				'game_data_land_id'       => $land->getLandId(),
+    				'game_data_units'         => (array_key_exists($land->getLandId(), $assignedLands) ? ($land->getLandBaseUnits() + $default_units_user_add) : $land->getLandBaseUnits()),
+    				'game_data_capital'       => (array_key_exists($land->getLandId(), $assignedLands) ? $assignedLands[$land->getLandId()]['game_player_user_id'] : 0),
+    				'game_data_resource_id'   => $assignedResources[$land->getLandId()],
+    				'game_data_buildings'     => (array_key_exists($land->getLandId(), $assignedLands) ? "1;6;" : ""),
+    		);
+    		Yii::$app->db->createCommand()->insert(self::tableName(), $returned[$land->getLandId()])->execute();
+    		$returned[$land->getLandId()]['game_data_id'] = 0;
+    		$returned[$land->getLandId()] = new GameDataClass($returned[$land->getLandId()]);
     	}
-    	return true;
+    	return $returned;
     }
     
     /**

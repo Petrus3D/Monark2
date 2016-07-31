@@ -347,7 +347,7 @@ class GamePlayer extends \yii\db\ActiveRecord
     			'game_player_statut' => 0,
     			'game_player_game_id' => $game_id,
     			'game_player_user_id' => $user_id,
-    			'game_player_color_id' => 1,
+    			'game_player_color_id' => 2,
     			'game_player_enter_time' => time(),
     			'game_player_order'	=> 0,
     			'game_player_bot' => 0,
