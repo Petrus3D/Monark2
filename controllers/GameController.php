@@ -30,7 +30,7 @@ use app\models\Building;
 class GameController extends \yii\web\Controller
 {
 
-	public $refreshTime = 2000;
+	public $refreshTime = 1800;
 	public $config;
 
 	public function behaviors()

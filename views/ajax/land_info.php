@@ -154,15 +154,27 @@ $this->registerCssFile("@web/css/ajax.css");
 				                    'data-placement' => 'bottom',
 				                    'style'=>'text-decoration: none; cursor:pointer;'
 				                ]); ?>
-				            </td><td>
-				            	<?php ($buttonDisable == "")?$move_link = "move_link":$move_link = ""; ?>
-				                <?= Html::tag('span', "&nbsp;<a href='#Move' class='".$move_link."' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-warning".$buttonDisable."'><i class='fa fa-truck'></i> ".Yii::t('ajax', 'Button_Land_Move')." </span></a>", [
-				                    'title'=>"Deplacer des troupes vers une autre région. ",
-				                    'data-toggle'=>'tooltip',
-				                    'data-placement' => 'bottom',
-				                    'style'=>'text-decoration: none; cursor:pointer;'
-				                ]); ?>
-					        </td>      
+				            </td>
+				            <?php ($buttonDisable == "")?$move_link = "move_link":$move_link = ""; ?>
+					            <?php if(isset($conquestAll[$land_id]) && $conquestAll[$land_id] == true): ?>
+						            <td>
+						                <?= Html::tag('span', "&nbsp;<a href='#Move' class='' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-warning disabled'><i class='fa fa-truck'></i> ".Yii::t('ajax', 'Button_Land_Move_Conquest')." </span></a>", [
+						                    'title'=>"Deplacer des troupes vers une autre région. ",
+						                    'data-toggle'=>'tooltip',
+						                    'data-placement' => 'bottom',
+						                    'style'=>'text-decoration: none; cursor:pointer;'
+						                ]); ?>
+							        </td>
+							    <?php else : ?>
+							    	<td>
+						                <?= Html::tag('span', "&nbsp;<a href='#Move' class='".$move_link."' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-warning".$buttonDisable."'><i class='fa fa-truck'></i> ".Yii::t('ajax', 'Button_Land_Move')." </span></a>", [
+						                    'title'=>"Deplacer des troupes vers une autre région. ",
+						                    'data-toggle'=>'tooltip',
+						                    'data-placement' => 'bottom',
+						                    'style'=>'text-decoration: none; cursor:pointer;'
+						                ]); ?>
+							        </td>
+						    	<?php endif; ?>
 					        <?php elseif(!$userLand && $visible): ?>
 					        <td>
 					        	<?php ($buttonDisable == "")?$atk_link = "atk_link":$atk_link = ""; ?>

@@ -61,6 +61,7 @@ return [
 	'Button_Land_Move' 			=> 'Move units',
 	'Button_Move_Click' 		=> 'Move to',
 	'Button_Return' 			=> 'Return',
+	'Button_Land_Move_Conquest'	=> 'Move not allowed',
 		
 	/* Error */
 	'Error' 					=> 'Unknow error.',

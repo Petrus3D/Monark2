@@ -61,6 +61,7 @@ return [
 	'Button_Land_Move' 			=> 'Deplacer des troupes',
 	'Button_Move_Click' 		=> 'Deplacer en',
 	'Button_Return' 			=> 'Retour',
+	'Button_Land_Move_Conquest'	=> 'Déplacement impossible',
 	
 		
 	/* Error */
