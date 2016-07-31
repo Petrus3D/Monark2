@@ -38,7 +38,7 @@ class AjaxController extends Controller
 						'class' => AccessControl::className(),
 						'rules' => [
 								[
-										'actions' => ['newturn', 'landinfo', 'header', 'buybegin', 'buyaction', 'buildbegin', 'buildaction', 'attackbegin', 'attackaction', 'movebegin', 'moveaction', 'lastgold'],
+										'actions' => ['newturn', 'landinfo', 'header', 'buybegin', 'buyaction', 'buildbegin', 'buildaction', 'attackbegin', 'attackaction', 'movebegin', 'moveaction', 'lastgold', 'income'],
 										'allow' => Access::UserIsInStartedGame(), // Into a started game
 								],
 								[
@@ -152,10 +152,14 @@ class AjaxController extends Controller
      * @param unknown $user_id
      */
 	public function actionNewturn($game_id=null, $user_id=null){
-		if($game_id == null) $game_id = Yii::$app->session['Game']->getGameId();
-		if($user_id == null) $user_id = Yii::$app->session['User']->getId();
+		// Load data     
+	    	$data = $this->getData(array(
+	    			'game_id' => true,
+	    			'user_id' => true,
+	    			'GameData' => true,
+	    	));
 		
-		Turn::NewTurn($game_id, $user_id);
+		Turn::NewTurn($data['game']->getGameId(), $data['user']->getUserId(), $data['gameData']);
 	}
 	
 	/**
@@ -431,10 +435,12 @@ class AjaxController extends Controller
 			$fight = new Fight();
 			$fight->FightInit($urlArgsArray['land_id'], $data['user'], $data['game'], $data['gameData'], $data['currentTurnData'], $urlArgsArray['atk_id'], $urlArgsArray['units'], $data['frontierData']);
 			$fightError = $fight->FightCheck();
-			if($fightError === true) $fight->FightExec();
+			$attack_result = array();
+			if($fightError === true) $attack_result = $fight->FightExec();
 			
 			return $this->renderAjax('attack_action', [
 					'error'				=> $fightError,
+					'atk_result'		=> $attack_result,
 					'land_id' 			=> $urlArgsArray['land_id'],
 					'Game'				=> $data['game'],
 					'User'				=> $data['user'],
@@ -539,6 +545,27 @@ class AjaxController extends Controller
 				'BuildingData'		=> $data['buildingData'],
 				'CurrentTurnData'	=> $data['currentTurnData'],
 				'lastBuy'			=> $lastBuy,
+		]);
+	}
+	
+	/**
+	 *
+	 * @return string
+	 */
+	public function actionIncome(){
+		// Load data
+		$data = $this->getData(array(
+				'game_id' => true,
+				'user_id' => true,
+				'GameData' => true,
+		));
+	
+		$incomeLand 	= GameData::GoldGameDataUser($data['gameData'], $data['game']->getGameId(), $data['user']->getUserID(), null, 0);
+		$incomeBuilding = Building::getUserIncomeByBuildings($data['gameData'], $data['user']->getUserID());
+		
+		return $this->renderAjax('income', [
+				'incomeLand'	=> $incomeLand,
+				'incomeBuilding'=> $incomeBuilding,
 		]);
 	}
 }

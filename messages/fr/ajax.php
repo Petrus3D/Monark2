@@ -35,6 +35,8 @@ return [
 	'Text_Units'				=> 'Unités',
 	'Text_Units_In'				=> 'Unités en',
 	'Text_Owner'				=> 'Propriétaire',
+	'Text_Total'				=> 'Total',
+	'Text_Income'				=> 'Revenus',
 	'Text_Owner_Player'			=> 'Vous',
 	'Text_Resource'				=> 'Ressource',
 	'Text_Units_Pending'		=> 'unités présentes',
@@ -51,7 +53,13 @@ return [
 	'Text_Not_Owner'			=> "Vous n'êtes pas le propriétaire",
 	'Text_Are_Owner'			=> "Vous êtes le propriétaire",
 	'Text_Conquered_This_Turn' 	=> "conquis ce tour.",
+<<<<<<< HEAD
 
+=======
+	'Text_Income_By_Buildings'	=> 'bâtimens',
+	'Text_Income_By_Lands'		=> 'pays',
+		
+>>>>>>> a35edda9d773178ebfe2b8a928a70f1e8bdb7418
 	/* Buttons */
 	'Button_Land_Build' 		=> 'Construire',
 	'Button_Land_Buy' 			=> 'Recruter',

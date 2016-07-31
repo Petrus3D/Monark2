@@ -52,17 +52,18 @@ $this->registerCssFile("@web/css/map.css");
                         <font color=<?= "'".$Color[$GamePlayer[$data->getGameDataUserId()]->getGamePlayerColorId()]->getColorFontOther()."'"; ?>>
                          	<!-- <?= $land->getLandName(); ?> -->
                          	<?= $land->getLandName(); ?>
-                         	<?php if($data->getGameDataCapital() >= 1): ?>
+                         	<!--<?php if($data->getGameDataCapital() >= 1): ?>
 	                        	<?= "<img src='img/game/star.png' height='20px' width='20px'>"; ?>
+	                        -->
 	                        <?php endif; ?>
+	                        <!-- Land data -->   
+                            <?php if($data->getGameDataResourceId() > 0 && $Resource[$data->getGameDataResourceId()]->getResourceImage() != ""): ?>
+                                <?= "<img src='".$Resource[$data->getGameDataResourceId()]->getResourceImageUrl()."' height='20px' width='20px'>"; ?>
+                            <?php endif; ?>
                          	<?php if(\app\models\Frontier::userHaveFrontierLand($UserFrontier, $land->getLandId())): ?>
-	                         	<!-- Land data -->   
-	                            <?php if($data->getGameDataResourceId() > 0 && $Resource[$data->getGameDataResourceId()]->getResourceImage() != ""): ?>
-	                                <?= "<img src='".$Resource[$data->getGameDataResourceId()]->getResourceImageUrl()."' height='20px' width='20px'>"; ?>
-	                            <?php endif; ?>
 	                            <!-- Buildings -->
 	                            <?php foreach($GameData[$land->getLandId()]->getGameDataBuildings() as $building): ?>
-									<?php if($building != null && $Building[$building]->getBuildingId() > 0 && $Building[$building]->getBuildingNeed() == 0): ?>
+									<?php if($building != null && $Building[$building]->getBuildingId() > 0 && $Building[$building]->getBuildingNeed() <= 0): ?>
 										<?= $Building[$building]->getBuildingImg() ?>
 						            <?php endif; ?>
 						        <?php endforeach; ?>

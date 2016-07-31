@@ -139,22 +139,40 @@ $this->registerCssFile("@web/css/ajax.css");
 						<tr>
 							<?php if($userLand): ?>
 							<td>
+<<<<<<< HEAD
 								<?= Html::tag('span', "&nbsp;<a href='#Buy' class='buy_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-success ".$buttonDisable."'><i class='fa fa-usd'></i> ".Yii::t('ajax', 'Button_Land_Buy')." </span></a>", [
 				                    'title'=>Yii::t('ajax', "Buy units for this land."),
+=======
+								<?php ($buttonDisable == "")?$buy_link = "buy_link":$buy_link = ""; ?>
+								<?= Html::tag('span', "&nbsp;<a href='#Buy' class='".$buy_link."' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-success ".$buttonDisable."'><i class='fa fa-usd'></i> ".Yii::t('ajax', 'Button_Land_Buy')." </span></a>", [
+				                    'title'=>"Acheter des troupes pour cette région.",
+>>>>>>> a35edda9d773178ebfe2b8a928a70f1e8bdb7418
 				                    'data-toggle'=>'tooltip',
 				                    'data-placement' => 'bottom',
 				                    'style'=>'text-decoration: none; cursor:pointer;'
 				                ]); ?>
 				            </td><td>
+<<<<<<< HEAD
 				                <?= Html::tag('span', "&nbsp;<a href='#Build' class='build_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-primary".$buttonDisable."'><i class='fa fa-gavel'></i> ".Yii::t('ajax', 'Button_Land_Build')." </span></a>", [
 				                    'title'=>Yii::t('ajax', "Construct buildings on the land: fort, camp, mines."),
+=======
+				            	<?php ($buttonDisable == "")?$build_link = "build_link":$build_link = ""; ?>
+				                <?= Html::tag('span', "&nbsp;<a href='#Build' class='".$build_link."' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-primary".$buttonDisable."'><i class='fa fa-gavel'></i> ".Yii::t('ajax', 'Button_Land_Build')." </span></a>", [
+				                    'title'=>"Construire des bâtiments sur la région : fort, camp, mines. ",
+>>>>>>> a35edda9d773178ebfe2b8a928a70f1e8bdb7418
 				                    'data-toggle'=>'tooltip',
 				                    'data-placement' => 'bottom',
 				                    'style'=>'text-decoration: none; cursor:pointer;'
 				                ]); ?>
 				            </td><td>
+<<<<<<< HEAD
 				                <?= Html::tag('span', "&nbsp;<a href='#Build' class='move_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-warning".$buttonDisable."'><i class='fa fa-truck'></i> ".Yii::t('ajax', 'Button_Land_Move')." </span></a>", [
 				                    'title'=>Yii::t('ajax', "Move units to another land."),
+=======
+				            	<?php ($buttonDisable == "")?$move_link = "move_link":$move_link = ""; ?>
+				                <?= Html::tag('span', "&nbsp;<a href='#Move' class='".$move_link."' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-warning".$buttonDisable."'><i class='fa fa-truck'></i> ".Yii::t('ajax', 'Button_Land_Move')." </span></a>", [
+				                    'title'=>"Deplacer des troupes vers une autre région. ",
+>>>>>>> a35edda9d773178ebfe2b8a928a70f1e8bdb7418
 				                    'data-toggle'=>'tooltip',
 				                    'data-placement' => 'bottom',
 				                    'style'=>'text-decoration: none; cursor:pointer;'
@@ -162,8 +180,14 @@ $this->registerCssFile("@web/css/ajax.css");
 					        </td>
 					        <?php elseif(!$userLand && $visible): ?>
 					        <td>
+<<<<<<< HEAD
 					        	<?= Html::tag('span', "&nbsp;<a href='#Buy' class='atk_link' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-danger".$buttonDisable."'><i class='fa fa-bolt'></i> ".Yii::t('ajax', 'Button_Land_Atk')." </span></a>", [
 					                    'title'=>Yii::t('ajax', "Attack this land."),
+=======
+					        	<?php ($buttonDisable == "")?$atk_link = "atk_link":$atk_link = ""; ?>
+					        	<?= Html::tag('span', "&nbsp;<a href='#Buy' class='".$atk_link."' i='".$land_id."' style='text-decoration:none;'><span class='btn btn-danger".$buttonDisable."'><i class='fa fa-bolt'></i> ".Yii::t('ajax', 'Button_Land_Atk')." </span></a>", [
+					                    'title'=>"Attaquer cette région.",
+>>>>>>> a35edda9d773178ebfe2b8a928a70f1e8bdb7418
 					                    'data-toggle'=>'tooltip',
 					                    'data-placement' => 'bottom',
 					                    'style'=>'text-decoration: none; cursor:pointer;'

@@ -191,6 +191,46 @@ class Building extends \yii\db\ActiveRecord
     }
     
     /**
+     * 
+     * @param unknown $gameData
+     * @param unknown $user_id
+     * @param unknown $buildingData
+     * @param unknown $details
+     * @return number
+     */
+    public static function getUserIncomeByBuildings($gameData, $user_id, $buildingData = null, $details = null){
+    	if($details == null)
+    		$returned = 0;
+    	else
+    		$returned = array();
+    	
+    	if($buildingData == null)
+    		$buildingData = self::findAllBuildingToArray();
+    	
+    	// Each game land
+    	foreach ($gameData as $land) {
+    		if($land->getGameDataUserId() == $user_id
+    		&& count($land->getGameDataBuildings()) > 0){
+    			
+    			// Each land building
+    			foreach ($land->getGameDataBuildings() as $building){
+    				if(isset($buildingData[$building])
+    				&& $buildingData[$building]->getBuildingGoldIncome() > 0)
+    					if($details == null)
+    						$returned += $buildingData[$building]->getBuildingGoldIncome();
+    					else
+    						array_push($returned, array(
+    								'land' => $land,
+    								'building' => $buildingData[$building],
+    						));
+    			}
+    		}
+    	}
+    	
+    	return $returned;
+    }
+    
+    /**
      *
      * @param unknown $continent_id
      * @return \app\classes\ContinentClass
