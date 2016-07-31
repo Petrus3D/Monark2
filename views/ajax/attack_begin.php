@@ -42,7 +42,7 @@ $this->registerCssFile("@web/css/ajax.css");
 							</tr>
 							<?php $i = 0; ?>
 							<?php foreach($frontierData as $frontier_land_id): ?>
-								<?php if($frontier_land_id > 0 && $GameData[$frontier_land_id]->getGameDataUserId() == $User->getId()): ?>
+								<?php if($frontier_land_id > 0 && $GameData[$frontier_land_id]->getGameDataUserId() == $User->getId() && $GameData[$frontier_land_id]->getGameDataUnits() > 1): ?>
 									<tr>
 										<td><font size='3' color="black">
 											<?= $Land[$frontier_land_id]->getLandName() ?> (<?= $GameData[$frontier_land_id]->getGameDataUnits() ?>)</font>
@@ -52,10 +52,17 @@ $this->registerCssFile("@web/css/ajax.css");
 											value=<?= "'".($GameData[$frontier_land_id]->getGameDataUnits() - 1)."'" ?> min="1" 
 											max=<?= "'".($GameData[$frontier_land_id]->getGameDataUnits() - 1)."'" ?> >
 										</td>
-										<td><font size='3' color="black">
-									       <?= "<a href='#StartAtk' class='atk_action_link btn btn-danger' i='".$land_id."' atk_i='".$frontier_land_id."' style='text-decoration:none;'>
-											<i class='fa fa-bolt'></i> ".Yii::t('ajax', 'Button_Land_Atk_With')." ".$Land[$frontier_land_id]->getLandName()." </a>"; ?> 
-							            </font>   
+										<?php if(isset($conquestAll[$frontier_land_id]) && $conquestAll[$frontier_land_id] == true): ?>
+											<td><font size='3' color="black">
+										       <?= "<a href='#' class='atk_action_link btn btn-danger disabled' style='text-decoration:none;'>
+												<i class='fa fa-bolt'></i> ".$Land[$frontier_land_id]->getLandName()." ".Yii::t('ajax', 'Text_Conquered_This_Turn')." </a>"; ?> 
+								            </font>
+							            <?php else: ?>
+							            	<td><font size='3' color="black">
+										       <?= "<a href='#StartAtk' class='atk_action_link btn btn-danger' i='".$land_id."' atk_i='".$frontier_land_id."' style='text-decoration:none;'>
+												<i class='fa fa-bolt'></i> ".Yii::t('ajax', 'Button_Land_Atk_With')." ".$Land[$frontier_land_id]->getLandName()." </a>"; ?> 
+								            </font>
+							            <?php endif; ?> 
 							       	</td></tr>
 							    	<?php $i++; ?> 
 					            <?php endif; ?>

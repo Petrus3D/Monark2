@@ -75,8 +75,8 @@ class Color extends \yii\db\ActiveRecord
      * @param unknown $colorData
      * @return NULL|\app\classes\ColorClass
      */
-    public static function findAllColorToArray($colorData=null, $hide=null){
-    	if($colorData == null)
+    public static function findAllColorToArray($colorData = null, $hide = null){
+    	if($colorData === null)
     		$colorData = self::findAllColor($hide);
     	$array = null;
     	foreach ($colorData as $key => $color){
@@ -91,11 +91,11 @@ class Color extends \yii\db\ActiveRecord
 	 * @param unknown $hide
 	 * @return \app\queries\Color[]
 	 */
-    public static function findAllColor($hide=null){
-    	if($hide == null)
-    			return self::find()->all();
-    		else
-    			return self::find()->where(['color_hide' => $hide])->all();
+    public static function findAllColor($hide = null){
+    	if($hide === null)
+    		return self::find()->all();
+    	else
+    		return self::find()->where(['color_hide' => $hide])->all();
     }
     
     /**

@@ -96,23 +96,25 @@ $this->registerJs(
             	'format'    => 'raw',
 	            'attribute' => Yii::t('game_player', 'Tab_Region_Player'),
 	            'value'     => function ($model, $key, $index, $column) use ($continentList, $continentSQl, $colorList){
-	            	if(Yii::$app->session['User']->getId() == $model->game_player_user_id)
-	           			return Html::activeDropDownList($model, 'game_player_region_id',
-	           				ArrayHelper::map($continentSQl,
-	           					function($model, $defaultValue) {
-	           						return $model->continent_id;
-	           					},
-	           					function($model, $defaultValue) {
-	           						return Yii::t('continent_name', $model->continent_name);
-	           					}
-	           				),
-	           				[
-	           				'prompt'	=> Yii::t('continent_name', $continentList[$model->game_player_region_id]->getContinentName()),
-	           				'class'		=> 'selectpicker',
-	           				'onchange'	=> 'location = "'.Url::current().'&ui='.$model->game_player_user_id.'&ri="+this.options[this.selectedIndex].value;',
-		           		]);
-	           		else
-	           			return '<font size="4" color="'.$colorList[$model->game_player_color_id]->getColorFontChat().'">'.$continentList[$model->game_player_region_id]->getContinentName().'</font>';
+	            	if(count($continentList) > 0){
+		            	if(Yii::$app->session['User']->getId() == $model->game_player_user_id)
+		           			return Html::activeDropDownList($model, 'game_player_region_id',
+		           				ArrayHelper::map($continentSQl,
+		           					function($model, $defaultValue) {
+		           						return $model->continent_id;
+		           					},
+		           					function($model, $defaultValue) {
+		           						return Yii::t('continent_name', $model->continent_name);
+		           					}
+		           				),
+		           				[
+		           				'prompt'	=> Yii::t('continent_name', $continentList[$model->game_player_region_id]->getContinentName()),
+		           				'class'		=> 'selectpicker',
+		           				'onchange'	=> 'location = "'.Url::current().'&ui='.$model->game_player_user_id.'&ri="+this.options[this.selectedIndex].value;',
+			           		]);
+		           		else
+		           			return '<font size="4" color="'.$colorList[$model->game_player_color_id]->getColorFontChat().'">'.$continentList[$model->game_player_region_id]->getContinentName().'</font>';
+	            	}
 	            },
             ],
             [

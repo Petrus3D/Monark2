@@ -121,21 +121,25 @@ class Fight extends \yii\db\ActiveRecord
      * @return string
      */
     public function FightCheck(){
-    	// Turn check
-    	if($this->turn->getTurnUserId() == $this->user->getUserID()){
-    		// Land check
-    		// TODO ADD CONQUEST IN TURN CHECK
-    		if($this->gameData[$this->land_id_atk]->getGameDataUserId() == $this->user->getUserID()
-    			&& $this->gameData[$this->land_id_def]->getGameDataUserId() != $this->user->getUserID()
-    			&& isset($this->frontierData[$this->land_id_def])
-    			&& $this->units_atk > 0){
-    				return true;
-    		}else{
-    			return "Error";
-    		}
-    	}else{
-    		return "Error_Turn";
-    	}
+    	// Conquest check
+    	if(!self::ConquestThisTurnLand($this->game->getGameId(), $this->turn->getTurnId(), $this->land_id_atk)){
+	    	// Turn check
+	    	if($this->turn->getTurnUserId() == $this->user->getUserID()){
+	    		// Land check
+	    		if($this->gameData[$this->land_id_atk]->getGameDataUserId() == $this->user->getUserID()
+	    			&& $this->gameData[$this->land_id_def]->getGameDataUserId() != $this->user->getUserID()
+	    			&& isset($this->frontierData[$this->land_id_def])
+	    			&& $this->units_atk > 0){
+	    				return true;
+	    		}else{
+	    			return "Error";
+	    		}
+	    	}else{
+	    		return "Error_Turn";
+	    	}
+	    }else{
+	    	return "Error_Conquest";
+	    }
     }
     
     /**
@@ -154,7 +158,7 @@ class Fight extends \yii\db\ActiveRecord
     		$def_land_final_user_id	= $this->gameData[$data['atk_land_id']]->getGameDataUserId();
     	}else{
     		$atk_final_units 		= $this->gameData[$data['atk_land_id']]->getGameDataUnits() - $data['atk_engage_units'];
-    		$def_final_units 		= $this->gameData[$data['def_land_id']]->getGameDataUnits() - $data['def_result_units'];
+    		$def_final_units 		= $this->gameData[$data['def_land_id']]->getGameDataUnits() - ($data['def_engage_units'] - $data['def_result_units']);
     		$def_land_final_user_id	= $this->gameData[$data['def_land_id']]->getGameDataUserId();
     	}
     	
@@ -185,7 +189,86 @@ class Fight extends \yii\db\ActiveRecord
 		);
     }
     
+    /**
+     * 
+     * @param unknown $gameid
+     * @param unknown $turnid
+     * @param unknown $landid
+     * @return number
+     */
+    public static function ConquestThisTurnLand($game_id, $turn_id, $land_id){
+    	foreach (self::fightLandDatathisTurn($game_id, $turn_id, $land_id) as $data) {
+    		if(isset($data['fight_def_land_id']) AND $data['fight_def_land_id'] == $land_id && $data['fight_conquest'] == 1){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
     
+    /**
+     *
+     * @param unknown $gameid
+     * @param unknown $turnid
+     * @param unknown $landid
+     * @return number
+     */
+    public static function ConquestThisTurnLandAll($game_id, $turn_id){
+    	$returned = array();
+    	foreach (self::fightLandDatathisTurnAll($game_id, $turn_id) as $data) {
+    		if($data['fight_conquest'] == 1){
+    			$returned[$data['fight_def_land_id']] = true;
+    		}
+    	}
+    	return $returned;
+    }
+    
+    /**
+     * 
+     * @param unknown $game_id
+     * @param unknown $turn_id
+     * @param unknown $land_id
+     * @return \app\models\Fight[]
+     */
+    public static function fightLandDatathisTurn($game_id, $turn_id, $land_id){
+    	return $fightLandDataThisTurn = self::find()
+    		->where(['fight_game_id' => $game_id])
+    		->andWhere(['fight_turn_id' => $turn_id])
+    		->andWhere(['fight_def_land_id' => $land_id])->all();
+    }
+    
+    
+    /**
+     * 
+     * @param unknown $game_id
+     * @param unknown $turn_id
+     * @return \app\models\Fight[]
+     */
+    public static function fightLandDatathisTurnAll($game_id, $turn_id){
+    	return $fightLandDataThisTurn = self::find()
+    	->where(['fight_game_id' => $game_id])
+    	->andWhere(['fight_turn_id' => $turn_id])
+		->all();
+    }
+    
+    /**
+     * 
+     * @param unknown $game_id
+     * @param unknown $atk_user_id
+     * @param unknown $def_user_id
+     * @param unknown $atk_land_id
+     * @param unknown $def_land_id
+     * @param unknown $atk_lost_unit
+     * @param unknown $def_lost_unit
+     * @param unknown $atk_units
+     * @param unknown $def_units
+     * @param unknown $atk_nb_units
+     * @param unknown $def_nb_units
+     * @param unknown $thimble_atk
+     * @param unknown $thimble_def
+     * @param unknown $turn_id
+     * @param unknown $conquest
+     * @return number
+     */
     public static function insertFightLog($game_id, $atk_user_id, $def_user_id, $atk_land_id, $def_land_id, $atk_lost_unit, $def_lost_unit, $atk_units, $def_units, $atk_nb_units, $def_nb_units, $thimble_atk, $thimble_def, $turn_id, $conquest){
     	return Yii::$app->db->createCommand()->insert(self::tableName(), [
     			'fight_game_id'			=> $game_id,

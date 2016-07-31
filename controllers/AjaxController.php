@@ -38,7 +38,7 @@ class AjaxController extends Controller
 						'class' => AccessControl::className(),
 						'rules' => [
 								[
-										'actions' => ['newturn', 'landinfo', 'header', 'buybegin', 'buyaction', 'buildbegin', 'buildaction', 'attackbegin', 'attackaction', 'movebegin', 'moveaction', 'lastgold'],
+										'actions' => ['newturn', 'landinfo', 'header', 'buybegin', 'buyaction', 'buildbegin', 'buildaction', 'attackbegin', 'attackaction', 'movebegin', 'moveaction', 'lastgold', 'income'],
 										'allow' => Access::UserIsInStartedGame(), // Into a started game
 								],
 								[
@@ -152,10 +152,14 @@ class AjaxController extends Controller
      * @param unknown $user_id
      */
 	public function actionNewturn($game_id=null, $user_id=null){
-		if($game_id == null) $game_id = Yii::$app->session['Game']->getGameId();
-		if($user_id == null) $user_id = Yii::$app->session['User']->getId();
+		// Load data     
+	    	$data = $this->getData(array(
+	    			'game_id' => true,
+	    			'user_id' => true,
+	    			'GameData' => true,
+	    	));
 		
-		Turn::NewTurn($game_id, $user_id);
+		Turn::NewTurn($data['game']->getGameId(), $data['user']->getUserId(), $data['gameData']);
 	}
 	
 	/**
@@ -390,8 +394,9 @@ class AjaxController extends Controller
 					'Frontier'	=> true,
 			));
 			
-			$frontierData = Frontier::landHaveFrontierLandArrayId($data['frontierData'], $urlArgsArray['land_id']);
-				
+			$frontierData 				= Frontier::landHaveFrontierLandArrayId($data['frontierData'], $urlArgsArray['land_id']);
+			$conquest_this_turn_data   	= Fight::ConquestThisTurnLandAll($data['game']->getGameId(), $data['currentTurnData']->getTurnId());
+			
 			return $this->renderAjax('attack_begin', [
 					'land_id' 			=> $urlArgsArray['land_id'],
 					'Game'				=> $data['game'],
@@ -401,6 +406,7 @@ class AjaxController extends Controller
 					'CurrentTurnData'	=> $data['currentTurnData'],
 					'BuildingData'		=> $data['buildingData'],
 					'frontierData'		=> $frontierData,
+					'conquestAll'		=> $conquest_this_turn_data,
 			]);
 		}
 		return $this->returnError();
@@ -423,7 +429,7 @@ class AjaxController extends Controller
 					'Frontier'	=> true,
 			));
 				
-			$frontierData = Frontier::landHaveFrontierLandArrayId($data['frontierData'], $urlArgsArray['land_id']);
+			$frontierData 			= Frontier::landHaveFrontierLandArrayId($data['frontierData'], $urlArgsArray['land_id']);
 			
 			// Attack
 			$fight = new Fight();
@@ -537,6 +543,27 @@ class AjaxController extends Controller
 				'BuildingData'		=> $data['buildingData'],
 				'CurrentTurnData'	=> $data['currentTurnData'],
 				'lastBuy'			=> $lastBuy,
+		]);
+	}
+	
+	/**
+	 *
+	 * @return string
+	 */
+	public function actionIncome(){
+		// Load data
+		$data = $this->getData(array(
+				'game_id' => true,
+				'user_id' => true,
+				'GameData' => true,
+		));
+	
+		$incomeLand 	= GameData::GoldGameDataUser($data['gameData'], $data['game']->getGameId(), $data['user']->getUserID(), null, 0);
+		$incomeBuilding = Building::getUserIncomeByBuildings($data['gameData'], $data['user']->getUserID());
+		
+		return $this->renderAjax('income', [
+				'incomeLand'	=> $incomeLand,
+				'incomeBuilding'=> $incomeBuilding,
 		]);
 	}
 }

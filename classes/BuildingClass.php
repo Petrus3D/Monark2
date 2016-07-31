@@ -53,6 +53,10 @@ class BuildingClass{
 		return Yii::t('building', $this->buildingDescription);
 	}
 	
+	public function getBuildingGoldIncome(){
+		return $this->buildingGoldIncome;
+	}
+	
 	public function getBuildingImg(){
 		if (strpos($this->buildingImg, '.png') === false)
 			return "<i class='".$this->buildingImg."'></i>";

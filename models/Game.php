@@ -89,7 +89,7 @@ class Game extends \yii\db\ActiveRecord
      * @return boolean
      */
     public static function existsGameName($gameName){
-    	if(self::find()->where(['game_name' => (new Crypt($gameName))->s_crypt()])->one() != null)
+    	if(self::find()->where(['game_name' => (new Crypt($gameName))->s_crypt()])->andWhere(['game_statut' => 0])->one() != null)
     		return true;
     	else
     		return false;

@@ -32,6 +32,8 @@ return [
 	'Text_Units'				=> 'Unités',
 	'Text_Units_In'				=> 'Unités en',
 	'Text_Owner'				=> 'Propriétaire',
+	'Text_Total'				=> 'Total',
+	'Text_Income'				=> 'Revenus',
 	'Text_Owner_Player'			=> 'Vous',
 	'Text_Resource'				=> 'Ressource',
 	'Text_Units_Pending'		=> 'unités présentes',
@@ -47,6 +49,9 @@ return [
 	'Text_Land_Nothing_To_Build'=> 'Rien à construire',
 	'Text_Not_Owner'			=> "Vous n'êtes pas le propriétaire",
 	'Text_Are_Owner'			=> "Vous êtes le propriétaire",
+	'Text_Conquered_This_Turn' 	=> "conquis ce tour.",
+	'Text_Income_By_Buildings'	=> 'bâtimens',
+	'Text_Income_By_Lands'		=> 'pays',
 		
 	/* Buttons */
 	'Button_Land_Build' 		=> 'Construire',
@@ -63,5 +68,6 @@ return [
 	'Error_Turn' 				=> "Erreur : votre tour est terminé.",
 	'Error_Gold' 				=> "Erreur : vous n'avez pas assez d'argent.",
 	'Error_Units' 				=> "Erreur : vous devez conserver au minimum 1 unité sur votre territoire.",
+	'Error_Conquest' 			=> "Erreur : ce pays a été conquis ce tour.",
 ];
 ?>

@@ -167,6 +167,21 @@ class GameController extends \yii\web\Controller
     }
 
     /**
+     * 
+     */
+    public function setSessionDataNull(){
+    	Yii::$app->session['Contient'] = null;
+    	Yii::$app->session['Land'] = null;
+    	Yii::$app->session['Resource'] = null;
+    	Yii::$app->session['Map'] = null;
+    	Yii::$app->session['Color'] = null;
+    	Yii::$app->session['Frontier'] = null;	
+    	Yii::$app->session['Building'] = null;
+    	Yii::$app->session['MapData'] = null;
+    	Yii::$app->session['Game'] = null;
+    }
+    
+    /**
      *
      * @param unknown $game_current
      */
@@ -303,12 +318,12 @@ class GameController extends \yii\web\Controller
 		    	// Continent
 		    	$continents 		= new Continent();
 		    	$continentsSQL		= $continents->findAllContinent(Yii::$app->session['Game']->getMapId(), 0);
-		    	$continentsArray 	= $continents->findAllContinentToArray(Yii::$app->session['Game']->getMapId(), $continentsSQL);
+		    	$continentsArray 	= $continents->findAllContinentToArray(Yii::$app->session['Game']->getMapId());
 
 		    	// Color
 		    	$colors 			= new Color();
 		    	$colorsSQL			= $colors->findAllColor(0);
-		    	$colorsArray 		= $colors->findAllColorToArray($colorsSQL);
+		    	$colorsArray 		= $colors->findAllColorToArray();
 
 		    	// Users
 		    	$gamePlayer 		= new GamePlayer();
@@ -345,8 +360,7 @@ class GameController extends \yii\web\Controller
     	(new GamePlayer())->gameExitPlayer(Yii::$app->session['User']->getId(), Yii::$app->session['Game']->getGameId());
 
     	// Session
-    	Yii::$app->session['Game'] = null;
-    	Yii::$app->session['MapData'] = null;
+    	$this->setSessionDataNull();
     	Yii::$app->session->setFlash('info', Yii::t('game', 'Notice_Game_Quit'));
 
     	return $this->actionIndex();
@@ -470,11 +484,11 @@ class GameController extends \yii\web\Controller
 		    		$res		 	= new Resource();
 		    		$game_data		= new GameData();
 		    		$turn			= new Turn();
-		    		$continentData	= (new Continent())->findAllContinent($game_current->getMapId());
+		    		$continentData	= (new Continent())->findAllContinentToArray($game_current->getMapId());
 		    		$mapData		= (new Map())->findMapById($game_current->getMapId());
 
 		    		// Datas
-		    		$resourceData 	= $res->findAllResources();
+		    		$resourceData 	= $res->findAllResourcesToArray();
 		    		$landData		= $land->findAllLandsToArray($game_current->getMapId());
 			    	$gamePlayerData = $game_player->findAllGamePlayer($game_current->getGameId());
 
@@ -491,13 +505,13 @@ class GameController extends \yii\web\Controller
 			    				$assignedResources 	= $res->assignResourcesToArray($landData, $resourceData);
 
 			    				// Create Game Data
-			    				$game_data->createGameData($assignedLands, $assignedResources, $landData, $game_current);
+			    				$gameData = $game_data->createGameData($assignedLands, $assignedResources, $landData, $game_current);
 
 						    	// Create turn order
 						    	$gameTurnOrder 		= $game_player->updateUserTurnOrder($game_current->getGameId());
 
 						    	// Create first turn
-						    	$turn->createGameFirstTurn($game_current->getGameId() , array_values($gameTurnOrder)[0]->getUserID());
+						    	$turn->createGameFirstTurn($game_current->getGameId() , array_values($gameTurnOrder)[0]->getUserID(), $gameData);
 
 						    	// Update Game statut
 						    	(new Game())->updateGameStatut($game_current->getGameId(), 50);

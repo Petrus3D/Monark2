@@ -70,7 +70,7 @@ class Continent extends \yii\db\ActiveRecord
 	 * @return NULL|\app\classes\ContinentClass
 	 */
     public static function findAllContinentToArray($map_id, $continentData=null){
-    	if($continentData == null)
+    	if($continentData === null)
     		$continentData = self::findAllContinent($map_id);
     	$array = null;
     	foreach ($continentData as $key => $continent){
@@ -85,7 +85,7 @@ class Continent extends \yii\db\ActiveRecord
      * @return \app\models\Continent[]
      */
     public static function findAllContinent($map_id, $hide=null){
-    	if($hide == null)
+    	if($hide === null)
     		return self::find()->where(['continent_map_id' => $map_id])->all();
     	else
     		return self::find()->where(['continent_map_id' => $map_id])->andWhere(['continent_hide' => $hide])->all();

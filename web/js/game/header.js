@@ -22,3 +22,8 @@ $(document).on("click", "#end_of_turn_link", function(){
 $(document).on("click", "#current_gold_link", function(){
 	CallAjaxMethodHeader("lastgold", new Array(), {'id': "#current_gold_content"});
 });
+
+// Income
+$(document).on("click", "#gold_per_turn_link", function(){
+	CallAjaxMethodHeader("income", new Array(), {'id': "#gold_per_turn_content"});
+});

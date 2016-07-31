@@ -139,12 +139,12 @@ class Land extends \yii\db\ActiveRecord
     				// 1/10 to go in antarctic
     				if ($antarcticRand < 10) {
     					//game_player_region_id
-    					$landId = rand($continentData[$user['game_player_region_id']]['continent_land_id_begin'], $continentData[$user['game_player_region_id']]['continent_land_id_end']);
+    					$landId = rand($continentData[$user['game_player_region_id']]->getContinentLandIdBegin(), $continentData[$user['game_player_region_id']]->getContinentLandIdEnd());
     				}else{
-    					$landId = rand($continentData[$antarcticId]['continent_land_id_begin'], $continentData[$antarcticId]['continent_land_id_end']);
+    					$landId = rand($continentData[$antarcticId]->getContinentLandIdBegin(), $continentData[$antarcticId]->getContinentLandIdEnd());
     				}
     			}else{
-    				$landId = rand($mapData['continent_land_id_begin'], $mapData['continent_land_id_end']);
+    				$landId = rand($mapData['map_land_id_begin'], $mapData['map_land_id_end']);
     			}
     		}while(array_key_exists($landId, $assignedLand));
     

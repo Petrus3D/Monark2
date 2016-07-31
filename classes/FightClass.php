@@ -211,7 +211,9 @@ class FightClass
 		     */
 			$fight_max = min($this->atk_fighting_units, $this->def_fighting_units)-1;
 			for($i=0;$i <= $fight_max; $i++){
-				$this->startFight($this->atk_thimble_array[$i], $this->def_thimble_array[$i]);
+				if($this->atk_current_units > 0 && $this->def_current_units > 0){
+					$this->startFight($this->atk_thimble_array[$i], $this->def_thimble_array[$i]);
+				}
 			}
 			$this->fight_nb++;
     	}

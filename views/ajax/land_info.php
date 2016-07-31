@@ -31,7 +31,10 @@ $this->registerCssFile("@web/css/ajax.css");
 		                        'style'=>'text-decoration: none; cursor:pointer;'
 		                    ]); ?>
 		                <?php endif; ?>
-		                <?= $Land[$land_id]->getLandName() ?> ( <?= Yii::t('continent', $Continent[$Land[$land_id]->getLandContinentId()]->getContinentName()) ?> )
+		                <?= $Land[$land_id]->getLandName() ?> 
+		                <?php if($Continent[$Land[$land_id]->getLandContinentId()]->getContinentId() != 0): ?>
+		                	( <?= Yii::t('continent', $Continent[$Land[$land_id]->getLandContinentId()]->getContinentName()); ?> )
+						<?php endif; ?>
 						</font></td>
 						<!--<td style="padding: 4px;"><?= Html::a("informations", ['/land/show', 'i' => $land_id], ['class'=>'btn btn-info']); ?></td>-->
 					</tr>
