@@ -129,7 +129,7 @@ class GameController extends \yii\web\Controller
 						'to_buy' 			=> '<font size=4>'.Yii::t('ajax', 'To buy').'</font>',
 						'to_build' 			=> '<font size=4>'.Yii::t('ajax', 'To build').'</font>',
 						'to_move' 			=> '<font size=4>'.Yii::t('ajax', 'To move units').'</font>',
-						'to_attack' 			=> '<font size=4>'.Yii::t('ajax', 'To attack').'</font>',
+						'to_attack' 			=> '<font size=4>'.Yii::t('ajax', 'To attack').'</font>', 
 				),
 				'url'	=> array(
 						'ajax' => Yii::$app->urlManager->createUrl(['ajax'])

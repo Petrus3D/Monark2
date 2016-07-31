@@ -18,7 +18,7 @@
  */
 return [
 	/* Title */
-	"To buy"		=> "To buy",
+	"To buy"		=> "To buy", 
 	"To build"		=> "To build",
 	"To move units"		=> "To move units",
 	"To attack"		=> "To attack",
@@ -59,7 +59,7 @@ return [
 =======
 	'Text_Income_By_Buildings'	=> 'buildings',
 	'Text_Income_By_Lands'		=> 'lands',
-		
+
 >>>>>>> a35edda9d773178ebfe2b8a928a70f1e8bdb7418
 	/* Buttons */
 	'Button_Land_Build' 		=> 'Build',

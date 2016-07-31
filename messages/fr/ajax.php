@@ -18,7 +18,7 @@
  */
 return [
 	/* Title */
-	"To buy"		=> "Acheter",
+	"To buy"		=> "Acheter",  
 	"To build"		=> "Construire",
 	"To move units"		=> "Déplacer des troupes",
 	'To attack'		=> 'Attaquer',
@@ -58,7 +58,7 @@ return [
 =======
 	'Text_Income_By_Buildings'	=> 'bâtimens',
 	'Text_Income_By_Lands'		=> 'pays',
-		
+
 >>>>>>> a35edda9d773178ebfe2b8a928a70f1e8bdb7418
 	/* Buttons */
 	'Button_Land_Build' 		=> 'Construire',
