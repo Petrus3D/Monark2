@@ -32,6 +32,8 @@ return [
 	'Text_Units'				=> 'Units',
 	'Text_Units_In'				=> 'Units in',
 	'Text_Owner'				=> 'Owner',
+	'Text_Total'				=> 'Total',
+	'Text_Income'				=> 'Income',
 	'Text_Owner_Player'			=> 'You',
 	'Text_Resource'				=> 'Resource',
 	'Text_Units_Pending'		=> 'units pending',
@@ -48,6 +50,8 @@ return [
 	'Text_Not_Owner'			=> "You don't own this land",
 	'Text_Are_Owner'			=> "You own this land",
 	'Text_Conquered_This_Turn' 	=> "conquered this turn.",
+	'Text_Income_By_Buildings'	=> 'buildings',
+	'Text_Income_By_Lands'		=> 'lands',
 		
 	/* Buttons */
 	'Button_Land_Build' 		=> 'Build',

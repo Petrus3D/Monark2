@@ -141,11 +141,16 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 					              <!--<li class="footer"><a href="<?= Yii::$app->urlManager->createUrl(['game/gold']) ?>">View all</a></li>-->
 					            </ul>
 		                	</li>
-		                	<li class="dropdown tasks-menu">
-		                		<a href="#" id='gold_per_turn' class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+		                	<li id="gold_per_turn_content" class="dropdown tasks-menu">
+		                		<a href="#" id='gold_per_turn_link' class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 					           		<font size='3'><?= Yii::t('header', 'Text_Income') ?>  : <i class="fa fa-usd">
 					           		<?= GameData::GoldGameDataUser(Yii::$app->session['MapData']['GameData'], Yii::$app->session['Game']->getGameId(), Yii::$app->session['User']->getUserID(), $count_lands) ?> / tr </i></font>
 					           	</a>
+					           	<ul class="dropdown-menu" style="width:100%">
+					              <li class="header"><?= Yii::t('header', 'Text_Income') ?> </li>
+					              <li><ul class="menu"></ul></li>
+					              <!--<li class="footer"><a href="<?= Yii::$app->urlManager->createUrl(['game/income']) ?>">View all</a></li>-->
+					            </ul>
 		                	</li>
 		                	<li class="dropdown tasks-menu">
 		                		<a href="#" id='count_region' class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">

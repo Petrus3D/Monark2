@@ -38,7 +38,7 @@ class AjaxController extends Controller
 						'class' => AccessControl::className(),
 						'rules' => [
 								[
-										'actions' => ['newturn', 'landinfo', 'header', 'buybegin', 'buyaction', 'buildbegin', 'buildaction', 'attackbegin', 'attackaction', 'movebegin', 'moveaction', 'lastgold'],
+										'actions' => ['newturn', 'landinfo', 'header', 'buybegin', 'buyaction', 'buildbegin', 'buildaction', 'attackbegin', 'attackaction', 'movebegin', 'moveaction', 'lastgold', 'income'],
 										'allow' => Access::UserIsInStartedGame(), // Into a started game
 								],
 								[
@@ -543,6 +543,27 @@ class AjaxController extends Controller
 				'BuildingData'		=> $data['buildingData'],
 				'CurrentTurnData'	=> $data['currentTurnData'],
 				'lastBuy'			=> $lastBuy,
+		]);
+	}
+	
+	/**
+	 *
+	 * @return string
+	 */
+	public function actionIncome(){
+		// Load data
+		$data = $this->getData(array(
+				'game_id' => true,
+				'user_id' => true,
+				'GameData' => true,
+		));
+	
+		$incomeLand 	= GameData::GoldGameDataUser($data['gameData'], $data['game']->getGameId(), $data['user']->getUserID(), null, 0);
+		$incomeBuilding = Building::getUserIncomeByBuildings($data['gameData'], $data['user']->getUserID());
+		
+		return $this->renderAjax('income', [
+				'incomeLand'	=> $incomeLand,
+				'incomeBuilding'=> $incomeBuilding,
 		]);
 	}
 }

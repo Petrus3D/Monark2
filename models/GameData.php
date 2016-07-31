@@ -109,14 +109,15 @@ class GameData extends \yii\db\ActiveRecord
      * @param  string      $gameid & $userid
      * @return static|null
      */
-    public static function GoldGameDataUser($gameData, $game_id, $user_id, $count_land=null)
+    public static function GoldGameDataUser($gameData, $game_id, $user_id, $count_land=null, $income_by_buildings=null)
     {
     	if($count_land == null)
     		$count_land = self::CountLandByUserId($gameData, $game_id, $user_id);
     	
-    	$bonus_income_by_buildings = Building::getUserIncomeByBuildings($gameData, $user_id);
+    	if($income_by_buildings === null)
+    		$income_by_buildings = Building::getUserIncomeByBuildings($gameData, $user_id);
     
-    	return $count_land + $bonus_income_by_buildings + self::$gold_base;
+    	return $count_land + $income_by_buildings + self::$gold_base;
     
     }
     
