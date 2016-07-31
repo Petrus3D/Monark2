@@ -114,9 +114,9 @@ class GameData extends \yii\db\ActiveRecord
     	if($count_land == null)
     		$count_land = self::CountLandByUserId($gameData, $game_id, $user_id);
     	
-    	//$bonus_income_buildings = Building::AddIncomeBuildingUserBuild($data, $userid);
+    	$bonus_income_by_buildings = Building::getUserIncomeByBuildings($gameData, $user_id);
     
-    	return $count_land + self::$gold_base; //+ $bonus_income_buildings
+    	return $count_land + $bonus_income_by_buildings + self::$gold_base;
     
     }
     

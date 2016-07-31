@@ -152,10 +152,14 @@ class AjaxController extends Controller
      * @param unknown $user_id
      */
 	public function actionNewturn($game_id=null, $user_id=null){
-		if($game_id == null) $game_id = Yii::$app->session['Game']->getGameId();
-		if($user_id == null) $user_id = Yii::$app->session['User']->getId();
+		// Load data     
+	    	$data = $this->getData(array(
+	    			'game_id' => true,
+	    			'user_id' => true,
+	    			'GameData' => true,
+	    	));
 		
-		Turn::NewTurn($game_id, $user_id);
+		Turn::NewTurn($data['game']->getGameId(), $data['user']->getUserId(), $data['gameData']);
 	}
 	
 	/**

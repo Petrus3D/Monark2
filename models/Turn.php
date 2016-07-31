@@ -88,10 +88,12 @@ class Turn extends \yii\db\ActiveRecord
      * @param unknown $game_id
      * @param unknown $user_id
      */
-    public static function NewTurn($game_id, $user_id)
+    public static function NewTurn($game_id, $user_id, $gameData)
     {
     	// Turn Data
     	$previousTurnData 			= self::getLastTurnByGameId($game_id);
+    	
+    	
     	
     	// Game Player
     	$game_player 				= new GamePlayer();
@@ -116,8 +118,8 @@ class Turn extends \yii\db\ActiveRecord
     	$previousUserTurnData	= self::getLastTurnByUserId($next_user_id, $game_id);
     		
     	// Count Next Gold
-    	$count_land = GameData::CountLandByUserId(null, $game_id, $next_user_id);
-    	$count_gold = GameData::GoldGameDataUser(null, $game_id, $next_user_id, $count_land);
+    	$count_land = GameData::CountLandByUserId($gameData, $game_id, $next_user_id);
+    	$count_gold = GameData::GoldGameDataUser($gameData, $game_id, $next_user_id, $count_land);
     	$next_gold 	= $previousUserTurnData->getTurnGold() + $count_gold;
     
     	$previous_turn_begin        = $previousUserTurnData->getTurnTimeBegin();

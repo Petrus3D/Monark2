@@ -143,7 +143,8 @@ $refresh_time = Yii::$app->session['MapData']['RefreshTime'];
 		                	</li>
 		                	<li class="dropdown tasks-menu">
 		                		<a href="#" id='gold_per_turn' class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-					           		<font size='3'><?= Yii::t('header', 'Text_Income') ?>  : <i class="fa fa-usd"> <?= GameData::GoldGameDataUser(null, Yii::$app->session['Game']->getGameId(), Yii::$app->session['User']->getUserID(), $count_lands) ?> / tr </i></font>
+					           		<font size='3'><?= Yii::t('header', 'Text_Income') ?>  : <i class="fa fa-usd">
+					           		<?= GameData::GoldGameDataUser(Yii::$app->session['MapData']['GameData'], Yii::$app->session['Game']->getGameId(), Yii::$app->session['User']->getUserID(), $count_lands) ?> / tr </i></font>
 					           	</a>
 		                	</li>
 		                	<li class="dropdown tasks-menu">
