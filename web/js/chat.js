@@ -1,0 +1,1 @@
+$('#scroll-msg').animate({ scrollTop: $('#scroll-msg').offset().top }, 900);

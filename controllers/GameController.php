@@ -26,6 +26,8 @@ use app\assets\AppAsset;
 use yii\base\Object;
 use app\models\Frontier;
 use app\models\Building;
+use app\models\Chat;
+use app\models\ChatRead;
 
 class GameController extends \yii\web\Controller
 {
@@ -207,7 +209,8 @@ class GameController extends \yii\web\Controller
     public function addDataToSession($game_current){
     	$this->updateSessionData($game_current);
     	$data = $this->getGameData();
-
+    	$user_unread_chat = Chat::countUserUnReadChat($game_current->getGameId(), Yii::$app->session['User']->getUserID());
+    	
     	// Add header info to session
     	Yii::$app->session['MapData'] = array(
     			'RefreshTime'		=> $this->refreshTime,
@@ -217,6 +220,7 @@ class GameController extends \yii\web\Controller
     			'GameData'			=> $data['GameData'],
     			'UserData'			=> $data['UserData'],
     			'RefreshTime'		=> $this->refreshTime,
+    			'UserUnReadChat'	=> $user_unread_chat,
     	);
     }
 
@@ -273,7 +277,24 @@ class GameController extends \yii\web\Controller
      */
     public function actionChat()
     {
-    	return $this->render('chat');
+    	// Get data
+    	$dataArray = $this->getGameData();
+    	
+    	// Chat data
+    	$user_unread_chat = Chat::countUserUnReadChat($dataArray['Game']->getGameId(), Yii::$app->session['User']->getUserID());
+    	$chatData = Chat::getGameChatToArray($dataArray['Game']->getGameId(), null, 50);
+    	
+    	// Data to map
+    	return $this->render('chat', [
+    			'User' 			=> Yii::$app->session['User'],
+    			'Color'			=> Yii::$app->session['Color'],
+    			'Game' 			=> $dataArray['Game'],
+    			'GamePlayer' 	=> $dataArray['GamePlayer'],
+    			'Users'			=> $dataArray['UserData'],
+    			'RefreshTime'	=> $this->refreshTime,
+    			'ChatData'		=> $chatData,
+    			'UnReadUser'	=> $user_unread_chat,
+    	]);
     }
 
     /**
@@ -451,20 +472,23 @@ class GameController extends \yii\web\Controller
      */
     public function actionSpec()
     {
-    	$urlparams = Yii::$app->request->queryParams;
-    	if(array_key_exists('gid', $urlparams))
-    		$model = new GameJoinForm((new Game())->getGameById($urlparams['gid']));
-    		if (isset($model) && $model->joinSpec()) {
-    			// all inputs are valid
-    			Yii::$app->session->setFlash('success', Yii::t('game', 'Success_Game_Join'));
-    			return $this->actionLobby();
-    		}elseif(isset($model)){
-    			// validation failed: $errors is an array containing error messages
-    			Yii::$app->session->setFlash('error', Yii::t('game', 'Success_Game_Join'));
-    			$errors = $model->errors;
-    			return $this->actionIndex();
-    		}else
-    			return $this->actionIndex();
+    	if(false){
+	    	$urlparams = Yii::$app->request->queryParams;
+	    	if(array_key_exists('gid', $urlparams))
+	    		$model = new GameJoinForm((new Game())->getGameById($urlparams['gid']));
+	    		if (isset($model) && $model->joinSpec()) {
+	    			// all inputs are valid
+	    			Yii::$app->session->setFlash('success', Yii::t('game', 'Success_Game_Join'));
+	    			return $this->actionLobby();
+	    		}elseif(isset($model)){
+	    			// validation failed: $errors is an array containing error messages
+	    			Yii::$app->session->setFlash('error', Yii::t('game', 'Success_Game_Join'));
+	    			$errors = $model->errors;
+	    			return $this->actionIndex();
+	    		}else
+	    			return $this->actionIndex();
+    	}
+    	return $this->actionIndex();
     }
 
     /**

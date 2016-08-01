@@ -25,6 +25,8 @@ use app\models\Buy;
 use app\models\Move; 
 use yii\web\View;
 use app\models\Fight;
+use app\models\Chat;
+use app\models\ChatRead;
 
 /**
  * AjaxController implements the CRUD actions for Ajax model.
@@ -38,7 +40,13 @@ class AjaxController extends Controller
 						'class' => AccessControl::className(),
 						'rules' => [
 								[
-										'actions' => ['newturn', 'landinfo', 'header', 'buybegin', 'buyaction', 'buildbegin', 'buildaction', 'attackbegin', 'attackaction', 'movebegin', 'moveaction', 'lastgold', 'income'],
+										'actions' => ['newturn', 'landinfo', 'header',
+										'buybegin', 'buyaction',
+										'buildbegin', 'buildaction', 
+										'attackbegin', 'attackaction',
+										'movebegin', 'moveaction', 
+										'lastgold', 'income',
+										'lastchat'],
 										'allow' => Access::UserIsInStartedGame(), // Into a started game
 								],
 								[
@@ -569,6 +577,28 @@ class AjaxController extends Controller
 		return $this->renderAjax('income', [
 				'incomeLand'	=> $incomeLand,
 				'incomeBuilding'=> $incomeBuilding,
+		]);
+	}
+	
+	/**
+	 *
+	 * @return string
+	 */
+	public function actionLastchat(){
+		// Load data
+		$data = $this->getData(array(
+				'game_id' => true,
+				'user_id' => true,
+				'UsersData'	=> true,
+				'GamePlayer' => true,
+		));
+	
+		$lastChat = Chat::getGameUnReadChatToArray($data['game']->getGameId(), $data['user']->getUserID(), null, 4);
+		ChatRead::insertChatReadLog($data['game']->getGameId(), $data['user']->getUserID());
+		
+		return $this->renderAjax('lastchat', [
+				'lastChat'			=> $lastChat,
+				'UsersData'			=> $data['usersData'],
 		]);
 	}
 }
