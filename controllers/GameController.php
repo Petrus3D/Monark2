@@ -33,7 +33,6 @@ class GameController extends \yii\web\Controller
 {
 
 	public $refreshTime = 1800;
-	public $config;
 
 	public function behaviors()
 	{
@@ -119,28 +118,7 @@ class GameController extends \yii\web\Controller
 	 * @return string
 	 */
 	public function getJSConfig(){
-		$this->config = array(
-				'debugJs' => false,
-				'refresh_time' => $this->refreshTime,
-				'text' => array(
-						'turn_finished' 			=> Yii::t('header', 'Text_Turn_Finished'),
-						'modal_loading_content'		=> '<center><font size=3>'.Yii::t('map', 'Modal_Loading').'...</font><br><img src=img/site/loading.gif></center>',
-						'modal_error_content'		=> '<center><font size=3>'.Yii::t('map', 'Modal_Error').'</font></center>',
-						'dropdown_loading_content'	=> '<img src=img/site/loading.gif height="20px" width="20px"><br>',
-						'dropdown_error_content'	=> '<font size=3>'.Yii::t('map', 'Modal_Error').'</font>',
-						'to_buy' 			=> '<font size=4>'.Yii::t('ajax', 'To buy').'</font>',
-						'to_build' 			=> '<font size=4>'.Yii::t('ajax', 'To build').'</font>',
-						'to_move' 			=> '<font size=4>'.Yii::t('ajax', 'To move units').'</font>',
-						'to_attack' 			=> '<font size=4>'.Yii::t('ajax', 'To attack').'</font>', 
-				),
-				'url'	=> array(
-						'ajax' => Yii::$app->urlManager->createUrl(['ajax'])
-				),
-				'ajax'	=> array(
-						'error'	=> AjaxController::returnError(),
-				)
-		);
-		return "var config = ".json_encode($this->config).";";
+		return SiteController::getJSConfig();
 	}
 
     /**

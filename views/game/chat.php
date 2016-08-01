@@ -78,15 +78,14 @@ $this->registerJsFile("@web/js/game/ajax.js", ['depends' => [AppAsset::className
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-              <form action="#" method="post">
-                <div class="input-group">
-                  <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+               <div class="input-group">
+                  <input id='chat_msg_content' type="text" name="message" placeholder="Type Message ..." class="form-control">
                       <span class="input-group-btn">
-                        <button type="submit" class="btn btn-primary btn-flat">Send</button>
+                        <button id='button_send_chat' type="submit" class="btn btn-primary btn-flat">Send</button>
                       </span>
                 </div>
-              </form>
             </div>
             <!-- /.box-footer-->
           </div>
+          <div id="ajax-send-chat-return"></div>
 </div>

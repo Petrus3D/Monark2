@@ -82,5 +82,6 @@ return [
 	'Error_Gold' 				=> "Erreur : vous n'avez pas assez d'argent.",
 	'Error_Units' 				=> "Erreur : vous devez conserver au minimum 1 unité sur votre territoire.",
 	'Error_Conquest' 			=> "Erreur : ce pays a été conquis ce tour.",
+	'Error_Message_Empty'		=> "Erreur : votre message est vide.",
 ];
 ?>

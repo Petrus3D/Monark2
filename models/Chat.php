@@ -16,6 +16,11 @@ use app\classes\ChatClass;
  */
 class Chat extends \yii\db\ActiveRecord
 {
+	
+	private $user;
+	private $game;
+	private $message;
+	
     /**
      * @inheritdoc
      */
@@ -50,6 +55,42 @@ class Chat extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * 
+     * @param unknown $user
+     * @param unknown $game
+     * @param unknown $message
+     */
+    public function ChatInit($user, $game, $message){
+    	// Data
+    	$this->user 	= $user;
+    	$this->game 	= $game;
+    	$this->message  = $message;
+    }
+    
+    /**
+     *
+     * @return string
+     */
+    public function ChatCheck(){
+    	if($this->message != ""){
+    		// TODO Ban chat
+    		return true;
+    	}else{
+    		return "Error_Message_Empty";
+    	}
+    	 
+    }
+    
+    /**
+     *
+     */
+    public function ChatExec()
+    {
+    	self::insertChat($this->game->getGameId(), $this->user->getUserID(), $this->message);
+    }
+    
+    
     /**
      * 
      * @param unknown $game_id
@@ -111,7 +152,9 @@ class Chat extends \yii\db\ActiveRecord
      */
     public static function getGameUnReadChat($game_id, $user_id, $time=null, $limit=null){
     	if($time === null) $time = ChatRead::getUserLastChatReadTimeInGame($game_id, $user_id);
-    	return self::find()->where(['chat_game_id' => $game_id])->andWhere(['chat_user_id' => $user_id])->andWhere("chat_time >= ".$time)->orderBy(['chat_time' => SORT_ASC])->orderBy(['chat_time' => SORT_ASC])->all();
+    	return self::find()->where(['chat_game_id' => $game_id])
+    	->andWhere("chat_time >= ".$time)
+    	->andWhere("chat_user_id != ".$user_id)->orderBy(['chat_time' => SORT_ASC])->orderBy(['chat_time' => SORT_ASC])->all();
     }
     
     /**
@@ -139,6 +182,22 @@ class Chat extends \yii\db\ActiveRecord
     		return self::find()->where(['chat_game_id' => $game_id])->orderBy(['chat_time' => SORT_ASC])->limit($limit)->all();
     	else
     		return self::find()->where(['chat_game_id' => $game_id])->andWhere("chat_time >= ".$time)->orderBy(['chat_time' => SORT_ASC])->limit($limit)->all();
+    }
+    
+   /**
+    * 
+    * @param unknown $game_id
+    * @param unknown $user_id
+    * @param unknown $message
+    * @return number
+    */
+    public static function insertChat($game_id, $user_id, $message){
+    		return Yii::$app->db->createCommand()->insert(self::tableName(), [
+    				'chat_game_id'   	=> $game_id,
+    				'chat_user_id'   	=> $user_id,
+    				'chat_message'		=> $message,
+    				'chat_time'  		=> time(),
+    		])->execute();
     }
     
     /**

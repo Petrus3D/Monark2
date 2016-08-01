@@ -82,5 +82,6 @@ return [
 	'Error_Gold' 				=> 'Error : you have not enough gold.',
 	'Error_Units' 				=> "Error : you must keep at least 1 unit in your territory.",
 	'Error_Conquest' 			=> "Error : this land was conquered this turn.",
+	'Error_Message_Empty'		=> "Error : your post is empty.",
 ];
 ?>

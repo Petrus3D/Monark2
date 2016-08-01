@@ -50,6 +50,10 @@ class AjaxController extends Controller
 										'allow' => Access::UserIsInStartedGame(), // Into a started game
 								],
 								[
+										'actions' => ['sendchat'],
+										'allow' => Access::UserIsConnected(), // Connected
+								],
+								[
 										'allow' => false, // No access
 										'roles'=>['?'], // Guests
 								],
@@ -551,7 +555,7 @@ class AjaxController extends Controller
 
 		$lastBuy = Buy::userLastBuy($data['game']->getGameId(), $data['user']->getUserID());
 		
-		return $this->renderAjax('lastbuy', [
+		return $this->renderAjax('last_buy', [
 				'Land'				=> $data['land'],
 				'BuildingData'		=> $data['buildingData'],
 				'CurrentTurnData'	=> $data['currentTurnData'],
@@ -596,9 +600,30 @@ class AjaxController extends Controller
 		$lastChat = Chat::getGameUnReadChatToArray($data['game']->getGameId(), $data['user']->getUserID(), null, 4);
 		ChatRead::insertChatReadLog($data['game']->getGameId(), $data['user']->getUserID());
 		
-		return $this->renderAjax('lastchat', [
+		return $this->renderAjax('last_chat', [
 				'lastChat'			=> $lastChat,
 				'UsersData'			=> $data['usersData'],
 		]);
+	}
+	
+	public function actionSendchat(){
+		$urlArgsArray = $this->getJson(array('message'));
+		if($urlArgsArray != null){
+			$data = $this->getData(array(
+					'game_id' => true,
+					'user_id' => true,
+			));
+			
+			// Send
+			$chat = new Chat();
+			$chat->ChatInit($data['user'], $data['game'], $urlArgsArray['message']);
+			$chatError = $chat->ChatCheck();
+			if($chatError === true) $chat->ChatExec();
+			
+			return $this->renderAjax('send_chat', [
+					'error'			=> $chatError,
+			]);
+		}
+		return $this->returnError();
 	}
 }
