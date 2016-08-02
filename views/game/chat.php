@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\web\View;
 use app\assets\AppAsset;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 $this->title = Yii::t('game', 'Title_Game_Chat');
@@ -33,7 +34,7 @@ $this->registerJsFile("@web/js/game/ajax.js", ['depends' => [AppAsset::className
             <div class="box-body">
               <!-- Conversations are loaded here -->
               <div id="scroll-msg" class="direct-chat-messages">
-                
+              <?php Pjax::begin(['id' => 'chat_content']); ?>
                 <?php foreach($ChatData as $chat): ?>
 	                <!-- Message. Default to the left -->
 	                <div class="direct-chat-msg right">
@@ -50,6 +51,7 @@ $this->registerJsFile("@web/js/game/ajax.js", ['depends' => [AppAsset::className
 	                </div>
 	                <!-- /.direct-chat-msg -->
              	<?php endforeach; ?>
+             <?php Pjax::end(); ?>
               </div>
               <!--/.direct-chat-messages-->
 

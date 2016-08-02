@@ -1,4 +1,25 @@
-$('#scroll-msg').animate({ scrollTop: $('#scroll-msg').prop("scrollHeight")}, 800);
+//Call Pjax
+$("document").ready(function(){
+	scrollDownChat();
+    setInterval(function(){      
+    	reloadChat();
+    	scrollDownChat();
+    }, config["refresh_time"]); //Reload map
+});
+
+$("document").on("pjax:timeout", function(event) {
+	  // Prevent default timeout redirection behavior
+	  event.preventDefault()
+	});
+
+function reloadChat(){
+	if($("#chat_content").length > 0){
+		pjaxReload("#chat_content");
+		if(config["debugJs"])console.log("Chat reloaded");
+	}
+}
+
+function scrollDownChat (){$('#scroll-msg').animate({ scrollTop: $('#scroll-msg').prop("scrollHeight")}, 800);}
 
 //Function used to call PHP Ajax function to update header info
 function CallAjaxMethodHeader(action, args, div) {

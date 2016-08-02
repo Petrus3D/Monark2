@@ -13,13 +13,15 @@ $("document").ready(function(){
 });
 
 // Call Pjax Functions
+function pjaxReload(div){if(!$("input:hover").length > 0){$.pjax.reload({container:div, async:true});}}
 function reloadPjax(){reloadMap();reloadHeader();if(config["debugJs"])console.log("Pjax reload called");}
 function reloadMap(){
 	if($("#map_content").length > 0 && !$("#modal-view").is(':visible')){
-		$.pjax.reload({container:"#map_content", async:true});
+		pjaxReload("#map_content");
 		if(config["debugJs"])console.log("Pjax Map reloaded");
 	}
 }
+
 function reloadHeader(){
 	// URL
 	var url = config["url"]["ajax"] + "/" + "header";
@@ -30,7 +32,7 @@ function reloadHeader(){
 	        url: url,
 	        dataType : "html",  
 	        success: function(data) {
-	        	$.pjax.reload({container:"#navbar-menu-game-data", async:true});
+	        	pjaxReload("#navbar-menu-game-data");
 	        	if(config["debugJs"])console.log("Pjax Header reloaded");
 	        },
 	        error: function(){    
