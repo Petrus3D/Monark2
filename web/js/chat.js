@@ -19,7 +19,7 @@ function reloadChat(){
 	}
 }
 
-function scrollDownChat (){$('#scroll-msg').animate({ scrollTop: $('#scroll-msg').prop("scrollHeight")}, 800);}
+function scrollDownChat (){if(!$(".box-body:hover").length > 0){$('#scroll-msg').animate({ scrollTop: $('#scroll-msg').prop("scrollHeight")}, 800);}}
 
 //Function used to call PHP Ajax function to update header info
 function CallAjaxMethodHeader(action, args, div) {

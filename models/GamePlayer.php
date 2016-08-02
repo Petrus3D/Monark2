@@ -114,6 +114,14 @@ class GamePlayer extends \yii\db\ActiveRecord
     			'game_player_quit' => 0,)
     			);
     }
+    
+    /**
+     *
+     * @return \app\classes\gamePlayerClass
+     */
+    public static function findPlayerUnknown(){
+    	return self::findPlayerZero();
+    }
 
    /**
     *
@@ -124,6 +132,23 @@ class GamePlayer extends \yii\db\ActiveRecord
     			array(
     					'user_id' => 0,
     					'user_name' => Yii::t('game_player', 'Neutral_User_Name'),
+    					'user_pwd' => "",
+    					'user_mail' => "",
+    					'user_type' => 0,
+    					'user_key' => "",
+    			)
+    			);
+    }
+    
+    /**
+     *
+     * @return \app\classes\UserClass
+     */
+    public static function findUserUnknown(){
+    	return new UserClass(
+    			array(
+    					'user_id' => 0,
+    					'user_name' => Yii::t('game_player', 'Unknown_User_Name'),
     					'user_pwd' => "",
     					'user_mail' => "",
     					'user_type' => 0,

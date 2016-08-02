@@ -132,6 +132,7 @@ class AjaxController extends Controller
     		$gamePlayerDataGlobal 			= GamePlayer::findAllGamePlayer($returned['game']->getGameId());
     		$gamePlayerData 				= GamePlayer::findAllGamePlayerToArrayWithData($gamePlayerDataGlobal);
     		$gamePlayerData[0]				= GamePlayer::findPlayerZero();
+    		$gamePlayerData[-1]				= GamePlayer::findPlayerUnknown();
     		$returned['gamePlayer']			= $gamePlayerData;
     	}
     		 
@@ -144,6 +145,7 @@ class AjaxController extends Controller
     	if(isset($dataList['UsersData'])){
     		$usersData 						= GamePlayer::findAllGamePlayerToListUserId($gamePlayerDataGlobal);
     		$usersData[0]					= GamePlayer::findUserZero();
+    		$usersData[-1]					= GamePlayer::findUserUnknown();
     		$returned['usersData'] 			= $usersData;
     	}
     	

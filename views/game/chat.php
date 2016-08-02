@@ -39,7 +39,13 @@ $this->registerJsFile("@web/js/game/ajax.js", ['depends' => [AppAsset::className
 	                <!-- Message. Default to the left -->
 	                <div class="direct-chat-msg right">
 	                  <div class="direct-chat-info clearfix">
-	                    <span class="direct-chat-name pull-left"><?= $Users[$chat->getChatUserId()]->getUserName(); ?></span>
+	                    <span class="direct-chat-name pull-left">
+	                    	<?php if(isset($Users[$chat->getChatUserId()])): ?>
+	                    		<?= $Users[$chat->getChatUserId()]->getUserName(); ?>
+	                    	<?php else: ?>
+	                    		<?= $Users[-1]->getUserName(); ?>
+	                    	<?php endif; ?>
+	                    </span>
 	                    <span class="direct-chat-timestamp pull-right"><?= date("d/m/Y, H:i:s", $chat->getChatTime()); ?></span>
 	                  </div>
 	                  <!-- /.direct-chat-info -->

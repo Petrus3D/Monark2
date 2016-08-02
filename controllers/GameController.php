@@ -218,10 +218,12 @@ class GameController extends \yii\web\Controller
     	$gamePlayerDataGlobal 	= $game_player::findAllGamePlayer($game_current->getGameId());
     	$gamePlayerData 		= $game_player::findAllGamePlayerToArrayWithData($gamePlayerDataGlobal);
     	$gamePlayerData[0]		= $game_player::findPlayerZero();
+    	$gamePlayerData[-1]		= $game_player::findPlayerUnknown();
     	$gameData				= $game_data::getGameDataByIdToArray($game_current->getGameId());
     	$turnData				= $turn_data::getLastTurnByGameId($game_current->getGameId());
     	$userData 				= $game_player::findAllGamePlayerToListUserId($gamePlayerDataGlobal);
     	$userData[0]			= $game_player::findUserZero();
+    	$userData[-1]			= $game_player::findUserUnknown();
     	$userFrontierData		= $frontier_data::userHaveFrontierLandArray($gameData, Yii::$app->session['User']->getUserID(), Yii::$app->session['Frontier']);
 
     	// Return
