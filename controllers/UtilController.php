@@ -7,26 +7,28 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 
-
-class TestController extends Controller
+class UtilController extends Controller
 {
+	
+	private $local = false;
+	
     public function behaviors()
     {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['mdp', 'username', 'newturn', 'generateallcolors'],
-                'rules' => [
-                    [
-                        'allow' => false, // have access (true to generateallcolors)
-                        'roles' => ['@'], // Connected
-                    ],
-                    [
-                        'allow' => false, // No access (true to generateallcolors)
-                        'roles'=>['?'], // Guests
-                    ],
-                ],
-            ],
+    	return [
+    			'access' => [
+    					'class' => AccessControl::className(),
+    					'rules' => [
+    							[
+    									'actions' => ['mdp', 'username'],
+    									'allow' => Access::UserIsConnected() && $this->local, // Connected
+    							],
+    							[
+    									'actions' => ['generateallcolors'],
+    									'allow' => $this->local, // No access
+    									'roles'=>['?'], // Guests
+    							],
+    					],
+    			],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -48,29 +50,20 @@ class TestController extends Controller
             ],
         ];
     }
-
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
-
+    
     public function actionMdp()
     {
-        return $this->render('mdp');
+        return $this->render('user/mdp');
     }
 
     public function actionUsername()
     {
-    	return $this->render('username');
-    }
-
-    public function actionNewturn()
-    {
-    	return $this->render('newturn');
+    	return $this->render('user/username');
     }
 
     public function actionGenerateallcolors()
     {
     	return $this->render('generateallcolors');
     }
+
 }

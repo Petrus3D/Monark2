@@ -5,7 +5,12 @@
 ?>
 <?php $i = 0; ?>
 <?php foreach($lastChat as $chat): ?>
-	<li><a href='#'><?= $UsersData[$chat->getChatUserId()]->getUserName(); ?> : <?= $chat->getChatMessage() ?></a></li>
+	<li><a href='#'><?php if(isset($Users[$chat->getChatUserId()])): ?>
+          <?= $UsersData[$chat->getChatUserId()]->getUserName(); ?>
+    <?php else: ?>
+          <?= $UsersData[-1]->getUserName(); ?>
+    <?php endif; ?>
+	: <?= $chat->getChatMessage() ?></a></li>
 	<?php $i++; ?>
 <?php endforeach; ?>
 <?php if($i == 0): ?>

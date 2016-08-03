@@ -6,6 +6,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
+use app\classes\Access;
 
 
 class SiteController extends Controller
@@ -77,7 +78,11 @@ class SiteController extends Controller
     			),
     			'ajax'	=> array(
     					'error'	=> AjaxController::returnError(),
-    			)
+    			),
+    			'access' => array(
+    					'in_game' => Access::UserIsInGame(),
+    					'in_started_game' => Access::UserIsInStartedGame(),
+    			),
     	);
     	return "var config = ".json_encode(self::$config).";";
     }
