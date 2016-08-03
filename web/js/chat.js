@@ -1,10 +1,12 @@
 //Call Pjax
 $("document").ready(function(){
-	scrollDownChat();
-    setInterval(function(){      
-    	reloadChat();
-    	scrollDownChat();
-    }, config["refresh_time"]); //Reload map
+	if(typeof(config) != 'undefined') {
+		scrollDownChat();
+	    setInterval(function(){      
+	    	reloadChat();
+	    	scrollDownChat();
+	    }, config["refresh_time"]); //Reload map
+	}
 });
 
 $("document").on("pjax:timeout", function(event) {
