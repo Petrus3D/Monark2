@@ -6,7 +6,7 @@ use Yii;
 use yii\codeception\TestCase;
 use Codeception\Specify;
 
-class ContactFormTest extends TestCase
+class SignFormTest extends TestCase
 {
     use Specify;
 
