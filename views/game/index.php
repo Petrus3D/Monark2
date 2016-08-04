@@ -79,6 +79,7 @@ $this->title = Yii::t('game', 'Title_Loby');
             },
             ],
         ],
+
     ]); ?>
 
 </div>

@@ -114,7 +114,7 @@ class GamePlayer extends \yii\db\ActiveRecord
     			'game_player_quit' => 0,)
     			);
     }
-    
+
     /**
      *
      * @return \app\classes\gamePlayerClass
@@ -139,7 +139,7 @@ class GamePlayer extends \yii\db\ActiveRecord
     			)
     			);
     }
-    
+
     /**
      *
      * @return \app\classes\UserClass
@@ -249,6 +249,15 @@ class GamePlayer extends \yii\db\ActiveRecord
      */
     public static function findUserGameId($user_id){
     	return self::find()->where(['game_player_user_id' => $user_id])->andWhere(['game_player_quit' => 0])->one();
+    }
+
+    /**
+     *
+     * @param unknown $user_id
+     * @return \app\queries\GamePlayer[]
+     */
+    public static function findAllUserGameId($user_id){
+    	return self::find()->where(['game_player_user_id' => $user_id])->andWhere(['game_player_quit' => 0])->all();
     }
 
     /**
