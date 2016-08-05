@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
+use yii\helpers\Html;
 use app\search\GameSearch;
 use app\search\GamePlayerSearch;
 use app\forms\game\GameCreateForm;
@@ -49,7 +50,7 @@ class GameController extends \yii\web\Controller
 										'allow' => Access::UserIsInGame(), // Into a game
 								],
 								[
-										'actions' => ['index', 'join', 'spec', 'create'],
+										'actions' => ['index', 'join', 'spec', 'create', 'return', 'clean'],
 										'allow' => Access::UserIsConnected(), // Outer game
 								],
 								[
@@ -188,7 +189,7 @@ class GameController extends \yii\web\Controller
     	$this->updateSessionData($game_current);
     	$data = $this->getGameData();
     	$user_unread_chat = Chat::countUserUnReadChat($game_current->getGameId(), Yii::$app->session['User']->getUserID());
-    	
+
     	// Add header info to session
     	Yii::$app->session['MapData'] = array(
     			'RefreshTime'		=> $this->refreshTime,
@@ -259,11 +260,11 @@ class GameController extends \yii\web\Controller
     {
     	// Get data
     	$dataArray = $this->getGameData();
-    	
+
     	// Chat data
     	$user_unread_chat = Chat::countUserUnReadChat($dataArray['Game']->getGameId(), Yii::$app->session['User']->getUserID());
     	$chatData = Chat::getGameChatToArray($dataArray['Game']->getGameId(), null, 50);
-    	
+
     	// Data to map
     	return $this->render('chat', [
     			'User' 			=> Yii::$app->session['User'],
@@ -355,18 +356,37 @@ class GameController extends \yii\web\Controller
     		return $this->actionIndex();
     }
 
-    /**
+		/**
      *
      * @return string
      */
     public function actionQuit()
     {
     	// DB
-    	(new GamePlayer())->gameExitPlayer(Yii::$app->session['User']->getId(), Yii::$app->session['Game']->getGameId());
+			(new GamePlayer())->gameExitPlayer(Yii::$app->session['User']->getId(), Yii::$app->session['Game']->getGameId());
 
     	// Session
     	$this->setSessionDataNull();
     	Yii::$app->session->setFlash('info', Yii::t('game', 'Notice_Game_Quit'));
+
+    	return $this->actionIndex();
+    }
+
+		/**
+     *
+     * @return string
+     */
+    public function actionClean()
+    {
+    	// DB
+			$gamePlayer = new GamePlayer();
+			$userGamesList = $gamePlayer->findAllUserGameId(Yii::$app->session['User']->getId());
+			foreach ($userGamesList as $userGame) {
+				$gamePlayer->gameExitPlayer(Yii::$app->session['User']->getId(), $userGame->game_player_game_id);
+			}
+    	// Session
+    	$this->setSessionDataNull();
+    	Yii::$app->session->setFlash('info', Yii::t('game', 'Notice_Games_Quit'));
 
     	return $this->actionIndex();
     }
@@ -392,7 +412,7 @@ class GameController extends \yii\web\Controller
     	}
     }
 
-    /**
+		/**
      *
      * @return string
      */
@@ -432,7 +452,9 @@ class GameController extends \yii\web\Controller
 					}
 				// In another game
 				}else{
-					Yii::$app->session->setFlash('error', Yii::t('game', 'Error_User_Already_In_Game'));
+					$button_Last_Game_Enter = Html::a("<p class='btn btn-success'>".Yii::t('game', 'Button_Last_Game_Enter')."</p>", ['/game/return'], ['style' => "text-decoration: none;"]);
+					$button_Games_Quit = Html::a("<p class='btn btn-warning'>".Yii::t('game', 'Button_Games_Quit')."</p>", ['/game/clean'], ['style' => "text-decoration: none;"]);
+					Yii::$app->session->setFlash('error', Yii::t('game', 'Error_User_Already_In_Game')." ".$button_Last_Game_Enter." ".$button_Games_Quit);
 					return $this->redirect(Url::to(['game/index']),302);
 				}
 			}else
@@ -444,6 +466,29 @@ class GameController extends \yii\web\Controller
     		return $this->redirect(Url::to(['game/index']),302);
     	}else
     		return $this->redirect(Url::to(['game/index']),302);
+    }
+
+		/**
+     *
+     * @return string
+     */
+    public function actionReturn()
+    {
+    	$urlparams = Yii::$app->request->queryParams;
+			$gamePlayer = new GamePlayer();
+			$game_player = $gamePlayer->findUserGameId(Yii::$app->session['User']->getId());
+			if ($game_player != null) {
+				if ($game_player->game_player_game_id > 0) {
+					Yii::$app->getSession()->setFlash('info', Yii::t('game', 'Notice_Last_Game_Entered'));
+					return $this->redirect(array('game/join', 'gid' => $game_player->game_player_game_id), 302);
+				} else {
+					Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Last_Game_Cant_Join')." n°".$game_player->game_player_game_id);
+					return $this->redirect(Url::to(['game/index']),302);
+				}
+			} else {
+				Yii::$app->session->setFlash('error', Yii::t('game', 'Error_Last_Game_Cant_Join')." n°".$game_player->game_player_game_id);
+				return $this->redirect(Url::to(['game/index']),302);
+			}
     }
 
     /**
