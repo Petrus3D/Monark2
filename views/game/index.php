@@ -88,7 +88,7 @@ $this->registerJsFile("@web/js/game/ajax.js", ['depends' => [AppAsset::className
             },
             ],
         ],
-
     ]); ?>
 	<?php Pjax::end(); ?>
+    ]); ?>
 </div>
