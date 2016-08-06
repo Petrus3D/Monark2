@@ -80,5 +80,5 @@ $this->title = Yii::t('game', 'Title_Loby');
             ],
         ],
     ]); ?>
-
+	<?php Pjax::end(); ?>
 </div>
