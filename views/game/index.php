@@ -63,7 +63,7 @@ $this->title = Yii::t('game', 'Title_Loby');
             	if($model->game_statut == 0){
             		//if(!isset($player_exist_game) OR $player_exist_game['quit'] <= 1){
             			return "<center><table style='border-collapse: separate;border-spacing: 5px;'><tr>"
-            			."<td>".Html::a(Yii::t('game', 'Button_Game_Enter')." <i class='fa fa-sign-in'></i>", ['/game/join', 'gid' => $model->game_id], ['class'=>'btn btn-success'])."</td>"
+            			."<td>".Html::a(Yii::t('game', 'Button_Map_Enter')." <i class='fa fa-sign-in'></i>", ['/game/join', 'gid' => $model->game_id], ['class'=>'btn btn-success'])."</td>"
             			."<td>".Html::a(Yii::t('game', 'Button_Game_Spec')." <i class='fa fa-eye'></i>", ['/game/spec', 'gid' => $model->game_id], ['class'=>'btn btn-primary'])."</td>"
             			."</tr></table></center>";
             		/*}else{

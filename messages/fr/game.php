@@ -90,6 +90,7 @@ return [
 	'Button_Send' => 'Envoyer',
 	'Button_Game_Create' => 'Créer une partie',
 	'Button_Game_Enter' => 'Entrer dans la partie',
+	'Button_Map_Enter' => 'Entrer dans la carte',
 	'Button_Last_Game_Enter' => 'Retourner dans la dernière partie',
 	'Button_Game_Return' => 'Retourner dans la partie',
 	'Button_Game_Spec' => 'Regarder la partie',

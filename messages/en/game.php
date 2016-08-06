@@ -92,6 +92,7 @@ return [
     'Button_Send' => 'Send',
     'Button_Game_Create' => 'Create a game',
 		'Button_Game_Enter' => 'Join the game',
+		'Button_Map_Enter' => 'Join the map',
 		'Button_Last_Game_Enter' => 'Return to last game',
     'Button_Game_Return' => 'Return to game',
     'Button_Game_Spec' => 'Spectate the game',
